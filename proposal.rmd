@@ -64,4 +64,4 @@ To transform the coordinates in simple features, we must extract all of the frag
 
 https://github.com/r-gris/table-r-book/blob/master/01-2-overview.Rmd
 
-
+https://rpubs.com/cyclemumner/spatial-normal-forms
