@@ -27,7 +27,9 @@ paths_as_df <- function(x) {
 objects_as_df <- function(x) {
   dat <- dplyr::bind_rows(lapply(st_geometry(x), function(a) dplyr::bind_rows(paths_as_df(a), .id = "branch_")), .id = "object_")
   dat$piece <- factor(dat$branch_)
+  #dat <- dat %>% mutate(piece = factor(branch_), branch_ = paste0(object_, branch_, sep = "-"))
   dat$branch_ <- factor(paste0(dat$object_, dat$branch_, sep = "-"))
+  
   dat
 }
 dp_triangulate_sf <- function(x, ...) {
@@ -41,7 +43,7 @@ dp_triangulate_sf <- function(x, ...) {
                                     function(x) path_to_seg(x))
   )
   ## do we need to remove duplicated segments??
-  bad <- duplicated(cbind(pmin(segments[, 1], segments[, 2]), pmax(segments[, 1], segments[, 2])))
+  bad <- duplicated(cbind(pmin.int(segments[, 1], segments[, 2]), pmax.int(segments[, 1], segments[, 2])))
   ## this is slow
   #bad <- duplicated(t(apply(segments, 1, sort)))
   ps <- RTriangle::pslg(P = as.matrix(vertices[, c("x", "y")]), S = segments[!bad, ])
@@ -51,10 +53,14 @@ dp_triangulate_sf <- function(x, ...) {
    #                  function(x) st_polygon(list(tr$P[c(x, x[1L]), ]))), crs = st_crs(x))
   ## this is FAST
   g <- st_sfc(lapply(split(as.vector(t(tr$T)), rep(seq_len(nrow(tr$T)), each = 3)),
-                     function(x) structure(list(tr$P[c(x, x[1L]), ]), class = c("XY", "POLYGON", "sfg"))), crs = st_crs(x))
+                     function(x) structure(list(tr$P[c(x, x[1L]), ]), class = c("XY", "POLYGON", "sfg"))), 
+              crs = st_crs(x))
+  #bb <- setNames(c(range(tr$P[, 1L]), range(tr$P[, 2L]))[c(1, 3, 2, 4)], c("xmin", "ymin", "xmax", "ymax"))
   ## now intersect triangle centroids with original layer to drop holes
   ## any bbox optims for sf yet?, needs to be like sp::over()
   ov <- sp::over(as(st_centroid(g), "Spatial"), as(as(x, "Spatial"), "SpatialPolygons"))
+  #system.time(ov <- unname(sp::over(as(st_centroid(g), "Spatial"), as(as(x, "Spatial"), "SpatialPolygons"))))
+  #system.time(ov <- unlist(st_intersects(st_centroid(g), x)))
   drop <- is.na(ov)
   g <- g[!drop]
   ov <- ov[!drop]
