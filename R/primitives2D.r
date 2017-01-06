@@ -47,10 +47,11 @@ dp_triangulate_sf <- function(x, ...) {
   ps <- RTriangle::pslg(P = as.matrix(vertices[, c("x", "y")]), S = segments[!bad, ])
   tr <- RTriangle::triangulate(ps, ...)
   # this is slow
+  #g <- st_sfc(lapply(split(as.vector(t(tr$T)), rep(seq_len(nrow(tr$T)), each = 3)),
+   #                  function(x) st_polygon(list(tr$P[c(x, x[1L]), ]))), crs = st_crs(x))
+  ## this is FAST
   g <- st_sfc(lapply(split(as.vector(t(tr$T)), rep(seq_len(nrow(tr$T)), each = 3)),
-                     function(x) st_polygon(list(tr$P[c(x, x[1L]), ]))), crs = st_crs(x))
-  #g <- st_sfc(lapply(split(tr$P[as.vector(t(cbind(tr$T, tr$T[,1]))), ], rep(seq_len(nrow(tr$T)), each = 4)), function(y) st_polygon(list(matrix(y, ncol = 2)))),
-  #            crs = st_crs(x))
+                     function(x) structure(list(tr$P[c(x, x[1L]), ]), class = c("XY", "POLYGON", "sfg"))), crs = st_crs(x))
   ## now intersect triangle centroids with original layer to drop holes
   ## any bbox optims for sf yet?, needs to be like sp::over()
   ov <- sp::over(as(st_centroid(g), "Spatial"), as(as(x, "Spatial"), "SpatialPolygons"))
