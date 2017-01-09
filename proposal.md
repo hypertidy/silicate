@@ -16,12 +16,13 @@ Note, this is a reduced version of this early description: https://github.com/r-
 
 The tidyverse is revolutionizing data manipulation, analysis and visualization by systematizing on core database principles and providing common-tools that are fast, reliable and flexible. The grammar of graphics works from a single, possibly nested, tidy data frame and applies `stats` within arranged groupings of data mapped to `aesthetics` and `scales` that are used to build `geom` layers as visualizations. 
 
-Complex spatial data consists of hierarchically arranged and grouped coordinates linked to (usually) `object` level metadata. I.e. these are geom layers without any explicit aesthetic or geometric mapping or scaling mappings. A `ggplot2` object is complex spatial data with all of this rich user-choice-driven metadata applied at the right level, object, group, or primitive. A `ggplot2` object could be re-expressed in standard spatial form by dropping everything but a particular geometric scaling, and object (feature) level aesthetics. 
+Complex spatial data consists of hierarchically arranged and grouped coordinates linked to (usually) `object` level metadata. Visualizations are created by providing user-specified mappings to object level metadata, these are geom layers without any explicit aesthetic or geometric mapping or scaling mappings. It is rare that spatial data includes an in-built mapping of aesthetics, but the standard forms are not capable of storing this information internally. A `ggplot2` object is complex spatial data with all of this rich user-choice-driven metadata applied at the right level, object, group, or primitive. A `ggplot2` object could be re-expressed in standard spatial form by dropping everything but a particular geometric scaling, and object (feature) level aesthetics. 
 
-This project aims to provide a system that could re-express that graphical object without loss to a common form, and that common form could be used to generate other specialist forms. That common form is informed directly by database principles, storing data as relations in multiple tables organized by the entities required. The goal is not specifically to be able re-express ggplot2 objects or simple features, but to provide a language and common tools for creating those converter pipelines. 
+The richness in R's specialist forms currently lacks a central language for conversion to generic storage and transmission. Most formats are either purely geometry and topology and fields with no aesthetics, or pure aesthetics baked-in to graphical primitives without the original data used to create the mappings. 
 
+This project aims to provide a system to re-express that graphical object without loss to a common form, and that common form is used to generate other specialist forms. That common form is informed directly by database principles, storing data as relations in multiple tables organized by the entities required. It is trivial to support this form in a scaleable way with standard database systems and techniques. The goal is not specifically to be able re-express ggplot2 objects or simple features, but to provide a language and common tools for creating those converter pipelines. 
 
-
+The common form is scaleable in terms of memory and computation, but also in terms of geometric and topological dimensionality. Our existing prototypes illustrate that generality by supporting round-trip workflows of specialist multidimensional data forms. 
 
 
 # The plan
@@ -31,10 +32,11 @@ Request for advice on key parties to contribute, funding for working groups and 
 Investigate best options for front-end user interfaces and back-end systems. 
 
 * lists of tables, as illustrated in spbabel, rangl, rbgm
+
 Key outputs
 
 1. Provide tools for decomposing geo-spatial and other complex data to common general forms. 
-2. Promote use of the general approach rather than localized implementations. 
+3. Document and promote use of the general principles and approach rather than localized implementations. Help the R community to generalize and reduce fragmentation. 
 4. Implement a prototype general-form geo-spatial-graphics data structure that can store geometry, topology, aesthetic mappings. 
 5. Document workflows for file formats and interchange requirements for the general form based on standard database techniques. 
 
