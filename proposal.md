@@ -1,13 +1,10 @@
 ---
 title: "General forms for hierachical data"
 author: "Michael Sumner"
-date: "5 January 2017"
+date: "January 2017"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 Applicant: [Michael Sumner](https://github.com/mdsumner/), [Australian Antarctic Division](http://www.antarctica.gov.au/); [mdsumner@gmail.com](mailto:mdsumner@gmail.com)
 
