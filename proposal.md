@@ -5,17 +5,15 @@ date: "January 2017"
 output: html_document
 ---
 
-
 Applicant: [Michael Sumner](https://github.com/mdsumner/), [Australian Antarctic Division](http://www.antarctica.gov.au/); [mdsumner@gmail.com](mailto:mdsumner@gmail.com)
 
-Supporting Authors: 
+Supporting Authors: Simon Wotherspoon, Jessica Melbourne-Thomas, Phillipa Bricher
 
 Note, this is a reduced version of this early description: https://github.com/r-gris/table-r-book/blob/master/01-2-overview.Rmd
 
 # the problem
 
-There is no common generic form for spatial data that covers the complexity of geometric and topological forms widely used in R. Worse, there is no way to augment  spatial data with user-driven visualization and interactivity, these expressions tend to be one-way or are converted to  forms that are richer in graphical and interactivity properties at the expense of losing the specialist rigour that the raw data was delivered with. 
-
+There is no common generic form for spatial data that covers the complexity of geometric and topological types widely used in R. There is no way to augment  spatial data with user-driven visualization and interactivity, the standards used for spatial data tend to be either highly specialized and inflexible, or are simplified to the point of near or actual destruction.  Richer expressions built within R by users tend to be one-way or are converted to  forms that are richer in graphical and interactivity properties at the expense of losing the specialist rigour that the raw data was delivered with. 
 
 The richness in R's specialist forms currently lacks a central language for conversion to generic storage and transmission. Most formats are either purely geometry and topology and fields with no aesthetics, or pure aesthetics baked-in to graphical primitives without the original data used to create the mappings. 
 
