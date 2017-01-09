@@ -34,6 +34,9 @@ Request for advice on key parties to contribute, funding for working groups and 
 Investigate best options for front-end user interfaces and back-end systems. 
 
 * lists of tables, as illustrated in spbabel, rangl, rbgm
+* sf-like forms, list-columns with shared-entity semantics
+* tricky environments with vertex, primitives pools
+* database or database-like connections in list-columns - nested tibbles that are back-ended?
 
 Key outputs
 
