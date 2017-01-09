@@ -13,6 +13,44 @@ Applicant: [Michael Sumner](https://github.com/mdsumner/), [Australian Antarctic
 
 Supporting Authors: 
 
+Note, this is a reduced version of this early description: https://github.com/r-gris/table-r-book/blob/master/01-2-overview.Rmd
+
+# the problem
+
+The tidyverse is revolutionizing data manipulation, analysis and visualization by systematizing on core database principles and providing common-tools that are fast, reliable and flexible. The grammar of graphics works from a single, possibly nested, tidy data frame and applies `stats` within arranged groupings of data mapped to `aesthetics` and `scales` that are used to build `geom` layers as visualizations. 
+
+Complex spatial data consists of hierarchically arranged and grouped coordinates linked to (usually) `object` level metadata. I.e. these are geom layers without any explicit aesthetic or geometric mapping or scaling mappings. A `ggplot2` object is complex spatial data with all of this rich user-choice-driven metadata applied at the right level, object, group, or primitive. A `ggplot2` object could be re-expressed in standard spatial form by dropping everything but a particular geometric scaling, and object (feature) level aesthetics. 
+
+This project aims to provide a system that could re-express that graphical object without loss to a common form, and that common form could be used to generate other specialist forms. That common form is informed directly by database principles, storing data as relations in multiple tables organized by the entities required. The goal is not specifically to be able re-express ggplot2 objects or simple features, but to provide a language and common tools for creating those converter pipelines. 
+
+
+
+
+
+# The plan
+
+Request for advice on key parties to contribute, funding for working groups and presentations. 
+
+Investigate best options for front-end user interfaces and back-end systems. 
+
+* lists of tables, as illustrated in spbabel, rangl, rbgm
+Key outputs
+
+1. Provide tools for decomposing geo-spatial and other complex data to common general forms. 
+2. Promote use of the general approach rather than localized implementations. 
+4. Implement a prototype general-form geo-spatial-graphics data structure that can store geometry, topology, aesthetic mappings. 
+5. Document workflows for file formats and interchange requirements for the general form based on standard database techniques. 
+
+
+## Existing implementations
+
+The multiple-table-in-list approach described here is used in the following packages.
+
+
+* **rbgm** - [Atlantis Box Geometry Model](https://github.com/AustralianAntarcticDivision/rbgm), a "doubly-connected edge-list" form of linked faces and boxes in a spatially-explicit 3D ecosystem model
+* **rangl** - [Primitives for Spatial data](https://github.com/r-gris/rangl), a generalization of GIS forms with simple 3D plotting
+* **spbabel** - [Translators for R Spatial](https://github.com/mdsumner/spbabel), tools to convert from and to spatial forms, provides the general decomposition framework for branches, used by `rangl`
+
 # Hierarchical spatial data 
 
 GIS-based vector data provides a complex set of data structures, and the [modern R form](https://cran.r-project.org/package=sf) is compliant with the [simple features standard](https://en.wikipedia.org/wiki/Simple_Features). In R these are stored in *nested lists* where the physical structure matches the logical structures in the data. 
@@ -51,14 +89,6 @@ Many projects are seeking to extend the types in the `sf` package but these type
 Having a single data frame is very powerful and simple, and many operations can be done naturally without customization. Unnesting a nested table automatically matches a parent ID to its children, copying the selected attributes as needed. Dplyr verbs can evaluate user-level functions on list-column elements, keeping track of the vectorized result in list-form within a tidy row-based data structure. However, many optimizations and specializations in geo-spatial data rely on indexing, with a key linking a unique element in another structure. These are not suited to storage within a single data frame, but worse they are not even implemented in simple features. The standard provides no way to index a unique coordinate within a shared network. 
 
 To transform the coordinates in simple features, we must extract all of the fragmented matrixes of values and either transform each one or collect them together for transformation, then replace them where they live in the nested list. What if we want to identify the features that share an edge, or share a vertex? We can pull them all out and do tests on the set, and keep a record of ... what?  There is no way to record what part in which feature a given vertex is from. This is important, because of topological surfaces that share boundaries and edges and vertices in a big mesh. The unique vertices is the right place to store the geometry, and we can add a Z, Time, Temperature, Salinity and so on to those. If we store all the vertices as entities in a table, we automatically have a sensible place to add those measurements as columns. We can transform them together as one set already. 
-
-# The plan
-
-1. Provide tools for decomposing geo-spatial data to common general forms. 
-2. Promote use of the general approach rather than localized implementations. 
-3. Document key efficiencies and improvements across widely used R packages. 
-4. Implement a prototype general-form geo-spatial-graphics package that is a superset of raster and sf and ggplot2. 
-5. Document workflows for file formats and interchange requirements for the general form based on standard database techniques. 
 
 # Supporting documentation
 
