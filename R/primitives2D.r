@@ -1,3 +1,5 @@
+## this was implemented in r-gris/sfct
+
 
 ## see st_cast and c.sfg
 Paste0 <- function (lst)  lapply(lst, unclass)
