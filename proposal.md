@@ -16,9 +16,6 @@ Note, this is a reduced version of this early description: https://github.com/r-
 
 There is no common generic form for spatial data that covers the complexity of geometric and topological forms widely used in R. Worse, there is no way to augment  spatial data with user-driven visualization and interactivity, these expressions tend to be one-way or are converted to  forms that are richer in graphical and interactivity properties at the expense of losing the specialist rigour that the raw data was delivered with. 
 
-The tidyverse is revolutionizing data manipulation, analysis and visualization by systematizing on core database principles and providing common-tools that are fast, reliable and flexible. The grammar of graphics works from a single, possibly nested, tidy data frame and applies `stats` within arranged groupings of data mapped to `aesthetics` and `scales` that are used to build `geom` layers as visualizations. 
-
-Complex spatial data consists of hierarchically arranged and grouped coordinates linked to (usually) `object` level metadata. Visualizations are created by providing user-specified mappings to object level metadata, these are geom layers without any explicit aesthetic or geometric mapping or scaling mappings. It is rare that spatial data includes an in-built mapping of aesthetics, but the standard forms are not capable of storing this information internally. A `ggplot2` object is complex spatial data with all of this rich user-choice-driven metadata applied at the right level, object, group, or primitive. A `ggplot2` object could be re-expressed in standard spatial form by dropping everything but a particular geometric scaling, and object (feature) level aesthetics. 
 
 The richness in R's specialist forms currently lacks a central language for conversion to generic storage and transmission. Most formats are either purely geometry and topology and fields with no aesthetics, or pure aesthetics baked-in to graphical primitives without the original data used to create the mappings. 
 
@@ -84,7 +81,13 @@ Key advantages of each form
 * The branch and primitives models may be combined, so that the branch table records the way the original simple features are constructed by a branch-link-primitives table - so we can have a perfect record of the original data, recreatable if needed - or completely reworked by operations on primitives that when recombined provide a modified object.
 
 
-# The problem
+# Relation to the grammars
+
+The tidyverse is revolutionizing data manipulation, analysis and visualization by systematizing on core database principles and providing common-tools that are fast, reliable and flexible. The grammar of graphics works from a single, possibly nested, tidy data frame and applies `stats` within arranged groupings of data mapped to `aesthetics` and `scales` that are used to build `geom` layers as visualizations. 
+
+Complex spatial data consists of hierarchically arranged and grouped coordinates linked to (usually) `object` level metadata. Visualizations are created by providing user-specified mappings to object level metadata, these are geom layers without any explicit aesthetic or geometric mapping or scaling mappings. It is rare that spatial data includes an in-built mapping of aesthetics, but the standard forms are not capable of storing this information internally. A `ggplot2` object is complex spatial data with all of this rich user-choice-driven metadata applied at the right level, object, group, or primitive. A `ggplot2` object could be re-expressed in standard spatial form by dropping everything but a particular geometric scaling, and object (feature) level aesthetics. 
+
+# The problems
 
 There is a strong relationship between the hierarchical forms of data structure used in geo-spatial analysis and in the grammars of data analysis and graphics but the translation between geo-spatial forms and the grammars is disjointed and sometimes awkward, relying on localized implementations.  It is possible to classify and structure geo-spatial data in ways complementary to those used in the grammars, allowing for more general and extensible model development. 
 
