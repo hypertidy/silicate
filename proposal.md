@@ -14,6 +14,8 @@ Note, this is a reduced version of this early description: https://github.com/r-
 
 # the problem
 
+There is no common generic form for spatial data that covers the complexity of geometric and topological forms widely used in R. Worse, there is no way to augment  spatial data with user-driven visualization and interactivity, these expressions tend to be one-way or are converted to  forms that are richer in graphical and interactivity properties at the expense of losing the specialist rigour that the raw data was delivered with. 
+
 The tidyverse is revolutionizing data manipulation, analysis and visualization by systematizing on core database principles and providing common-tools that are fast, reliable and flexible. The grammar of graphics works from a single, possibly nested, tidy data frame and applies `stats` within arranged groupings of data mapped to `aesthetics` and `scales` that are used to build `geom` layers as visualizations. 
 
 Complex spatial data consists of hierarchically arranged and grouped coordinates linked to (usually) `object` level metadata. Visualizations are created by providing user-specified mappings to object level metadata, these are geom layers without any explicit aesthetic or geometric mapping or scaling mappings. It is rare that spatial data includes an in-built mapping of aesthetics, but the standard forms are not capable of storing this information internally. A `ggplot2` object is complex spatial data with all of this rich user-choice-driven metadata applied at the right level, object, group, or primitive. A `ggplot2` object could be re-expressed in standard spatial form by dropping everything but a particular geometric scaling, and object (feature) level aesthetics. 
