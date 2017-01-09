@@ -1,4 +1,4 @@
 library(testthat)
-library(a.primitives)
+library(sc)
 
-test_check("a.primitives")
+test_check("sc")
