@@ -17,7 +17,7 @@ There is no common generic form for spatial data that covers the complexity of g
 
 The richness in R's specialist forms currently lacks a central language for conversion to generic storage and transmission. Most formats are either purely geometry and topology and fields with no aesthetics, or pure aesthetics baked-in to graphical primitives without the original data used to create the mappings. 
 
-This project aims to provide a system to re-express complex types without loss to a common form, used to generate other specialist forms. The common form builds directly on database principles, storing data as relations in multiple tables organized by the entities required. It is trivial to support this form in a scaleable way with standard database systems and techniques. The goal is not specifically to be able re-express ggplot2 objects or simple features, but to provide a language and common tools for creating converters and general storage and transmission forms.
+This project aims to provide a system to re-express complex types without loss to a common form, used to generate other specialist forms. The common form builds directly on database principles, storing data as relations in multiple tables organized by the entities required. It is trivial to support this form in a scaleable way with standard database systems and techniques. The goal is not specifically to be able re-express `ggplot2` objects or `sf` simple features, or any particular type, but to provide a language and common tools for creating converters and general storage and transmission forms.
 
 The common form is scaleable in terms of memory and computation, but also in terms of geometric and topological dimensionality. Our existing prototypes illustrate that generality by supporting round-trip workflows of specialist multidimensional data forms. 
 
@@ -28,9 +28,9 @@ Request for advice on key parties to contribute, funding for working groups and 
 
 Investigate best options for front-end user interfaces and back-end systems. 
 
-* lists of tables, as illustrated in spbabel, rangl, rbgm
+* lists of tables, as illustrated in proto-forms in spbabel, rangl, rbgm
 * sf-like forms, list-columns with shared-entity semantics
-* tricky environments with vertex, primitives pools
+* spooky techniques, like environments with vertex/primitives pools
 * database or database-like connections in list-columns - nested tibbles that are back-ended?
 
 Key outputs
