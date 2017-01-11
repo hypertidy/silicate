@@ -9,12 +9,18 @@ sc_object(x, ...)
 
 \method{sc_object}{sf}(x, ...)
 }
+\arguments{
+\item{x}{input object}
+
+\item{...}{arguments passed to methods}
+}
 \description{
 The objects are the front end entities, the usual "GIS contract" objects, 
 or features.
 }
 \examples{
-example(sf::st_read)
+library(sf)
+example(st_read)
 sc_object(nc)
 }
 \seealso{

@@ -33,22 +33,29 @@ sc_branch(x, ...)
 
 \method{sc_branch}{GEOMETRYCOLLECTION}(x, ...)
 }
+\arguments{
+\item{x}{input object}
+
+\item{...}{arguments passed to methods}
+
+\item{ids}{object id, one for each object in the `sfc`}
+}
 \description{
 Start in the middle, and build the 'branch-link-vertex' table.
 }
 \examples{
-zoo <- sfzoo()
-lapply(zoo, sc_branch)
-sc_branch(sfzoo())
-sc_branch(st_sfc(zoo))
+data("sfzoo")
+lapply(sfzoo, sc_branch)
+sc_branch(sf::st_sfc(sfzoo))
+sc_branch(sf::st_sfc(sfzoo))
 
-sc_branch(zoo$multipolygon)
-sc_branch(zoo$polygon)
-sc_branch(zoo$linestring)
-sc_branch(zoo$multilinestring)
-sc_branch(zoo$point)
-sc_branch(zoo$multipoint)
-sc_branch(zoo$multipoint)
+sc_branch(sfzoo$multipolygon)
+sc_branch(sfzoo$polygon)
+sc_branch(sfzoo$linestring)
+sc_branch(sfzoo$multilinestring)
+sc_branch(sfzoo$point)
+sc_branch(sfzoo$multipoint)
+sc_branch(sfzoo$multipoint)
 }
 \seealso{
 `sc_coord` for the coordinates part of the model, `sc_object` for 

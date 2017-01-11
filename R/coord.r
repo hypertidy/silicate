@@ -23,19 +23,23 @@ sfcoords <- function(x, ...) tibble::as_tibble(m_v(x))
 #' 
 #' Collect all coordinates in one table, the branch_link_vertex table
 #' has the information about the original grouping.  
+#' 
+#' @param x input object
+#' @param ... arguments passed to methods
+#'
 #' @name sc_coord
 #' @export
 #' @seealso `sc_branch` for the central part of the model, `sc_object` for 
 #' the features, and `BRANCH` for the full model. 
 #' @examples 
-#' zoo <- sfzoo()
-#' lapply(zoo, sc_coord)
+#' data("sfzoo")
+#' lapply(sfzoo, sc_coord)
 sc_coord <- function(x, ...) UseMethod("sc_coord")
 #' @importFrom sf st_geometry
 #' @name sc_coord
 #' @export
 #' @examples
-#' sc_coord(sfzoo())
+#' sc_coord(sf::st_sfc(sfzoo))
 sc_coord.sf <- function(x, ...) {
   sc_coord(sf::st_geometry(x))
 }
@@ -43,7 +47,7 @@ sc_coord.sf <- function(x, ...) {
 #' @name sc_coord
 #' @export
 #' @examples 
-#' sc_coord(st_sfc(zoo))
+#' sc_coord(sf::st_sfc(sfzoo))
 sc_coord.sfc <- function(x, ...) {
   dplyr::bind_rows(lapply(x, sc_coord))
 }

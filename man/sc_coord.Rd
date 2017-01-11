@@ -30,15 +30,20 @@ sc_coord(x, ...)
 
 \method{sc_coord}{POINT}(x, ...)
 }
+\arguments{
+\item{x}{input object}
+
+\item{...}{arguments passed to methods}
+}
 \description{
 Collect all coordinates in one table, the branch_link_vertex table
 has the information about the original grouping.
 }
 \examples{
-zoo <- sfzoo()
-lapply(zoo, sc_coord)
-sc_coord(sfzoo())
-sc_coord(st_sfc(zoo))
+data("sfzoo")
+lapply(sfzoo, sc_coord)
+sc_coord(sf::st_sfc(sfzoo))
+sc_coord(sf::st_sfc(sfzoo))
 }
 \seealso{
 `sc_branch` for the central part of the model, `sc_object` for 
