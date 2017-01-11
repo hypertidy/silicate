@@ -17,6 +17,6 @@ NULL
 #'  sf::st_sfc(sfgc)
 #' @aliases sfgc sfzoo
 #' @name sfzoo
-#' @docType package
+#' @docType data
 NULL
 

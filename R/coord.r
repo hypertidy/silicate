@@ -49,6 +49,7 @@ sc_coord.sfc <- function(x, ...) {
 }
 #' @name sc_coord
 #' @export
+#' @importFrom  stats setNames 
 sc_coord.MULTIPOLYGON <- function(x, ...) {
   colnames <- sc_geom_names(sf_geom_names(x))
   setNames(dplyr::bind_rows(lapply(x, function(y) dplyr::bind_rows(lapply(y, sfcoords)))), colnames)

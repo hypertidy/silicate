@@ -2,7 +2,7 @@
 #' @importFrom ids random_id
 sc_rand <- function(n = 1L) ids::random_id(n, bytes = 8)
 #' @importFrom tibble tibble
-sc_atom <- function(x) tibble::tibble(ncoords_= nrow(x), branch_ = sc_rand())
+sc_atom <- function(x, ...) tibble::tibble(ncoords_= nrow(x), branch_ = sc_rand())
 sc_list <- function(x) dplyr::bind_rows(lapply(x, sc_atom))
 
 #' Branch decomposition
@@ -67,17 +67,17 @@ sc_branch.MULTILINESTRING <- sc_branch.POLYGON
 #' @export
 #' @examples 
 #' sc_branch(zoo$point)
-sc_branch.POINT <- function(x) sc_atom(matrix(x, nrow = 1L))
+sc_branch.POINT <- function(x, ...) sc_atom(matrix(x, nrow = 1L))
 #' @name sc_branch
 #' @export
 #' @examples 
 #' sc_branch(zoo$multipoint)
-sc_branch.MULTIPOINT <- function(x) tibble::tibble(ncoords_ = 1, branch_ = sc_rand(n = nrow(x)))
+sc_branch.MULTIPOINT <- function(x, ...) tibble::tibble(ncoords_ = 1, branch_ = sc_rand(n = nrow(x)))
 #' @name sc_branch
 #' @export
 #' @examples 
 #' sc_branch(zoo$multipoint)
-sc_branch.GEOMETRYCOLLECTION <- function(x) dplyr::bind_rows(lapply(x, sc_branch), .id = "collection_")
+sc_branch.GEOMETRYCOLLECTION <- function(x, ...) dplyr::bind_rows(lapply(x, sc_branch), .id = "collection_")
 
 
 ## infix sugar for if (is.null)

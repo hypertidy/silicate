@@ -15,8 +15,15 @@ BRANCH(x, ...)
 \item{...}{arguments passed to methods}
 }
 \description{
-A BRANCH model is a direct translation of the a simple features-alike
-model to normal form.
+A BRANCH model is a direct translation of a simple features-alike
+object to normal form. This is four tables with the three kinds of entities, 
+"objects" (or "features"), "branches" (or "parts") and "vertices", and a table 
+to link the one-to-many relation between branches and vertices.
+}
+\details{
+In a data set with no parts touching their  neighbours, the only normalization of the vertices
+will be the removal of the duplicated closing coordinate on any polygon ring, and on
+any self-intersecting case within a single branch.
 }
 \examples{
 library(sf)

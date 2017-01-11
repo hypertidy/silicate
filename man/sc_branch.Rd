@@ -23,15 +23,15 @@ sc_branch(x, ...)
 
 \method{sc_branch}{POLYGON}(x, ...)
 
-\method{sc_branch}{LINESTRING}(x)
+\method{sc_branch}{LINESTRING}(x, ...)
 
 \method{sc_branch}{MULTILINESTRING}(x, ...)
 
-\method{sc_branch}{POINT}(x)
+\method{sc_branch}{POINT}(x, ...)
 
-\method{sc_branch}{MULTIPOINT}(x)
+\method{sc_branch}{MULTIPOINT}(x, ...)
 
-\method{sc_branch}{GEOMETRYCOLLECTION}(x)
+\method{sc_branch}{GEOMETRYCOLLECTION}(x, ...)
 }
 \description{
 Start in the middle, and build the 'branch-link-vertex' table.

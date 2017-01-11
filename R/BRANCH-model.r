@@ -1,7 +1,13 @@
 #' Generate a BRANCH model. 
 #' 
-#' A BRANCH model is a direct translation of the a simple features-alike
-#' model to normal form. 
+#' A BRANCH model is a direct translation of a simple features-alike
+#' object to normal form. This is four tables with the three kinds of entities, 
+#' "objects" (or "features"), "branches" (or "parts") and "vertices", and a table 
+#' to link the one-to-many relation between branches and vertices. 
+#' 
+#' In a data set with no parts touching their  neighbours, the only normalization of the vertices
+#' will be the removal of the duplicated closing coordinate on any polygon ring, and on
+#' any self-intersecting case within a single branch. 
 #' @param x input model
 #' @param ... arguments passed to methods
 #' @name BRANCH
@@ -15,6 +21,7 @@ BRANCH <- function(x, ...) UseMethod("BRANCH")
 
 ## a function sf should have
 ## to drop the spatial stuff
+#' @importFrom sf st_geometry<-
 .st_set_geometry <- function(x, value = NULL) {
   st_geometry(x) <- value
   x
