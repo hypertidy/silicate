@@ -1,10 +1,13 @@
 Package: sc
-Title: What the Package Does (one line, title case)
+Title: Common Forms for Complex Data
 Version: 0.0.0.9000
 Authors@R: person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com")
-Description: What the package does (one paragraph).
-Depends: R (>= 3.3.2)
+Description: Generates a generic, common form from complex data, such as simple features. 
+Depends:
+    R (>= 3.3.2)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Suggests: testthat
+Suggests:
+    testthat
+RoxygenNote: 5.0.1

@@ -9,4 +9,3 @@ context("multi-custom")
 # a voyage track, intervals within it, fine-resolution underway measures, specific stations
 # a fused surface, a combination of contour lines with a constant Z fused with polygons without elevation
 
-error("no tests!  ")
