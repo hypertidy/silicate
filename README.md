@@ -21,8 +21,8 @@ Currently `BRANCH()` is the main function to decompose simple features objects.
 
 There are decomposition functions for lower-level `sf` objects organized as `sc_branch`, `sc_coord`, and `sc_object`. `sc_branch` does all the work, building a simple map of all the parts and the vertex count. This is used to classify the vertex table when it is extracted, which makes the unique-id management for branch-vertex normalization much simpler than it was in `gris` or `rangl`.
 
-Example
--------
+Example - sf to ggplot2 round trip
+----------------------------------
 
 ``` r
 library(sf)
@@ -65,48 +65,48 @@ library(sc)
 #> # A tibble: 108 × 4
 #>    island_ ncoords_          branch_          object_
 #>      <chr>    <int>            <chr>            <chr>
-#> 1        1       27 67d386930d20cb30 a803a4706066f737
-#> 2        1       26 a64cb88c6a7cf6c2 4e67e7400a7bab37
-#> 3        1       28 c8ec4d05327274fc f40a3f7317c72ced
-#> 4        1       26 d0b817980acedd04 5be425b4ab83a94a
-#> 5        2        7 c81c822a9b5bb2ab 5be425b4ab83a94a
-#> 6        3        5 2530158bc54eaa18 5be425b4ab83a94a
-#> 7        1       34 e1597fcdbf95969e f3d4d9c290941385
-#> 8        1       22 816d6033394ea531 f5bd4efca4403065
-#> 9        1       24 ad48115638add180 96f2d2f4840960ce
-#> 10       1       17 9c288e89bcd85f22 3abb703fbe5e56f0
+#> 1        1       27 a52fd8cd36b9d152 9e21f32e554ad268
+#> 2        1       26 8809e6d79cad11d1 14cc7b8f881750aa
+#> 3        1       28 b3d966d034118451 f4cc56fd2d705bf0
+#> 4        1       26 e08c3ccd2c09a22a b304ba2fbeba0145
+#> 5        2        7 87d27fede3df7d33 b304ba2fbeba0145
+#> 6        3        5 62f41841c0a65b68 b304ba2fbeba0145
+#> 7        1       34 0679fd885ce7ff42 a6d150dc15ade4ad
+#> 8        1       22 7acdfa2b443b528f d1aa560c15e62462
+#> 9        1       24 56062ab4af387c89 4c774d1957b25d81
+#> 10       1       17 f7c5ffa60a7b7835 62055a68b7907d11
 #> # ... with 98 more rows
 #> 
 #> $vertex
 #> # A tibble: 1,255 × 3
 #>           x_       y_          vertex_
 #>        <dbl>    <dbl>            <chr>
-#> 1  -81.47276 36.23436 801b09790de7b8a3
-#> 2  -81.54084 36.27251 6423922f0d516250
-#> 3  -81.56198 36.27359 a2d023ad3ead2c41
-#> 4  -81.63306 36.34069 9bac4e55e83215cc
-#> 5  -81.74107 36.39178 162885d45edd7d69
-#> 6  -81.69828 36.47178 82e7588eb5f239fc
-#> 7  -81.70280 36.51934 17a1732b36dc1704
-#> 8  -81.67000 36.58965 a42e325ffac0ed35
-#> 9  -81.34530 36.57286 e8025d7330d337e8
-#> 10 -81.34754 36.53791 7ff43c3cb9b787e0
+#> 1  -81.47276 36.23436 f5d826f04a76ad44
+#> 2  -81.54084 36.27251 83d48773e031efc7
+#> 3  -81.56198 36.27359 7e568637759075d2
+#> 4  -81.63306 36.34069 bf0d516fd0bfa690
+#> 5  -81.74107 36.39178 0f13bb447c10e4ff
+#> 6  -81.69828 36.47178 121dc0205e247d2f
+#> 7  -81.70280 36.51934 2a46afd197fb6e5f
+#> 8  -81.67000 36.58965 03a892c00a974d4f
+#> 9  -81.34530 36.57286 7065077270009403
+#> 10 -81.34754 36.53791 5671d4594344de43
 #> # ... with 1,245 more rows
 #> 
 #> $branch_link_vertex
 #> # A tibble: 2,529 × 2
 #>             branch_          vertex_
 #>               <chr>            <chr>
-#> 1  67d386930d20cb30 801b09790de7b8a3
-#> 2  67d386930d20cb30 6423922f0d516250
-#> 3  67d386930d20cb30 a2d023ad3ead2c41
-#> 4  67d386930d20cb30 9bac4e55e83215cc
-#> 5  67d386930d20cb30 162885d45edd7d69
-#> 6  67d386930d20cb30 82e7588eb5f239fc
-#> 7  67d386930d20cb30 17a1732b36dc1704
-#> 8  67d386930d20cb30 a42e325ffac0ed35
-#> 9  67d386930d20cb30 e8025d7330d337e8
-#> 10 67d386930d20cb30 7ff43c3cb9b787e0
+#> 1  a52fd8cd36b9d152 f5d826f04a76ad44
+#> 2  a52fd8cd36b9d152 83d48773e031efc7
+#> 3  a52fd8cd36b9d152 7e568637759075d2
+#> 4  a52fd8cd36b9d152 bf0d516fd0bfa690
+#> 5  a52fd8cd36b9d152 0f13bb447c10e4ff
+#> 6  a52fd8cd36b9d152 121dc0205e247d2f
+#> 7  a52fd8cd36b9d152 2a46afd197fb6e5f
+#> 8  a52fd8cd36b9d152 03a892c00a974d4f
+#> 9  a52fd8cd36b9d152 7065077270009403
+#> 10 a52fd8cd36b9d152 5671d4594344de43
 #> # ... with 2,519 more rows
 #> 
 #> attr(,"class")
@@ -160,19 +160,19 @@ str(iw)
 #>  $ object            :Classes 'tbl_df', 'tbl' and 'data.frame':  6 obs. of  3 variables:
 #>   ..$ ID      : int [1:6] 103841 103842 103843 103846 103847 103848
 #>   ..$ Province: chr [1:6] "Australian Capital Territory" "New Caledonia" "New South Wales" "South Australia" ...
-#>   ..$ object_ : chr [1:6] "0354d9213321bd0d" "5415a35e754c6393" "fa30a4fa483bf377" "215fb30453740906" ...
+#>   ..$ object_ : chr [1:6] "c84417b9c7fda032" "3c38738d820f90c2" "fd6f853060067997" "c82fc5a04ce206d6" ...
 #>  $ branch            :Classes 'tbl_df', 'tbl' and 'data.frame':  189 obs. of  4 variables:
 #>   ..$ island_ : chr [1:189] "1" "1" "1" "1" ...
 #>   ..$ ncoords_: int [1:189] 280 27 7310 68 280 88 162 119 51 71 ...
-#>   ..$ branch_ : chr [1:189] "496fb7cdadb4e270" "adad474080626ec7" "b11cb677dee47936" "fb9462649549c67c" ...
-#>   ..$ object_ : chr [1:189] "0354d9213321bd0d" "5415a35e754c6393" "fa30a4fa483bf377" "fa30a4fa483bf377" ...
+#>   ..$ branch_ : chr [1:189] "e320decba0864b36" "86676141c803c3ff" "767296bea4415dc0" "b41d1bb426af16a7" ...
+#>   ..$ object_ : chr [1:189] "c84417b9c7fda032" "3c38738d820f90c2" "fd6f853060067997" "fd6f853060067997" ...
 #>  $ vertex            :Classes 'tbl_df', 'tbl' and 'data.frame':  30835 obs. of  3 variables:
 #>   ..$ x_     : num [1:30835] 1116371 1117093 1117172 1117741 1117629 ...
 #>   ..$ y_     : num [1:30835] -458419 -457111 -456893 -456561 -455510 ...
-#>   ..$ vertex_: chr [1:30835] "b1897dc728ff48f3" "cfcac520ae0d4653" "ba5f21d2f8d645d4" "169083dd1abdf03f" ...
+#>   ..$ vertex_: chr [1:30835] "c47c543938316113" "8f28f499b619d61d" "d40284204bfbcba9" "9d9b7cd1a000e454" ...
 #>  $ branch_link_vertex:Classes 'tbl_df', 'tbl' and 'data.frame':  33644 obs. of  2 variables:
-#>   ..$ branch_: chr [1:33644] "496fb7cdadb4e270" "496fb7cdadb4e270" "496fb7cdadb4e270" "496fb7cdadb4e270" ...
-#>   ..$ vertex_: chr [1:33644] "b1897dc728ff48f3" "cfcac520ae0d4653" "ba5f21d2f8d645d4" "169083dd1abdf03f" ...
+#>   ..$ branch_: chr [1:33644] "e320decba0864b36" "e320decba0864b36" "e320decba0864b36" "e320decba0864b36" ...
+#>   ..$ vertex_: chr [1:33644] "c47c543938316113" "8f28f499b619d61d" "d40284204bfbcba9" "9d9b7cd1a000e454" ...
 #>  - attr(*, "class")= chr [1:2] "BRANCH" "sc"
 #>  - attr(*, "join_ramp")= chr [1:4] "object" "branch" "branch_link_vertex" "vertex"
 
@@ -195,3 +195,8 @@ ggplot(tab %>% filter(Province == "South Australia")) + aes(x = x_, y = y_, grou
 ```
 
 ![](README-unnamed-chunk-5-2.png)
+
+Example - sf to SQLite and filtered-read
+----------------------------------------
+
+See scdb

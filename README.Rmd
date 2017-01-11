@@ -33,7 +33,7 @@ Currently `BRANCH()` is the main function to decompose simple features objects.
 
 There are decomposition functions for lower-level  `sf` objects organized as `sc_branch`, `sc_coord`, and `sc_object`. `sc_branch` does all the work, building a simple map of all the parts and the vertex count. This is used to classify the vertex table when it is extracted, which makes the unique-id management for branch-vertex normalization much simpler than it was in `gris` or `rangl`. 
  
-## Example
+## Example - sf to ggplot2 round trip
 
 ```{r}
 library(sf)
@@ -86,4 +86,8 @@ ggplot(tab %>% filter(Province == "South Australia")) + aes(x = x_, y = y_, grou
   ggpolypath::geom_polypath(fill = "dodgerblue") +  geom_path(col = "black") + coord_fixed()
 
 ```
+
+## Example - sf to SQLite and filtered-read
+
+See scdb
 
