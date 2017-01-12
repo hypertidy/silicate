@@ -38,6 +38,7 @@ BRANCH.default  <- function(x, ...) {
   v_factor <- factor(do.call(paste_, v))
   id <- sc_rand(n = nlevels(v_factor))
   bXv <- tibble::tibble(branch_ = rep(b$branch_, b$ncoords_))
+  bXv[["order_"]] <- unlist(lapply(split(bXv[["branch_"]], bXv[["branch_"]]), seq_along))
   v[["vertex_"]] <- bXv[["vertex_"]] <- id[v_factor]
   v <- dplyr::distinct_(v, "vertex_", .keep_all = TRUE)
   join_ramp <-  tabnames <- c("object", "branch",  "branch_link_vertex", "vertex")
