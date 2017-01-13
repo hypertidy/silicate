@@ -15,6 +15,18 @@ Note, this is a reduced version of this early description: https://github.com/r-
 
 There is no common generic form for spatial data that covers the complexity of geometric and topological types widely used in R. There is no way to augment  spatial data with user-driven visualization and interactivity, the standards used for spatial data tend to be either highly specialized and inflexible, or are simplified to the point of near or actual destruction.  Richer expressions built within R by users tend to be one-way or are converted to  forms that are richer in graphical and interactivity properties at the expense of losing the specialist rigour that the raw data was delivered with. 
 
+Key summary
+
+```R
+ggplot(d) + aes(x = x, y = y, group = g) + geom_path() 
+
+d %>% group_by(g) %>% select(x, y)  %>% geom_sf() 
+
+d %>% group_by(g) %>% select(x, y, z)  %>% geom_rgl() 
+
+d %>% group_by(g) %>% select(x, y, z, t)  %>% geom_plotly() 
+```
+
 The richness in R's specialist forms currently lacks a central language for conversion to generic storage and transmission. Most formats are either purely geometry and topology and fields with no aesthetics, or pure aesthetics baked-in to graphical primitives without the original data used to create the mappings. 
 
 This project aims to provide a system to re-express complex types without loss to a common form, used to generate other specialist forms. The common form builds directly on database principles, storing data as relations in multiple tables organized by the entities required. It is trivial to support this form in a scaleable way with standard database systems and techniques. The goal is not specifically to be able re-express `ggplot2` objects or `sf` simple features, or any particular type, but to provide a language and common tools for creating converters and general storage and transmission forms.
