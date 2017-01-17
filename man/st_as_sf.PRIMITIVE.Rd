@@ -11,6 +11,9 @@
 
 \item{...}{arguments passed to methods}
 }
+\value{
+`PRIMITIVE`
+}
 \description{
 Recompose `sf` simple features from `PRIMITIVE`` models.
 }
