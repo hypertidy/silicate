@@ -1,6 +1,6 @@
 Package: sc
 Title: Common Forms for Complex Data
-Version: 0.0.1
+Version: 0.0.1.9000
 Authors@R: person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com")
 Description: Generates a generic, common form from complex data, such as simple features. 
 Depends:
