@@ -1,7 +1,8 @@
 Package: sc
 Title: Common Forms for Complex Data
 Version: 0.0.1.9000
-Authors@R: person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com")
+Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com"), 
+             as.person("Simon Wotherspoon <Simon.Wotherspoon@utas.edu.au> [aut]"))
 Description: Generates a generic, common form from complex data, such as simple features. 
 Depends:
     R (>= 3.3.2)
