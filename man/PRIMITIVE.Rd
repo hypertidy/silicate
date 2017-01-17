@@ -27,6 +27,7 @@ set of two-coordinate line segments.
 sf_obj <- inlandwaters[5, ]
 sf_pslg <- PRIMITIVE(sf_obj)
 plot(sf_pslg$vertex[, c("x_", "y_")], type = "n")
+library(dplyr)
 P1_segments <- function(x, ...) {
   s1 <- x$segment \%>\% 
       inner_join(x$vertex, c(".vertex0" = "vertex_")) \%>\% 

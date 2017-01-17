@@ -6,14 +6,16 @@
 \usage{
 sc_primitive(x, ...)
 }
-\description{
-Given a `BRANCH`` model decompose to 1-dimensional primitives.
-}
-\examples{
+\arguments{
+\item{x}{input object}
 
+\item{...}{arguments passed to methods
 sf_obj <- inlandwaters[5, ]
 obj <- BRANCH(sf_obj)
 prim <- sc_primitive(obj)
-sf_pslg <- PRIMITIVE(sf_obj)
+sf_pslg <- PRIMITIVE(sf_obj)}
+}
+\description{
+Given a `BRANCH`` model decompose to 1-dimensional primitives.
 }
 
