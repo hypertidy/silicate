@@ -29,7 +29,7 @@ This package is intended to provide support to the `common form` approach descri
 
 ## Design
 
-Currently `BRANCH()` is the main function to decompose simple features objects. 
+Currently `BRANCH()` and `PRIMITIVE` are the highest level functions to decompose simple features objects.  
 
 There are decomposition functions for lower-level  `sf` objects organized as `sc_branch`, `sc_coord`, and `sc_object`. `sc_branch` does all the work, building a simple map of all the parts and the vertex count. This is used to classify the vertex table when it is extracted, which makes the unique-id management for branch-vertex normalization much simpler than it was in `gris` or `rangl`. 
  

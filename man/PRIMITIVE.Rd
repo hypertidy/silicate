@@ -43,5 +43,7 @@ plot(sf::st_geometry(nc), border = "white")
 nc_pslg <- PRIMITIVE(nc)
 P1_segments(nc_pslg)
 
+## find nodes?
+nc_pslg$vertex 
 }
 

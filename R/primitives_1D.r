@@ -1,3 +1,52 @@
+
+#' Arc-node topology. 
+#' 
+#' Arcs are unbranched paths within the line segment graph. Nodes are the vertices where three or more arcs meet. 
+#'
+#' @param x 
+#' @param ... 
+#'
+#' @return `tbl_df`
+#' @export
+#'
+#' @examples
+#' x <- sf::st_read(system.file("extdata/file.geojson", package= "sc"))
+#' arc_node(x)  ## get the nodes
+#' ## now get the arcs (should the functions be called arc() and node()?)
+arc_node <- function(x, ...) {
+  UseMethod("arc_node")
+}
+#' @name arc_node
+#' @export
+arc_node.sf <- function(x, ...) {
+  arc_node(PRIMITIVE(x))
+}
+#' @name arc_node
+#' @export
+#' @importFrom dplyr select_
+#' @importFrom tibble as_tibble
+#' @importFrom dplyr bind_rows mutate distinct select inner_join group_by filter ungroup 
+arc_node.PRIMITIVE <- function(x, ...) {
+  p2seg <- function(x) tibble::as_tibble(path_to_segment(x$vertex_))
+  
+  unique_edges <- x$branch_link_vertex %>% split(.$branch_) %>% 
+    purrr::map(p2seg) %>% 
+    dplyr::bind_rows(.id = "branch_")%>% dplyr::mutate(edge_ = row_number()) %>% 
+    dplyr::mutate(uu = paste(pmin(.vertex0, .vertex1), pmax(.vertex0, .vertex1), sep = "_")) %>% 
+    dplyr::distinct(uu, .keep_all = TRUE)
+  
+  nodes <- bind_rows(x$vertex %>% dplyr::select(vertex_) %>% dplyr::inner_join(unique_edges, c("vertex_" = ".vertex0")), 
+                     x$vertex %>% dplyr::select(vertex_) %>% dplyr::inner_join(unique_edges, c("vertex_" = ".vertex1"))) %>% 
+    dplyr::distinct(edge_, vertex_) %>% 
+    dplyr::group_by(vertex_) %>% dplyr::mutate(nb = n()) %>% dplyr::ungroup() %>% 
+    dplyr::filter(nb > 2) %>% distinct(vertex_) %>% dplyr::inner_join(x$vertex)
+  
+  #plot(st_geometry(nc))
+  #points(nodes$x_, nodes$y_)
+  
+ dplyr::select_(nodes, "x_", "y_", "vertex_")
+ # nodes
+}
 #' @importFrom utils head
 path_to_segment <- function(x, id = NULL) {
   ## this is a trick of array logic to generate paired indexes from a sequence
@@ -64,6 +113,8 @@ sc_primitive.BRANCH <- function(x, ...) {
 #' nc_pslg <- PRIMITIVE(nc)
 #' P1_segments(nc_pslg)
 #' 
+#' ## find nodes?
+#' nc_pslg$vertex 
 #' @name PRIMITIVE
 #' @export
 PRIMITIVE <- function(x, ...) UseMethod("PRIMITIVE")

@@ -1,6 +1,6 @@
 
 #' @importFrom ids random_id
-sc_rand <- function(n = 1L) ids::random_id(n, bytes = 8)
+sc_rand <- function(n = 1L) ids::random_id(n, bytes = 4)
 #' @importFrom tibble tibble
 sc_atom <- function(x, ...) tibble::tibble(ncoords_= nrow(x), branch_ = sc_rand())
 sc_list <- function(x) dplyr::bind_rows(lapply(x, sc_atom))
