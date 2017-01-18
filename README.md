@@ -136,48 +136,48 @@ nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
 #> # A tibble: 108 × 4
 #>    island_ ncoords_          branch_          object_
 #>      <chr>    <int>            <chr>            <chr>
-#> 1        1       27 016b97a9d70103b3 36b928ba583907b0
-#> 2        1       26 4db6fa6cb70902c6 6d8d4685cdae7c32
-#> 3        1       28 e0ff789a8f99765b e2d7bbbc580e3dfc
-#> 4        1       26 d8e5939596881aee fa6d5382a8a70a8f
-#> 5        2        7 24d32c5f0439ed92 fa6d5382a8a70a8f
-#> 6        3        5 9dda26c3b7ed86fd fa6d5382a8a70a8f
-#> 7        1       34 928950fb578295d2 bc0212c187e19393
-#> 8        1       22 16608a1ee32be042 97925c0f61440d33
-#> 9        1       24 80e5c7876fb8f060 f678eef5cbec7646
-#> 10       1       17 8c813514a6da5cb1 64b7af1deb4f8c53
+#> 1        1       27 1fe228431c080796 f0e167f4c8db1a1f
+#> 2        1       26 b239fb6aaa45b3ec 3c3e9a0aaccc9f12
+#> 3        1       28 0a961a406ea59631 213bccd823c2c27d
+#> 4        1       26 5ae42e258d48a21d 01291e3a050a7817
+#> 5        2        7 fa2c6763c26648c6 01291e3a050a7817
+#> 6        3        5 be9962b02adea6cf 01291e3a050a7817
+#> 7        1       34 6c19fef9b64932d4 6fd8f49d7046550e
+#> 8        1       22 b1fe4bbc2807e7fb eb2aece583845d3d
+#> 9        1       24 44fd662f043886e9 56e207febafdd611
+#> 10       1       17 4dfdbc36626325d2 58fd2ef57152c6ca
 #> # ... with 98 more rows
 #> 
 #> $vertex
 #> # A tibble: 1,255 × 3
 #>           x_       y_          vertex_
 #>        <dbl>    <dbl>            <chr>
-#> 1  -81.47276 36.23436 b49fe0e01ddc9a09
-#> 2  -81.54084 36.27251 205fb5c27bde25fb
-#> 3  -81.56198 36.27359 a13905a3cfe09ef1
-#> 4  -81.63306 36.34069 795869e310c82c57
-#> 5  -81.74107 36.39178 92664ce4502e2374
-#> 6  -81.69828 36.47178 f2753ba13ff7c694
-#> 7  -81.70280 36.51934 af26d0a4360ffa1f
-#> 8  -81.67000 36.58965 aabd5b3d02fe5d36
-#> 9  -81.34530 36.57286 836f6012385febf4
-#> 10 -81.34754 36.53791 da3431097cfcdcdb
+#> 1  -81.47276 36.23436 5c25ef7ad7e5b922
+#> 2  -81.54084 36.27251 2186c5c3916d8180
+#> 3  -81.56198 36.27359 3e0d635d9e84cada
+#> 4  -81.63306 36.34069 6cb5f2c848008e31
+#> 5  -81.74107 36.39178 d3bba52e5995b257
+#> 6  -81.69828 36.47178 3a6395093904434a
+#> 7  -81.70280 36.51934 ae611d021eb3d1c6
+#> 8  -81.67000 36.58965 cf2cef2e930deb26
+#> 9  -81.34530 36.57286 45e518e9cdd94b90
+#> 10 -81.34754 36.53791 2cb2dcc66f79f293
 #> # ... with 1,245 more rows
 #> 
 #> $branch_link_vertex
 #> # A tibble: 2,529 × 3
 #>             branch_ order_          vertex_
 #>               <chr>  <int>            <chr>
-#> 1  016b97a9d70103b3      1 b49fe0e01ddc9a09
-#> 2  016b97a9d70103b3      2 205fb5c27bde25fb
-#> 3  016b97a9d70103b3      3 a13905a3cfe09ef1
-#> 4  016b97a9d70103b3      4 795869e310c82c57
-#> 5  016b97a9d70103b3      5 92664ce4502e2374
-#> 6  016b97a9d70103b3      6 f2753ba13ff7c694
-#> 7  016b97a9d70103b3      7 af26d0a4360ffa1f
-#> 8  016b97a9d70103b3      8 aabd5b3d02fe5d36
-#> 9  016b97a9d70103b3      9 836f6012385febf4
-#> 10 016b97a9d70103b3     10 da3431097cfcdcdb
+#> 1  1fe228431c080796      1 5c25ef7ad7e5b922
+#> 2  1fe228431c080796      2 2186c5c3916d8180
+#> 3  1fe228431c080796      3 3e0d635d9e84cada
+#> 4  1fe228431c080796      4 6cb5f2c848008e31
+#> 5  1fe228431c080796      5 d3bba52e5995b257
+#> 6  1fe228431c080796      6 3a6395093904434a
+#> 7  1fe228431c080796      7 ae611d021eb3d1c6
+#> 8  1fe228431c080796      8 cf2cef2e930deb26
+#> 9  1fe228431c080796      9 45e518e9cdd94b90
+#> 10 1fe228431c080796     10 2cb2dcc66f79f293
 #> # ... with 2,519 more rows
 #> 
 #> attr(,"class")
@@ -231,20 +231,20 @@ str(iw)
 #>  $ object            :Classes 'tbl_df', 'tbl' and 'data.frame':  6 obs. of  3 variables:
 #>   ..$ ID      : int [1:6] 103841 103842 103843 103846 103847 103848
 #>   ..$ Province: chr [1:6] "Australian Capital Territory" "New Caledonia" "New South Wales" "South Australia" ...
-#>   ..$ object_ : chr [1:6] "b2a3bfaca5c1c3c0" "aa81abd954be4abf" "d15ab9c76f3f96b2" "507250c4091f87b3" ...
+#>   ..$ object_ : chr [1:6] "3196572089cd6a08" "4499a68dcc61c7b3" "ca41c9adfaa44a99" "75dfff5132854ee4" ...
 #>  $ branch            :Classes 'tbl_df', 'tbl' and 'data.frame':  189 obs. of  4 variables:
 #>   ..$ island_ : chr [1:189] "1" "1" "1" "1" ...
 #>   ..$ ncoords_: int [1:189] 280 27 7310 68 280 88 162 119 51 71 ...
-#>   ..$ branch_ : chr [1:189] "0fd4befbf6c20d88" "c54cbc9c48e2c8cf" "95c29b3243e74cbd" "014fda2c434d5a4a" ...
-#>   ..$ object_ : chr [1:189] "b2a3bfaca5c1c3c0" "aa81abd954be4abf" "d15ab9c76f3f96b2" "d15ab9c76f3f96b2" ...
+#>   ..$ branch_ : chr [1:189] "16d95dac0b6baab7" "f5352dadb86981f4" "1342bd32881a5ddb" "2cbb1156a6e824a7" ...
+#>   ..$ object_ : chr [1:189] "3196572089cd6a08" "4499a68dcc61c7b3" "ca41c9adfaa44a99" "ca41c9adfaa44a99" ...
 #>  $ vertex            :Classes 'tbl_df', 'tbl' and 'data.frame':  30835 obs. of  3 variables:
 #>   ..$ x_     : num [1:30835] 1116371 1117093 1117172 1117741 1117629 ...
 #>   ..$ y_     : num [1:30835] -458419 -457111 -456893 -456561 -455510 ...
-#>   ..$ vertex_: chr [1:30835] "7235a307d1407b97" "0d229c2010fdd762" "6ae1a777320c516d" "af2b7c19f220c2fb" ...
+#>   ..$ vertex_: chr [1:30835] "6160939c911cdb32" "6c47b7006fe919ec" "c582e4e115621b4b" "cdcdb38cf04e9088" ...
 #>  $ branch_link_vertex:Classes 'tbl_df', 'tbl' and 'data.frame':  33644 obs. of  3 variables:
-#>   ..$ branch_: chr [1:33644] "0fd4befbf6c20d88" "0fd4befbf6c20d88" "0fd4befbf6c20d88" "0fd4befbf6c20d88" ...
+#>   ..$ branch_: chr [1:33644] "16d95dac0b6baab7" "16d95dac0b6baab7" "16d95dac0b6baab7" "16d95dac0b6baab7" ...
 #>   ..$ order_ : int [1:33644] 1 2 3 4 5 6 7 8 9 10 ...
-#>   ..$ vertex_: chr [1:33644] "7235a307d1407b97" "0d229c2010fdd762" "6ae1a777320c516d" "af2b7c19f220c2fb" ...
+#>   ..$ vertex_: chr [1:33644] "6160939c911cdb32" "6c47b7006fe919ec" "c582e4e115621b4b" "cdcdb38cf04e9088" ...
 #>  - attr(*, "class")= chr [1:2] "BRANCH" "sc"
 #>  - attr(*, "join_ramp")= chr [1:4] "object" "branch" "branch_link_vertex" "vertex"
 
