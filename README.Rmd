@@ -18,8 +18,50 @@ The goal of sc is to provide a general common form for complex multi-dimensional
 
 See the [proposal.md](proposal.md).
 
+# Why? 
 
-This package is intended to provide support to the `common form` approach described here. There's very little in the package yet, but see these projects that are informed by this approach. 
+Geographic Information System (GIS) tools provide  data structures optimized for a relatively narrow class of workflows that leverage a combination of *spatial*, 
+graphics, drawing-design, imagery, geodetic and database techniques. When modern GIS was born in the 1990s it adopted a set of compromises that divorced it from its roots in graph theory (arc-node topology) to provide the best performance for what were the most complicated sets of cartographic and land-management system data at the time. 
+
+The huge success of ArcView and the shapefile brought this arcane domain into common usage and helped establish our modern view of what "geo-spatial data" is. The creation of the "simple features standard"" in the early 2000s formalized this modern view and provided a basis to avoid some of the inconsistencies and incompleteness that are present in the shapefile specification. 
+
+Spatial, graphics, drawing-design, imagery, geodetic and database techniques are broader than any GIS, are used in combination in many fields, but no other field combines them in the way that GIS tools do. GIS does however impose a certain view point, a lens through which each of those very general fields is seen via the perspective of the optimizations, the careful constraints and compromises that were  formalized in the early days. 
+
+This lens is seen side-on when 1) bringing graphics data (images, drawings) into a GIS where a localization metadata context is assumed 2) attempting to visualize geo-spatial raster data with graphics tools 3) creating lines to represent the path of sensor platforms that record many variables like temperature, salinity, radiative flux as well as location in time and space. 
+
+The word "spatial" has a rather general meaning, and while GIS idioms sometimes extend into the Z dimension time is usually treated in a special way. Where GIS really starts to show its limits is in the boundary between discrete and continuous measures and entities. We prefer to default to the most general meaning of spatial, work with tools that allow flexibility despite the (rather arbitrary) choice of topological and geometric structures and dimensions that a given model needs. When the particular optimizations and clever constraints of the simple features and GIS world are required and/or valuable then we use those, but prefer not to see that 1) this model must fit into this GIS view 2) GIS has no place in this model. For us the boundaries are not so sharp and there's valuable cross-over in many fields. 
+
+The particular GIS-like limitations that we seek are as follows. 
+
+* flexibility in the number and type/s of attribute stored as "coordinates", x, y, lon, lat, z, time, temperature, etc.
+* ability to store attributes on parts i.e. the state is the object, the county is the part
+* shared vertices
+* the ability to leverage topology engines like D3 to dynamically segmentize a piecewise graph using geodetic curvature
+* the ability to extend the hierarchical view in GIS to 3D, 4D spatial, graphical, network and general modelling domains
+* clarity on the distinction between topology and geometry
+* clarity on the distinction between vector and raster data, without having an arbitrary boundary between them
+* multiple models of raster `georeferencing` from basic offset/scale, general affine transform, full curvilinear and partial curvilinear with affine and rectilinear optimizations where applicable
+* ability to store points, lines and areas together, with shared topology as appropriate
+* a flexible and powerful basis for conversion between formats both in the GIS idioms and outside them
+* flexibility, ease-of-use, composability, modularity, tidy-ness
+* integration with specialist computational engines, database systems, geometric algorithms, drawing tools and other systems
+* interactivity, integration with D3, shiny, ggplot2, ggvis, leaflet
+* scaleability, the ability to leverage back-end databases, specialist parallelism engines, remote compute and otherwise distributed compute systems
+
+Flexibility in attributes generally is the key to breaking out of traditional GIS constraints that don't allow clear continuous / discrete distinctions, or time-varying objects/events, 3D/4D geometry, or clarity on topology versus geometry. When everything is tables this becomes natural, and we can build structures like link-relations between tables that transfer data only when required. 
+
+The ability many GIS tools from R in a consistent way is long-term goal, and this will be best done via dplyr "back-ending" or a model very like it. 
+
+# Approach
+
+We can't possibly provide all the aspirations detailed above, but we hope to 
+
+* demonstrate the clear need, interest and opportunities that currently exist for fostering their development
+* illustrate links between existing systems that from a slightly different perspective become achievable goals rather than insurmountable challenges
+* provide a platform for generalizing some of the currently fragmented translations that occur across the R community between commonly used tools that aren't formally speaking to each other. 
+* provide tools that we build along the way
+
+This package is intended to provide support to the `common form` approach described here. The package is not fully functional yet, but see these projects that are informed by this approach. 
 
 * **rbgm** - [Atlantis Box Geometry Model](https://github.com/AustralianAntarcticDivision/rbgm), a "doubly-connected edge-list" form of linked faces and boxes in a spatially-explicit 3D ecosystem model
 * **rangl** - [Primitives for Spatial data](https://github.com/r-gris/rangl), a generalization of GIS forms with simple 3D plotting
@@ -29,10 +71,24 @@ This package is intended to provide support to the `common form` approach descri
 
 ## Design
 
-Currently `BRANCH()` is the main function to decompose simple features objects. 
+We use the following words in a specified sense, denoting a hierarchy of sorts in order from highest to lowest with layer, object, branch (or path), primitives, coordinates, and vertices. 
+
+The current design uses capitalized function names `BRANCH`, `PRIMITIVE` ... that act on layers, while prefixed lower-case function names produce or derive the named entity at a given level for a given input. E.g. `sc_branch` will decompose all the geometries in an `sf` layer to the BRANCH model and return them in generic form. `BRANCH` will decompose the layer as a whole, including the component geometries. 
+
+`BRANCH()` is the main model used to decompose inputs, as it is the a more general form of the GIS idioms (simple features and georeferenced raster data) This treats connected *paths* as fully-fledged entities like vertices and objects are, creating a relational model that stores all *vertices* in one table, all *branches* in another, and and all highest-level *objects* in another. The BRANCH model also takes the extra step of *normalizing* vertices, finding duplicates in a given geometric space and creating an intermediate link table to record all *instances of the vertices*. The BRANCH model does not currently normalize branches, but this is something that could be done, and is close to what arc-node topology is. 
+
+The `PRIMITIVE` function decomposes a layer into actual primitives, rather than "paths", these are point, line segment, triangle, tetrahedron, and so on. 
 
 There are decomposition functions for lower-level  `sf` objects organized as `sc_branch`, `sc_coord`, and `sc_object`. `sc_branch` does all the work, building a simple map of all the parts and the vertex count. This is used to classify the vertex table when it is extracted, which makes the unique-id management for branch-vertex normalization much simpler than it was in `gris` or `rangl`. 
  
+ In our terminology a branch or path is the group between the raw geometry and the objects, and so applies to a connected polygon ring, closed or open linestring, a single coordinate with a multipoint (a path with one vertex). In this scheme a polygon ring and a closed linestring are exactly the same (since they actually are exactly the same) and there are no plane-filling branches, or indeed volume-filling branches. This is a clear limitation of the branch model and it matches that used by GIS. 
+ 
+## Exceptions
+
+TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, ...
+
+
+
 ## Example - sf to ggplot2 round trip
 
 ```{r}
@@ -45,6 +101,8 @@ The common form is the entity tables, objects, branches, vertices and a link tab
 
 ```{r}
 library(sc)
+nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
+
 (bmodel <- BRANCH(nc))
 ```
 
@@ -91,3 +149,17 @@ ggplot(tab %>% filter(Province == "South Australia")) + aes(x = x_, y = y_, grou
 
 See scdb
 
+## Primitives, the planar straight line graph and TopoJSON
+
+(WIP see primitives-classes)
+
+```{r,eval=FALSE}
+example(PRIMITIVE)
+```
+
+### Arc-node topoplogy 
+
+```{r, eval=FALSE}
+
+example(arc_node)
+```
