@@ -2,8 +2,7 @@ Package: sc
 Title: Common Forms for Complex Data
 Version: 0.0.1
 Authors@R: person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com")
-Description: Generates a generic, common form from complex data, such as simple features, and provides
-    a centre from which simple features and other complex forms can be generated. 
+Description: Generates a generic, common form from complex data from which simple features and other complex forms can be generated. 
 Depends:
     R (>= 3.3.2)
 License: GPL-3
