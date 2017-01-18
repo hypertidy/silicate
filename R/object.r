@@ -16,7 +16,7 @@ sc_object <- function(x, ...) UseMethod("sc_object")
 #' @export
 #' @examples 
 #' library(sf)
-#' example(st_read)
+#' nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 #' sc_object(nc)
 sc_object.sf <- function(x, ...) {
   as.data.frame(x)

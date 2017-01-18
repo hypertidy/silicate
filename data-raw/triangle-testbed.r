@@ -1,5 +1,5 @@
 library(sf)
-example(st_read)
+nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 library(maptools); data(wrld_simpl)
 x <- nc #st_as_sf(wrld_simpl)
 ## this is internal code of primitives

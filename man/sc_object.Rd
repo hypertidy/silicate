@@ -20,7 +20,7 @@ or features.
 }
 \examples{
 library(sf)
-example(st_read)
+nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 sc_object(nc)
 }
 \seealso{

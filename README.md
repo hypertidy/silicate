@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.org/mdsumner/sc.svg?branch=master)](https://travis-ci.org/mdsumner/sc)
+[![Travis-CI Build Status](https://travis-ci.com/mdsumner/sc.svg?branch=master)](https://travis-ci.com/mdsumner/sc)
 
 sc
 ==
@@ -136,48 +136,48 @@ nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
 #> # A tibble: 108 × 4
 #>    island_ ncoords_          branch_          object_
 #>      <chr>    <int>            <chr>            <chr>
-#> 1        1       27 b6de332c1a2731b0 81efb3a0f60beb0a
-#> 2        1       26 cee109b8e68b0525 99e6d45692a6460f
-#> 3        1       28 880d8c9e2c93e6f2 8107c3847e188c13
-#> 4        1       26 1fbbaf5de2915ad8 16f3315a3b5e1234
-#> 5        2        7 3fdb6db480b9073e 16f3315a3b5e1234
-#> 6        3        5 890f7c53e91fd54e 16f3315a3b5e1234
-#> 7        1       34 cb3030d462509eb4 866ade1fb046b69b
-#> 8        1       22 01ee69c0aba93170 7e62ca28190ecb0c
-#> 9        1       24 244695c7f31228c7 4e5a0d47d72270c8
-#> 10       1       17 0b42a31f4c4fc67d 4793867d55ad7cc7
+#> 1        1       27 016b97a9d70103b3 36b928ba583907b0
+#> 2        1       26 4db6fa6cb70902c6 6d8d4685cdae7c32
+#> 3        1       28 e0ff789a8f99765b e2d7bbbc580e3dfc
+#> 4        1       26 d8e5939596881aee fa6d5382a8a70a8f
+#> 5        2        7 24d32c5f0439ed92 fa6d5382a8a70a8f
+#> 6        3        5 9dda26c3b7ed86fd fa6d5382a8a70a8f
+#> 7        1       34 928950fb578295d2 bc0212c187e19393
+#> 8        1       22 16608a1ee32be042 97925c0f61440d33
+#> 9        1       24 80e5c7876fb8f060 f678eef5cbec7646
+#> 10       1       17 8c813514a6da5cb1 64b7af1deb4f8c53
 #> # ... with 98 more rows
 #> 
 #> $vertex
 #> # A tibble: 1,255 × 3
 #>           x_       y_          vertex_
 #>        <dbl>    <dbl>            <chr>
-#> 1  -81.47276 36.23436 3e7bd811facc69b6
-#> 2  -81.54084 36.27251 32f81647f4692bca
-#> 3  -81.56198 36.27359 cb6d968cb7cfc7d9
-#> 4  -81.63306 36.34069 d1b216d68297dd96
-#> 5  -81.74107 36.39178 81bf06e999f19763
-#> 6  -81.69828 36.47178 35f8b22d22cf0b59
-#> 7  -81.70280 36.51934 65302358a6bac38b
-#> 8  -81.67000 36.58965 46ed27da015bb7e7
-#> 9  -81.34530 36.57286 d0d8ac8db3534358
-#> 10 -81.34754 36.53791 29daa8bc370e2969
+#> 1  -81.47276 36.23436 b49fe0e01ddc9a09
+#> 2  -81.54084 36.27251 205fb5c27bde25fb
+#> 3  -81.56198 36.27359 a13905a3cfe09ef1
+#> 4  -81.63306 36.34069 795869e310c82c57
+#> 5  -81.74107 36.39178 92664ce4502e2374
+#> 6  -81.69828 36.47178 f2753ba13ff7c694
+#> 7  -81.70280 36.51934 af26d0a4360ffa1f
+#> 8  -81.67000 36.58965 aabd5b3d02fe5d36
+#> 9  -81.34530 36.57286 836f6012385febf4
+#> 10 -81.34754 36.53791 da3431097cfcdcdb
 #> # ... with 1,245 more rows
 #> 
 #> $branch_link_vertex
 #> # A tibble: 2,529 × 3
 #>             branch_ order_          vertex_
 #>               <chr>  <int>            <chr>
-#> 1  b6de332c1a2731b0      1 3e7bd811facc69b6
-#> 2  b6de332c1a2731b0      2 32f81647f4692bca
-#> 3  b6de332c1a2731b0      3 cb6d968cb7cfc7d9
-#> 4  b6de332c1a2731b0      4 d1b216d68297dd96
-#> 5  b6de332c1a2731b0      5 81bf06e999f19763
-#> 6  b6de332c1a2731b0      6 35f8b22d22cf0b59
-#> 7  b6de332c1a2731b0      7 65302358a6bac38b
-#> 8  b6de332c1a2731b0      8 46ed27da015bb7e7
-#> 9  b6de332c1a2731b0      9 d0d8ac8db3534358
-#> 10 b6de332c1a2731b0     10 29daa8bc370e2969
+#> 1  016b97a9d70103b3      1 b49fe0e01ddc9a09
+#> 2  016b97a9d70103b3      2 205fb5c27bde25fb
+#> 3  016b97a9d70103b3      3 a13905a3cfe09ef1
+#> 4  016b97a9d70103b3      4 795869e310c82c57
+#> 5  016b97a9d70103b3      5 92664ce4502e2374
+#> 6  016b97a9d70103b3      6 f2753ba13ff7c694
+#> 7  016b97a9d70103b3      7 af26d0a4360ffa1f
+#> 8  016b97a9d70103b3      8 aabd5b3d02fe5d36
+#> 9  016b97a9d70103b3      9 836f6012385febf4
+#> 10 016b97a9d70103b3     10 da3431097cfcdcdb
 #> # ... with 2,519 more rows
 #> 
 #> attr(,"class")
@@ -231,20 +231,20 @@ str(iw)
 #>  $ object            :Classes 'tbl_df', 'tbl' and 'data.frame':  6 obs. of  3 variables:
 #>   ..$ ID      : int [1:6] 103841 103842 103843 103846 103847 103848
 #>   ..$ Province: chr [1:6] "Australian Capital Territory" "New Caledonia" "New South Wales" "South Australia" ...
-#>   ..$ object_ : chr [1:6] "c90b4825e0d00f78" "3638521237ea3ed8" "f75acbdb00d01cab" "7669d2e4182bf511" ...
+#>   ..$ object_ : chr [1:6] "b2a3bfaca5c1c3c0" "aa81abd954be4abf" "d15ab9c76f3f96b2" "507250c4091f87b3" ...
 #>  $ branch            :Classes 'tbl_df', 'tbl' and 'data.frame':  189 obs. of  4 variables:
 #>   ..$ island_ : chr [1:189] "1" "1" "1" "1" ...
 #>   ..$ ncoords_: int [1:189] 280 27 7310 68 280 88 162 119 51 71 ...
-#>   ..$ branch_ : chr [1:189] "955b03703df5f66e" "2e7e7dd9603f8148" "19824359124e50f4" "ff0278b35d136c9c" ...
-#>   ..$ object_ : chr [1:189] "c90b4825e0d00f78" "3638521237ea3ed8" "f75acbdb00d01cab" "f75acbdb00d01cab" ...
+#>   ..$ branch_ : chr [1:189] "0fd4befbf6c20d88" "c54cbc9c48e2c8cf" "95c29b3243e74cbd" "014fda2c434d5a4a" ...
+#>   ..$ object_ : chr [1:189] "b2a3bfaca5c1c3c0" "aa81abd954be4abf" "d15ab9c76f3f96b2" "d15ab9c76f3f96b2" ...
 #>  $ vertex            :Classes 'tbl_df', 'tbl' and 'data.frame':  30835 obs. of  3 variables:
 #>   ..$ x_     : num [1:30835] 1116371 1117093 1117172 1117741 1117629 ...
 #>   ..$ y_     : num [1:30835] -458419 -457111 -456893 -456561 -455510 ...
-#>   ..$ vertex_: chr [1:30835] "0f3ddda5c3f07d06" "3150059427465444" "a0af3c4c8548ccee" "dbaeba1ff61dec1b" ...
+#>   ..$ vertex_: chr [1:30835] "7235a307d1407b97" "0d229c2010fdd762" "6ae1a777320c516d" "af2b7c19f220c2fb" ...
 #>  $ branch_link_vertex:Classes 'tbl_df', 'tbl' and 'data.frame':  33644 obs. of  3 variables:
-#>   ..$ branch_: chr [1:33644] "955b03703df5f66e" "955b03703df5f66e" "955b03703df5f66e" "955b03703df5f66e" ...
-#>   ..$ order_ : int [1:33644] 1 2 3 4 5 6 7 8 9 1 ...
-#>   ..$ vertex_: chr [1:33644] "0f3ddda5c3f07d06" "3150059427465444" "a0af3c4c8548ccee" "dbaeba1ff61dec1b" ...
+#>   ..$ branch_: chr [1:33644] "0fd4befbf6c20d88" "0fd4befbf6c20d88" "0fd4befbf6c20d88" "0fd4befbf6c20d88" ...
+#>   ..$ order_ : int [1:33644] 1 2 3 4 5 6 7 8 9 10 ...
+#>   ..$ vertex_: chr [1:33644] "7235a307d1407b97" "0d229c2010fdd762" "6ae1a777320c516d" "af2b7c19f220c2fb" ...
 #>  - attr(*, "class")= chr [1:2] "BRANCH" "sc"
 #>  - attr(*, "join_ramp")= chr [1:4] "object" "branch" "branch_link_vertex" "vertex"
 

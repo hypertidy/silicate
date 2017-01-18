@@ -1,4 +1,3 @@
-
 sf_to_gris_names <- 
   #names(gtab) <- sf_to_gris_names(names(gtab))
   
