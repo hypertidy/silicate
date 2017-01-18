@@ -12,6 +12,9 @@ knitr::opts_chunk$set(
 )
 ```
 
+[![Travis-CI Build Status](https://travis-ci.org/mdsumner/sc.svg?branch=master)](https://travis-ci.org/mdsumner/sc)
+
+
 # sc
 
 The goal of sc is to provide a general common form for complex multi-dimensional data. 
