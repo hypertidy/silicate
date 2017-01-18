@@ -13,6 +13,9 @@ before_install:
   - sudo apt-get install -y libudunits2-dev libproj-dev libgeos++-dev libgdal-dev
   - "export RGL_USE_NULL=TRUE"
   
+r_binary_packages:
+  - rgdal
+  
 # We use clang, --without-libtool and --with-debug for faster build
 compiler:
   - clang

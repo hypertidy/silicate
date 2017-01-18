@@ -235,9 +235,6 @@ We can otherwise do anything we like with the vertices, including reprojecting t
 
 As an example, copy on the Etopo5 elevations, first with the default triangulation, and then with a denser version. 
 
-```{r}
-## TBD
-```
 
 
 Now for some examples to give an overview of diferent tools in R. 
@@ -269,7 +266,7 @@ library(sf)
 library(tibble)
 x <- st_as_sf(tibble(a = 1:2, geom = st_sfc(list(st_multipolygon(list(list(p1, p2[rev(seq(nrow(p2))), ]))),  
                                                  st_multipolygon(list(list(p4)))))))
-plot(x, col = c("grey", "firebrick"))
+plot(st_geometry(x), col = c("grey", "firebrick"))
 ```
 
 ## Spatial (legacy sp package)
