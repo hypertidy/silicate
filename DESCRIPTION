@@ -24,7 +24,7 @@ Imports: dplyr,
     testthat,
     ids,
     purrr,
-    sf (<= 0.2-7),
+    sf,
     tibble
 Remotes: r-gris/rangl
 VignetteBuilder: knitr

@@ -48,7 +48,7 @@ data(countriesLow)
 library(sf)
 p <- st_as_sf(countriesLow)
 #p <- st_read(system.file("extdata", "small_world.gpkg", package = "sc"), "ne_110m_admin_0_countries")
-plot(p, col = viridis::viridis(nrow(p)))
+plot(p[1], main = "",  col = viridis::viridis(nrow(p)))
 ```
 
 This object `p` presents a "data frame" (i.e. a table) front-end that we can query and use at the objects level, much like in some GIS software we can easily select a single object or row in a table. 
@@ -57,30 +57,26 @@ This object `p` presents a "data frame" (i.e. a table) front-end that we can que
 library(spbabel)
 (pnganz <- subset(p, SOVEREIGNT %in% c("Australia", "Indonesia", "New Zealand", "Papua New Guinea")))
 pnganz$color <- viridis::viridis(nrow(pnganz))
-plot(pnganz, col = viridis::viridis(nrow(pnganz)))
+plot(pnganz[1], main = "",  col = viridis::viridis(nrow(pnganz)))
 ```
 
 Looking at the object's underlying geometric structure shows nested lists of matrixes of x,y coordinates. There is one matrix per path,  analogous to the way that feature parts are nested in standard Geom binary forms like WKB. Each component path stores extra information about whether it is a hole, the ring direction, a coordinate for label plotting and so on. We otherwise cannot store any more information on the component parts though. 
 
-
-
-
-NOTE: the `Spatial` classes here are **pre-simple features**, so they are more analogous to the structures in a shapefile in that a polygon hole's "island parent"" may be ambiguous, but this is not so important to this story. R now has simple features in the `sfr` project here, which adds Z, M and the possibility of some of the exotic types as well. https://github.com/edzer/sfr
 
 These hierarchical structures can be serialized and stored in different ways, typically they are stored as binary geoms and stored directly in a table. 
 
 An interesting aspect here is that these structures don't describe the topology of the objects in any special way, these are just *paths* of coordinates, and when they are plotted or used in analysis there's a rule about how space is enclosed by a closed path. If we treat them as lines, the only difference is to not treat them as enclosed paths.  Literally the only difference in the structure of this object from the polygons version is the name of the class, and the behaviour that methods invoked for this object will provide. 
 
 ```{r}
-plot(as(as(pnganz,"Spatial"), "SpatialLinesDataFrame"))
-#plot(st_cast(pnganz, "MULTILINESTRING"))
-plot(as(as(pnganz,"Spatial"), "SpatialLinesDataFrame"), col = viridis::viridis(nrow(pnganz), alpha = 0.7), lwd = c(2, 4), add = TRUE)
 
-str(as(geometry(as(pnganz,"Spatial")[1,]), "SpatialLines"))
+plot(st_cast(pnganz, "MULTILINESTRING")[1], main = "")
+plot(st_cast(pnganz, "MULTILINESTRING")[1], col = viridis::viridis(nrow(pnganz), alpha = 0.7), lwd = c(2, 4), add = TRUE)
+
+str(st_cast(pnganz, "MULTILINESTRING")[1])
 str(pnganz[1, "geometry"])
 ```
 
-If we convert these data to "normal form", we actually need at least three tables, one each for the objects, the paths, and the coordinates (vertices). The `map_table` function in the `spbabel` package creates these but also adds another link table between paths and vertices to enable de-duplication of shared vertices. The de-duplication is required for triangulating the polygons, and other topological operations. 
+If we convert these data to "normal form", we actually need at least three tables, one each for the objects, the paths, and the coordinates (vertices). The `PATH` function in the `sc` package creates these but also adds another link table between paths and vertices to enable de-duplication of shared vertices. The de-duplication is required for triangulating the polygons, and other topological operations. 
 
 ```{r}
 ptabs <- sc::PATH(p)
@@ -107,7 +103,7 @@ The paths-link-vertex table records the relationship between vertices and paths 
 This is the *instances of vertices* as opposed to the unique paired values of coordinates themselves. 
 
 ```{r}
-ptabs$bXv
+ptabs$path_link_vertex
 ```
 
 And finally the vertices. In this example there are fewer unique x-y vertex than there are **instance of the vertices**, not a one-to-one match. This discrepancy obviously increases greatly for layers with shared boundaries, though in this example it is mostly due to the final closing coordinate on each polygon path - it's a repeated instance, but not a repeated vertex *value*.  There is at least one shared edge in this layer, clearly the one between Indonesia and Papua New Guinea. 
@@ -154,13 +150,16 @@ as.data.frame(lapply(lsegment, nrow))
 
 ```{r,eval=FALSE,include=FALSE}
 library(geosphere)
-library(rangl)
-x <- globe(rangl(SpatialMultiPoints(list(randomCoordinates(5e4)), 
-                   proj4string = CRS("+proj=longlat +ellps=WGS84 +no_defs"))), 
-           "+proj=geocent +a=1")
+#library(rangl)
+#x <- globe(rangl(SpatialMultiPoints(list(randomCoordinates(5e4)), 
+#                   proj4string = CRS("+proj=longlat +ellps=WGS84 +no_defs"))), 
+#           "+proj=geocent +a=1")
+x <- st_as_sf(as.data.frame(randomCoordinates(5e4)), coords = c("lon", "lat"), crs = 4326)
+x <- PATH(x)
 
-tri <- geometry::convhulln(cbind(x$v$x_, x$v$y_, x$v$z_))
-rgl::triangles3d(cbind(x$v$x_, x$v$y_, x$v$z_)[t(tri), ], 
+xyz <- proj4::ptransform(cbind(x$vertex$x_, x$vertex$y_, 0), st_crs(x)$proj4string, "+proj=geocent +a=1")
+tri <- geometry::convhulln(cbind(x$vertex$x_, x$vertex$y_, x$vertex$z_))
+rgl::triangles3d(cbind(x$vertex$x_, x$vertex$y_, x$vertex$z_)[t(tri), ], 
                  specular = "black", 
                  color = "skyblue", alpha = 0.4)
 
@@ -306,8 +305,8 @@ This is a four-table decomposition of Spatial objects, a normalization of the fo
 ```{r ,eval = FALSE}
 library(spbabel)
 mp <- map_table(spgdf)
-ggcols <- ggplot2::scale_fill_manual(values = setNames(c("grey", "firebrick"), mp$o$object_))
-gg <- ggplot(mp$o %>% inner_join(mp$b) %>% inner_join(mp$bXv) %>% inner_join(mp$v))
+ggcols <- ggplot2::scale_fill_manual(values = setNames(c("grey", "firebrick"), mp$object$object_))
+gg <- ggplot(mp$object %>% inner_join(mp$path) %>% inner_join(mp$path_link_vertex) %>% inner_join(mp$vertex))
 gg + aes(x = x_, y = y_, group = path_, fill = object_) + ggcols + ggpolypath::geom_polypath() + geom_path(lwd = 2)
 ```
 
@@ -320,13 +319,13 @@ Note in the second plot we identify "nodes", and that there are two segments tha
 
 ```{r, eval = FALSE}
 p2seg <- function(x) as_tibble(rangl:::path2seg(x$vertex_))
-BxE <- mp$bXv %>% split(.$path_) %>% purrr::map(p2seg) %>% bind_rows(.id = "path_") 
+BxE <- mp$path_link_vertex %>% split(.$path_) %>% purrr::map(p2seg) %>% bind_rows(.id = "path_") 
 ggplot(BxE %>% inner_join(mp$v %>% rename(x = x_, y = y_), c("V1" = "vertex_")) %>% 
                             inner_join(mp$v, c("V2" = "vertex_"))) + 
   geom_segment(aes(x = x, y = y, xend = x_, yend = y_, colour = V1)) #+ guides(colour = FALSE)
 
 
-uE <- mp$bXv %>% split(.$path_) %>% purrr::map(p2seg) %>% bind_rows(.id = "path_")%>% mutate(edge_ = row_number()) %>% 
+uE <- mp$path_link_vertex %>% split(.$path_) %>% purrr::map(p2seg) %>% bind_rows(.id = "path_")%>% mutate(edge_ = row_number()) %>% 
    mutate(uu = paste(pmin(V1, V2), pmax(V1, V2), sep = "_")) %>% distinct(uu, .keep_all = TRUE)
 nodes <- bind_rows(mp$v %>% dplyr::select(vertex_) %>% inner_join(uE, c("vertex_" = "V1")), 
           mp$v %>% dplyr::select(vertex_) %>% inner_join(uE, c("vertex_" = "V2"))) %>% 
