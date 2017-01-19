@@ -68,12 +68,13 @@ This package is intended to provide support to the `common form` approach descri
 
 * **rbgm** - [Atlantis Box Geometry Model](https://github.com/AustralianAntarcticDivision/rbgm), a "doubly-connected edge-list" form of linked faces and boxes in a spatially-explicit 3D ecosystem model
 * **rangl** - [Primitives for Spatial data](https://github.com/r-gris/rangl), a generalization of GIS forms with simple 3D plotting
-* **spbabel** - [Translators for R Spatial](https://github.com/mdsumner/spbabel), tools to convert from and to spatial forms, provides the general decomposition framework for branches, used by `rangl`
+* **spbabel** - [Translators for R Spatial](https://github.com/mdsumner/spbabel), tools to convert from and to spatial forms, provides the general decomposition framework for paths, used by `rangl`
 * **sfct** - [Constrained Triangulation for Simple Features](https://github.com/r-gris/sfct) tools to decompose `simple features` into (non-mesh-indexed) primitives. 
 
 
 ## Design
 
+<<<<<<< HEAD
 We use the following words in a specified sense, denoting a hierarchy of sorts in order from highest to lowest with layer, object, branch (or path), primitives, coordinates, and vertices. 
 
 The current design uses capitalized function names `BRANCH`, `PRIMITIVE` ... that act on layers, while prefixed lower-case function names produce or derive the named entity at a given level for a given input. E.g. `sc_branch` will decompose all the geometries in an `sf` layer to the BRANCH model and return them in generic form. `BRANCH` will decompose the layer as a whole, including the component geometries. 
@@ -82,7 +83,14 @@ The current design uses capitalized function names `BRANCH`, `PRIMITIVE` ... tha
 
 The `PRIMITIVE` function decomposes a layer into actual primitives, rather than "paths", these are point, line segment, triangle, tetrahedron, and so on. 
 
-There are decomposition functions for lower-level  `sf` objects organized as `sc_branch`, `sc_coord`, and `sc_object`. `sc_branch` does all the work, building a simple map of all the parts and the vertex count. This is used to classify the vertex table when it is extracted, which makes the unique-id management for branch-vertex normalization much simpler than it was in `gris` or `rangl`. 
+Currently `PATH()` and `PRIMITIVE` are the highest level functions to decompose simple features objects.  
+
+
+There are decomposition functions for lower-level  `sf` objects organized as `sc_path`, `sc_coord`, and `sc_object`. `sc_path` does all the work, building a simple map of all the parts and the vertex count. This is used to classify the vertex table when it is extracted, which makes the unique-id management for path-vertex normalization much simpler than it was in `gris` or `rangl`. 
+
+
+
+**NOTE:** earlier versions of this used the concept of "branch" rather than path, so there is some ongoing migration of the use of these words. *Branch* is a more general concept than implemented in geo-spatial systems generally, and so  *path* is more accurate We reserve branch for possible future models that are general.  A "point PATH" has meaning in the sense of being a single-vertex "path", and so a multipoint is a collection of these degenerate forms. "Path" as a concept is clearly rooted in optimization suited to planar forms, and so is more accurate than "branch". 
  
  In our terminology a branch or path is the group between the raw geometry and the objects, and so applies to a connected polygon ring, closed or open linestring, a single coordinate with a multipoint (a path with one vertex). In this scheme a polygon ring and a closed linestring are exactly the same (since they actually are exactly the same) and there are no plane-filling branches, or indeed volume-filling branches. This is a clear limitation of the branch model and it matches that used by GIS. 
  
@@ -100,16 +108,17 @@ library(sf)
 nc = st_read(system.file("shape/nc.shp", package="sf"))
 ```
 
-The common form is the entity tables, objects, branches, vertices and a link table to allow de-duplication of shared vertices. Currently this de-duplication is done on all coordinate fields, but for most applications it will usually be done only in X-Y. 
+The common form is the entity tables, objects, paths, vertices and a link table to allow de-duplication of shared vertices. Currently this de-duplication is done on all coordinate fields, but for most applications it will usually be done only in X-Y. 
 
 ```{r}
 library(sc)
 nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
 
-(bmodel <- BRANCH(nc))
+
+(bmodel <- PATH(nc))
 ```
 
-Prove that things work by round-tripping to the BRANCH model and onto the old fortify approach for `ggplot2`. 
+Prove that things work by round-tripping to the PATH model and onto the old fortify approach for `ggplot2`. 
 
 ```{r}
 inner_cascade <- function(x) {
@@ -124,7 +133,7 @@ library(dplyr)
 tab <- bmodel  %>% inner_cascade()
 
 library(ggplot2)
-ggplot(tab) + aes(x = x_, y = y_, group = branch_) + 
+ggplot(tab) + aes(x = x_, y = y_, group = path_) + 
   geom_polygon(aes(fill = AREA)) +  geom_path(lwd = 2, col = "black") 
 ```
 
@@ -133,17 +142,17 @@ What about polygons with holes and lots of tiny complicated parts.
 ```{r}
 data("inlandwaters")
 
-iw <- BRANCH(inlandwaters)
+iw <- PATH(inlandwaters)
 
 str(iw)
 
 tab <- iw  %>% inner_cascade()
 
 library(ggplot2)
-ggplot(tab) + aes(x = x_, y = y_, group = branch_) + 
+ggplot(tab) + aes(x = x_, y = y_, group = path_) + 
   ggpolypath::geom_polypath(aes(fill = Province)) +  geom_path(col = "black") 
 
-ggplot(tab %>% filter(Province == "South Australia")) + aes(x = x_, y = y_, group = branch_) + 
+ggplot(tab %>% filter(Province == "South Australia")) + aes(x = x_, y = y_, group = path_) + 
   ggpolypath::geom_polypath(fill = "dodgerblue") +  geom_path(col = "black") + coord_fixed()
 
 ```

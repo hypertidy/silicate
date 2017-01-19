@@ -20,7 +20,7 @@ sfcoords <- function(x, ...) tibble::as_tibble(m_v(x))
 
 #' Coordinate decomposition
 #' 
-#' Collect all coordinates in one table, the branch_link_vertex table
+#' Collect all coordinates in one table, the path_link_vertex table
 #' has the information about the original grouping.  
 #' 
 #' @param x input object
@@ -28,8 +28,8 @@ sfcoords <- function(x, ...) tibble::as_tibble(m_v(x))
 #'
 #' @name sc_coord
 #' @export
-#' @seealso `sc_branch` for the central part of the model, `sc_object` for 
-#' the features, and `BRANCH` for the full model. 
+#' @seealso `sc_path` for the central part of the model, `sc_object` for 
+#' the features, and `PATH` for the full model. 
 #' @examples 
 #' data("sfzoo")
 #' lapply(sfzoo, sc_coord)

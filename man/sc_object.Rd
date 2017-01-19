@@ -24,7 +24,7 @@ nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 sc_object(nc)
 }
 \seealso{
-`sc_coord` for the coordinates part of the model, `sc_branch` for 
-the central part of the model, and `BRANCH` for the full model.
+`sc_coord` for the coordinates part of the model, `sc_path` for 
+the central part of the model, and `PATH` for the full model.
 }
 

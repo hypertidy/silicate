@@ -60,7 +60,7 @@ The multiple-table-in-list approach described here is used in the following pack
 
 * **rbgm** - [Atlantis Box Geometry Model](https://github.com/AustralianAntarcticDivision/rbgm), a "doubly-connected edge-list" form of linked faces and boxes in a spatially-explicit 3D ecosystem model
 * **rangl** - [Primitives for Spatial data](https://github.com/r-gris/rangl), a generalization of GIS forms with simple 3D plotting
-* **spbabel** - [Translators for R Spatial](https://github.com/mdsumner/spbabel), tools to convert from and to spatial forms, provides the general decomposition framework for branches, used by `rangl`
+* **spbabel** - [Translators for R Spatial](https://github.com/mdsumner/spbabel), tools to convert from and to spatial forms, provides the general decomposition framework for paths, used by `rangl` (paths are called "branches" in rangl).
 
 # Hierarchical spatial data 
 
@@ -78,17 +78,17 @@ There are four main categories in the classification which will drive the set of
 * Bespoke hierarchical (nested lists of things)
 * Tidy hierarchical (nested data frames, single or double)
 * Fortify (two tables, geometry and object metadata)
-* Branch (three tables, coordinates, branches, objects)
+* Path (three tables, coordinates, paths, objects)
 * Primitives (usually four tables, object, primitives, links, vertices)
 
 Each of these forms has direct applications for a variety of tasks, either for transferring between forms or for applications that are more efficient in a given form. 
 
 Key advantages of each form
 
-* in the branch model parts are identifiable and track-able - i.e. size of rings, length of line strings - in simple features we need to explode an object, badge every part with an ID and track those
+* in the path model parts are identifiable and track-able - i.e. size of rings, length of line strings - in simple features we need to explode an object, badge every part with an ID and track those
 * higher dimensional topological forms are provided naturally, the 2D primitives approach fits naturally as an extension to 1D primitives model
-* entity tables provide unlimited room for extra information in the right places, i.e. length, area, duration, name can be stored on branches or primitives as needed and used for aesthetics in visualizations. For a triangulated surface with a Z geometry, this belongs on the unique vertex table and not on the link-instances-of-coordinates. For GPS data, we can densify the X-Y planar coordinates (i.e intersecting tracks at a depot) while keeping individual track time, measurement information on the link-instance table. 
-* The branch and primitives models may be combined, so that the branch table records the way the original simple features are constructed by a branch-link-primitives table - so we can have a perfect record of the original data, recreatable if needed - or completely reworked by operations on primitives that when recombined provide a modified object.
+* entity tables provide unlimited room for extra information in the right places, i.e. length, area, duration, name can be stored on paths or primitives as needed and used for aesthetics in visualizations. For a triangulated surface with a Z geometry, this belongs on the unique vertex table and not on the link-instances-of-coordinates. For GPS data, we can densify the X-Y planar coordinates (i.e intersecting tracks at a depot) while keeping individual track time, measurement information on the link-instance table. 
+* The path and primitives models may be combined, so that the path table records the way the original simple features are constructed by a path-link-primitives table - so we can have a perfect record of the original data, recreatable if needed - or completely reworked by operations on primitives that when recombined provide a modified object.
 
 
 # Relation to the grammars

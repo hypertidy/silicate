@@ -7,11 +7,11 @@ x <- nc #st_as_sf(wrld_simpl)
 ## ANSWERE: st_polygon is slow because it does a lot of checking, we don't need any checking to make a triangle POLYGON here
 coords <- a.primitives:::objects_as_df(x)
 coords[["vertex_"]] <- as.integer(factor(paste(coords[["x"]], coords[["y"]], sep = "-")))
-b_link_v <- coords[, c("branch_", "vertex_")]
+b_link_v <- coords[, c("path_", "vertex_")]
 vertices <- coords[!duplicated(b_link_v[["vertex_"]]), c("x", "y", "vertex_")]
 vertices <- vertices[order(vertices[["vertex_"]]), ]
 
-segments <- do.call(rbind, lapply(split(b_link_v[["vertex_"]], b_link_v[["branch_"]]),
+segments <- do.call(rbind, lapply(split(b_link_v[["vertex_"]], b_link_v[["path_"]]),
                                   function(x) a.primitives:::path_to_seg(x))
 )
 ## do we need to remove duplicated segments??
