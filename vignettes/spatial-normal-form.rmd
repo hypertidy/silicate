@@ -20,6 +20,8 @@ library(dplyr)
 ```
 
 
+NOTE THIS IS WIP
+
 
 # Spatial normal forms
 
@@ -144,6 +146,7 @@ The next step in topological relationships is to represent each *segment* of a l
 This has been implemented in the function `PRIMITIVE`. 
 
 ```{r}
+library(sc)
 lsegment <- PRIMITIVE(st_as_sf(as(as(pnganz,"Spatial"), "SpatialLinesDataFrame")))
 as.data.frame(lapply(lsegment, nrow))
 ```
@@ -179,12 +182,12 @@ lines(lsegment$vertex$x_, lsegment$vertex$y_, col = viridis::viridis(4))
 
 Not surprisingly, our connected line doesn't make much sense, but worse our attempts at applying multiple colours was completely unsuccessful. Segments to the rescue. 
 
-```{r}
+```{r, eval = FALSE}
 par(mar = rep(0, 4))
 plot(lsegment$vertex$x_, lsegment$vertex$y_, asp = 1, pch = ".", axes = FALSE)
 lsegment$o$color <- viridis::viridis(nrow(lsegment$o))
 #segs <- lsegment$l %>% inner_join(lsegment$o %>% select(object_, color)) %>% inner_join(lsegment$lXv) %>% select(color, vertex_, segment_) %>% inner_join(lsegment$vertex)
-segs <- lsegment$lXv %>% inner_join(lsegment$l) %>% inner_join(lsegment$o %>% dplyr::select(object_, color)) %>% dplyr::select(color, vertex_, segment_) %>% inner_join(lsegment$vertex)
+segs <- lsegment$segment %>% inner_join(lsegment$path) %>% inner_join(lsegment$object %>% dplyr::select(object_, color)) %>% dplyr::select(color, vertex_, segment_) %>% inner_join(lsegment$vertex)
 ix <- seq(1, nrow(segs)-1, by  = 2);  segments(segs$x_[ix], segs$y_[ix], segs$x_[ix + 1], segs$y_[ix+1], col = segs$color[ix], lwd = 4)
 ```
 
