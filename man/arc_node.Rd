@@ -13,12 +13,12 @@ arc_node(x, ...)
 \method{arc_node}{PRIMITIVE}(x, ...)
 }
 \arguments{
-\item{x}{}
+\item{x}{input model}
 
-\item{...}{}
+\item{...}{arguments to methods}
 }
 \value{
-`tbl_df`
+`tbl_df` of the node coordinates
 }
 \description{
 Arcs are unbranched paths within the line segment graph. Nodes are the vertices where three or more arcs meet.

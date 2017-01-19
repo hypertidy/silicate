@@ -2,13 +2,13 @@
 % Please edit documentation in R/primitives_1D.r
 \name{PRIMITIVE}
 \alias{PRIMITIVE}
-\alias{PRIMITIVE.BRANCH}
+\alias{PRIMITIVE.PATH}
 \alias{PRIMITIVE.sf}
 \title{Generate a PRIMITIVES model.}
 \usage{
 PRIMITIVE(x, ...)
 
-\method{PRIMITIVE}{BRANCH}(x, ...)
+\method{PRIMITIVE}{PATH}(x, ...)
 
 \method{PRIMITIVE}{sf}(x, ...)
 }

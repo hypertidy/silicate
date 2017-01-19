@@ -2,7 +2,7 @@
 % Please edit documentation in R/primitives_1D.r
 \name{sc_primitive}
 \alias{sc_primitive}
-\title{Given a `BRANCH`` model decompose to 1-dimensional primitives.}
+\title{Given a `PATH`` model decompose to 1-dimensional primitives.}
 \usage{
 sc_primitive(x, ...)
 }
@@ -11,11 +11,11 @@ sc_primitive(x, ...)
 
 \item{...}{arguments passed to methods
 sf_obj <- inlandwaters[5, ]
-obj <- BRANCH(sf_obj)
+obj <- PATH(sf_obj)
 prim <- sc_primitive(obj)
 sf_pslg <- PRIMITIVE(sf_obj)}
 }
 \description{
-Given a `BRANCH`` model decompose to 1-dimensional primitives.
+Given a `PATH`` model decompose to 1-dimensional primitives.
 }
 

@@ -36,7 +36,7 @@ sc_coord(x, ...)
 \item{...}{arguments passed to methods}
 }
 \description{
-Collect all coordinates in one table, the branch_link_vertex table
+Collect all coordinates in one table, the path_link_vertex table
 has the information about the original grouping.
 }
 \examples{
@@ -46,7 +46,7 @@ sc_coord(sf::st_sfc(sfzoo))
 sc_coord(sf::st_sfc(sfzoo))
 }
 \seealso{
-`sc_branch` for the central part of the model, `sc_object` for 
-the features, and `BRANCH` for the full model.
+`sc_path` for the central part of the model, `sc_object` for 
+the features, and `PATH` for the full model.
 }
 

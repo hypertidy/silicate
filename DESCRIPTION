@@ -10,9 +10,12 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Suggests:
+    foreign,
+    sp, 
     testthat
 RoxygenNote: 5.0.1
 Imports: dplyr,
     ids,
-    sf,
+    purrr,
+    sf (<= 0.2-7),
     tibble

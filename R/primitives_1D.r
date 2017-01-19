@@ -3,11 +3,11 @@
 #' 
 #' Arcs are unbranched paths within the line segment graph. Nodes are the vertices where three or more arcs meet. 
 #'
-#' @param x 
-#' @param ... 
+#' @param x input model
+#' @param ... arguments to methods
 #'
-#' @return `tbl_df`
-#' @export
+#' @return `tbl_df` of the node coordinates
+#' @export 
 #'
 #' @examples
 #' x <- sf::st_read(system.file("extdata/file.geojson", package= "sc"))
@@ -29,9 +29,9 @@ arc_node.sf <- function(x, ...) {
 arc_node.PRIMITIVE <- function(x, ...) {
   p2seg <- function(x) tibble::as_tibble(path_to_segment(x$vertex_))
   
-  unique_edges <- x$branch_link_vertex %>% split(.$branch_) %>% 
+  unique_edges <- x$path_link_vertex %>% split(.$path_) %>% 
     purrr::map(p2seg) %>% 
-    dplyr::bind_rows(.id = "branch_")%>% dplyr::mutate(edge_ = row_number()) %>% 
+    dplyr::bind_rows(.id = "path_")%>% dplyr::mutate(edge_ = row_number()) %>% 
     dplyr::mutate(uu = paste(pmin(.vertex0, .vertex1), pmax(.vertex0, .vertex1), sep = "_")) %>% 
     dplyr::distinct(uu, .keep_all = TRUE)
   
@@ -52,30 +52,30 @@ path_to_segment <- function(x, id = NULL) {
   ## this is a trick of array logic to generate paired indexes from a sequence
   x <- stats::setNames(tibble::as_tibble(utils::head(suppressWarnings(matrix(x, nrow = length(x) + 1, ncol = 2, byrow = FALSE)), -2L)), 
            c(".vertex0", ".vertex1"))
-  if (!is.null(id)) x[["branch_"]] <- id
+  if (!is.null(id)) x[["path_"]] <- id
   x
 }
 
-#' Given a `BRANCH`` model decompose to 1-dimensional primitives. 
+#' Given a `PATH`` model decompose to 1-dimensional primitives. 
 #' 
 #' @param x input object
 #' @param ... arguments passed to methods
 #' sf_obj <- inlandwaters[5, ]
-#' obj <- BRANCH(sf_obj)
+#' obj <- PATH(sf_obj)
 #' prim <- sc_primitive(obj)
 #' sf_pslg <- PRIMITIVE(sf_obj)
 #' @importFrom dplyr %>% inner_join mutate 
 sc_primitive <- function(x, ...) UseMethod("sc_primitive")
-sc_primitive.BRANCH <- function(x, ...) {
+sc_primitive.PATH <- function(x, ...) {
   v <- x$vertex 
-  bXv <- x$branch_link_vertex
+  bXv <- x$path_link_vertex
   all_coordinates <- dplyr::inner_join(bXv, v, "vertex_")
   
   ## this is a subset of RTriangle::pslg (because the original target was RTriangle::triangulate)
   #pstraight_lgraph <- list(P = as.matrix(v[, c("x_", "y_")]),
   ## only need S for 1D
-  segment_longform <- dplyr::bind_rows(lapply(split(all_coordinates, all_coordinates$branch_),
-                                         function(x) path_to_segment(x$vertex_, x$branch_[1L])))
+  segment_longform <- dplyr::bind_rows(lapply(split(all_coordinates, all_coordinates$path_),
+                                         function(x) path_to_segment(x$vertex_, x$path_[1L])))
   
   
   segment_longform[["segment_"]] <- sc_rand(n = nrow(segment_longform))     
@@ -120,14 +120,14 @@ sc_primitive.BRANCH <- function(x, ...) {
 PRIMITIVE <- function(x, ...) UseMethod("PRIMITIVE")
 #' @name PRIMITIVE
 #' @export
-PRIMITIVE.BRANCH <- function(x, ...) {
+PRIMITIVE.PATH <- function(x, ...) {
   x$segment <- sc_primitive(x)
   x
 }
 #' @name PRIMITIVE
 #' @export
 PRIMITIVE.sf <- function(x, ...) {
-  x <- BRANCH(x) %>% PRIMITIVE()
+  x <- PATH(x) %>% PRIMITIVE()
   class(x) <-  c("PRIMITIVE", class(x))
   x
 }
@@ -149,12 +149,12 @@ PRIMITIVE.sf <- function(x, ...) {
 st_as_sf.PRIMITIVE <- function(x, ...) {
   ol <- vector("list", nrow(x$object))
   for (i_obj in seq(nrow(x$object))) {
-   branch <- x$object[i_obj, ] %>% dplyr::select(object_) %>% 
-     inner_join(x$branch) 
-   brl <- vector("list", nrow(branch))
-    for (i_br in seq(nrow(branch))) {
-      br_0 <- branch[i_br, ] %>% 
-     inner_join(x$branch_link_vertex) %>% 
+   path <- x$object[i_obj, ] %>% dplyr::select(object_) %>% 
+     inner_join(x$path) 
+   brl <- vector("list", nrow(path))
+    for (i_br in seq(nrow(path))) {
+      br_0 <- path[i_br, ] %>% 
+     inner_join(x$path_link_vertex) %>% 
      inner_join(x$vertex) %>% 
      split(.$island_)
       ## not getting holes properly
