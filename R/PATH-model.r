@@ -38,10 +38,6 @@ PATH.default  <- function(x, ...) {
   paste_ <- function(...) paste(..., sep = "_")
   v_factor <- factor(do.call(paste_, v))
   id <- sc_rand(n = nlevels(v_factor))
-#<<<<<<< HEAD:R/BRANCH-model.r
-#  bXv <- tibble::tibble(branch_ = rep(b$branch_, b$ncoords_))
-#  bXv[["order_"]] <- unlist(lapply(split(bXv[["branch_"]], bXv[["branch_"]]), seq_along))
-#=======
   bXv <- tibble::tibble(path_ = rep(b$path_, b$ncoords_))
   v[["vertex_"]] <- bXv[["vertex_"]] <- id[v_factor]
   v <- dplyr::distinct_(v, "vertex_", .keep_all = TRUE)

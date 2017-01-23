@@ -48,7 +48,6 @@ data("sfzoo")
 lapply(sfzoo, sc_path)
 sc_path(sf::st_sfc(sfzoo))
 sc_path(sf::st_sfc(sfzoo))
-
 sc_path(sfzoo$multipolygon)
 sc_path(sfzoo$polygon)
 sc_path(sfzoo$linestring)

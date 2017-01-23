@@ -50,10 +50,11 @@ sc_path.sfc <- function(x, ids = NULL, ...) {
 #' @name sc_path
 #' @export
 #' @examples 
-#' 
+#' @importFrom dplyr bind_rows mutate row_number
+#' @examples
 #' sc_path(sfzoo$multipolygon)
 sc_path.MULTIPOLYGON <- function(x, ...) {
-  dplyr::bind_rows(lapply(x, sc_list), .id = "island_")
+  dplyr::bind_rows(lapply(x, sc_list), .id = "island_") 
 }
 #' @name sc_path
 #' @export
