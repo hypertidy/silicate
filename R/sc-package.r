@@ -4,6 +4,12 @@
 #' @docType package
 NULL
 
+#' Minimal mesh. 
+#' 
+#' The simplest pairing of two polygons with one shared edge. 
+#' @name minimal_mesh
+#' @docType package
+NULL
 
 #' Simple features zoo.
 #' 
