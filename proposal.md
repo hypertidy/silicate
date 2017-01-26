@@ -13,7 +13,31 @@ Note, this is a reduced version of this early description: https://github.com/r-
 
 # the problem
 
-There is no common  form for spatial data that covers the complexity of geometric and topological types widely used in R. The richness in R's specialist forms currently lacks a central language for conversion to generic storage and transmission. Most formats are either purely geometry and topology and fields with no aesthetics, or pure aesthetics baked-in to graphical primitives without the original data used to create the mappings. 
+There is no common  grammar of spatial data that covers the complexity of geometric and topological types widely used in R. The translation between geo-spatial forms and the graphics and data grammars is disjointed and sometimes awkward, relying on localized implementations that are lossy, inefficient, require awkward 3rd party i-o, redundant, ...
+
+Simple features is seen as a corner-stone resource for a central basis for translations but it is only able to provide this for a subset of the wider remit of "spatial data" in R. 
+
+Visualization and interactive exploration involves augmenting spatial data in terms of groups, mappings and scales but there is only limited ways to represent these augmented forms and work with them. The richness in R's specialist forms currently lacks a central language for conversion to generic storage and transmission. Most formats are either purely geometry and topology and fields with no aesthetics, or pure aesthetics baked-in to graphical primitives without the original data used to create the mappings. 
+
+## Primary motivations
+
+The simple features standard has the following limitations meaning that it cannot represent in-full every day objects from GPS, `rgl`, `ggplot2`/`ggvis`, `spatstat`, `maps`, TopoJSON, CAD drawings, 3D and general model structures. 
+
+* shapes are represented as paths so only planar polygonal shapes are possible
+* the standard allows for XY[Z[M]] geometry but is not extensible  - no capacity to store data against component geometry elements 
+* no capacity for internal topology (no vertex-, edge-, or path-sharing). 
+
+That simple features cannot store these in full means that many translation patterns either result in loss of information from the original form or require overloaded workarounds to keep track of the information outside of the core translation and re-apply it. Translations that are common are from format to format,  coordinate system geometry transformations, shape-modifying transformations. 
+
+## Secondary motivations
+
+
+
+Raster data in R is well-supported for affine-based georeferencing, but rectlinear (supported by `graphics::image` and curvilinear models (supported indirectly by `lattice::levelplot` and `ggplot2::?`) are representable only by explicit-expanded polygonal forms. 
+
+
+
+
 
 Examples
 
