@@ -52,11 +52,11 @@ Key outputs
 4. Implement a prototype general-form geo-spatial-graphics data structure that can store geometry, topology, aesthetic mappings to bridge the creation of hierarchical data in the tidyverse with its visualization and analysis. 
 
 
+WIP
 
 
 
-
-Examples
+# Extra details 
 
 Simple features cannot store TopoJSON topology. TopoJSON itself is only partially topological. Simple features cannot represent topology in the form of shared vertices, shared paths or shared primitives. Simple features provides grouping, in polygons as holes are grouped with their parent "island", paths are grouped with their object, coordinates are grouped with their path but all of this relational information is stored implicitly as structure. We cannot store identity against paths, and we cannot identify vertices that are expressed as coordinates across a data set between primitives, paths, or 
 
