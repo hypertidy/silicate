@@ -12,7 +12,7 @@ Supporting Authors: Simon Wotherspoon, Jessica Melbourne-Thomas, Phillipa Briche
 
 # the problem
 
-There is no common  grammar of spatial data that covers the complexity of geometric and topological types widely used in R. The translation between geo-spatial forms and the graphics and data grammars is disjointed and sometimes awkward, relying on localized implementations that can be lossy or inefficient, require awkward 3rd party workflows, and sometimes involve unnecessary redundant steps. 
+There is no common  grammar of spatial data that covers the complexity of geometric and topological types widely used in R. The translation between geo-spatial forms and the graphics and data grammars is disjointed and sometimes awkward, relying on localized implementations that can be lossy or inefficient, require awkward 3rd party workflows, and sometimes involve unnecessary tasks. 
 
 Simple features is seen as a corner-stone resource for a central basis for translations but it is only able to provide this for a subset of the wider remit of "spatial data" in R. 
 
