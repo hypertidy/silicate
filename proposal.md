@@ -9,7 +9,6 @@ Applicant: [Michael Sumner](https://github.com/mdsumner/), [Australian Antarctic
 
 Supporting Authors: Simon Wotherspoon, Jessica Melbourne-Thomas, Phillipa Bricher
 
-Note, this is a reduced version of this early description: https://github.com/r-gris/table-r-book/blob/master/01-2-overview.Rmd
 
 # the problem
 
@@ -31,9 +30,27 @@ That simple features cannot store these in full means that many translation patt
 
 ## Secondary motivations
 
-
-
 Raster data in R is well-supported for affine-based georeferencing, but rectlinear (supported by `graphics::image` and curvilinear models (supported indirectly by `lattice::levelplot` and `ggplot2::?`) are representable only by explicit-expanded polygonal forms. 
+
+
+# The plan
+
+Request for advice on key parties to contribute, funding for working groups and presentations. 
+
+Investigate best options for front-end user interfaces and back-end systems. 
+
+* lists of tables, as illustrated in proto-forms in spbabel, rangl, rbgm
+* sf-like forms, list-columns with shared-entity semantics
+* advanced techniques, environments, R6, with vertex/primitives pools
+* database or database-like connections in list-columns - nested tibbles that are back-ended?
+
+Key outputs
+
+1. Provide tools for decomposing geo-spatial and other complex data to common general forms. 
+2. Illustrate general workflow with tools to convert between `sf`, GeoJSON, TopoJSON, leaflet list-forms, and `rgl` and `plotly`
+3. Generate a classification of the broad class of "spatial data" in R that incorporates simple features and other forms and guides translation efforts across R packages. These are patterns that are for the most part user-accessible, so creating modified or specialized versions that are more efficient or better focussed for particular tasks will be straightforward. 
+4. Implement a prototype general-form geo-spatial-graphics data structure that can store geometry, topology, aesthetic mappings to bridge the creation of hierarchical data in the tidyverse with its visualization and analysis. 
+
 
 
 
@@ -48,23 +65,6 @@ This project aims to provide a system to re-express complex types without loss t
 The common form is scaleable in terms of memory and computation, but also in terms of geometric and topological dimensionality. Our existing prototypes illustrate that generality by supporting round-trip workflows of specialist multidimensional data forms. 
 
 
-# The plan
-
-Request for advice on key parties to contribute, funding for working groups and presentations. 
-
-Investigate best options for front-end user interfaces and back-end systems. 
-
-* lists of tables, as illustrated in proto-forms in spbabel, rangl, rbgm
-* sf-like forms, list-columns with shared-entity semantics
-* spooky techniques, like environments with vertex/primitives pools
-* database or database-like connections in list-columns - nested tibbles that are back-ended?
-
-Key outputs
-
-1. Provide tools for decomposing geo-spatial and other complex data to common general forms. 
-3. Document and promote use of the general principles and approach rather than localized implementations. Help the R community to generalize and reduce fragmentation. 
-4. Implement a prototype general-form geo-spatial-graphics data structure that can store geometry, topology, aesthetic mappings. 
-5. Document workflows for file formats and interchange requirements for the general form based on standard database techniques. 
 
 
 There is no way to augment  spatial data with user-driven visualization and interactivity, the standards used for spatial data tend to be either highly specialized and inflexible, or are simplified to the point of near or actual destruction.  Richer expressions built within R by users tend to be one-way or are converted to  forms that are richer in graphical and interactivity properties at the expense of losing the specialist rigour that the raw data was delivered with. 
