@@ -40,15 +40,16 @@ sc_coord <- function(x, ...) UseMethod("sc_coord")
 #' @examples
 #' sc_coord(sf::st_sfc(sfzoo))
 sc_coord.sf <- function(x, ...) {
-  sc_coord(sf::st_geometry(x))
+  sc_coord(sf::st_geometry(x), ...)
 }
 #' @importFrom dplyr bind_rows
 #' @name sc_coord
 #' @export
 #' @examples 
 #' sc_coord(sf::st_sfc(sfzoo))
-sc_coord.sfc <- function(x, ...) {
-  dplyr::bind_rows(lapply(x, sc_coord))
+sc_coord.sfc <- function(x,  ...) {
+  x <- lapply(x, sc_coord)
+  dplyr::bind_rows(x)
 }
 #' @name sc_coord
 #' @export
