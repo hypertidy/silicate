@@ -1,5 +1,5 @@
 ---
-title: "General forms for hierachical data"
+title: "General forms for hierarchical data"
 author: "Michael Sumner"
 date: "January 2017"
 output: html_document
@@ -10,13 +10,13 @@ Applicant: [Michael Sumner](https://github.com/mdsumner/), [Australian Antarctic
 Supporting Authors: Simon Wotherspoon, Jessica Melbourne-Thomas, Phillipa Bricher
 
 
-# the problem
+# The problem
 
-There is no common  grammar of spatial data that covers the complexity of geometric and topological types widely used in R. The translation between geo-spatial forms and the graphics and data grammars is disjointed and sometimes awkward, relying on localized implementations that can be lossy or inefficient, require awkward 3rd party workflows, and sometimes involve unnecessary tasks. 
+There is no common  grammar of spatial data that covers the complexity of geometric and topological types widely used in R. The translation between geo-spatial forms and the graphics and data grammars is disjointed and sometimes awkward, relying on localized implementations that can be lossy or inefficient, require 3rd party workflows, and sometimes involve unnecessary tasks. 
 
 Simple features is seen as a corner-stone resource for a central basis for translations but it is only able to provide this for a subset of the wider remit of "spatial data" in R. Topology in the form of component-element sharing (indexing of vertex, edge, arc, path) is not available to simple features, and while there are tools to generate it for certain  planar cases, these  are not explicitly available outside provided workflows. 
 
-Visualization and interactive exploration involves augmenting spatial data in terms of groups, mappings and scales but there is only limited ways to represent these augmented forms and work with them. The richness in R's specialist forms currently lacks a central language for conversion to generic storage and transmission. Most formats are either purely geometry and topology and fields with no aesthetics, or pure aesthetics baked-in to graphical primitives without the original data used to create the mappings. 
+Visualization and interactive exploration tools are used to augment raw spatial data in terms of groups, mappings and scales but there is only limited ways to represent these augmented forms and work with them. The richness in R's specialist forms currently lacks a central language for conversion to generic storage and transmission. Most formats are either purely geometry and topology and fields with no aesthetics, or pure aesthetics baked-in to graphical primitives without the original data used to create the mappings. 
 
 ## Primary motivations
 
