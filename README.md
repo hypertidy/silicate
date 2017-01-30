@@ -63,11 +63,11 @@ This package is intended to provide support to the `common form` approach descri
 Design
 ------
 
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD We use the following words in a specified sense, denoting a hierarchy of sorts in order from highest to lowest with layer, object, branch (or path), primitives, coordinates, and vertices.
+There is a hierarchy of sorts with layer, object, path, primitives, coordinates, and vertices.
 
-The current design uses capitalized function names `BRANCH`, `PRIMITIVE` ... that act on layers, while prefixed lower-case function names produce or derive the named entity at a given level for a given input. E.g. `sc_branch` will decompose all the geometries in an `sf` layer to the BRANCH model and return them in generic form. `BRANCH` will decompose the layer as a whole, including the component geometries.
+The current design uses capitalized function names `PATH`, `PRIMITIVE` ... that act on layers, while prefixed lower-case function names produce or derive the named entity at a given level for a given input. E.g. `sc_path` will decompose all the geometries in an `sf` layer to the PATH model and return them in generic form. `PATH` will decompose the layer as a whole, including the component geometries.
 
-`BRANCH()` is the main model used to decompose inputs, as it is the a more general form of the GIS idioms (simple features and georeferenced raster data) This treats connected *paths* as fully-fledged entities like vertices and objects are, creating a relational model that stores all *vertices* in one table, all *branches* in another, and and all highest-level *objects* in another. The BRANCH model also takes the extra step of *normalizing* vertices, finding duplicates in a given geometric space and creating an intermediate link table to record all *instances of the vertices*. The BRANCH model does not currently normalize branches, but this is something that could be done, and is close to what arc-node topology is.
+`PATH()` is the main model used to decompose inputs, as it is the a more general form of the GIS idioms (simple features and georeferenced raster data) This treats connected *paths* as fully-fledged entities like vertices and objects are, creating a relational model that stores all *vertices* in one table, all *paths* in another, and and all highest-level *objects* in another. The PATH model also takes the extra step of *normalizing* vertices, finding duplicates in a given geometric space and creating an intermediate link table to record all *instances of the vertices*. The PATH model does not currently normalize paths, but this is something that could be done, and is close to what arc-node topology is.
 
 The `PRIMITIVE` function decomposes a layer into actual primitives, rather than "paths", these are point, line segment, triangle, tetrahedron, and so on.
 
@@ -89,10 +89,10 @@ Example - sf to ggplot2 round trip
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.5.0, GDAL 2.1.1
+#> Linking to GEOS 3.5.0, GDAL 2.1.1, proj.4 4.9.3
 ## a MULTIPOLYGON layer
 nc = st_read(system.file("shape/nc.shp", package="sf"))
-#> Reading layer `nc' from data source `C:\inst\R\R\library\sf\shape\nc.shp' using driver `ESRI Shapefile'
+#> Reading layer `nc' from data source `C:\Users\michae_sum\R\win-library\3.3\sf\shape\nc.shp' using driver `ESRI Shapefile'
 #> converted into: MULTIPOLYGON
 #> Simple feature collection with 100 features and 14 fields
 #> geometry type:  MULTIPOLYGON
@@ -107,7 +107,7 @@ The common form is the entity tables, objects, paths, vertices and a link table 
 ``` r
 library(sc)
 nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
-#> Reading layer `nc.gpkg' from data source `C:\inst\R\R\library\sf\gpkg\nc.gpkg' using driver `GPKG'
+#> Reading layer `nc.gpkg' from data source `C:\Users\michae_sum\R\win-library\3.3\sf\gpkg\nc.gpkg' using driver `GPKG'
 #> Simple feature collection with 100 features and 14 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
@@ -138,48 +138,48 @@ nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
 #> # A tibble: 108 × 4
 #>    island_ ncoords_    path_  object_
 #>      <chr>    <int>    <chr>    <chr>
-#> 1        1       27 2b738585 9653dacf
-#> 2        1       26 28a31343 fb6d93e4
-#> 3        1       28 441e9e26 56caefb5
-#> 4        1       26 dfa44e6b c888d6cb
-#> 5        2        7 eaf17a73 c888d6cb
-#> 6        3        5 0e299297 c888d6cb
-#> 7        1       34 d5684021 277ab04f
-#> 8        1       22 fe57c50c 23a38955
-#> 9        1       24 49a548aa 9dd72ed4
-#> 10       1       17 5f09d0fb cd29da79
+#> 1        1       27 95ca1efd 119514e0
+#> 2        1       26 9880c57f b64112fc
+#> 3        1       28 bffe4d58 418ced2f
+#> 4        1       26 d6a72076 c049045f
+#> 5        2        7 8e33692e c049045f
+#> 6        3        5 051f0258 c049045f
+#> 7        1       34 245c3b0d 17448c3b
+#> 8        1       22 86db9261 fabdc85f
+#> 9        1       24 67634cce 3c4bd64f
+#> 10       1       17 a72b4990 0198966c
 #> # ... with 98 more rows
 #> 
 #> $vertex
 #> # A tibble: 1,255 × 3
 #>           x_       y_  vertex_
 #>        <dbl>    <dbl>    <chr>
-#> 1  -81.47276 36.23436 879a6178
-#> 2  -81.54084 36.27251 3934b73a
-#> 3  -81.56198 36.27359 b7ca5ce2
-#> 4  -81.63306 36.34069 6ec6be95
-#> 5  -81.74107 36.39178 f7867aef
-#> 6  -81.69828 36.47178 7e9276a3
-#> 7  -81.70280 36.51934 a3f344f3
-#> 8  -81.67000 36.58965 fcb6ca20
-#> 9  -81.34530 36.57286 10305836
-#> 10 -81.34754 36.53791 fc2818f9
+#> 1  -81.47276 36.23436 15f93a94
+#> 2  -81.54084 36.27251 3bb00bf8
+#> 3  -81.56198 36.27359 2663999d
+#> 4  -81.63306 36.34069 51899b42
+#> 5  -81.74107 36.39178 da046c38
+#> 6  -81.69828 36.47178 d66bdcdc
+#> 7  -81.70280 36.51934 6e58a217
+#> 8  -81.67000 36.58965 45bff493
+#> 9  -81.34530 36.57286 19349afd
+#> 10 -81.34754 36.53791 2ef4a130
 #> # ... with 1,245 more rows
 #> 
 #> $path_link_vertex
 #> # A tibble: 2,529 × 2
 #>       path_  vertex_
 #>       <chr>    <chr>
-#> 1  2b738585 879a6178
-#> 2  2b738585 3934b73a
-#> 3  2b738585 b7ca5ce2
-#> 4  2b738585 6ec6be95
-#> 5  2b738585 f7867aef
-#> 6  2b738585 7e9276a3
-#> 7  2b738585 a3f344f3
-#> 8  2b738585 fcb6ca20
-#> 9  2b738585 10305836
-#> 10 2b738585 fc2818f9
+#> 1  95ca1efd 15f93a94
+#> 2  95ca1efd 3bb00bf8
+#> 3  95ca1efd 2663999d
+#> 4  95ca1efd 51899b42
+#> 5  95ca1efd da046c38
+#> 6  95ca1efd d66bdcdc
+#> 7  95ca1efd 6e58a217
+#> 8  95ca1efd 45bff493
+#> 9  95ca1efd 19349afd
+#> 10 95ca1efd 2ef4a130
 #> # ... with 2,519 more rows
 #> 
 #> attr(,"class")
@@ -233,22 +233,22 @@ str(iw)
 #>  $ object          :Classes 'tbl_df', 'tbl' and 'data.frame':    6 obs. of  3 variables:
 #>   ..$ ID      : int [1:6] 103841 103842 103843 103846 103847 103848
 #>   ..$ Province: chr [1:6] "Australian Capital Territory" "New Caledonia" "New South Wales" "South Australia" ...
-#>   ..$ object_ : chr [1:6] "42a7734b" "a8f70145" "c7a0128e" "93681709" ...
+#>   ..$ object_ : chr [1:6] "b4861691" "29fb84cf" "f37c5963" "3bd4f0ed" ...
 #>   ..- attr(*, "sf_column")= chr "geom"
 #>   ..- attr(*, "relation_to_geometry")= Factor w/ 3 levels "constant","aggregate",..: NA NA
 #>   .. ..- attr(*, "names")= chr [1:2] "ID" "Province"
 #>  $ path            :Classes 'tbl_df', 'tbl' and 'data.frame':    189 obs. of  4 variables:
 #>   ..$ island_ : chr [1:189] "1" "1" "1" "1" ...
 #>   ..$ ncoords_: int [1:189] 280 27 7310 68 280 88 162 119 51 71 ...
-#>   ..$ path_   : chr [1:189] "3c8af761" "75d70865" "da0bff77" "4fab375d" ...
-#>   ..$ object_ : chr [1:189] "42a7734b" "a8f70145" "c7a0128e" "c7a0128e" ...
+#>   ..$ path_   : chr [1:189] "5003ddb1" "f45b08a8" "b4315760" "de2bc311" ...
+#>   ..$ object_ : chr [1:189] "b4861691" "29fb84cf" "f37c5963" "f37c5963" ...
 #>  $ vertex          :Classes 'tbl_df', 'tbl' and 'data.frame':    30835 obs. of  3 variables:
 #>   ..$ x_     : num [1:30835] 1116371 1117093 1117172 1117741 1117629 ...
 #>   ..$ y_     : num [1:30835] -458419 -457111 -456893 -456561 -455510 ...
-#>   ..$ vertex_: chr [1:30835] "a76b8598" "9bb17bb5" "1c551c85" "700a44d6" ...
+#>   ..$ vertex_: chr [1:30835] "bfe9d082" "c5e66743" "00ce06f9" "2259e65f" ...
 #>  $ path_link_vertex:Classes 'tbl_df', 'tbl' and 'data.frame':    33644 obs. of  2 variables:
-#>   ..$ path_  : chr [1:33644] "3c8af761" "3c8af761" "3c8af761" "3c8af761" ...
-#>   ..$ vertex_: chr [1:33644] "a76b8598" "9bb17bb5" "1c551c85" "700a44d6" ...
+#>   ..$ path_  : chr [1:33644] "5003ddb1" "5003ddb1" "5003ddb1" "5003ddb1" ...
+#>   ..$ vertex_: chr [1:33644] "bfe9d082" "c5e66743" "00ce06f9" "2259e65f" ...
 #>  - attr(*, "class")= chr [1:2] "PATH" "sc"
 #>  - attr(*, "join_ramp")= chr [1:4] "object" "path" "path_link_vertex" "vertex"
 

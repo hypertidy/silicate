@@ -13,23 +13,37 @@ Note, this is a reduced version of this early description: https://github.com/r-
 
 # the problem
 
-There is no common generic form for spatial data that covers the complexity of geometric and topological types widely used in R. There is no way to augment  spatial data with user-driven visualization and interactivity, the standards used for spatial data tend to be either highly specialized and inflexible, or are simplified to the point of near or actual destruction.  Richer expressions built within R by users tend to be one-way or are converted to  forms that are richer in graphical and interactivity properties at the expense of losing the specialist rigour that the raw data was delivered with. 
+There is no common  grammar of spatial data that covers the complexity of geometric and topological types widely used in R. The translation between geo-spatial forms and the graphics and data grammars is disjointed and sometimes awkward, relying on localized implementations that are lossy, inefficient, require awkward 3rd party i-o, redundant, ...
 
-Key summary
+Simple features is seen as a corner-stone resource for a central basis for translations but it is only able to provide this for a subset of the wider remit of "spatial data" in R. 
 
-```R
-ggplot(d) + aes(x = x, y = y, group = g) + geom_path() 
+Visualization and interactive exploration involves augmenting spatial data in terms of groups, mappings and scales but there is only limited ways to represent these augmented forms and work with them. The richness in R's specialist forms currently lacks a central language for conversion to generic storage and transmission. Most formats are either purely geometry and topology and fields with no aesthetics, or pure aesthetics baked-in to graphical primitives without the original data used to create the mappings. 
 
-d %>% group_by(g) %>% select(x, y)  %>% geom_sf() 
+## Primary motivations
 
-d %>% group_by(g) %>% select(x, y, z)  %>% geom_rgl() 
+The simple features standard has the following limitations meaning that it cannot represent in-full every day objects from GPS, `rgl`, `ggplot2`/`ggvis`, `spatstat`, `maps`, TopoJSON, CAD drawings, 3D and general model structures. 
 
-d %>% group_by(g) %>% select(x, y, z, t)  %>% geom_plotly() 
-```
+* shapes are represented as paths so only planar polygonal shapes are possible
+* the standard allows for XY[Z[M]] geometry but is not extensible  - no capacity to store data against component geometry elements 
+* no capacity for internal topology (no vertex-, edge-, or path-sharing). 
 
-The richness in R's specialist forms currently lacks a central language for conversion to generic storage and transmission. Most formats are either purely geometry and topology and fields with no aesthetics, or pure aesthetics baked-in to graphical primitives without the original data used to create the mappings. 
+That simple features cannot store these in full means that many translation patterns either result in loss of information from the original form or require overloaded workarounds to keep track of the information outside of the core translation and re-apply it. Translations that are common are from format to format,  coordinate system geometry transformations, shape-modifying transformations. 
 
-This project aims to provide a system to re-express complex types without loss to a common form, used to generate other specialist forms. The common form builds directly on database principles, storing data as relations in multiple tables organized by the entities required. It is trivial to support this form in a scaleable way with standard database systems and techniques. The goal is not specifically to be able re-express `ggplot2` objects or `sf` simple features, or any particular type, but to provide a language and common tools for creating converters and general storage and transmission forms.
+## Secondary motivations
+
+
+
+Raster data in R is well-supported for affine-based georeferencing, but rectlinear (supported by `graphics::image` and curvilinear models (supported indirectly by `lattice::levelplot` and `ggplot2::?`) are representable only by explicit-expanded polygonal forms. 
+
+
+
+
+
+Examples
+
+Simple features cannot store TopoJSON topology. TopoJSON itself is only partially topological. Simple features cannot represent topology in the form of shared vertices, shared paths or shared primitives. Simple features provides grouping, in polygons as holes are grouped with their parent "island", paths are grouped with their object, coordinates are grouped with their path but all of this relational information is stored implicitly as structure. We cannot store identity against paths, and we cannot identify vertices that are expressed as coordinates across a data set between primitives, paths, or 
+
+This project aims to provide a system to re-express complex types without loss to a common form, providing a universal translation framework. The common form builds directly on database principles, storing data as relations in multiple tables organized by the entities modelled. It is trivial to support this implementation in a scaleable way with standard database systems and techniques. The goal is not specifically to be able re-express `ggplot2` objects or `sf` simple features, or any particular type, but to provide a language and common tools for creating converters and general storage and transmission forms.
 
 The common form is scaleable in terms of memory and computation, but also in terms of geometric and topological dimensionality. Our existing prototypes illustrate that generality by supporting round-trip workflows of specialist multidimensional data forms. 
 
@@ -51,6 +65,9 @@ Key outputs
 3. Document and promote use of the general principles and approach rather than localized implementations. Help the R community to generalize and reduce fragmentation. 
 4. Implement a prototype general-form geo-spatial-graphics data structure that can store geometry, topology, aesthetic mappings. 
 5. Document workflows for file formats and interchange requirements for the general form based on standard database techniques. 
+
+
+There is no way to augment  spatial data with user-driven visualization and interactivity, the standards used for spatial data tend to be either highly specialized and inflexible, or are simplified to the point of near or actual destruction.  Richer expressions built within R by users tend to be one-way or are converted to  forms that are richer in graphical and interactivity properties at the expense of losing the specialist rigour that the raw data was delivered with. 
 
 
 ## Existing implementations
