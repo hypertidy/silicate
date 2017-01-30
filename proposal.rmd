@@ -1,0 +1,196 @@
+---
+title: "General forms for hierarchical data"
+author: "Michael Sumner"
+date: "January 2017"
+output: html_document
+---
+
+Applicant: [Michael Sumner](https://github.com/mdsumner/), [Australian Antarctic Division, ACE CRC](http://www.antarctica.gov.au/); [mdsumner@gmail.com](mailto:mdsumner@gmail.com)
+
+
+Consulted parties: Jessica Melbourne-Thomas (Australian Antarctic Division, ACE CRC), Phillipa Bricher (Southern Ocean Observing System), Simon Wotherspoon (Australian Antarctic Division / UTAS),  Oliver Keyes 
+
+
+# The problem
+
+There is no common  grammar of spatial data that covers the complexity of geometric and topological types widely used in R. The translation between geo-spatial forms and the graphics and data grammars is disjointed and sometimes awkward, relying on localized implementations that can be lossy or inefficient, require 3rd party workflows, and sometimes involve unnecessary tasks. 
+
+This proposal aims to create a classification of spatial and other hierarchical data in R with tools for more general representations of spatial primitives and the intermediate forms required for translation and analytical tasks. The key is to provide a relational model of indexed primitives and component elements, as a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming. 
+
+`Simple features` is rightly seen as a corner-stone resource, but as a central basis for translations it is only able to handle a subset of the wider remit of "spatial data" in R. Topology in the form of component-element sharing (indexing of vertex, edge, arc, path) is not available to simple features, and while there are tools to generate it for certain  planar cases, these  are not explicitly available outside provided workflows and this information is not generally available for extensible uses. 
+
+The simple features standard has the following limitations meaning that it cannot represent in-full every-day objects from GPS, `rgl`, `ggplot2`/`ggvis`, `spatstat`, `maps`, TopoJSON, CAD drawings, or from 3D or general model structures. 
+
+* shapes are represented as paths so only planar polygonal shapes are possible
+* the standard allows for `XY[Z[M]]` geometry,but this is not extensible - there is no capacity to store data against component geometry elements 
+* no capacity for internal topology (no vertex-, edge-, or path-sharing). 
+
+(Note that we are pointing out limitations in the *simple features standard*, not to any problems in the implementation of that in the `sf` package). 
+
+Many translation patterns that use simple features for data that don't share its design result in either loss of information or require complicated workarounds to keep track of the information outside of the core translation, so that it can be re-applied. Translations that are common include those between in-memory structural representations, and serialized forms within file formats, coordinate system geometry transformations, and topological or shape-modifying transformations. 
+
+Visualization and interactive exploration tools are used to augment raw spatial data in terms of groups, mappings and scales but there is only limited ways to represent these augmented forms and work with them. The richness in R's specialist forms currently lacks a central language for conversion to generic storage and transmission. Most formats are either purely geometry and topology and fields with no aesthetics, or pure aesthetics baked-in to graphical primitives without the original data used to create the mappings.
+
+## Illustration
+
+This code generates a simple data set with the following properties: 
+
+* a data set of 2 POLYGONs
+* the first polygon has one hole and one "concavity" (a three-vertex section of the path that differentiates the island from its convex hull)
+* the second polygon is a single, convex island, and shares one edge with the first polygon
+ 
+
+```{r, message = FALSE}
+## two POLYGONs, composed of three rings p1+p2 and p3
+p1 <- cbind(x = c(0, 0, 0.75, 1,   0.5, 0.8, 0.69, 0), 
+            y = c(0, 1, 1,    0.8, 0.7, 0.6, 0,    0))
+p2 <- cbind(x = c(0.2, 0.2, 0.3, 0.5, 0.5, 0.2), 
+            y = c(0.2, 0.4, 0.6, 0.4, 0.2, 0.2))
+p3 <- cbind(x = c(0.69, 0.8, 1.1, 1.23, 0.69), 
+            y = c(0, 0.6, 0.63, 0.3, 0))
+library(sf)
+g <- data.frame(two_polygons = 1:2)
+g[["geometry"]] <- st_sfc(st_polygon(list(p1, p2[nrow(p2):1, ])), st_polygon(list(p3)))
+g <- st_as_sf(g)
+
+## Delaunay triangulation of the polygon vertices, grouped by feature
+gt <- g
+st_geometry(gt)  <- st_triangulate(st_geometry(g))
+
+op <- par(mfrow = c(1, 2))
+plot(g)
+plot(gt, col = scales::alpha(c("dodgerblue", "firebrick"), 0.3), main = "convex triangulation")
+plot(st_geometry(g), add = TRUE, lwd = 4)
+par(op)
+```
+
+
+There is no capacity in the simple features standard to describe this situation in topological terms. The representation of these objects is always **fully expanded**, all instances of the vertices are stored explicitly with no record of duplications that close the rings within a polygon , or that represent shared coordinates between the two polygons. The relationship between the polygon island and its hole is unambiguous, but there is no identity of the hole or what it represents. There is no capacity to distinguish it from other parts of the polygon, and this is true of ever more complex objects with multiple islands, multiple holes, multiple connected lines and line segments. 
+
+Similarly in a MULTIPOINT there is no identity or grouping to each component vertex within the whole, and a single vertex has no information stored with it other than its position in an array and its raw geometric properties.
+
+In the second panel is a Delaunay triangulation of the coordinates, grouped by feature. The triangles do no not align with the polygon edges, because the edges were not included in the triangulation algorithm. There is also an inserted overlap between the polygons, which makes this data set invalid for many standard GIS constructs. This is not a criticism of `st_triangulate` though, because even when we perform a *constrained triangulation* (Cheng et al., 2012), the simple features standard dictates that we store these all in TRIANGLE form, each a ring of three coordinates within a GEOMETRYCOLLECTION. This can store the non-convex form of the triangulation, but only in **fully expanded** form - i.e. as a *mesh with no indexing* (http://postgis.net/docs/ST_GeometryN.html). 
+
+We can detect these properties using the in-built tools with geometric tests (that internally build topological structure and then discard them) that can relationships between these features, and even return the exact relationship in object form. 
+
+
+```{r}
+## yes the first touches the second, and vice versa
+sf::st_touches(g)
+## each only covers itself, not the other
+sf::st_covered_by(g)
+sf::st_crosses(g)
+sf::st_intersects(g)
+
+i <- sf::st_intersection(g[1, ], g[2, ])
+
+plot(st_geometry(g))
+plot(st_geometry(i), add = TRUE, lwd = 3, col = "dodgerblue")
+
+op <- par(xpd = NA)
+plot(st_geometry(st_cast(i, "MULTIPOINT")), add = TRUE, col = "firebrick",cex = 4)
+par(op)
+```
+
+We got what we wanted, but now how to we put this information (that the intersection between polygon 1 and polygon 2 is a single line segment and its two vertices) back into the original object?   
+
+## Alternative representations
+
+A prototype alternative form of representing this information is in the `sc` package, which is in early stages but is a great improvement to the design of previous implementations (see `mdsumner/gris` and `r-gris/rangl` for these early attempts).
+
+The `PATH` models consists of three tables to store the objects ("features"), paths, and vertices, and a fourth table to allow de-duplication of the vertices (here in X-Y geometry). 
+
+```{r}
+devtools::install_github("mdsumner/sc")
+library(sc)
+
+## build the PATH model from a simple features object
+sc::PATH(g)
+```
+
+The `PRIMITIVE` model is derived from and incorporates the `PATH` model, but adds 1-dimensional primtives to the collection of tables. 
+
+```{r}
+sc::PRIMITIVE(g)
+```
+
+These representations provide a relational table form that is usually stored as structural arrays, where the indexing is inherently related to the physical size of the vertex array (this is what an `rgl` object is). The `segment` table adds links to the first and second vertex of every line segment, and also records which `path` it belongs to. This is not the final design, since a segment can belong to multiple paths (albeit with a different orientation), and it is not clear how much one of these forms requires all of the  path and primitive information together. 
+
+
+The `sc` package is only in early stages, but a predecessor `rangl` takes these ideas further in order to work with the 2D primitives. One of the problems with `rangl` is a reliance on the `RTriangle` package, and future work with BOOST or CGAL could remove the need to rely on the restrictive license used by `RTriangle`. 
+
+The discussion around these prospects is here: https://github.com/r-spatial/discuss/issues/6
+
+The `rangl` package can build the full mesh of triangles, and convert it to a form understood by `rgl`. These representations provide a great amount of flexiblity for model representation and analysis, with the inherent relationships between primitives stored explicitly. 
+
+```{r, rgl=TRUE}
+## devtools::install_github("r-gris/rangl")
+library(rangl)
+g_rangl <- rangl(as(g, "Spatial"))
+
+g_rangl
+
+## it's fairly trivial to convert from relational form
+## to the structures used by rgl
+plot(g_rangl)
+rgl::rglwidget(elementId="rangl")
+```
+
+A 3D visualization is not that useful in itself, but is here simply to prove that we can use a more general scheme to store simple features data as topological data, maintaining the higher levels of grouping (features, parts) but also being able to store more data against the underlying entities, since they are all stored in tables. 
+
+
+# The plan
+
+***Research the best ways forward***
+
+Investigate options for front-end user interfaces and back-end systems, and generate requests for advice from key parties on the best ways forward. Use funding to organize folllow-up working groups and presentations. 
+
+Implementations that we have considered include: 
+
+* lists of tables, as illustrated in proto-forms in spbabel, rangl, rbgm
+* sf-like forms with nested list-columns of *indexes*,  shared-entity semantics
+
+and these raise the key issue that one data frame cannot store *topological* data where geometric elements are shared between features. Lists of tables are fine, and work well as a development idiom, but require some advanced design to find the right user-experience. We have erred on the side of unique indexes that allow arbitrary splitting and recombination of entities, but this is obviously expensive and requires work to only apply unique indexing when required, and otherwise use structural or matrix idioms for efficiencies. 
+
+Other options might include
+
+* advanced programming techniques, using environments, R6, with vertex/primitives pools
+* database or database-like connections in list-columns
+
+***Define language and classifications for the forms***
+
+WIP
+
+We have the following entities that underlie our spatial objects. Vertices, coordinates (instances of vertices), line segments, paths (linestrings, polygon rings, TopoJSON/arc-node "arcs"), parts (rings, holes, linestrings, points), and objects or features. 
+
+We need relational models:
+
+* language of paths-belong-features, (a POINT can be a degenerate PATH for a MULTIPOINT) this incorporates TopoJSON, the internal `maps` store 
+* need a language of vertices-belong-edges-belong-parts-belong-features, all sf is expressible with 1D-primitives, and this scheme incorporates GPS and other tracking-sensor data
+* need a language of vertices-belong-triangles-belong-parts-belong-features, which incorporates `rgl`, CAD drawings, 3D and general models
+
+*** Key outputs ***
+
+1. Provide tools for decomposing geo-spatial and other complex data to common general forms, including topological indexing. 
+2. Illustrate general workflow with tools to convert between `sf`, GeoJSON, TopoJSON, leaflet list-forms, and `rgl` and `plotly`
+3. Generate a classification of the broad class of "spatial data" in R that incorporates simple features and other forms and guides translation efforts across R packages. These are patterns that are for the most part user-accessible, so creating modified or specialized versions that are more efficient or better focussed for particular tasks will be straightforward. 
+4. Implement a prototype general-form geo-spatial-graphics data structure that can store geometry, topology, aesthetic mappings to bridge the creation of hierarchical data in the tidyverse with its visualization and analysis. 
+
+
+
+# Supporting documentation
+
+https://rpubs.com/cyclemumner/spatial-normal-forms
+
+# References
+
+Cheng, Siu-Wing, Tamal K. Dey, and Jonathan Shewchuk. Delaunay mesh generation. CRC Press, 2012.
+https://www.crcpress.com/Delaunay-Mesh-Generation/Cheng-Dey-Shewchuk/p/book/9781584887300
+
+The PostGIS Development Group, PostGIS 2.3.2 Manual, SVN Revision (15301) accessed 2017-01-30 http://postgis.net/docs/ST_GeometryN.html
+
+# Document preparation
+
+```{r}
+devtools::session_info()
+```
