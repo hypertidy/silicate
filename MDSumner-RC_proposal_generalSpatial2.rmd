@@ -101,14 +101,14 @@ A prototype alternative form of representing this information is in the `sc` pac
 The `PATH` models consists of three tables to store the objects ("features"), paths, and vertices, and a fourth table to allow de-duplication of the vertices (here in X-Y geometry). 
 
 ```{r}
-devtools::install_github("mdsumner/sc")
+#devtools::install_github("mdsumner/sc")
 library(sc)
 
 ## build the PATH model from a simple features object
 sc::PATH(g)
 ```
 
-The `PRIMITIVE` model is derived from and incorporates the `PATH` model, but adds 1-dimensional primtives to the collection of tables. 
+The `PRIMITIVE` model is derived from and incorporates the `PATH` model, but adds 1-dimensional primitives to the collection of tables. 
 
 ```{r}
 sc::PRIMITIVE(g)
@@ -169,7 +169,7 @@ We need relational models:
 * need a language of vertices-belong-edges-belong-parts-belong-features, all sf is expressible with 1D-primitives, and this scheme incorporates GPS and other tracking-sensor data
 * need a language of vertices-belong-triangles-belong-parts-belong-features, which incorporates `rgl`, CAD drawings, 3D and general models
 
-*** Key outputs ***
+***Key outputs***
 
 1. Provide tools for decomposing geo-spatial and other complex data to common general forms, including topological indexing. 
 2. Illustrate general workflow with tools to convert between `sf`, GeoJSON, TopoJSON, leaflet list-forms, and `rgl` and `plotly`
