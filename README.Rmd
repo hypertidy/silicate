@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 The goal of sc is to provide a general common form for complex multi-dimensional data. 
 
-See the [proposal.md](proposal.md).
+We aim to create a classification of spatial and other hierarchical data in R with tools for more general representations of spatial primitives and the intermediate forms required for translation and analytical tasks. The key is to provide a relational model of indexed primitives and component elements, as a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming. 
 
 # Why? 
 

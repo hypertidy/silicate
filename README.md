@@ -7,7 +7,7 @@ sc
 
 The goal of sc is to provide a general common form for complex multi-dimensional data.
 
-See the [proposal.md](proposal.md).
+We aim to create a classification of spatial and other hierarchical data in R with tools for more general representations of spatial primitives and the intermediate forms required for translation and analytical tasks. The key is to provide a relational model of indexed primitives and component elements, as a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming.
 
 Why?
 ====
@@ -92,7 +92,7 @@ library(sf)
 #> Linking to GEOS 3.5.0, GDAL 2.1.1, proj.4 4.9.3
 ## a MULTIPOLYGON layer
 nc = st_read(system.file("shape/nc.shp", package="sf"))
-#> Reading layer `nc' from data source `C:\Users\michae_sum\R\win-library\3.3\sf\shape\nc.shp' using driver `ESRI Shapefile'
+#> Reading layer `nc' from data source `C:\Users\mdsumner\Documents\R\win-library\3.3\sf\shape\nc.shp' using driver `ESRI Shapefile'
 #> converted into: MULTIPOLYGON
 #> Simple feature collection with 100 features and 14 fields
 #> geometry type:  MULTIPOLYGON
@@ -107,7 +107,7 @@ The common form is the entity tables, objects, paths, vertices and a link table 
 ``` r
 library(sc)
 nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
-#> Reading layer `nc.gpkg' from data source `C:\Users\michae_sum\R\win-library\3.3\sf\gpkg\nc.gpkg' using driver `GPKG'
+#> Reading layer `nc.gpkg' from data source `C:\Users\mdsumner\Documents\R\win-library\3.3\sf\gpkg\nc.gpkg' using driver `GPKG'
 #> Simple feature collection with 100 features and 14 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
@@ -138,48 +138,48 @@ nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
 #> # A tibble: 108 × 4
 #>    island_ ncoords_    path_  object_
 #>      <chr>    <int>    <chr>    <chr>
-#> 1        1       27 95ca1efd 119514e0
-#> 2        1       26 9880c57f b64112fc
-#> 3        1       28 bffe4d58 418ced2f
-#> 4        1       26 d6a72076 c049045f
-#> 5        2        7 8e33692e c049045f
-#> 6        3        5 051f0258 c049045f
-#> 7        1       34 245c3b0d 17448c3b
-#> 8        1       22 86db9261 fabdc85f
-#> 9        1       24 67634cce 3c4bd64f
-#> 10       1       17 a72b4990 0198966c
+#> 1        1       27 47c83055 15018232
+#> 2        1       26 7054571b bc13b562
+#> 3        1       28 62cee7de 640b9bc3
+#> 4        1       26 d40fed86 bb2dac0a
+#> 5        2        7 be291f9a bb2dac0a
+#> 6        3        5 70d5e582 bb2dac0a
+#> 7        1       34 96756c10 1634f7e6
+#> 8        1       22 37cb1020 0f1a958a
+#> 9        1       24 495083c9 16124ba8
+#> 10       1       17 35dc9467 ce793ae1
 #> # ... with 98 more rows
 #> 
 #> $vertex
 #> # A tibble: 1,255 × 3
 #>           x_       y_  vertex_
 #>        <dbl>    <dbl>    <chr>
-#> 1  -81.47276 36.23436 15f93a94
-#> 2  -81.54084 36.27251 3bb00bf8
-#> 3  -81.56198 36.27359 2663999d
-#> 4  -81.63306 36.34069 51899b42
-#> 5  -81.74107 36.39178 da046c38
-#> 6  -81.69828 36.47178 d66bdcdc
-#> 7  -81.70280 36.51934 6e58a217
-#> 8  -81.67000 36.58965 45bff493
-#> 9  -81.34530 36.57286 19349afd
-#> 10 -81.34754 36.53791 2ef4a130
+#> 1  -81.47276 36.23436 2a5b2d6c
+#> 2  -81.54084 36.27251 0fa6ed96
+#> 3  -81.56198 36.27359 bfe24904
+#> 4  -81.63306 36.34069 7037c7bf
+#> 5  -81.74107 36.39178 1dd1e2fa
+#> 6  -81.69828 36.47178 8717d199
+#> 7  -81.70280 36.51934 753c958f
+#> 8  -81.67000 36.58965 b95eb35d
+#> 9  -81.34530 36.57286 15b08040
+#> 10 -81.34754 36.53791 d9e04c6c
 #> # ... with 1,245 more rows
 #> 
 #> $path_link_vertex
 #> # A tibble: 2,529 × 2
 #>       path_  vertex_
 #>       <chr>    <chr>
-#> 1  95ca1efd 15f93a94
-#> 2  95ca1efd 3bb00bf8
-#> 3  95ca1efd 2663999d
-#> 4  95ca1efd 51899b42
-#> 5  95ca1efd da046c38
-#> 6  95ca1efd d66bdcdc
-#> 7  95ca1efd 6e58a217
-#> 8  95ca1efd 45bff493
-#> 9  95ca1efd 19349afd
-#> 10 95ca1efd 2ef4a130
+#> 1  47c83055 2a5b2d6c
+#> 2  47c83055 0fa6ed96
+#> 3  47c83055 bfe24904
+#> 4  47c83055 7037c7bf
+#> 5  47c83055 1dd1e2fa
+#> 6  47c83055 8717d199
+#> 7  47c83055 753c958f
+#> 8  47c83055 b95eb35d
+#> 9  47c83055 15b08040
+#> 10 47c83055 d9e04c6c
 #> # ... with 2,519 more rows
 #> 
 #> attr(,"class")
@@ -233,22 +233,22 @@ str(iw)
 #>  $ object          :Classes 'tbl_df', 'tbl' and 'data.frame':    6 obs. of  3 variables:
 #>   ..$ ID      : int [1:6] 103841 103842 103843 103846 103847 103848
 #>   ..$ Province: chr [1:6] "Australian Capital Territory" "New Caledonia" "New South Wales" "South Australia" ...
-#>   ..$ object_ : chr [1:6] "b4861691" "29fb84cf" "f37c5963" "3bd4f0ed" ...
+#>   ..$ object_ : chr [1:6] "7fbc0c81" "df533900" "c30e8364" "12f303ec" ...
 #>   ..- attr(*, "sf_column")= chr "geom"
 #>   ..- attr(*, "relation_to_geometry")= Factor w/ 3 levels "constant","aggregate",..: NA NA
 #>   .. ..- attr(*, "names")= chr [1:2] "ID" "Province"
 #>  $ path            :Classes 'tbl_df', 'tbl' and 'data.frame':    189 obs. of  4 variables:
 #>   ..$ island_ : chr [1:189] "1" "1" "1" "1" ...
 #>   ..$ ncoords_: int [1:189] 280 27 7310 68 280 88 162 119 51 71 ...
-#>   ..$ path_   : chr [1:189] "5003ddb1" "f45b08a8" "b4315760" "de2bc311" ...
-#>   ..$ object_ : chr [1:189] "b4861691" "29fb84cf" "f37c5963" "f37c5963" ...
+#>   ..$ path_   : chr [1:189] "ab88a57a" "e417b8ac" "7ee081d4" "a877f49e" ...
+#>   ..$ object_ : chr [1:189] "7fbc0c81" "df533900" "c30e8364" "c30e8364" ...
 #>  $ vertex          :Classes 'tbl_df', 'tbl' and 'data.frame':    30835 obs. of  3 variables:
 #>   ..$ x_     : num [1:30835] 1116371 1117093 1117172 1117741 1117629 ...
 #>   ..$ y_     : num [1:30835] -458419 -457111 -456893 -456561 -455510 ...
-#>   ..$ vertex_: chr [1:30835] "bfe9d082" "c5e66743" "00ce06f9" "2259e65f" ...
+#>   ..$ vertex_: chr [1:30835] "70099644" "7c04b1ef" "9f6be1b9" "5e147d43" ...
 #>  $ path_link_vertex:Classes 'tbl_df', 'tbl' and 'data.frame':    33644 obs. of  2 variables:
-#>   ..$ path_  : chr [1:33644] "5003ddb1" "5003ddb1" "5003ddb1" "5003ddb1" ...
-#>   ..$ vertex_: chr [1:33644] "bfe9d082" "c5e66743" "00ce06f9" "2259e65f" ...
+#>   ..$ path_  : chr [1:33644] "ab88a57a" "ab88a57a" "ab88a57a" "ab88a57a" ...
+#>   ..$ vertex_: chr [1:33644] "70099644" "7c04b1ef" "9f6be1b9" "5e147d43" ...
 #>  - attr(*, "class")= chr [1:2] "PATH" "sc"
 #>  - attr(*, "join_ramp")= chr [1:4] "object" "path" "path_link_vertex" "vertex"
 
