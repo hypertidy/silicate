@@ -11,7 +11,7 @@ There is no common  form spatial data that covers the complexity of geometric an
 The key part of the work is to provide a relational model of indexed primitives and component elements, as a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming. `Simple features` is rightly seen as a corner-stone resource, but as a central basis for translations it is only able to handle a subset of the wider remit of "spatial data" in R. Topology in the form of component-element sharing (indexing of vertex, edge, arc, path) is not available to simple features, and while there are tools to generate it for certain  planar cases, these  are not explicitly available outside provided workflows and this information is not generally available for extensible uses. 
 
 
-The simple features standard [link] has the following limitations meaning that it cannot represent in-full every-day objects from GPS, `rgl`, `ggplot2`/`ggvis`, `spatstat`, `maps`, TopoJSON, CAD drawings, or from 3D or general model structures. 
+The [simple features standard](http://www.opengeospatial.org/standards/sfa)  has the following limitations meaning that it cannot represent in-full every-day objects from GPS, `rgl`, `ggplot2`/`ggvis`, `spatstat`, `maps`, TopoJSON, CAD drawings, or from 3D or general model structures. 
 
 * shapes are represented as paths so only planar polygonal shapes are possible
 * the standard allows for `XY[Z[M]]` geometry,but this is not extensible - there is no capacity to store data against component geometry elements 
@@ -60,9 +60,9 @@ There is no capacity in the simple features standard to describe this situation 
 
 Similarly in a MULTIPOINT there is no identity or grouping to each component vertex within the whole, and a single vertex has no information stored with it other than its position in an array and its raw geometric properties.
 
-In the second panel is a Delaunay triangulation of the coordinates, grouped by feature. The triangles do no not align with the polygon edges, because the edges were not included in the triangulation algorithm. There is also an inserted overlap between the polygons, which makes this data set invalid for many standard GIS constructs. This is not a criticism of `st_triangulate` though, because even when we perform a *constrained triangulation* (Cheng et al., 2012), the simple features standard dictates that we store these all in TRIANGLE form, each a ring of three coordinates within a GEOMETRYCOLLECTION. This can store the non-convex form of the triangulation, but only in **fully expanded** form - i.e. as a *mesh with no indexing* (http://postgis.net/docs/ST_GeometryN.html). 
+In the second panel is a Delaunay triangulation of the coordinates, grouped by feature. The triangles do not align with the polygon edges, because the triangle edges were not included in the triangulation algorithm. There is also an inserted overlap between the polygons, which makes this data set invalid for many standard GIS constructs. This is not a criticism of `st_triangulate` though, because even when we perform a *constrained triangulation* (Cheng et al., 2012), the simple features standard dictates that we store these all in TRIANGLE form, each a ring of three coordinates within a GEOMETRYCOLLECTION. This can store the non-convex form of the triangulation, but only in **fully expanded** form - i.e. as a *mesh with no indexing* (http://postgis.net/docs/ST_GeometryN.html). 
 
-We can detect these properties using the in-built tools with geometric tests (that internally build topological structure and then discard them) that can relationships between these features, and even return the exact relationship in object form. 
+We can detect these properties using the in-built tools and return the exact relationship in object form. These tools internally build topological structure and then discard it. 
 
 
 ```{r}
@@ -83,7 +83,7 @@ plot(st_geometry(st_cast(i, "MULTIPOINT")), add = TRUE, col = "firebrick",cex = 
 par(op)
 ```
 
-We got what we wanted, but now how to we put this information (that the intersection between polygon 1 and polygon 2 is a single line segment and its two vertices) back into the original object?   
+We got what we wanted, but how can we put this information back into the original object?   
 
 ## Alternative representations
 
@@ -207,13 +207,18 @@ g_rangl
 
 ## it's fairly trivial to convert from relational form
 ## to the structures used by rgl
-plot(g_rangl)
+rgl_form <- plot(g_rangl)
+
 rgl::rglwidget(elementId="rangl")
 ```
 
 A 3D visualization is not that useful in itself, but is here simply to prove that we can use a more general scheme to store simple features data as topological data, maintaining the higher levels of grouping (features, parts) but also being able to store more data against the underlying entities, since they are all stored in tables. 
 
+The `rgl` form of the data is two arrays, one of the actual vertices and the other of the primitives, an array of -3 indexes into the vertices. 
 
+```{r}
+str(rgl_form)
+```
 https://rpubs.com/cyclemumner/spatial-normal-forms
 
 # References
