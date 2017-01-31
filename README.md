@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.com/mdsumner/sc.svg?branch=master)](https://travis-ci.com/mdsumner/sc)
+[![Travis-CI Build Status](https://travis-ci.org/mdsumner/sc.svg?branch=master)](https://travis-ci.com/mdsumner/sc)
 
 sc
 ==
@@ -138,48 +138,48 @@ nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
 #> # A tibble: 108 × 4
 #>    island_ ncoords_    path_  object_
 #>      <chr>    <int>    <chr>    <chr>
-#> 1        1       27 47c83055 15018232
-#> 2        1       26 7054571b bc13b562
-#> 3        1       28 62cee7de 640b9bc3
-#> 4        1       26 d40fed86 bb2dac0a
-#> 5        2        7 be291f9a bb2dac0a
-#> 6        3        5 70d5e582 bb2dac0a
-#> 7        1       34 96756c10 1634f7e6
-#> 8        1       22 37cb1020 0f1a958a
-#> 9        1       24 495083c9 16124ba8
-#> 10       1       17 35dc9467 ce793ae1
+#> 1        1       27 8d8ad534 5dc6d3d1
+#> 2        1       26 12d03250 3f928df5
+#> 3        1       28 ce9e6ecb f68d4e56
+#> 4        1       26 5169d4c4 b7d2d8cd
+#> 5        2        7 082b7976 b7d2d8cd
+#> 6        3        5 93d9d72d b7d2d8cd
+#> 7        1       34 cf89a8b5 51ecb2c8
+#> 8        1       22 85e98a1f 893cd589
+#> 9        1       24 f9676c7d 40b04728
+#> 10       1       17 7505047d ae6afc9a
 #> # ... with 98 more rows
 #> 
 #> $vertex
 #> # A tibble: 1,255 × 3
 #>           x_       y_  vertex_
 #>        <dbl>    <dbl>    <chr>
-#> 1  -81.47276 36.23436 2a5b2d6c
-#> 2  -81.54084 36.27251 0fa6ed96
-#> 3  -81.56198 36.27359 bfe24904
-#> 4  -81.63306 36.34069 7037c7bf
-#> 5  -81.74107 36.39178 1dd1e2fa
-#> 6  -81.69828 36.47178 8717d199
-#> 7  -81.70280 36.51934 753c958f
-#> 8  -81.67000 36.58965 b95eb35d
-#> 9  -81.34530 36.57286 15b08040
-#> 10 -81.34754 36.53791 d9e04c6c
+#> 1  -81.47276 36.23436 7ffa5cfa
+#> 2  -81.54084 36.27251 9d85aaff
+#> 3  -81.56198 36.27359 4db13c09
+#> 4  -81.63306 36.34069 3a9913f9
+#> 5  -81.74107 36.39178 e5253b24
+#> 6  -81.69828 36.47178 f963d477
+#> 7  -81.70280 36.51934 624d8ebf
+#> 8  -81.67000 36.58965 39ff9a51
+#> 9  -81.34530 36.57286 1f2a0f46
+#> 10 -81.34754 36.53791 941fff30
 #> # ... with 1,245 more rows
 #> 
 #> $path_link_vertex
 #> # A tibble: 2,529 × 2
 #>       path_  vertex_
 #>       <chr>    <chr>
-#> 1  47c83055 2a5b2d6c
-#> 2  47c83055 0fa6ed96
-#> 3  47c83055 bfe24904
-#> 4  47c83055 7037c7bf
-#> 5  47c83055 1dd1e2fa
-#> 6  47c83055 8717d199
-#> 7  47c83055 753c958f
-#> 8  47c83055 b95eb35d
-#> 9  47c83055 15b08040
-#> 10 47c83055 d9e04c6c
+#> 1  8d8ad534 7ffa5cfa
+#> 2  8d8ad534 9d85aaff
+#> 3  8d8ad534 4db13c09
+#> 4  8d8ad534 3a9913f9
+#> 5  8d8ad534 e5253b24
+#> 6  8d8ad534 f963d477
+#> 7  8d8ad534 624d8ebf
+#> 8  8d8ad534 39ff9a51
+#> 9  8d8ad534 1f2a0f46
+#> 10 8d8ad534 941fff30
 #> # ... with 2,519 more rows
 #> 
 #> attr(,"class")
@@ -233,22 +233,22 @@ str(iw)
 #>  $ object          :Classes 'tbl_df', 'tbl' and 'data.frame':    6 obs. of  3 variables:
 #>   ..$ ID      : int [1:6] 103841 103842 103843 103846 103847 103848
 #>   ..$ Province: chr [1:6] "Australian Capital Territory" "New Caledonia" "New South Wales" "South Australia" ...
-#>   ..$ object_ : chr [1:6] "7fbc0c81" "df533900" "c30e8364" "12f303ec" ...
+#>   ..$ object_ : chr [1:6] "44a5c8da" "347f7ff0" "85ac5e65" "f208c3c3" ...
 #>   ..- attr(*, "sf_column")= chr "geom"
-#>   ..- attr(*, "relation_to_geometry")= Factor w/ 3 levels "constant","aggregate",..: NA NA
+#>   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA
 #>   .. ..- attr(*, "names")= chr [1:2] "ID" "Province"
 #>  $ path            :Classes 'tbl_df', 'tbl' and 'data.frame':    189 obs. of  4 variables:
 #>   ..$ island_ : chr [1:189] "1" "1" "1" "1" ...
 #>   ..$ ncoords_: int [1:189] 280 27 7310 68 280 88 162 119 51 71 ...
-#>   ..$ path_   : chr [1:189] "ab88a57a" "e417b8ac" "7ee081d4" "a877f49e" ...
-#>   ..$ object_ : chr [1:189] "7fbc0c81" "df533900" "c30e8364" "c30e8364" ...
+#>   ..$ path_   : chr [1:189] "629409c4" "86060245" "d4e169f2" "2c432e1b" ...
+#>   ..$ object_ : chr [1:189] "44a5c8da" "347f7ff0" "85ac5e65" "85ac5e65" ...
 #>  $ vertex          :Classes 'tbl_df', 'tbl' and 'data.frame':    30835 obs. of  3 variables:
 #>   ..$ x_     : num [1:30835] 1116371 1117093 1117172 1117741 1117629 ...
 #>   ..$ y_     : num [1:30835] -458419 -457111 -456893 -456561 -455510 ...
-#>   ..$ vertex_: chr [1:30835] "70099644" "7c04b1ef" "9f6be1b9" "5e147d43" ...
+#>   ..$ vertex_: chr [1:30835] "88f825ed" "0f30f30d" "e4960f6d" "a1b4b528" ...
 #>  $ path_link_vertex:Classes 'tbl_df', 'tbl' and 'data.frame':    33644 obs. of  2 variables:
-#>   ..$ path_  : chr [1:33644] "ab88a57a" "ab88a57a" "ab88a57a" "ab88a57a" ...
-#>   ..$ vertex_: chr [1:33644] "70099644" "7c04b1ef" "9f6be1b9" "5e147d43" ...
+#>   ..$ path_  : chr [1:33644] "629409c4" "629409c4" "629409c4" "629409c4" ...
+#>   ..$ vertex_: chr [1:33644] "88f825ed" "0f30f30d" "e4960f6d" "a1b4b528" ...
 #>  - attr(*, "class")= chr [1:2] "PATH" "sc"
 #>  - attr(*, "join_ramp")= chr [1:4] "object" "path" "path_link_vertex" "vertex"
 
