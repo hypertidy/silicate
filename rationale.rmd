@@ -10,8 +10,6 @@ output:
 
 There is no common form for spatial data that covers the complexity of geometric and topological types widely used in R. Traditional, GIS-alike spatial data is exceptional in the way that it does not  make use of normal forms for geometric representations. We are working on a framework for complex, hierarchical data that can incorporate standard spatial types and allows working with them in a general and flexible way. We provide tools in R for more general representations of spatial primitives and the intermediate forms required for translation and analytical tasks. 
 
-The key part of the work is to provide a relational model of indexed primitives and component elements, as a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming. `Simple features` is rightly seen as a corner-stone resource, but as a central basis for translations it is only able to handle a subset of the wider remit of "spatial data" in R. Topology in the form of component-element sharing (indexing of vertex, edge, arc, path) is not available to simple features, and while there are tools to generate it for certain  planar cases, these  are not explicitly available outside provided workflows and this information is not generally available for extensible uses. 
-
 
 The [simple features standard](http://www.opengeospatial.org/standards/sfa)  has the following limitations: 
 
@@ -20,6 +18,8 @@ The [simple features standard](http://www.opengeospatial.org/standards/sfa)  has
 * there is no capacity for internal topology (no vertex-, edge-, or path-sharing). 
 
 These limitations mean that it cannot represent in-full every-day objects from GPS, `rgl`, `ggplot2`/`ggvis`, `spatstat`, `maps`, TopoJSON, CAD drawings, or from 3D or general model structures. Translations between geo-spatial forms and the graphics and data grammars can be disjointed and sometimes awkward, relying on localized implementations that are lossy or inefficient, require 3rd party workflows, or involve unnecessary tasks. 
+
+`Simple features` is rightly seen as a corner-stone resource, but as a central basis for translations it is only able to handle a subset of the wider remit of "spatial data" in R. Topology in the form of component-element sharing (indexing of vertex, edge, arc, path) is not available to simple features, and while there are tools to generate it for certain  planar cases, these  are not explicitly available outside provided workflows and this information is not generally available for extensible uses. 
 
 Translation patterns that use simple features to translate data from native formats result in loss of information requiring complicated workarounds to preserve it. Common translations include in-memory structural representations,  serialized forms within file formats, coordinate system geometry transformations, and topological or shape-modifying transformations. 
 
@@ -89,7 +89,13 @@ We got what we wanted, but how can we put this information back into the origina
 
 ## Alternative representations
 
-A prototype alternative form of representing this information is in the `sc` package, which is in early stages. (The current design is a distillation and improvement onprevious implementations, see `mdsumner/gris` and `r-gris/rangl` for these earlier attempts).
+A **path** can be treated as a first-class type and and stored as such within a relational model, along with the other entities **objects** ("features") and **vertices**. with this approach we gain two advantages, we can *normalize* the relations (detect and remove redundancy) and also store any additional data about the entitities in the model.  
+
+(There is an interplay between "able to store extra information" and "able to normalize", since extra data may introduce further redundancy, but we defer this issue for now since full normalization is not our primary task). 
+
+An alternative form of representing this information is in the `sc` package, providing two main schemes, the `PATH` and the `PRIMITIVE` models. These provide different ways of linking **objects** and **vertices**.  The two models are not mutually exclusive, and can co-exist sensibly within one data set. The PATH model can always be derived from the PRIMITIVE model and vice versa but the PRIMITIVE model has extra capacities that PATH cannot provide. 
+
+The key feature in `sc` is a relational model of indexed primitives and component elements. This provides a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming. 
 
 The `PATH` models consists of three tables to store the objects ("features"), paths, and vertices, plus a fourth table `path_link_vertex` that allows de-duplication of the vertices (here in X-Y geometry). 
 
