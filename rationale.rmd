@@ -1,35 +1,26 @@
 ---
-title: "General forms for hierarchical data"
+title: "A consistent common form for spatial data"
 author: "Michael Sumner"
-date: "January 2017"
+date: "`r Sys.Date()`"
 output: html_document
 ---
 
-Applicant: [Michael Sumner](https://github.com/mdsumner/), [Australian Antarctic Division, ACE CRC](http://www.antarctica.gov.au/); [mdsumner@gmail.com](mailto:mdsumner@gmail.com)
+
+There is no common  form spatial data that covers the complexity of geometric and topological types widely used in R. Traditional, GIS-alike spatial data is exceptional in the way that it does not  make use of normal forms for foundational representations. We are working on a framework for complex, hierarchical data that can incorporate standard spatial types and allows working with them in a general and flexible way. We provide tools in R for more general representations of spatial primitives and the intermediate forms required for translation and analytical tasks. 
+
+The key part of the work is to provide a relational model of indexed primitives and component elements, as a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming. `Simple features` is rightly seen as a corner-stone resource, but as a central basis for translations it is only able to handle a subset of the wider remit of "spatial data" in R. Topology in the form of component-element sharing (indexing of vertex, edge, arc, path) is not available to simple features, and while there are tools to generate it for certain  planar cases, these  are not explicitly available outside provided workflows and this information is not generally available for extensible uses. 
 
 
-Consulted parties: Jessica Melbourne-Thomas (Australian Antarctic Division, ACE CRC), Phillipa Bricher (Southern Ocean Observing System), Simon Wotherspoon (Australian Antarctic Division / UTAS),  Oliver Keyes 
-
-
-# The problem
-
-There is no common  grammar of spatial data that covers the complexity of geometric and topological types widely used in R. The translation between geo-spatial forms and the graphics and data grammars is disjointed and sometimes awkward, relying on localized implementations that can be lossy or inefficient, require 3rd party workflows, and sometimes involve unnecessary tasks. 
-
-This proposal aims to create a classification of spatial and other hierarchical data in R with tools for more general representations of spatial primitives and the intermediate forms required for translation and analytical tasks. The key is to provide a relational model of indexed primitives and component elements, as a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming. 
-
-`Simple features` is rightly seen as a corner-stone resource, but as a central basis for translations it is only able to handle a subset of the wider remit of "spatial data" in R. Topology in the form of component-element sharing (indexing of vertex, edge, arc, path) is not available to simple features, and while there are tools to generate it for certain  planar cases, these  are not explicitly available outside provided workflows and this information is not generally available for extensible uses. 
-
-The simple features standard has the following limitations meaning that it cannot represent in-full every-day objects from GPS, `rgl`, `ggplot2`/`ggvis`, `spatstat`, `maps`, TopoJSON, CAD drawings, or from 3D or general model structures. 
+The simple features standard [link] has the following limitations meaning that it cannot represent in-full every-day objects from GPS, `rgl`, `ggplot2`/`ggvis`, `spatstat`, `maps`, TopoJSON, CAD drawings, or from 3D or general model structures. 
 
 * shapes are represented as paths so only planar polygonal shapes are possible
 * the standard allows for `XY[Z[M]]` geometry,but this is not extensible - there is no capacity to store data against component geometry elements 
 * no capacity for internal topology (no vertex-, edge-, or path-sharing). 
 
-(Note that we are pointing out limitations in the *simple features standard*, not to any problems in the implementation of that in the `sf` package). 
+Because of these limitations the translation between geo-spatial forms and the graphics and data grammars is disjointed and sometimes awkward, relying on localized implementations that can be lossy or inefficient, require 3rd party workflows, and sometimes involve unnecessary tasks. 
 
-Many translation patterns that use simple features for data that don't share its design result in either loss of information or require complicated workarounds to keep track of the information outside of the core translation, so that it can be re-applied. Translations that are common include those between in-memory structural representations, and serialized forms within file formats, coordinate system geometry transformations, and topological or shape-modifying transformations. 
+Many translation patterns that use simple features at some point result in  loss of information that does not fit within the model, requiring complicated workarounds to preserve it. These translations, ... common ... examples .. in-memory structural representations, and serialized forms within file formats, coordinate system geometry transformations, and topological or shape-modifying transformations. 
 
-Visualization and interactive exploration tools are used to augment raw spatial data in terms of groups, mappings and scales but there is only limited ways to represent these augmented forms and work with them. The richness in R's specialist forms currently lacks a central language for conversion to generic storage and transmission. Most formats are either purely geometry and topology and fields with no aesthetics, or pure aesthetics baked-in to graphical primitives without the original data used to create the mappings.
 
 ## Illustration
 
@@ -98,52 +89,72 @@ We got what we wanted, but now how to we put this information (that the intersec
 
 A prototype alternative form of representing this information is in the `sc` package, which is in early stages but is a great improvement to the design of previous implementations (see `mdsumner/gris` and `r-gris/rangl` for these early attempts).
 
-The `PATH` models consists of three tables to store the objects ("features"), paths, and vertices, and a fourth table to allow de-duplication of the vertices (here in X-Y geometry). 
+The `PATH` models consists of three tables to store the objects ("features"), paths, and vertices, and a fourth table `path_link_vertex` allows de-duplication of the vertices (here in X-Y geometry). 
 
 ```{r}
 #devtools::install_github("mdsumner/sc")
 library(sc)
 
 ## build the PATH model from a simple features object
-sc::PATH(g)
+str(sc::PATH(g))
 ```
 
-The `PRIMITIVE` model is derived from and incorporates the `PATH` model, but adds 1-dimensional primitives to the collection of tables. 
+The `PRIMITIVE` model is derived from and incorporates the `PATH` model, but adds 1-dimensional primitives (`segment`) to the collection of tables. 
 
 ```{r}
-sc::PRIMITIVE(g)
+set.seed(39)
+names(prim <- sc::PRIMITIVE(g))
+str(prim[c("segment")])
 ```
 
-These representations provide a relational table form that is usually stored as structural arrays, where the indexing is inherently related to the physical size of the vertex array (this is what an `rgl` object is). The `segment` table adds links to the first and second vertex of every line segment, and also records which `path` it belongs to. This is not the final design, since a segment can belong to multiple paths (albeit with a different orientation), and it is not clear how much one of these forms requires all of the  path and primitive information together. 
+These representations provide a relational form stored in tables. This kind of data is usually stored as structural arrays, where the indexing is inherently related to the physical size of the vertex array (this is what an `rgl` object is). The `segment` table adds links to the first and second vertex of every line segment, and also records which `path` it belongs to. This is not the final design, since a segment can belong to multiple paths (albeit with a different orientation), and it is not clear how much one of these forms requires all of the  path and primitive information together. 
 
+We can extract the topological information directly, because it's actually stored explicitly within the data structures already. 
 
-The `sc` package is only in early stages, but a predecessor `rangl` takes these ideas further in order to work with the 2D primitives. One of the problems with `rangl` is a reliance on the `RTriangle` package, and future work with BOOST or CGAL could remove the need to rely on the restrictive license used by `RTriangle`. 
+```{r}
+library(dplyr)
 
-The discussion around these prospects is here: https://github.com/r-spatial/discuss/issues/6
+get_shared_edge <- function(x, ...) UseMethod("get_shared_edge")
+get_shared_edge.sf <- function(x, ...) {
+  prim <- sc::PRIMITIVE(x)
+  shared <- prim$segment %>% dplyr::select(.vertex0, .vertex1) %>% 
+    mutate_all(funs("I" = as.integer(factor(.))))  %>% 
+    mutate(edge_id = paste(pmin(.vertex0_I, .vertex1_I), pmax(.vertex0_I, .vertex1_I), sep = "_")) %>% 
+    group_by(edge_id) %>% filter(n() > 1) %>% ungroup() %>% select(.vertex0, .vertex1, edge_id)
+  
+  ## use this information to generate sf output
+  g0 <- shared %>% inner_join(prim$vertex, c(".vertex0" = "vertex_")) %>% split(.$edge_id) %>% 
+    purrr::map(function(x) st_linestring(as.matrix(x %>% dplyr::select(x_, y_)))) %>% st_sfc()
+  st_sf(a = seq_along(g0), geometry = g0)
+}
 
-The `rangl` package can build the full mesh of triangles, and convert it to a form understood by `rgl`. These representations provide a great amount of flexiblity for model representation and analysis, with the inherent relationships between primitives stored explicitly. 
+shared_e <- get_shared_edge(g)
+plot(st_geometry(g))
+plot(st_geometry(shared_e), add = TRUE, lwd = 3, col = "dodgerblue")
 
-```{r, rgl=TRUE}
-## devtools::install_github("r-gris/rangl")
-library(rangl)
-g_rangl <- rangl(as(g, "Spatial"))
-
-g_rangl
-
-## it's fairly trivial to convert from relational form
-## to the structures used by rgl
-plot(g_rangl)
-rgl::rglwidget(elementId="rangl")
+op <- par(xpd = NA)
+plot(st_geometry(st_cast(shared_e, "MULTIPOINT")), add = TRUE, col = "firebrick",cex = 4)
+par(op)
 ```
 
-A 3D visualization is not that useful in itself, but is here simply to prove that we can use a more general scheme to store simple features data as topological data, maintaining the higher levels of grouping (features, parts) but also being able to store more data against the underlying entities, since they are all stored in tables. 
+Apply this idea to a more complex data set.  
+
+```{r}
+nc <- st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 
 
-# The plan
+edge1 <- get_shared_edge(nc)
+plot(st_geometry(nc), col = viridisLite::viridis(nrow(nc)))
+plot(st_geometry(edge1), col = viridisLite::inferno(nrow(edge1)), lwd = 2)
+
+
+```
+
+# Work ahead
 
 ***Research the best ways forward***
 
-Investigate options for front-end user interfaces and back-end systems, and generate requests for advice from key parties on the best ways forward. Use funding to organize folllow-up working groups and presentations. 
+Investigate options for front-end user interfaces and back-end systems, and seek advice from key experts. 
 
 Implementations that we have considered include: 
 
@@ -179,6 +190,29 @@ We need relational models:
 
 
 # Supporting documentation
+
+
+The `sc` package is only in early stages, but a predecessor `rangl` takes these ideas further in order to work with the 2D primitives. One of the problems with `rangl` is a reliance on the `RTriangle` package, and future work with BOOST or CGAL could remove the need to rely on the restrictive license used by `RTriangle`. 
+
+The discussion around these prospects is here: https://github.com/r-spatial/discuss/issues/6
+
+The `rangl` package can build the full mesh of triangles, and convert it to a form understood by `rgl`. These representations provide a great amount of flexiblity for model representation and analysis, with the inherent relationships between primitives stored explicitly. 
+
+```{r, rgl=TRUE}
+## devtools::install_github("r-gris/rangl")
+library(rangl)
+g_rangl <- rangl(as(g, "Spatial"))
+
+g_rangl
+
+## it's fairly trivial to convert from relational form
+## to the structures used by rgl
+plot(g_rangl)
+rgl::rglwidget(elementId="rangl")
+```
+
+A 3D visualization is not that useful in itself, but is here simply to prove that we can use a more general scheme to store simple features data as topological data, maintaining the higher levels of grouping (features, parts) but also being able to store more data against the underlying entities, since they are all stored in tables. 
+
 
 https://rpubs.com/cyclemumner/spatial-normal-forms
 
