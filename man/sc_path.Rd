@@ -2,15 +2,24 @@
 % Please edit documentation in R/path.r
 \name{sc_path}
 \alias{sc_path}
-\alias{sc_path.GEOMETRYCOLLECTION}
-\alias{sc_path.LINESTRING}
-\alias{sc_path.MULTILINESTRING}
-\alias{sc_path.MULTIPOINT}
-\alias{sc_path.MULTIPOLYGON}
-\alias{sc_path.POINT}
-\alias{sc_path.POLYGON}
+\alias{sc_path}
 \alias{sc_path.sf}
+\alias{sc_path}
 \alias{sc_path.sfc}
+\alias{sc_path}
+\alias{sc_path.MULTIPOLYGON}
+\alias{sc_path}
+\alias{sc_path.POLYGON}
+\alias{sc_path}
+\alias{sc_path.LINESTRING}
+\alias{sc_path}
+\alias{sc_path.MULTILINESTRING}
+\alias{sc_path}
+\alias{sc_path.POINT}
+\alias{sc_path}
+\alias{sc_path.MULTIPOINT}
+\alias{sc_path}
+\alias{sc_path.GEOMETRYCOLLECTION}
 \title{Path decomposition}
 \usage{
 sc_path(x, ...)
@@ -60,4 +69,3 @@ sc_path(sfzoo$multipoint)
 `sc_coord` for the coordinates part of the model, `sc_object` for 
 the features, and `PATH` for the full model.
 }
-

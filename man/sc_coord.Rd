@@ -2,14 +2,22 @@
 % Please edit documentation in R/coord.r
 \name{sc_coord}
 \alias{sc_coord}
-\alias{sc_coord.LINESTRING}
-\alias{sc_coord.MULTILINESTRING}
-\alias{sc_coord.MULTIPOINT}
-\alias{sc_coord.MULTIPOLYGON}
-\alias{sc_coord.POINT}
-\alias{sc_coord.POLYGON}
+\alias{sc_coord}
 \alias{sc_coord.sf}
+\alias{sc_coord}
 \alias{sc_coord.sfc}
+\alias{sc_coord}
+\alias{sc_coord.MULTIPOLYGON}
+\alias{sc_coord}
+\alias{sc_coord.POLYGON}
+\alias{sc_coord}
+\alias{sc_coord.MULTILINESTRING}
+\alias{sc_coord}
+\alias{sc_coord.LINESTRING}
+\alias{sc_coord}
+\alias{sc_coord.MULTIPOINT}
+\alias{sc_coord}
+\alias{sc_coord.POINT}
 \title{Coordinate decomposition}
 \usage{
 sc_coord(x, ...)
@@ -49,4 +57,3 @@ sc_coord(sf::st_sfc(sfzoo))
 `sc_path` for the central part of the model, `sc_object` for 
 the features, and `PATH` for the full model.
 }
-

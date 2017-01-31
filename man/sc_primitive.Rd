@@ -18,4 +18,3 @@ sf_pslg <- PRIMITIVE(sf_obj)}
 \description{
 Given a `PATH`` model decompose to 1-dimensional primitives.
 }
-

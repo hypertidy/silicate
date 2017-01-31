@@ -2,7 +2,9 @@
 % Please edit documentation in R/primitives_1D.r
 \name{PRIMITIVE}
 \alias{PRIMITIVE}
+\alias{PRIMITIVE}
 \alias{PRIMITIVE.PATH}
+\alias{PRIMITIVE}
 \alias{PRIMITIVE.sf}
 \title{Generate a PRIMITIVES model.}
 \usage{
@@ -46,4 +48,3 @@ P1_segments(nc_pslg)
 ## find nodes?
 nc_pslg$vertex 
 }
-

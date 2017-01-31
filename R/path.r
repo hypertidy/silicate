@@ -49,7 +49,6 @@ sc_path.sfc <- function(x, ids = NULL, ...) {
 }
 #' @name sc_path
 #' @export
-#' @examples 
 #' @importFrom dplyr bind_rows mutate row_number
 #' @examples
 #' sc_path(sfzoo$multipolygon)

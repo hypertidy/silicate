@@ -22,4 +22,3 @@ prim <- PRIMITIVE(inlandwaters)
 library(sf)
 plot(st_as_sf(prim))
 }
-

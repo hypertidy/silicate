@@ -8,4 +8,3 @@
 \description{
 The simplest pairing of two polygons with one shared edge.
 }
-

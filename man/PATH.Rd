@@ -2,6 +2,7 @@
 % Please edit documentation in R/PATH-model.r
 \name{PATH}
 \alias{PATH}
+\alias{PATH}
 \alias{PATH.default}
 \title{Generate a PATH model.}
 \usage{
@@ -33,4 +34,3 @@ PATH(sf_dataset)
 \seealso{
 `sc_path`, `sc_coord`
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/sc-package.r
 \docType{data}
 \name{sfzoo}
-\alias{sfgc}
 \alias{sfzoo}
+\alias{sfgc}
 \title{Simple features zoo.}
 \description{
 A list with basic examples of each type of simple feature.
@@ -16,4 +16,3 @@ The gc contains the zoo.
  sf::st_sfc(sfzoo)
  sf::st_sfc(sfgc)
 }
-

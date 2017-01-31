@@ -11,4 +11,3 @@ within the bounded regions of Australian provinces.
 \details{
 This is an extract from the old Manifold DVD. It is in `sf` format`.
 }
-

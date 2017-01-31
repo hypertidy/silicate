@@ -2,6 +2,7 @@
 % Please edit documentation in R/object.r
 \name{sc_object}
 \alias{sc_object}
+\alias{sc_object}
 \alias{sc_object.sf}
 \title{Objects, features}
 \usage{
@@ -27,4 +28,3 @@ sc_object(nc)
 `sc_coord` for the coordinates part of the model, `sc_path` for 
 the central part of the model, and `PATH` for the full model.
 }
-

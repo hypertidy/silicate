@@ -2,8 +2,10 @@
 % Please edit documentation in R/primitives_1D.r
 \name{arc_node}
 \alias{arc_node}
-\alias{arc_node.PRIMITIVE}
+\alias{arc_node}
 \alias{arc_node.sf}
+\alias{arc_node}
+\alias{arc_node.PRIMITIVE}
 \title{Arc-node topology.}
 \usage{
 arc_node(x, ...)
@@ -28,4 +30,3 @@ x <- sf::st_read(system.file("extdata/file.geojson", package= "sc"))
 arc_node(x)  ## get the nodes
 ## now get the arcs (should the functions be called arc() and node()?)
 }
-
