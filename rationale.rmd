@@ -1,12 +1,14 @@
 ---
 title: "A consistent common form for spatial data"
 author: "Michael Sumner"
-date: "`r Sys.Date()`"
-output: html_document
+date: '`r Sys.Date()`'
+output:
+  html_document: default
+  word_document: default
 ---
 
 
-There is no common  form spatial data that covers the complexity of geometric and topological types widely used in R. Traditional, GIS-alike spatial data is exceptional in the way that it does not  make use of normal forms for foundational representations. We are working on a framework for complex, hierarchical data that can incorporate standard spatial types and allows working with them in a general and flexible way. We provide tools in R for more general representations of spatial primitives and the intermediate forms required for translation and analytical tasks. 
+There is no common form for spatial data that covers the complexity of geometric and topological types widely used in R. Traditional, GIS-alike spatial data is exceptional in the way that it does not  make use of normal forms for geometric representations. We are working on a framework for complex, hierarchical data that can incorporate standard spatial types and allows working with them in a general and flexible way. We provide tools in R for more general representations of spatial primitives and the intermediate forms required for translation and analytical tasks. 
 
 The key part of the work is to provide a relational model of indexed primitives and component elements, as a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming. `Simple features` is rightly seen as a corner-stone resource, but as a central basis for translations it is only able to handle a subset of the wider remit of "spatial data" in R. Topology in the form of component-element sharing (indexing of vertex, edge, arc, path) is not available to simple features, and while there are tools to generate it for certain  planar cases, these  are not explicitly available outside provided workflows and this information is not generally available for extensible uses. 
 
@@ -15,7 +17,7 @@ The [simple features standard](http://www.opengeospatial.org/standards/sfa)  has
 
 * shapes are represented as paths so only planar polygonal shapes are possible
 * the standard allows for `XY[Z[M]]` geometry,but this is not extensible - there is no capacity to store data against component geometry elements 
-* no capacity for internal topology (no vertex-, edge-, or path-sharing). 
+* there is no capacity for internal topology (no vertex-, edge-, or path-sharing). 
 
 These limitations mean that it cannot represent in-full every-day objects from GPS, `rgl`, `ggplot2`/`ggvis`, `spatstat`, `maps`, TopoJSON, CAD drawings, or from 3D or general model structures. Translations between geo-spatial forms and the graphics and data grammars can be disjointed and sometimes awkward, relying on localized implementations that are lossy or inefficient, require 3rd party workflows, or involve unnecessary tasks. 
 
@@ -87,7 +89,7 @@ We got what we wanted, but how can we put this information back into the origina
 
 ## Alternative representations
 
-A prototype alternative form of representing this information is in the `sc` package, which is in early stages but is a great improvement to the design of previous implementations (see `mdsumner/gris` and `r-gris/rangl` for these early attempts).
+A prototype alternative form of representing this information is in the `sc` package, which is in early stages. (The current design is a distillation and improvement onprevious implementations, see `mdsumner/gris` and `r-gris/rangl` for these earlier attempts).
 
 The `PATH` models consists of three tables to store the objects ("features"), paths, and vertices, plus a fourth table `path_link_vertex` that allows de-duplication of the vertices (here in X-Y geometry). 
 
@@ -111,7 +113,7 @@ These representations provide a relational form stored in tables. This kind of d
 
 We can extract the topological information directly, because it's actually stored explicitly within the data structures already. 
 
-```{r}
+```{r,message=FALSE}
 library(dplyr)
 
 get_shared_edge <- function(x, ...) UseMethod("get_shared_edge")
@@ -149,6 +151,9 @@ plot(st_geometry(edge1), col = viridisLite::inferno(nrow(edge1)), lwd = 2)
 
 
 ```
+
+The `edge1` data set is now an intermediate structure on the way to being an arc-node topology representation of all the shared arcs in this polygon layer. The implementation of this will avoid creating the simple features output however, as that is not able to natively store the index arc-paths. 
+
 
 # Work ahead
 
@@ -202,7 +207,7 @@ The `rangl` package can build the full mesh of triangles, and convert it to a fo
 library(rangl)
 g_rangl <- rangl(as(g, "Spatial"))
 
-g_rangl
+str(g_rangl)
 
 ## it's fairly trivial to convert from relational form
 ## to the structures used by rgl
