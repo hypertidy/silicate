@@ -11,15 +11,15 @@ There is no common  form spatial data that covers the complexity of geometric an
 The key part of the work is to provide a relational model of indexed primitives and component elements, as a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming. `Simple features` is rightly seen as a corner-stone resource, but as a central basis for translations it is only able to handle a subset of the wider remit of "spatial data" in R. Topology in the form of component-element sharing (indexing of vertex, edge, arc, path) is not available to simple features, and while there are tools to generate it for certain  planar cases, these  are not explicitly available outside provided workflows and this information is not generally available for extensible uses. 
 
 
-The [simple features standard](http://www.opengeospatial.org/standards/sfa)  has the following limitations meaning that it cannot represent in-full every-day objects from GPS, `rgl`, `ggplot2`/`ggvis`, `spatstat`, `maps`, TopoJSON, CAD drawings, or from 3D or general model structures. 
+The [simple features standard](http://www.opengeospatial.org/standards/sfa)  has the following limitations: 
 
 * shapes are represented as paths so only planar polygonal shapes are possible
 * the standard allows for `XY[Z[M]]` geometry,but this is not extensible - there is no capacity to store data against component geometry elements 
 * no capacity for internal topology (no vertex-, edge-, or path-sharing). 
 
-Because of these limitations the translation between geo-spatial forms and the graphics and data grammars is disjointed and sometimes awkward, relying on localized implementations that can be lossy or inefficient, require 3rd party workflows, and sometimes involve unnecessary tasks. 
+These limitations mean that it cannot represent in-full every-day objects from GPS, `rgl`, `ggplot2`/`ggvis`, `spatstat`, `maps`, TopoJSON, CAD drawings, or from 3D or general model structures. Translations between geo-spatial forms and the graphics and data grammars can be disjointed and sometimes awkward, relying on localized implementations that are lossy or inefficient, require 3rd party workflows, or involve unnecessary tasks. 
 
-Many translation patterns that use simple features at some point result in  loss of information that does not fit within the model, requiring complicated workarounds to preserve it. These translations, ... common ... examples .. in-memory structural representations, and serialized forms within file formats, coordinate system geometry transformations, and topological or shape-modifying transformations. 
+Translation patterns that use simple features to translate data from native formats result in loss of information requiring complicated workarounds to preserve it. Common translations include in-memory structural representations,  serialized forms within file formats, coordinate system geometry transformations, and topological or shape-modifying transformations. 
 
 
 ## Illustration
@@ -89,7 +89,7 @@ We got what we wanted, but how can we put this information back into the origina
 
 A prototype alternative form of representing this information is in the `sc` package, which is in early stages but is a great improvement to the design of previous implementations (see `mdsumner/gris` and `r-gris/rangl` for these early attempts).
 
-The `PATH` models consists of three tables to store the objects ("features"), paths, and vertices, and a fourth table `path_link_vertex` allows de-duplication of the vertices (here in X-Y geometry). 
+The `PATH` models consists of three tables to store the objects ("features"), paths, and vertices, plus a fourth table `path_link_vertex` that allows de-duplication of the vertices (here in X-Y geometry). 
 
 ```{r}
 #devtools::install_github("mdsumner/sc")
@@ -170,21 +170,20 @@ Other options might include
 
 ***Define language and classifications for the forms***
 
-WIP
 
-We have the following entities that underlie our spatial objects. Vertices, coordinates (instances of vertices), line segments, paths (linestrings, polygon rings, TopoJSON/arc-node "arcs"), parts (rings, holes, linestrings, points), and objects or features. 
+The following entities underlie spatial objects: vertices, coordinates (instances of vertices), line segments, paths (linestrings, polygon rings, arcs), parts (rings, holes, linestrings, points), and objects or features. 
 
-We need relational models:
+We need relational models and the following broad components to a grammar of spatial data:
 
-* language of paths-belong-features, (a POINT can be a degenerate PATH for a MULTIPOINT) this incorporates TopoJSON, the internal `maps` store 
-* need a language of vertices-belong-edges-belong-parts-belong-features, all sf is expressible with 1D-primitives, and this scheme incorporates GPS and other tracking-sensor data
-* need a language of vertices-belong-triangles-belong-parts-belong-features, which incorporates `rgl`, CAD drawings, 3D and general models
+* a language of paths-belong-features, (a POINT can be a degenerate PATH for a MULTIPOINT) this incorporates TopoJSON, the internal `maps` store 
+* a language of vertices-belong-edges-belong-parts-belong-features, all sf is expressible with 1-D primitives, and this scheme incorporates GPS and other tracking-sensor data
+* a language of vertices-belong-triangles-belong-parts-belong-features, which incorporates `rgl`, CAD drawings, 3D and general models. 
 
 ***Key outputs***
 
 1. Provide tools for decomposing geo-spatial and other complex data to common general forms, including topological indexing. 
 2. Illustrate general workflow with tools to convert between `sf`, GeoJSON, TopoJSON, leaflet list-forms, and `rgl` and `plotly`
-3. Generate a classification of the broad class of "spatial data" in R that incorporates simple features and other forms and guides translation efforts across R packages. These are patterns that are for the most part user-accessible, so creating modified or specialized versions that are more efficient or better focussed for particular tasks will be straightforward. 
+3. Generate a classification of the broad class of "spatial data" in R that incorporates simple features and other forms and guides translation efforts across R packages. These are patterns that are, for the most part, user-accessible, so creating modified or specialized versions that are more efficient or better focussed for particular tasks will be straightforward. 
 4. Implement a prototype general-form geo-spatial-graphics data structure that can store geometry, topology, aesthetic mappings to bridge the creation of hierarchical data in the tidyverse with its visualization and analysis. 
 
 
@@ -192,7 +191,7 @@ We need relational models:
 # Supporting documentation
 
 
-The `sc` package is only in early stages, but a predecessor `rangl` takes these ideas further in order to work with the 2D primitives. One of the problems with `rangl` is a reliance on the `RTriangle` package, and future work with BOOST or CGAL could remove the need to rely on the restrictive license used by `RTriangle`. 
+The `sc` package is at an early stage, but a predecessor `rangl` takes these ideas further in order to work with the 2-D primitives. One of the problems with `rangl` is a reliance on the `RTriangle` package, and future work with BOOST or CGAL could remove the need to rely on the restrictive license used by `RTriangle`. 
 
 The discussion around these prospects is here: https://github.com/r-spatial/discuss/issues/6
 
