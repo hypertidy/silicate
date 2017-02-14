@@ -31,7 +31,7 @@ PATH <- function(x, ...) UseMethod("PATH")
 #' @name PATH
 #' @export
 PATH.default  <- function(x, ...) {
-  o <- tibble::as_tibble(.st_set_geometry(x))
+  o <- sc_object(x)
   o[["object_"]] <- sc_rand(nrow(o))
   b <- sc_path(x, ids = o[["object_"]])
   v <- sc_coord(x)
