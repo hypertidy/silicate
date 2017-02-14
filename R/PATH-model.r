@@ -13,20 +13,8 @@
 #' @name PATH
 #' @seealso `sc_path`, `sc_coord`
 #' @export
-#' @examples
-#' library(sf)
-#' sf_dataset <- st_sf(geometry = st_sfc(sfzoo[[2]]), a = 1)
-#' PATH(sf_dataset)
 PATH <- function(x, ...) UseMethod("PATH")
 
-## a function sf should have
-## to drop the spatial stuff
-#' @importFrom sf st_geometry<-
-.st_set_geometry <- function(x, value = NULL) {
-  #st_geometry(x) <- value
-  x[[attr(x, "sf_column")]] <- NULL
-  as.data.frame(x)
-}
 
 #' @name PATH
 #' @export

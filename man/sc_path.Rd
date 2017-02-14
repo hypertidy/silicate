@@ -2,68 +2,17 @@
 % Please edit documentation in R/path.r
 \name{sc_path}
 \alias{sc_path}
-\alias{sc_path}
-\alias{sc_path.sf}
-\alias{sc_path}
-\alias{sc_path.sfc}
-\alias{sc_path}
-\alias{sc_path.MULTIPOLYGON}
-\alias{sc_path}
-\alias{sc_path.POLYGON}
-\alias{sc_path}
-\alias{sc_path.LINESTRING}
-\alias{sc_path}
-\alias{sc_path.MULTILINESTRING}
-\alias{sc_path}
-\alias{sc_path.POINT}
-\alias{sc_path}
-\alias{sc_path.MULTIPOINT}
-\alias{sc_path}
-\alias{sc_path.GEOMETRYCOLLECTION}
 \title{Path decomposition}
 \usage{
 sc_path(x, ...)
-
-\method{sc_path}{sf}(x, ...)
-
-\method{sc_path}{sfc}(x, ids = NULL, ...)
-
-\method{sc_path}{MULTIPOLYGON}(x, ...)
-
-\method{sc_path}{POLYGON}(x, ...)
-
-\method{sc_path}{LINESTRING}(x, ...)
-
-\method{sc_path}{MULTILINESTRING}(x, ...)
-
-\method{sc_path}{POINT}(x, ...)
-
-\method{sc_path}{MULTIPOINT}(x, ...)
-
-\method{sc_path}{GEOMETRYCOLLECTION}(x, ...)
 }
 \arguments{
 \item{x}{input object}
 
 \item{...}{arguments passed to methods}
-
-\item{ids}{object id, one for each object in the `sfc`}
 }
 \description{
 Start in the middle, and build the 'path-link-vertex' table.
-}
-\examples{
-data("sfzoo")
-lapply(sfzoo, sc_path)
-sc_path(sf::st_sfc(sfzoo))
-sc_path(sf::st_sfc(sfzoo))
-sc_path(sfzoo$multipolygon)
-sc_path(sfzoo$polygon)
-sc_path(sfzoo$linestring)
-sc_path(sfzoo$multilinestring)
-sc_path(sfzoo$point)
-sc_path(sfzoo$multipoint)
-sc_path(sfzoo$multipoint)
 }
 \seealso{
 `sc_coord` for the coordinates part of the model, `sc_object` for 

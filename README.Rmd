@@ -106,62 +106,9 @@ TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, ...
 
 
 
-## Example - sf to ggplot2 round trip
+## Examples - sf  round trip
 
-```{r}
-library(sf)
-## a MULTIPOLYGON layer
-nc = st_read(system.file("shape/nc.shp", package="sf"))
-```
-
-The common form is the entity tables, objects, paths, vertices and a link table to allow de-duplication of shared vertices. Currently this de-duplication is done on all coordinate fields, but for most applications it will usually be done only in X-Y. 
-
-```{r}
-library(sc)
-nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
-
-
-(bmodel <- PATH(nc))
-```
-
-Prove that things work by round-tripping to the PATH model and onto the old fortify approach for `ggplot2`. 
-
-```{r}
-inner_cascade <- function(x) {
-  tabnames <- sc:::join_ramp(x)
-  tab <- x[[tabnames[1]]]
-  for (ni in tabnames[-1L]) tab <- dplyr::inner_join(tab, x[[ni]])
-  tab
-}
-
-## this just joins everything back together in one big fortify table
-library(dplyr)
-tab <- bmodel  %>% inner_cascade()
-
-library(ggplot2)
-ggplot(tab) + aes(x = x_, y = y_, group = path_) + 
-  geom_polygon(aes(fill = AREA)) +  geom_path(lwd = 2, col = "black") 
-```
-
-What about polygons with holes and lots of tiny complicated parts. 
-
-```{r}
-data("inlandwaters")
-
-iw <- PATH(inlandwaters)
-
-str(iw)
-
-tab <- iw  %>% inner_cascade()
-
-library(ggplot2)
-ggplot(tab) + aes(x = x_, y = y_, group = path_) + 
-  ggpolypath::geom_polypath(aes(fill = Province)) +  geom_path(col = "black") 
-
-ggplot(tab %>% filter(Province == "South Australia")) + aes(x = x_, y = y_, group = path_) + 
-  ggpolypath::geom_polypath(fill = "dodgerblue") +  geom_path(col = "black") + coord_fixed()
-
-```
+See scsf
 
 ## Example - sf to SQLite and filtered-read
 
@@ -169,13 +116,10 @@ See scdb
 
 ## Primitives, the planar straight line graph and TopoJSON
 
-(WIP see primitives-classes)
-
-```{r,eval=FALSE}
-example(PRIMITIVE)
-```
 
 ### Arc-node topoplogy 
+
+WIP
 
 ```{r, eval=FALSE}
 

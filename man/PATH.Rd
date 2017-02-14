@@ -26,11 +26,6 @@ In a data set with no parts touching their  neighbours, the only normalization o
 will be the removal of the duplicated closing coordinate on any polygon ring, and on
 any self-intersecting case within a single path.
 }
-\examples{
-library(sf)
-sf_dataset <- st_sf(geometry = st_sfc(sfzoo[[2]]), a = 1)
-PATH(sf_dataset)
-}
 \seealso{
 `sc_path`, `sc_coord`
 }
