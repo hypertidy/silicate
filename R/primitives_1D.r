@@ -17,63 +17,46 @@ NARC <- function(x, ...) {
 #' @export
 #' @importFrom dplyr select_
 #' @importFrom tibble as_tibble
-#' @importFrom dplyr bind_rows mutate distinct select inner_join group_by filter ungroup 
+#' @importFrom dplyr bind_rows mutate row_number distinct select inner_join group_by filter ungroup 
 NARC.PRIMITIVE <- function(x, ...) {
 
-  unique_edges <- x$path_link_vertex %>% split(.$path_) %>% 
-    purrr::map(p2seg) %>% 
-    dplyr::bind_rows(.id = "path_")%>% dplyr::mutate(edge_ = row_number()) %>% 
-    dplyr::mutate(uu = paste(pmin(.vertex0, .vertex1), pmax(.vertex0, .vertex1), sep = "_")) %>% 
-    dplyr::distinct(uu, .keep_all = TRUE)
-  
-  nodes <- bind_rows(x$vertex %>% dplyr::select(vertex_) %>% dplyr::inner_join(unique_edges, c("vertex_" = ".vertex0")), 
-                     x$vertex %>% dplyr::select(vertex_) %>% dplyr::inner_join(unique_edges, c("vertex_" = ".vertex1"))) %>% 
-    dplyr::distinct(edge_, vertex_) %>% 
-    dplyr::group_by(vertex_) %>% dplyr::mutate(nb = n()) %>% dplyr::ungroup() %>% 
-    dplyr::filter(nb > 2) %>% distinct(vertex_) %>% dplyr::inner_join(x$vertex)
-  
-  #plot(st_geometry(nc))
-  #points(nodes$x_, nodes$y_)
-  
- dplyr::select_(nodes, "x_", "y_", "vertex_")
- # nodes
+  ## we only have sc_edge yet
+  #x[["arcs"]] <- sc_arc(x)
+  x[["nodes"]] <- sc_node(x)
+ #dplyr::select_(nodes, "x_", "y_", "vertex_")
+ x
 }
 
-#' Arcs for arc-node topology. 
+#' Unique edges for arc-node topology. 
 #' 
 #' So-called "arcs" are unclosed paths that end in nodes, vertices shared by other arcs. 
 #' @param x input object
 #' @param ... arguments for methods
-#' @export
-sc_arc <- function(x, ...) {
-  UseMethod("sc_arc")
+sc_edge <- function(x, ...) {
+  UseMethod("sc_edge")
 }
 #' Nodes for arc-node topology. 
 #' 
 #' Nodes are the vertices in the graph that are shared by "arcs". 
 #' 
-#' @seealso sc_arc NARC
+#' @seealso NARC
 #' @param x input object
 #' @param ... arguments for methods
 #' @export
 sc_node <- function(x, ...) {
   UseMethod("sc_node")
 }
-#' @name sc_arc
-#' @export
-sc_arc.default <- function(x, ...) {
+#' @name sc_edge
+sc_edge.default <- function(x, ...) {
   x <- PRIMITIVE(x, ...)
-  sc_arc(x)
+  sc_edge(x)
 }
-#' @name sc_arc
-#' @export
-sc_arc.PRIMITIVE <- function(x, ...) {
-    unique_edges <- x$path_link_vertex %>% split(.$path_) %>% 
-    purrr::map(p2seg) %>% 
-    dplyr::bind_rows(.id = "path_")%>% dplyr::mutate(edge_ = row_number()) %>% 
-    dplyr::mutate(uu = paste(pmin(.vertex0, .vertex1), pmax(.vertex0, .vertex1), sep = "_")) %>% 
-    dplyr::distinct(uu, .keep_all = TRUE)
-  unique_edges
+#' @name sc_edge
+sc_edge.PRIMITIVE <- function(x, ...) {
+    u1 <- purrr::map(split(x$path_link_vertex, x$path_link_vertex$path_), p2seg)
+    u2 <- dplyr::mutate(dplyr::bind_rows(u1, .id = "path_"), edge_ = row_number())
+    u2[["uu"]] <- paste(pmin(u2[[".vertex0"]], u2[[".vertex1"]]), pmax(u2[[".vertex0"]], u2[[".vertex1"]]), sep = "_")
+    dplyr::distinct(u2, .keep_all = TRUE)
 }
 
 #' @name sc_node
@@ -83,14 +66,15 @@ sc_node.default <- function(x, ...) {
   sc_node(x)
 }
 #' @name sc_node
+#' @importFrom dplyr distinct_
 #' @export
 sc_node.PRIMITIVE <- function(x, ...) {
-  unique_edges <- sc_arc(x, ...)
-  nodes <- bind_rows(x$vertex %>% dplyr::select(vertex_) %>% dplyr::inner_join(unique_edges, c("vertex_" = ".vertex0")), 
-                     x$vertex %>% dplyr::select(vertex_) %>% dplyr::inner_join(unique_edges, c("vertex_" = ".vertex1"))) %>% 
-    dplyr::distinct(edge_, vertex_) %>% 
-    dplyr::group_by(vertex_) %>% dplyr::mutate(nb = n()) %>% dplyr::ungroup() %>% 
-    dplyr::filter(nb > 2) %>% distinct(vertex_) %>% dplyr::inner_join(x$vertex)
+  unique_edges <- sc_edge(x, ...)
+  nodes <- bind_rows(x$vertex %>% dplyr::select_("vertex_") %>% dplyr::inner_join(unique_edges, c("vertex_" = ".vertex0")), 
+                     x$vertex %>% dplyr::select_("vertex_") %>% dplyr::inner_join(unique_edges, c("vertex_" = ".vertex1"))) %>% 
+    dplyr::distinct_("edge_", "vertex_") %>% 
+    dplyr::group_by_("vertex_") %>% dplyr::mutate(nb = dplyr::n()) %>% dplyr::ungroup() %>% 
+    dplyr::filter_(quote(nb > 2)) %>% distinct_("vertex_") %>% dplyr::inner_join(x$vertex, "vertex_")
   nodes
 }
 
