@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.org/mdsumner/sc.svg?branch=master)](https://travis-ci.org/mdsumner/sc)
+[![Travis-CI Build Status](https://travis-ci.org/mdsumner/sc.svg?branch=master)](https://travis-ci.org/mdsumner/sc) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mdsumner/sc?branch=master&svg=true)](https://ci.appveyor.com/project/mdsumner/sc) [![Coverage Status](https://img.shields.io/codecov/c/github/mdsumner/sc/master.svg)](https://codecov.io/github/mdsumner/sc?branch=master)
 
 sc
 ==
