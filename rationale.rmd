@@ -135,7 +135,18 @@ get_shared_edge.sf <- function(x, ...) {
     purrr::map(function(x) st_linestring(as.matrix(x %>% dplyr::select(x_, y_)))) %>% st_sfc()
   st_sf(a = seq_along(g0), geometry = g0)
 }
-
+get_shared_edge.sf <- function(x, ...) {
+  prim <- sc::PRIMITIVE(x)
+  shared <- prim$segment %>% dplyr::select(.vertex0, .vertex1) %>% 
+    mutate_all(funs("I" = as.integer(factor(.))))  %>% 
+    mutate(edge_id = paste(pmin(.vertex0_I, .vertex1_I), pmax(.vertex0_I, .vertex1_I), sep = "_")) %>% 
+    group_by(edge_id) %>% filter(n() > 1) %>% ungroup() %>% select(.vertex0, .vertex1, edge_id)
+  
+  ## use this information to generate sf output
+  #g0 <- shared %>% inner_join(prim$vertex, c(".vertex0" = "vertex_")) %>% split(.$edge_id) %>% 
+  #  purrr::map(function(x) st_linestring(as.matrix(x %>% dplyr::select(x_, y_)))) %>% st_sfc()
+  #st_sf(a = seq_along(g0), geometry = g0)
+}
 shared_e <- get_shared_edge(g)
 plot(st_geometry(g))
 plot(st_geometry(shared_e), add = TRUE, lwd = 3, col = "dodgerblue")
