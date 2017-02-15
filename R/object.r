@@ -14,10 +14,6 @@ sc_object <- function(x, ...) UseMethod("sc_object")
 
 #' @name sc_object
 #' @export
-#' @examples 
-#' library(sf)
-#' nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
-#' sc_object(nc)
-sc_object.sf <- function(x, ...) {
-  as.data.frame(x)
+sc_object.default <- function(x, ...) {
+  as_tibble(x)
 }

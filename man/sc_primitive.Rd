@@ -9,11 +9,7 @@ sc_primitive(x, ...)
 \arguments{
 \item{x}{input object}
 
-\item{...}{arguments passed to methods
-sf_obj <- inlandwaters[5, ]
-obj <- PATH(sf_obj)
-prim <- sc_primitive(obj)
-sf_pslg <- PRIMITIVE(sf_obj)}
+\item{...}{arguments passed to methods}
 }
 \description{
 Given a `PATH`` model decompose to 1-dimensional primitives.

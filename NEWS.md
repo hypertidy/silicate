@@ -1,5 +1,7 @@
 # dev
 
+* added internal function `sc_edge`, and exported `sc_node` and renamed arc_node to `NARC`
+* removed all sf-specific facilities to external package
 * revert to sf 0.2-7 to enable vignette migration
 * PATH model added (with ongoing migration from "branch" term to "path" term)
 * BRANCH model effectively removed, replaced by the PATH model

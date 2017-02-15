@@ -12,12 +12,11 @@ LazyData: true
 Suggests:
     testthat,
     knitr,
-    rmarkdown
-RoxygenNote: 6.0.0
+    rmarkdown,
+    covr
+RoxygenNote: 6.0.1
 Imports: dplyr,
     ids,
     purrr,
-    sf,
     tibble
-Remotes: r-gris/rangl
 VignetteBuilder: knitr

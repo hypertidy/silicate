@@ -3,12 +3,12 @@
 \name{sc_object}
 \alias{sc_object}
 \alias{sc_object}
-\alias{sc_object.sf}
+\alias{sc_object.default}
 \title{Objects, features}
 \usage{
 sc_object(x, ...)
 
-\method{sc_object}{sf}(x, ...)
+\method{sc_object}{default}(x, ...)
 }
 \arguments{
 \item{x}{input object}
@@ -18,11 +18,6 @@ sc_object(x, ...)
 \description{
 The objects are the front end entities, the usual "GIS contract" objects, 
 or features.
-}
-\examples{
-library(sf)
-nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
-sc_object(nc)
 }
 \seealso{
 `sc_coord` for the coordinates part of the model, `sc_path` for 
