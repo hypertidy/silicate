@@ -122,6 +122,7 @@ PRIMITIVE <- function(x, ...) UseMethod("PRIMITIVE")
 #' @export
 PRIMITIVE.PATH <- function(x, ...) {
   x$segment <- sc_primitive(x, ...)
+  class(x) <- c("PRIMITIVE", class(x))
   x
 }
 #' @name PRIMITIVE
