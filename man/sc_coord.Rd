@@ -2,9 +2,13 @@
 % Please edit documentation in R/coord.r
 \name{sc_coord}
 \alias{sc_coord}
+\alias{sc_coord}
+\alias{sc_coord.PATH}
 \title{Coordinate decomposition}
 \usage{
 sc_coord(x, ...)
+
+\method{sc_coord}{PATH}(x, ...)
 }
 \arguments{
 \item{x}{input object}

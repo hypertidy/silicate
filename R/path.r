@@ -13,4 +13,8 @@
 sc_path <- function(x, ...) {
   UseMethod("sc_path")
 }
-
+#' @name sc_path
+#' @export
+sc_path.PATH <- function(x, ...) {
+  x[["path"]]
+}

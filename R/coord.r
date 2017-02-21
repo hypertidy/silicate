@@ -13,3 +13,8 @@
 #' the features, and `PATH` for the full model. 
 sc_coord <- function(x, ...) UseMethod("sc_coord")
 
+#' @name sc_coord
+#' @export
+sc_coord.PATH <- function(x, ...) {
+  x[["vertex"]]
+}

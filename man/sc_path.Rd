@@ -2,9 +2,13 @@
 % Please edit documentation in R/path.r
 \name{sc_path}
 \alias{sc_path}
+\alias{sc_path}
+\alias{sc_path.PATH}
 \title{Path decomposition}
 \usage{
 sc_path(x, ...)
+
+\method{sc_path}{PATH}(x, ...)
 }
 \arguments{
 \item{x}{input object}

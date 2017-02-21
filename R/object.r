@@ -15,5 +15,5 @@ sc_object <- function(x, ...) UseMethod("sc_object")
 #' @name sc_object
 #' @export
 sc_object.default <- function(x, ...) {
-  as_tibble(x)
+  as_tibble(x[["object"]])
 }
