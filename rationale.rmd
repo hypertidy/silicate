@@ -62,7 +62,7 @@ There is no capacity in the simple features standard to describe this situation 
 
 Similarly in a MULTIPOINT there is no identity or grouping to each component vertex within the whole, and a single vertex has no information stored with it other than its position in an array and its raw geometric properties.
 
-In the second panel is a Delaunay triangulation of the coordinates, grouped by feature. The triangles do not align with the polygon edges, because the triangle edges were not included in the triangulation algorithm. There is also an inserted overlap between the polygons, which makes this data set invalid for many standard GIS constructs. This is not a criticism of `st_triangulate` though, because even when we perform a *constrained triangulation* (Cheng et al., 2012), the simple features standard dictates that we store these all in TRIANGLE form, each a ring of three coordinates within a GEOMETRYCOLLECTION. This can store the non-convex form of the triangulation, but only in **fully expanded** form - i.e. as a *mesh with no indexing* (http://postgis.net/docs/ST_GeometryN.html). 
+In the second panel is a Delaunay triangulation of the coordinates, grouped by feature. The triangles do not align with the polygon edges, because the triangle edges were not included in the triangulation algorithm. There is also an inserted overlap between the polygons, which makes this data set invalid for many standard GIS constructs. This is not a criticism of `st_triangulate` though, because even when we perform a *constrained triangulation* (Cheng et al., 2012), the simple features standard dictates that we store these all in TRIANGLE form, each a ring of four explicit coordinates within a GEOMETRYCOLLECTION. This can store the non-convex form of the triangulation, but only in **fully expanded** form - i.e. as a *mesh with no indexing* (http://postgis.net/docs/ST_GeometryN.html). 
 
 We can detect these properties using the in-built tools and return the exact relationship in object form. These tools internally build topological structure and then discard it. 
 
@@ -101,8 +101,9 @@ The `PATH` models consists of three tables to store the objects ("features"), pa
 
 ```{r}
 #devtools::install_github("mdsumner/sc")
+#devtools::install_github("mdsumner/scsf")
 library(sc)
-
+library(scsf)
 ## build the PATH model from a simple features object
 str(sc::PATH(g))
 ```
@@ -135,19 +136,9 @@ get_shared_edge.sf <- function(x, ...) {
     purrr::map(function(x) st_linestring(as.matrix(x %>% dplyr::select(x_, y_)))) %>% st_sfc()
   st_sf(a = seq_along(g0), geometry = g0)
 }
-get_shared_edge.sf <- function(x, ...) {
-  prim <- sc::PRIMITIVE(x)
-  shared <- prim$segment %>% dplyr::select(.vertex0, .vertex1) %>% 
-    mutate_all(funs("I" = as.integer(factor(.))))  %>% 
-    mutate(edge_id = paste(pmin(.vertex0_I, .vertex1_I), pmax(.vertex0_I, .vertex1_I), sep = "_")) %>% 
-    group_by(edge_id) %>% filter(n() > 1) %>% ungroup() %>% select(.vertex0, .vertex1, edge_id)
-  
-  ## use this information to generate sf output
-  #g0 <- shared %>% inner_join(prim$vertex, c(".vertex0" = "vertex_")) %>% split(.$edge_id) %>% 
-  #  purrr::map(function(x) st_linestring(as.matrix(x %>% dplyr::select(x_, y_)))) %>% st_sfc()
-  #st_sf(a = seq_along(g0), geometry = g0)
-}
+
 shared_e <- get_shared_edge(g)
+
 plot(st_geometry(g))
 plot(st_geometry(shared_e), add = TRUE, lwd = 3, col = "dodgerblue")
 
