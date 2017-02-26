@@ -20,6 +20,8 @@ knitr::opts_chunk$set(
 
 The goal of sc is to provide a general common form for complex multi-dimensional data. 
 
+The need for this for spatial data is illustrated here: http://rpubs.com/cyclemumner/sc-rationale
+
 We aim to create a classification of spatial and other hierarchical data in R with tools for more general representations of spatial primitives and the intermediate forms required for translation and analytical tasks. The key is to provide a relational model of indexed primitives and component elements, as a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming. 
 
 A **path** can be treated as a first-class type and and stored as such within a relational model, along with the other entities **objects** ("features") and **vertices**. with this approach we gain two advantages, we can *normalize* the relations (detect and remove redundancy) and also store any additional data about the entitities in the model.  

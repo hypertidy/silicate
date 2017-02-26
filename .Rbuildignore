@@ -7,3 +7,4 @@
 .*.rmd
 ^codecov\.yml$
 ^appveyor\.yml$
+^rationale.html$

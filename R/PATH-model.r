@@ -45,3 +45,5 @@ PATH.default  <- function(x, ...) {
 }
 
 join_ramp <- function(x) attr(x, "join_ramp")
+
+globalVariables(".idx0")
