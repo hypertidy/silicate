@@ -18,17 +18,26 @@ PATH <- function(x, ...) UseMethod("PATH")
 
 #' @name PATH
 #' @export
+#' @importFrom dplyr bind_cols mutate
+#' @importFrom tibble tibble
 PATH.default  <- function(x, ...) {
   o <- sc_object(x)
   o[["object_"]] <- sc_rand(nrow(o))
   b <- sc_path(x, ids = o[["object_"]])
   v <- sc_coord(x)
-  paste_ <- function(...) paste(..., sep = "_")
-  v_factor <- factor(do.call(paste_, v))
-  id <- sc_rand(n = nlevels(v_factor))
-  bXv <- tibble::tibble(path_ = rep(b$path_, b$ncoords_))
-  v[["vertex_"]] <- bXv[["vertex_"]] <- id[v_factor]
-  v <- dplyr::distinct_(v, "vertex_", .keep_all = TRUE)
+  
+  ## unjoin key_col is not working
+  maindata <- unjoin::unjoin_(dplyr::bind_cols(v, tibble::tibble(path_ = rep(b$path_, b$ncoords_))), "path_", key_col = "vertex_")
+  id <- sc_rand(n = nrow(maindata$data))
+  v <- maindata$data %>% dplyr::mutate(vertex_ = id[.idx0])
+  bXv <- maindata$main %>% dplyr::mutate(vertex_ = id[.idx0])
+  v[[".idx0"]] <- bXv[[".idx0"]] <- NULL
+  #paste_ <- function(...) paste(..., sep = "_")
+  #v_factor <- factor(do.call(paste_, v))
+  #id <- sc_rand(n = nlevels(v_factor))
+  #bXv <- tibble::tibble(path_ = rep(b$path_, b$ncoords_))
+  #v[["vertex_"]] <- bXv[["vertex_"]] <- id[v_factor]
+  #v <- dplyr::distinct_(v, "vertex_", .keep_all = TRUE)
   join_ramp <-  tabnames <- c("object", "path",  "path_link_vertex", "vertex")
   structure(list(object = o, path = b, vertex = v, path_link_vertex = bXv), 
             class = c("PATH", "sc"), 
