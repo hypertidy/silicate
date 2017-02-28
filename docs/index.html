@@ -32,6 +32,9 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li>
+  <a href="articles/index.html">Articles</a>
+</li>
+<li>
   <a href="news/index.html">News</a>
 </li>
       </ul>
@@ -62,6 +65,34 @@
 <p>A <strong>path</strong> can be treated as a first-class type and and stored as such within a relational model, along with the other entities <strong>objects</strong> (“features”) and <strong>vertices</strong>. with this approach we gain two advantages, we can <em>normalize</em> the relations (detect and remove redundancy) and also store any additional data about the entitities in the model.</p>
 <p>(There is an interplay between “able to store extra information” and “able to normalize”, since extra data may introduce further redundancy, but we defer this issue for now since full normalization is not our primary task).</p>
 <p>This package provides two main schemes, the <code>PATH</code> and the <code>PRIMITIVE</code> models. The two models may be mutually exclusive, or they can co-exist. The PATH model can always be derived from the PRIMITIVE model and vice versa but the PRIMITIVE model has extra capacities that PATH cannot provide. (The current design is a distillation and improvement on previous implementations, see <code>mdsumner/gris</code> and <code>r-gris/rangl</code> for these earlier attempts).</p>
+</div>
+<div id="developer-notes-" class="section level1">
+<h1 class="hasAnchor">
+<a href="#developer-notes-" class="anchor"> </a>Developer notes.</h1>
+<p>There are key worker functions <code>sc_coord</code>, <code>sc_node</code>, <code>sc_object</code>, <code>sc_path</code>.</p>
+<ul>
+<li>sc_coord returns the table of coordinates completely flattened, no normalization</li>
+<li>sc_object returns the highest level feature metadata</li>
+<li>sc_path returns the table of individual paths, with a coordinate count</li>
+</ul>
+<p>This generic set of workers is chosen because we often want the complete set of vertices in their pure form. Returning them with no grouping or identifiers and without any de-duplication means we have a representation of the pure geometry. Since the table has no other columns, generic code can be sure that all columns contain a coordinate. That means we don’t need specialist code for ‘XYZ’, ‘XYZM’, ‘XYT’, ‘TYX’ and so on.</p>
+<p>The table of individual paths records which object it belongs to, how many coordinates there are and an ID for the path. This is not intended to be ‘relational’, it’s an intermediate form link by pure indexing. Inserting more levels between the paths and the highest objects is possible, but unclear exactly how to do this yet.</p>
+<p>The <code>unjoin</code> concept is key for mapping the key between unique vertices and a path’s instance of those as coordinates, in the right order. We can use the unjoin engine to add structure to other more generic data streams, like GPS, animal tracking, and general sensors.</p>
+<p>The model functions <code>PRIMITIVE</code> and <code>PATH</code> should work in the following cases.</p>
+<ul>
+<li>to flip from one to another <code><a href="reference/PRIMITIVE.html">PRIMITIVE(PATH(PRIMITIVE(x)))</a></code> should work for any kind of ‘x’ model</li>
+<li>for any sf object, currently types can be mixed but the round-trip won’t work since the missing column values will choke a split</li>
+<li>igraph objects WIP</li>
+<li>trip objects WIP</li>
+<li>spatstat objects WIP</li>
+</ul>
+<p>The classes for all variants of simple features are not worked out, for instance a MULTIPOINT can end up with a degenerate (and expensive) segment table.</p>
+<p>More functions <code>sc_rand</code> provides random IDs, and <code>sc_node</code> is a worker for a arc-node intermediate model.</p>
+<p>Intermediate models</p>
+<ul>
+<li>Arc-node (WIP)</li>
+<li>Monotone polygons (future work)</li>
+</ul>
 </div>
 <div id="why" class="section level1">
 <h1 class="hasAnchor">
