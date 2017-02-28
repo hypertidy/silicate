@@ -30,6 +30,38 @@ A **path** can be treated as a first-class type and and stored as such within a 
 
 This package provides two main schemes, the `PATH` and the `PRIMITIVE` models. The two models may be mutually exclusive, or they can co-exist. The PATH model can always be derived from the PRIMITIVE model and vice versa but the PRIMITIVE model has extra capacities that PATH cannot provide. (The current design is a distillation and improvement on previous implementations, see `mdsumner/gris` and `r-gris/rangl` for these earlier attempts).
 
+# Developer notes.
+
+There are key worker functions `sc_coord`, `sc_node`, `sc_object`, `sc_path`.
+
+* sc_coord returns the table of coordinates completely flattened, no normalization
+* sc_object returns the highest level feature metadata
+* sc_path returns the table of individual paths, with a coordinate count
+
+This generic set of workers is chosen because we often want the complete set of vertices in their pure form. Returning them with no grouping or identifiers and without any de-duplication means we have a representation of the pure geometry. Since the table has no other columns, generic code can be sure that all columns contain a coordinate. That means we don't need specialist code for 'XYZ', 'XYZM', 'XYT', 'TYX' and so on. 
+
+The table of individual paths records which object it belongs to, how many coordinates there are and an ID for the path. This is not intended to be 'relational', it's an intermediate form link by pure indexing. Inserting more levels between the paths and the highest objects is possible, but unclear exactly how to do this yet. 
+
+The `unjoin` concept is key for mapping the key between unique vertices and a path's instance of those as coordinates, in the right order. We can use the unjoin engine to add structure to other more generic data streams, like GPS, animal tracking, and general sensors. 
+
+The model functions `PRIMITIVE` and `PATH` should work in the following cases. 
+
+* to flip from one to another `PRIMITIVE(PATH(PRIMITIVE(x)))` should work for any kind of 'x' model
+* for any sf object, currently types can be mixed but the round-trip won't work since the missing column values will choke a split
+* igraph objects WIP
+* trip objects WIP
+* spatstat objects WIP
+
+
+The classes for all variants of simple features are not worked out, for instance a MULTIPOINT can end up 
+with a degenerate (and expensive) segment table. 
+
+More functions `sc_rand` provides random IDs, and  `sc_node` is a worker for a arc-node intermediate model. 
+
+Intermediate models
+
+* Arc-node (WIP)
+* Monotone polygons (future work)
 
 # Why? 
 

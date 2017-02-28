@@ -78,16 +78,9 @@ sc_node.PRIMITIVE <- function(x, ...) {
   nodes
 }
 
-#' @importFrom utils head
-path_to_segment <- function(x, id = NULL) {
-  ## this is a trick of array logic to generate paired indexes from a sequence
-  x <- stats::setNames(tibble::as_tibble(utils::head(suppressWarnings(matrix(x, nrow = length(x) + 1, ncol = 2, byrow = FALSE)), -2L)), 
-           c(".vertex0", ".vertex1"))
-  if (!is.null(id)) x[["path_"]] <- id
-  x
-}
 
-#' Given a `PATH`` model decompose to 1-dimensional primitives. 
+
+#' Given a `PATH`` model decompose to 1-dimensional primitives (or 0-dimensional). 
 #' 
 #' @param x input object
 #' @param ... arguments passed to methods
@@ -98,6 +91,10 @@ sc_primitive.PATH <- function(x, ...) {
   bXv <- x$path_link_vertex
   all_coordinates <- dplyr::inner_join(bXv, v, "vertex_")
   
+  ## what if we had points
+  if (nrow(bXv) == nrow(distinct_(bXv, "path_"))) {
+    return(dplyr::transmute_(all_coordinates, .vertex0 = quote(vertex_), path_ = quote("path_")))
+  }
   ## this is a subset of RTriangle::pslg (because the original target was RTriangle::triangulate)
   #pstraight_lgraph <- list(P = as.matrix(v[, c("x_", "y_")]),
   ## only need S for 1D

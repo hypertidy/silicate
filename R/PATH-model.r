@@ -25,15 +25,16 @@ PATH.default  <- function(x, ...) {
   o <- sc_object(x)
   o[["object_"]] <- sc_rand(nrow(o))
   b <- sc_path(x, ids = o[["object_"]])
+  
   v <- sc_coord(x)
   
   key_col <- "vertex_"
-  maindata <- unjoin::unjoin_(dplyr::bind_cols(v, tibble::tibble(path_ = rep(b$path_, b$ncoords_))), "path_", key_col = key_col)
-  id <- sc_rand(n = nrow(maindata$data))
-  v <- maindata$data %>% dplyr::mutate(vertex_ = id[maindata$data[[key_col]]])
-  bXv <- maindata$main %>% dplyr::mutate(vertex_ = id[maindata$main[[key_col]]])
+  maindata <- unjoin::unjoin_(dplyr::mutate(v, path_ = rep(b$path_, b$ncoords_)), names(v), key_col = key_col)
+  id <- sc_rand(n = nrow(maindata[["data"]]))
+  v <- dplyr::mutate(maindata[[key_col]], vertex_ = id[maindata[[key_col]][[key_col]]])
+  bXv <- dplyr::mutate(maindata[["data"]], vertex_ = id[maindata[["data"]][[key_col]]])
   #v[[key_col]] <- bXv[[key_col]] <- NULL
-join_ramp <-  tabnames <- c("object", "path",  "path_link_vertex", "vertex")
+  join_ramp <-  tabnames <- c("object", "path",  "path_link_vertex", "vertex")
   structure(list(object = o, path = b, vertex = v, path_link_vertex = bXv), 
             class = c("PATH", "sc"), 
             join_ramp = join_ramp)

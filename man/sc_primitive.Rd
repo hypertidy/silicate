@@ -2,7 +2,7 @@
 % Please edit documentation in R/primitives_1D.r
 \name{sc_primitive}
 \alias{sc_primitive}
-\title{Given a `PATH`` model decompose to 1-dimensional primitives.}
+\title{Given a `PATH`` model decompose to 1-dimensional primitives (or 0-dimensional).}
 \usage{
 sc_primitive(x, ...)
 }
@@ -12,5 +12,5 @@ sc_primitive(x, ...)
 \item{...}{arguments passed to methods}
 }
 \description{
-Given a `PATH`` model decompose to 1-dimensional primitives.
+Given a `PATH`` model decompose to 1-dimensional primitives (or 0-dimensional).
 }
