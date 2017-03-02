@@ -1,6 +1,6 @@
 Package: sc
 Title: Common Forms for Complex Data
-Version: 0.0.1.9000
+Version: 0.0.2
 Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com"), 
              as.person("Simon Wotherspoon <Simon.Wotherspoon@utas.edu.au> [aut]"))
 Description: Generates a generic, common form from complex data, such as simple features. 
@@ -15,7 +15,8 @@ Suggests:
     rmarkdown,
     covr
 RoxygenNote: 6.0.1
-Imports: dplyr,
+Imports: 
+    dplyr,
     ids,
     purrr,
     tibble, 
