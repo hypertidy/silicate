@@ -1,6 +1,5 @@
 # dev
 
-
 * cleaned up the un-join with a specific function from 'unjoin' package
 * added internal function `sc_edge`, and exported `sc_node` and renamed arc_node to `NARC`
 * removed all sf-specific facilities to external package
