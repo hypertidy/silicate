@@ -21,4 +21,4 @@ Imports: dplyr,
     tibble, 
     unjoin
 VignetteBuilder: knitr
-Remotes: unjoin
+Remotes: mdsumner/unjoin
