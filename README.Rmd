@@ -47,10 +47,10 @@ The `unjoin` concept is key for mapping the key between unique vertices and a pa
 The model functions `PRIMITIVE` and `PATH` should work in the following cases. 
 
 * to flip from one to another `PRIMITIVE(PATH(PRIMITIVE(x)))` should work for any kind of 'x' model
-* for any sf object, currently types can be mixed but the round-trip won't work since the missing column values will choke a split
-* igraph objects WIP
-* trip objects WIP
-* spatstat objects WIP
+* for any sf object: https://github.com/mdsumner/scsf
+* convert to igraph objects WIP: https://github.com/mdsumner/scgraph
+* spatstat objects WIP: https://github.com/mdsumner/scspatstat
+* ...  
 
 
 The classes for all variants of simple features are not worked out, for instance a MULTIPOINT can end up 
