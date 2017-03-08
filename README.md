@@ -42,7 +42,7 @@ The model functions `PRIMITIVE` and `PATH` should work in the following cases.
 
 The classes for all variants of simple features are not worked out, for instance a MULTIPOINT can end up with a degenerate (and expensive) segment table.
 
-More functions `sc_rand` provides random IDs, and `sc_node` is a worker for a arc-node intermediate model.
+More functions `sc_uid` provides unique IDs, and `sc_node` is a worker for a arc-node intermediate model.
 
 Intermediate models
 

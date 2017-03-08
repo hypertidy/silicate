@@ -1,5 +1,7 @@
 # sc dev
 
+* `sc_rand` is deprecated, to be replaced by `sc_uid`
+
 # sc 0.0.2
 
 * cleaned up the un-join with a specific function from 'unjoin' package
