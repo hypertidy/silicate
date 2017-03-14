@@ -8,6 +8,9 @@
 \usage{
 sc_rand(n = 1L)
 }
+\arguments{
+\item{n}{see `sc_uid`}
+}
 \description{
 Deprecated functions from sc.
 }

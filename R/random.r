@@ -1,4 +1,5 @@
 #' @export
+#' @param n see `sc_uid`
 #' @name sc-deprecated
 sc_rand <- function(n = 1L) {
   .Deprecated("sc_uid") 
