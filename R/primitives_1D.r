@@ -102,7 +102,7 @@ sc_primitive.PATH <- function(x, ...) {
                                          function(x) path_to_segment(x$vertex_, x$path_[1L])))
   
   
-  segment_longform[["segment_"]] <- sc_rand(n = nrow(segment_longform))     
+  segment_longform[["segment_"]] <- sc_uid(n = nrow(segment_longform))     
   
   segment_longform
 }

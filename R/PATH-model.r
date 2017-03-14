@@ -23,14 +23,14 @@ PATH <- function(x, ...) UseMethod("PATH")
 PATH.default  <- function(x, ...) {
   ## get the main stuff
   o <- sc_object(x)
-  o[["object_"]] <- sc_rand(nrow(o))
+  o[["object_"]] <- sc_uid(nrow(o))
   b <- sc_path(x, ids = o[["object_"]])
   
   v <- sc_coord(x)
   
   key_col <- "vertex_"
   maindata <- unjoin::unjoin_(dplyr::mutate(v, path_ = rep(b$path_, b$ncoords_)), names(v), key_col = key_col)
-  id <- sc_rand(n = nrow(maindata[["data"]]))
+  id <- sc_uid(n = nrow(maindata[["data"]]))
   v <- dplyr::mutate(maindata[[key_col]], vertex_ = id[maindata[[key_col]][[key_col]]])
   bXv <- dplyr::mutate(maindata[["data"]], vertex_ = id[maindata[["data"]][[key_col]]])
   #v[[key_col]] <- bXv[[key_col]] <- NULL

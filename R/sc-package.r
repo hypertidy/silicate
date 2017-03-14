@@ -11,3 +11,8 @@ NULL
 #' @name mmesh
 #' @docType data 
 NULL
+
+#' Deprecated functions from sc. 
+#' 
+#' @name sc-deprecated
+NULL
