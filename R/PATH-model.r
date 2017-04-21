@@ -27,12 +27,14 @@ PATH.default  <- function(x, ...) {
   b <- sc_path(x, ids = o[["object_"]])
   
   v <- sc_coord(x)
-  
+  V_names <- names(v)
+  v <- dplyr::mutate(v, path_ = rep(b$path_, b$ncoords_))
   key_col <- "vertex_"
-  maindata <- unjoin::unjoin_(dplyr::mutate(v, path_ = rep(b$path_, b$ncoords_)), names(v), key_col = key_col)
-  id <- sc_uid(n = nrow(maindata[["data"]]))
+  maindata <- unjoin::unjoin_(v, V_names, key_col = key_col)
+  dd <- maindata[["data"]]
+  id <- sc_uid(n = nrow(dd))
   v <- dplyr::mutate(maindata[[key_col]], vertex_ = id[maindata[[key_col]][[key_col]]])
-  bXv <- dplyr::mutate(maindata[["data"]], vertex_ = id[maindata[["data"]][[key_col]]])
+  bXv <- dplyr::mutate(maindata[["data"]], vertex_ = id[dd[[key_col]]])
   #v[[key_col]] <- bXv[[key_col]] <- NULL
   join_ramp <-  tabnames <- c("object", "path",  "path_link_vertex", "vertex")
   structure(list(object = o, path = b, vertex = v, path_link_vertex = bXv), 
