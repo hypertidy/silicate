@@ -66,15 +66,15 @@ sc_node.default <- function(x, ...) {
   sc_node(x)
 }
 #' @name sc_node
-#' @importFrom dplyr distinct_
+#' @importFrom dplyr distinct_ tally
 #' @export
 sc_node.PRIMITIVE <- function(x, ...) {
   unique_edges <- sc_edge(x, ...)
   nodes <- bind_rows(x$vertex %>% dplyr::select_("vertex_") %>% dplyr::inner_join(unique_edges, c("vertex_" = ".vertex0")), 
                      x$vertex %>% dplyr::select_("vertex_") %>% dplyr::inner_join(unique_edges, c("vertex_" = ".vertex1"))) %>% 
     dplyr::distinct_("edge_", "vertex_") %>% 
-    dplyr::group_by_("vertex_") %>% dplyr::mutate(nb = dplyr::n()) %>% dplyr::ungroup() %>% 
-    dplyr::filter_(quote(nb > 2)) %>% distinct_("vertex_") %>% dplyr::inner_join(x$vertex, "vertex_")
+    dplyr::group_by_("vertex_") %>% dplyr::tally() %>% dplyr::ungroup() %>% 
+    dplyr::filter_(quote(n > 2)) %>% distinct_("vertex_") ##%>% dplyr::inner_join(x$vertex, "vertex_")
   nodes
 }
 
