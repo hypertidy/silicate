@@ -78,7 +78,7 @@ This lens is seen side-on when 1) bringing graphics data (images, drawings) into
 
 The word "spatial" has a rather general meaning, and while GIS idioms sometimes extend into the Z dimension time is usually treated in a special way. Where GIS really starts to show its limits is in the boundary between discrete and continuous measures and entities. We prefer to default to the most general meaning of spatial, work with tools that allow flexibility despite the (rather arbitrary) choice of topological and geometric structures and dimensions that a given model needs. When the particular optimizations and clever constraints of the simple features and GIS world are required and/or valuable then we use those, but prefer not to see that 1) this model must fit into this GIS view 2) GIS has no place in this model. For us the boundaries are not so sharp and there's valuable cross-over in many fields. 
 
-The particular GIS-like limitations that we seek are as follows. 
+The particular GIS-like limitations that we seek to overcome are as follows. 
 
 * flexibility in the number and type/s of attribute stored as "coordinates", x, y, lon, lat, z, time, temperature, etc.
 * ability to store attributes on parts i.e. the state is the object, the county is the part
