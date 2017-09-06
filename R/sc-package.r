@@ -1,6 +1,6 @@
-#' sc.
+#' silicate.
 #'
-#' @name sc
+#' @name silicate
 #' @docType package
 NULL
 

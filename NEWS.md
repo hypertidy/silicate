@@ -1,5 +1,7 @@
 # sc dev
 
+* renamed package
+
 * `sc_rand` is deprecated, to be replaced by `sc_uid`
 
 # sc 0.0.2

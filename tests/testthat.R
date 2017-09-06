@@ -1,4 +1,4 @@
 library(testthat)
-library(sc)
+library(silicate)
 
-test_check("sc")
+test_check("silicate")

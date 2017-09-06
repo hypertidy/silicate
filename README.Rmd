@@ -12,19 +12,19 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![Travis-CI Build Status](https://travis-ci.org/mdsumner/sc.svg?branch=master)](https://travis-ci.org/mdsumner/sc)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mdsumner/sc?branch=master&svg=true)](https://ci.appveyor.com/project/mdsumner/sc)
-[![Coverage Status](https://img.shields.io/codecov/c/github/mdsumner/sc/master.svg)](https://codecov.io/github/mdsumner/sc?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/mdsumner/silicate.svg?branch=master)](https://travis-ci.org/mdsumner/silicate)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mdsumner/silicate?branch=master&svg=true)](https://ci.appveyor.com/project/mdsumner/silicate)
+[![Coverage Status](https://img.shields.io/codecov/c/github/mdsumner/silicate/master.svg)](https://codecov.io/github/mdsumner/silicate?branch=master)
 
-# sc
+# silicate
 
-The goal of sc is to provide a general common form for complex multi-dimensional data. 
+The goal of silicate is to provide a general common form for complex multi-dimensional data. 
 
 The need for this for spatial data is illustrated here: http://rpubs.com/cyclemumner/sc-rationale
 
 ## NOTE September 2017
 
-I've recently figured out some things that will make the idea of a "universal converter" more realistic. In sc I hit upon the central PATH and PRIMITIVE models, these are dual-views of the two main types of structures used in complex data - paths are the turtle-head-down coordinate lists used by lines, polygons, polypath - primitives are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures (the key thing that makes them topological is unique-vertex-pool, indexed by other types). Paths can be partly topological in that a unique vertex pool is indexed by variable-length paths, and this is a key distinction from primitives which have a constant number of indexed vertices per element. There's a clash here, because most efficient for paths is very different from most efficient for primitives. sc introduced an intermediate form for paths, all instances of all coordinates in one table, and another "path" table that records how many of the coordinates (in native order) are used per path. So this is a kind of rle structure, it provides a common model that can be used by any path-based structure for a decomposition or re-composition form. I initially applied this to sf, spatstat, rgl, some track-based structures, and a bit of ggplot2 exploration - but was kind of stuck with pretty slow sf decomposition. I've now seen how to do that fast enough, so we can now target this common form and from that generate real topology, with edge-lists or full-on triangles from polygons, or quads from rasters to stream to  structures in WebGL (for example), and back. 
+I've recently figured out some things that will make the idea of a "universal converter" more realistic. In silicate I hit upon the central PATH and PRIMITIVE models, these are dual-views of the two main types of structures used in complex data - paths are the turtle-head-down coordinate lists used by lines, polygons, polypath - primitives are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures (the key thing that makes them topological is unique-vertex-pool, indexed by other types). Paths can be partly topological in that a unique vertex pool is indexed by variable-length paths, and this is a key distinction from primitives which have a constant number of indexed vertices per element. There's a clash here, because most efficient for paths is very different from most efficient for primitives. `silicate` introduced an intermediate form for paths, all instances of all coordinates in one table, and another "path" table that records how many of the coordinates (in native order) are used per path. So this is a kind of rle structure, it provides a common model that can be used by any path-based structure for a decomposition or re-composition form. I initially applied this to sf, spatstat, rgl, some track-based structures, and a bit of ggplot2 exploration - but was kind of stuck with pretty slow sf decomposition. I've now seen how to do that fast enough, so we can now target this common form and from that generate real topology, with edge-lists or full-on triangles from polygons, or quads from rasters to stream to  structures in WebGL (for example), and back. 
 
 Key examples
 
