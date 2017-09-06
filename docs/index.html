@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Common Forms for Complex Data • sc</title>
+<title>Common Forms for Complex Data • silicate</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
@@ -24,7 +24,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">sc</a>
+      <a class="navbar-brand" href="index.html">silicate</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -59,15 +59,15 @@
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<div id="sc" class="section level1">
+<div id="silicate" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#sc" class="anchor"></a>sc</h1></div>
-<p>The goal of sc is to provide a general common form for complex multi-dimensional data.</p>
+<a href="#silicate" class="anchor"></a>silicate</h1></div>
+<p>The goal of silicate is to provide a general common form for complex multi-dimensional data.</p>
 <p>The need for this for spatial data is illustrated here: <a href="http://rpubs.com/cyclemumner/sc-rationale" class="uri">http://rpubs.com/cyclemumner/sc-rationale</a></p>
 <div id="note-september-2017" class="section level2">
 <h2 class="hasAnchor">
 <a href="#note-september-2017" class="anchor"></a>NOTE September 2017</h2>
-<p>I’ve recently figured out some things that will make the idea of a “universal converter” more realistic. In sc I hit upon the central PATH and PRIMITIVE models, these are dual-views of the two main types of structures used in complex data - paths are the turtle-head-down coordinate lists used by lines, polygons, polypath - primitives are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures (the key thing that makes them topological is unique-vertex-pool, indexed by other types). Paths can be partly topological in that a unique vertex pool is indexed by variable-length paths, and this is a key distinction from primitives which have a constant number of indexed vertices per element. There’s a clash here, because most efficient for paths is very different from most efficient for primitives. sc introduced an intermediate form for paths, all instances of all coordinates in one table, and another “path” table that records how many of the coordinates (in native order) are used per path. So this is a kind of rle structure, it provides a common model that can be used by any path-based structure for a decomposition or re-composition form. I initially applied this to sf, spatstat, rgl, some track-based structures, and a bit of ggplot2 exploration - but was kind of stuck with pretty slow sf decomposition. I’ve now seen how to do that fast enough, so we can now target this common form and from that generate real topology, with edge-lists or full-on triangles from polygons, or quads from rasters to stream to structures in WebGL (for example), and back.</p>
+<p>I’ve recently figured out some things that will make the idea of a “universal converter” more realistic. In silicate I hit upon the central PATH and PRIMITIVE models, these are dual-views of the two main types of structures used in complex data - paths are the turtle-head-down coordinate lists used by lines, polygons, polypath - primitives are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures (the key thing that makes them topological is unique-vertex-pool, indexed by other types). Paths can be partly topological in that a unique vertex pool is indexed by variable-length paths, and this is a key distinction from primitives which have a constant number of indexed vertices per element. There’s a clash here, because most efficient for paths is very different from most efficient for primitives. <code>silicate</code> introduced an intermediate form for paths, all instances of all coordinates in one table, and another “path” table that records how many of the coordinates (in native order) are used per path. So this is a kind of rle structure, it provides a common model that can be used by any path-based structure for a decomposition or re-composition form. I initially applied this to sf, spatstat, rgl, some track-based structures, and a bit of ggplot2 exploration - but was kind of stuck with pretty slow sf decomposition. I’ve now seen how to do that fast enough, so we can now target this common form and from that generate real topology, with edge-lists or full-on triangles from polygons, or quads from rasters to stream to structures in WebGL (for example), and back.</p>
 <p>Key examples</p>
 <p>the key ones are OSM-like data with names, LiDAR data (xyz multipoints with time, colour, intensity, groupings, etc. - with groupings such as “contiguous surface” - lidR is good for this), animal track data - grouped-multilines with time, depth, temperature etc. on the coordinates, and triangulations - again grouped-structures from rgl</p>
 </div>
@@ -95,8 +95,7 @@
 <p>The model functions <code>PRIMITIVE</code> and <code>PATH</code> should work in the following cases.</p>
 <ul>
 <li>to flip from one to another <code>PRIMITIVE(PATH(PRIMITIVE(x)))</code> should work for any kind of ‘x’ model</li>
-<li>for any sf object: <a href="https://github.com/mdsumner/scsf" class="uri">https://github.com/mdsumner/scsf</a>
-</li>
+<li>for any <code>sf</code> object</li>
 <li>convert to igraph objects WIP: <a href="https://github.com/mdsumner/scgraph" class="uri">https://github.com/mdsumner/scgraph</a>
 </li>
 <li>spatstat objects WIP: <a href="https://github.com/mdsumner/scspatstat" class="uri">https://github.com/mdsumner/scspatstat</a>
@@ -215,9 +214,9 @@
 </ul>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/mdsumner/sc"><img src="https://travis-ci.org/mdsumner/sc.svg?branch=master" alt="Travis-CI Build Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/mdsumner/sc"><img src="https://ci.appveyor.com/api/projects/status/github/mdsumner/sc?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="https://codecov.io/github/mdsumner/sc?branch=master"><img src="https://img.shields.io/codecov/c/github/mdsumner/sc/master.svg" alt="Coverage Status"></a></li>
+<li><a href="https://travis-ci.org/mdsumner/silicate"><img src="https://travis-ci.org/mdsumner/silicate.svg?branch=master" alt="Travis-CI Build Status"></a></li>
+<li><a href="https://ci.appveyor.com/project/mdsumner/silicate"><img src="https://ci.appveyor.com/api/projects/status/github/mdsumner/silicate?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
+<li><a href="https://codecov.io/github/mdsumner/silicate?branch=master"><img src="https://img.shields.io/codecov/c/github/mdsumner/silicate/master.svg" alt="Coverage Status"></a></li>
 </ul>
 </div>
 

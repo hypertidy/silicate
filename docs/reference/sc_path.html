@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Path decomposition — sc_path • sc</title>
+<title>Path decomposition — sc_path • silicate</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -47,7 +47,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">sc</a>
+      <a class="navbar-brand" href="../index.html">silicate</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -83,11 +83,39 @@
 
     
     <p>Start in the middle, and build the 'path-link-vertex' table.</p>
+<p>Paths.</p>
     
 
     <pre class="usage"><span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for PATH</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for sf</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='kw'>ids</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for sfc</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='kw'>ids</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for MULTIPOLYGON</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for POLYGON</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for LINESTRING</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for MULTILINESTRING</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for POINT</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for MULTIPOINT</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for GEOMETRYCOLLECTION</span>
 <span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -101,6 +129,10 @@
       <th>...</th>
       <td><p>arguments passed to methods</p></td>
     </tr>
+    <tr>
+      <th>ids</th>
+      <td><p>object id, one for each object in the `sfc`</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -109,6 +141,41 @@
 the features, and `PATH` for the full model.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'>#library(scsf)</span>
+<span class='co'>#sf_dataset &lt;- sf::st_sf(geometry = sf::st_sfc(sfzoo[[2]]), a = 1)</span>
+<span class='co'>#PATH(sf_dataset)</span>
+<span class='co'>#sc_path(sf::st_sfc(sfzoo))</span>
+<span class='co'>#sc_path(sf::st_sfc(sfzoo))</span>
+<span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipolygon</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 5
+#&gt;    nrow  ncol         type subobject     path
+#&gt;   &lt;int&gt; &lt;int&gt;        &lt;chr&gt;     &lt;int&gt;    &lt;chr&gt;
+#&gt; 1     6     2 MULTIPOLYGON         1 f717e3c6
+#&gt; 2     4     2 MULTIPOLYGON         1 2c9e8824
+#&gt; 3     5     2 MULTIPOLYGON         2 3b6ab2e5
+#&gt; 4     5     2 MULTIPOLYGON         2 fc310a86
+#&gt; 5     4     2 MULTIPOLYGON         3 3e7a7e83</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>polygon</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt;    nrow  ncol    type     path
+#&gt;   &lt;int&gt; &lt;int&gt;   &lt;chr&gt;    &lt;chr&gt;
+#&gt; 1     6     2 POLYGON 12c8bc11
+#&gt; 2     4     2 POLYGON 34c1e97d</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>linestring</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt;    nrow  ncol       type     path
+#&gt;   &lt;int&gt; &lt;int&gt;      &lt;chr&gt;    &lt;chr&gt;
+#&gt; 1     4     2 LINESTRING aaf25c42</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multilinestring</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 4
+#&gt;    nrow  ncol            type     path
+#&gt;   &lt;int&gt; &lt;int&gt;           &lt;chr&gt;    &lt;chr&gt;
+#&gt; 1     4     2 MULTILINESTRING e6c6e3d7
+#&gt; 2     4     2 MULTILINESTRING 9799cb4b
+#&gt; 3     2     2 MULTILINESTRING 2e5b42e7</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>point</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt;    nrow  ncol  type     path
+#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;
+#&gt; 1     1     2 POINT 9027581f</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt;    nrow  ncol       type     path
+#&gt;   &lt;int&gt; &lt;int&gt;      &lt;chr&gt;    &lt;chr&gt;
+#&gt; 1     6     2 MULTIPOINT e0280a56</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt;    nrow  ncol       type     path
+#&gt;   &lt;int&gt; &lt;int&gt;      &lt;chr&gt;    &lt;chr&gt;
+#&gt; 1     6     2 MULTIPOINT 983cac17</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -116,7 +183,9 @@ the features, and `PATH` for the full model.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

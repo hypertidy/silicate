@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Objects, features — sc_object • sc</title>
+<title>Objects, features — sc_object • silicate</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -47,7 +47,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">sc</a>
+      <a class="navbar-brand" href="../index.html">silicate</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -84,11 +84,16 @@
     
     <p>The objects are the front end entities, the usual "GIS contract" objects, 
 or features.</p>
+<p>The objects are the front end entities, the usual "GIS contract" objects, 
+the features.</p>
     
 
     <pre class="usage"><span class='fu'>sc_object</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
+<span class='fu'>sc_object</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for sf</span>
 <span class='fu'>sc_object</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -108,8 +113,15 @@ or features.</p>
 
     <p>`sc_coord` for the coordinates part of the model, `sc_path` for 
 the central part of the model, and `PATH` for the full model.</p>
+<p>`sc_coord` for the coordinates part of the model, `sc_path` for 
+the central part of the model, and `PATH` for the full model.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>#library(sf)
+#nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
+#sc_object(nc)
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -117,7 +129,9 @@ the central part of the model, and `PATH` for the full model.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
