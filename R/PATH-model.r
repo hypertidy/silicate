@@ -23,8 +23,8 @@ PATH <- function(x, ...) UseMethod("PATH")
 PATH.default  <- function(x, ...) {
   ## get the main stuff
   o <- sc_object(x)
-  o[["object_"]] <- sc_uid(nrow(o))
-  b <- sc_path(x, ids = o[["object_"]])
+  o[["object"]] <- sc_uid(nrow(o))
+  b <- sc_path(x, ids = o[["object"]])
   
   v <- sc_coord(x)
   V_names <- names(v)
