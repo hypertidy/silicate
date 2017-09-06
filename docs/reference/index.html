@@ -23,14 +23,17 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -49,10 +52,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -72,75 +78,108 @@
       <div class="row">
   <div class="col-md-9">
     <div class="page-header">
-      <h1>Function reference</h1>
-      <h4>version&nbsp;0.0.1.9000</h4>
+      <h1>
+        Reference
+        <small>version&nbsp;0.0.3</small>
+      </h1>
     </div>
 
     <div class="contents">
-      <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-      <p class="section-desc"></p>
+      <table class="ref-index">
 
-      
-      <p><a href="mmesh.html">Minimal mesh.</a></p>
-      <ul>
-        <li><code><a href="mmesh.html">mmesh</a></code></li>
-      </ul>
-      
-      <p><a href="NARC.html">NARC model, arc-node topology.</a></p>
-      <ul>
-        <li><code><a href="NARC.html">NARC</a></code></li><li><code><a href="NARC.html">NARC</a></code></li><li><code><a href="NARC.html">NARC.PRIMITIVE</a></code></li>
-      </ul>
-      
-      <p><a href="PATH.html">Generate a PATH model.</a></p>
-      <ul>
-        <li><code><a href="PATH.html">PATH</a></code></li><li><code><a href="PATH.html">PATH</a></code></li><li><code><a href="PATH.html">PATH.default</a></code></li>
-      </ul>
-      
-      <p><a href="PRIMITIVE.html">Generate a PRIMITIVES model.</a></p>
-      <ul>
-        <li><code><a href="PRIMITIVE.html">PRIMITIVE</a></code></li><li><code><a href="PRIMITIVE.html">PRIMITIVE</a></code></li><li><code><a href="PRIMITIVE.html">PRIMITIVE.PATH</a></code></li><li><code><a href="PRIMITIVE.html">PRIMITIVE</a></code></li><li><code><a href="PRIMITIVE.html">PRIMITIVE.default</a></code></li>
-      </ul>
-      
-      <p><a href="sc.html">sc.</a></p>
-      <ul>
-        <li><code><a href="sc.html">sc</a></code></li><li><code><a href="sc.html">sc-package</a></code></li>
-      </ul>
-      
-      <p><a href="sc_coord.html">Coordinate decomposition</a></p>
-      <ul>
-        <li><code><a href="sc_coord.html">sc_coord</a></code></li><li><code><a href="sc_coord.html">sc_coord</a></code></li><li><code><a href="sc_coord.html">sc_coord.PATH</a></code></li>
-      </ul>
-      
-      <p><a href="sc_edge.html">Unique edges for arc-node topology.</a></p>
-      <ul>
-        <li><code><a href="sc_edge.html">sc_edge</a></code></li><li><code><a href="sc_edge.html">sc_edge</a></code></li><li><code><a href="sc_edge.html">sc_edge.default</a></code></li><li><code><a href="sc_edge.html">sc_edge</a></code></li><li><code><a href="sc_edge.html">sc_edge.PRIMITIVE</a></code></li>
-      </ul>
-      
-      <p><a href="sc_node.html">Nodes for arc-node topology.</a></p>
-      <ul>
-        <li><code><a href="sc_node.html">sc_node</a></code></li><li><code><a href="sc_node.html">sc_node</a></code></li><li><code><a href="sc_node.html">sc_node.default</a></code></li><li><code><a href="sc_node.html">sc_node</a></code></li><li><code><a href="sc_node.html">sc_node.PRIMITIVE</a></code></li>
-      </ul>
-      
-      <p><a href="sc_object.html">Objects, features</a></p>
-      <ul>
-        <li><code><a href="sc_object.html">sc_object</a></code></li><li><code><a href="sc_object.html">sc_object</a></code></li><li><code><a href="sc_object.html">sc_object.default</a></code></li>
-      </ul>
-      
-      <p><a href="sc_path.html">Path decomposition</a></p>
-      <ul>
-        <li><code><a href="sc_path.html">sc_path</a></code></li><li><code><a href="sc_path.html">sc_path</a></code></li><li><code><a href="sc_path.html">sc_path.PATH</a></code></li>
-      </ul>
-      
-      <p><a href="sc_primitive.html">Given a `PATH`` model decompose to 1-dimensional primitives (or 0-dimensional).</a></p>
-      <ul>
-        <li><code><a href="sc_primitive.html">sc_primitive</a></code></li>
-      </ul>
-      
-      <p><a href="sc_rand.html">Random IDs.</a></p>
-      <ul>
-        <li><code><a href="sc_rand.html">sc_rand</a></code></li>
-      </ul>
-    
+      <colgroup>
+        <col class="alias" />
+        <col class="title" />
+      </colgroup>
+
+      <tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="mmesh.html">mmesh</a></code> </p>
+          </td>
+          <td><p>Minimal mesh.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="NARC.html">NARC</a></code> </p>
+          </td>
+          <td><p>NARC model, arc-node topology.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="PATH.html">PATH</a></code> </p>
+          </td>
+          <td><p>Generate a PATH model.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="PRIMITIVE.html">PRIMITIVE</a></code> </p>
+          </td>
+          <td><p>Generate a PRIMITIVES model.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="sc_coord.html">sc_coord</a></code> </p>
+          </td>
+          <td><p>Coordinate decomposition</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="sc_edge.html">sc_edge</a></code> </p>
+          </td>
+          <td><p>Unique edges for arc-node topology.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="sc_node.html">sc_node</a></code> </p>
+          </td>
+          <td><p>Nodes for arc-node topology.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="sc_object.html">sc_object</a></code> </p>
+          </td>
+          <td><p>Objects, features</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="sc_path.html">sc_path</a></code> </p>
+          </td>
+          <td><p>Path decomposition</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="sc_primitive.html">sc_primitive</a></code> </p>
+          </td>
+          <td><p>Given a `PATH`` model decompose to 1-dimensional primitives (or 0-dimensional).</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="sc_uid.html">sc_uid</a></code> </p>
+          </td>
+          <td><p>Random IDs.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="sc-deprecated.html">sc_rand</a></code> </p>
+          </td>
+          <td><p>Deprecated functions from sc.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="sc.html">sc</a></code> </p>
+          </td>
+          <td><p>sc.</p></td>
+        </tr>
+      </tbody>
+      </table>
     </div>
   </div>
 
@@ -154,7 +193,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael D. Sumner, Simon Wotherspoon.</p>
+  <p>Developed by Michael D. Sumner.</p>
 </div>
 
 <div class="pkgdown">

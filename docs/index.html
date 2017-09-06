@@ -9,7 +9,7 @@
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><!-- mathjax --><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -29,10 +29,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="/index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="articles/index.html">Articles</a>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li>
   <a href="news/index.html">News</a>
@@ -58,17 +61,28 @@
 
 <div id="sc" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#sc" class="anchor"> </a>sc</h1></div>
+<a href="#sc" class="anchor"></a>sc</h1></div>
 <p>The goal of sc is to provide a general common form for complex multi-dimensional data.</p>
 <p>The need for this for spatial data is illustrated here: <a href="http://rpubs.com/cyclemumner/sc-rationale" class="uri">http://rpubs.com/cyclemumner/sc-rationale</a></p>
+<div id="note-september-2017" class="section level2">
+<h2 class="hasAnchor">
+<a href="#note-september-2017" class="anchor"></a>NOTE September 2017</h2>
+<p>I’ve recently figured out some things that will make the idea of a “universal converter” more realistic. In sc I hit upon the central PATH and PRIMITIVE models, these are dual-views of the two main types of structures used in complex data - paths are the turtle-head-down coordinate lists used by lines, polygons, polypath - primitives are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures (the key thing that makes them topological is unique-vertex-pool, indexed by other types). Paths can be partly topological in that a unique vertex pool is indexed by variable-length paths, and this is a key distinction from primitives which have a constant number of indexed vertices per element. There’s a clash here, because most efficient for paths is very different from most efficient for primitives. sc introduced an intermediate form for paths, all instances of all coordinates in one table, and another “path” table that records how many of the coordinates (in native order) are used per path. So this is a kind of rle structure, it provides a common model that can be used by any path-based structure for a decomposition or re-composition form. I initially applied this to sf, spatstat, rgl, some track-based structures, and a bit of ggplot2 exploration - but was kind of stuck with pretty slow sf decomposition. I’ve now seen how to do that fast enough, so we can now target this common form and from that generate real topology, with edge-lists or full-on triangles from polygons, or quads from rasters to stream to structures in WebGL (for example), and back.</p>
+<p>Key examples</p>
+<p>the key ones are OSM-like data with names, LiDAR data (xyz multipoints with time, colour, intensity, groupings, etc. - with groupings such as “contiguous surface” - lidR is good for this), animal track data - grouped-multilines with time, depth, temperature etc. on the coordinates, and triangulations - again grouped-structures from rgl</p>
+</div>
+<div id="purpose" class="section level2">
+<h2 class="hasAnchor">
+<a href="#purpose" class="anchor"></a>Purpose</h2>
 <p>We aim to create a classification of spatial and other hierarchical data in R with tools for more general representations of spatial primitives and the intermediate forms required for translation and analytical tasks. The key is to provide a relational model of indexed primitives and component elements, as a bridge to the traditionally <em>structural</em>, or <em>array/matrix</em> indexing and storage used in computer graphics and gaming.</p>
 <p>A <strong>path</strong> can be treated as a first-class type and and stored as such within a relational model, along with the other entities <strong>objects</strong> (“features”) and <strong>vertices</strong>. with this approach we gain two advantages, we can <em>normalize</em> the relations (detect and remove redundancy) and also store any additional data about the entitities in the model.</p>
 <p>(There is an interplay between “able to store extra information” and “able to normalize”, since extra data may introduce further redundancy, but we defer this issue for now since full normalization is not our primary task).</p>
 <p>This package provides two main schemes, the <code>PATH</code> and the <code>PRIMITIVE</code> models. The two models may be mutually exclusive, or they can co-exist. The PATH model can always be derived from the PRIMITIVE model and vice versa but the PRIMITIVE model has extra capacities that PATH cannot provide. (The current design is a distillation and improvement on previous implementations, see <code>mdsumner/gris</code> and <code>r-gris/rangl</code> for these earlier attempts).</p>
 </div>
+</div>
 <div id="developer-notes-" class="section level1">
 <h1 class="hasAnchor">
-<a href="#developer-notes-" class="anchor"> </a>Developer notes.</h1>
+<a href="#developer-notes-" class="anchor"></a>Developer notes.</h1>
 <p>There are key worker functions <code>sc_coord</code>, <code>sc_node</code>, <code>sc_object</code>, <code>sc_path</code>.</p>
 <ul>
 <li>sc_coord returns the table of coordinates completely flattened, no normalization</li>
@@ -80,14 +94,17 @@
 <p>The <code>unjoin</code> concept is key for mapping the key between unique vertices and a path’s instance of those as coordinates, in the right order. We can use the unjoin engine to add structure to other more generic data streams, like GPS, animal tracking, and general sensors.</p>
 <p>The model functions <code>PRIMITIVE</code> and <code>PATH</code> should work in the following cases.</p>
 <ul>
-<li>to flip from one to another <code><a href="reference/PRIMITIVE.html">PRIMITIVE(PATH(PRIMITIVE(x)))</a></code> should work for any kind of ‘x’ model</li>
-<li>for any sf object, currently types can be mixed but the round-trip won’t work since the missing column values will choke a split</li>
-<li>igraph objects WIP</li>
-<li>trip objects WIP</li>
-<li>spatstat objects WIP</li>
+<li>to flip from one to another <code>PRIMITIVE(PATH(PRIMITIVE(x)))</code> should work for any kind of ‘x’ model</li>
+<li>for any sf object: <a href="https://github.com/mdsumner/scsf" class="uri">https://github.com/mdsumner/scsf</a>
+</li>
+<li>convert to igraph objects WIP: <a href="https://github.com/mdsumner/scgraph" class="uri">https://github.com/mdsumner/scgraph</a>
+</li>
+<li>spatstat objects WIP: <a href="https://github.com/mdsumner/scspatstat" class="uri">https://github.com/mdsumner/scspatstat</a>
+</li>
+<li>…</li>
 </ul>
 <p>The classes for all variants of simple features are not worked out, for instance a MULTIPOINT can end up with a degenerate (and expensive) segment table.</p>
-<p>More functions <code>sc_rand</code> provides random IDs, and <code>sc_node</code> is a worker for a arc-node intermediate model.</p>
+<p>More functions <code>sc_uid</code> provides unique IDs, and <code>sc_node</code> is a worker for a arc-node intermediate model.</p>
 <p>Intermediate models</p>
 <ul>
 <li>Arc-node (WIP)</li>
@@ -96,13 +113,14 @@
 </div>
 <div id="why" class="section level1">
 <h1 class="hasAnchor">
-<a href="#why" class="anchor"> </a>Why?</h1>
+<a href="#why" class="anchor"></a>Why?</h1>
 <p>Geographic Information System (GIS) tools provide data structures optimized for a relatively narrow class of workflows that leverage a combination of <em>spatial</em>, graphics, drawing-design, imagery, geodetic and database techniques. When modern GIS was born in the 1990s it adopted a set of compromises that divorced it from its roots in graph theory (arc-node topology) to provide the best performance for what were the most complicated sets of cartographic and land-management system data at the time.</p>
 <p>The huge success of ArcView and the shapefile brought this arcane domain into common usage and helped establish our modern view of what “geo-spatial data” is. The creation of the “simple features standard”" in the early 2000s formalized this modern view and provided a basis to avoid some of the inconsistencies and incompleteness that are present in the shapefile specification.</p>
+<p>(For some background, see here <a href="http://www.esri.com/news/arcuser/0401/topo.html" class="uri">http://www.esri.com/news/arcuser/0401/topo.html</a>)</p>
 <p>Spatial, graphics, drawing-design, imagery, geodetic and database techniques are broader than any GIS, are used in combination in many fields, but no other field combines them in the way that GIS tools do. GIS does however impose a certain view point, a lens through which each of those very general fields is seen via the perspective of the optimizations, the careful constraints and compromises that were formalized in the early days.</p>
 <p>This lens is seen side-on when 1) bringing graphics data (images, drawings) into a GIS where a localization metadata context is assumed 2) attempting to visualize geo-spatial raster data with graphics tools 3) creating lines to represent the path of sensor platforms that record many variables like temperature, salinity, radiative flux as well as location in time and space.</p>
 <p>The word “spatial” has a rather general meaning, and while GIS idioms sometimes extend into the Z dimension time is usually treated in a special way. Where GIS really starts to show its limits is in the boundary between discrete and continuous measures and entities. We prefer to default to the most general meaning of spatial, work with tools that allow flexibility despite the (rather arbitrary) choice of topological and geometric structures and dimensions that a given model needs. When the particular optimizations and clever constraints of the simple features and GIS world are required and/or valuable then we use those, but prefer not to see that 1) this model must fit into this GIS view 2) GIS has no place in this model. For us the boundaries are not so sharp and there’s valuable cross-over in many fields.</p>
-<p>The particular GIS-like limitations that we seek are as follows.</p>
+<p>The particular GIS-like limitations that we seek to overcome are as follows.</p>
 <ul>
 <li>flexibility in the number and type/s of attribute stored as “coordinates”, x, y, lon, lat, z, time, temperature, etc.</li>
 <li>ability to store attributes on parts i.e. the state is the object, the county is the part</li>
@@ -124,7 +142,7 @@
 </div>
 <div id="approach" class="section level1">
 <h1 class="hasAnchor">
-<a href="#approach" class="anchor"> </a>Approach</h1>
+<a href="#approach" class="anchor"></a>Approach</h1>
 <p>We can’t possibly provide all the aspirations detailed above, but we hope to</p>
 <ul>
 <li>demonstrate the clear need, interest and opportunities that currently exist for fostering their development</li>
@@ -146,37 +164,37 @@
 </ul>
 <div id="design" class="section level2">
 <h2 class="hasAnchor">
-<a href="#design" class="anchor"> </a>Design</h2>
+<a href="#design" class="anchor"></a>Design</h2>
 <p>There is a hierarchy of sorts with layer, object, path, primitives, coordinates, and vertices.</p>
 <p>The current design uses capitalized function names <code>PATH</code>, <code>PRIMITIVE</code> … that act on layers, while prefixed lower-case function names produce or derive the named entity at a given level for a given input. E.g. <code>sc_path</code> will decompose all the geometries in an <code>sf</code> layer to the PATH model and return them in generic form. <code>PATH</code> will decompose the layer as a whole, including the component geometries.</p>
-<p><code><a href="reference/PATH.html">PATH()</a></code> is the main model used to decompose inputs, as it is the a more general form of the GIS idioms (simple features and georeferenced raster data) This treats connected <em>paths</em> as fully-fledged entities like vertices and objects are, creating a relational model that stores all <em>vertices</em> in one table, all <em>paths</em> in another, and and all highest-level <em>objects</em> in another. The PATH model also takes the extra step of <em>normalizing</em> vertices, finding duplicates in a given geometric space and creating an intermediate link table to record all <em>instances of the vertices</em>. The PATH model does not currently normalize paths, but this is something that could be done, and is close to what arc-node topology is.</p>
+<p><code>PATH()</code> is the main model used to decompose inputs, as it is the a more general form of the GIS idioms (simple features and georeferenced raster data) This treats connected <em>paths</em> as fully-fledged entities like vertices and objects are, creating a relational model that stores all <em>vertices</em> in one table, all <em>paths</em> in another, and and all highest-level <em>objects</em> in another. The PATH model also takes the extra step of <em>normalizing</em> vertices, finding duplicates in a given geometric space and creating an intermediate link table to record all <em>instances of the vertices</em>. The PATH model does not currently normalize paths, but this is something that could be done, and is close to what arc-node topology is.</p>
 <p>The <code>PRIMITIVE</code> function decomposes a layer into actual primitives, rather than “paths”, these are point, line segment, triangle, tetrahedron, and so on.</p>
-<p>Currently <code><a href="reference/PATH.html">PATH()</a></code> and <code>PRIMITIVE</code> are the highest level functions to decompose simple features objects.</p>
+<p>Currently <code>PATH()</code> and <code>PRIMITIVE</code> are the highest level functions to decompose simple features objects.</p>
 <p>There are decomposition functions for lower-level <code>sf</code> objects organized as <code>sc_path</code>, <code>sc_coord</code>, and <code>sc_object</code>. <code>sc_path</code> does all the work, building a simple map of all the parts and the vertex count. This is used to classify the vertex table when it is extracted, which makes the unique-id management for path-vertex normalization much simpler than it was in <code>gris</code> or <code>rangl</code>.</p>
 <p><strong>NOTE:</strong> earlier versions of this used the concept of “branch” rather than path, so there is some ongoing migration of the use of these words. <em>Branch</em> is a more general concept than implemented in geo-spatial systems generally, and so <em>path</em> is more accurate We reserve branch for possible future models that are general. A “point PATH” has meaning in the sense of being a single-vertex “path”, and so a multipoint is a collection of these degenerate forms. “Path” as a concept is clearly rooted in optimization suited to planar forms, and so is more accurate than “branch”.</p>
 <p>In our terminology a branch or path is the group between the raw geometry and the objects, and so applies to a connected polygon ring, closed or open linestring, a single coordinate with a multipoint (a path with one vertex). In this scheme a polygon ring and a closed linestring are exactly the same (since they actually are exactly the same) and there are no plane-filling branches, or indeed volume-filling branches. This is a clear limitation of the branch model and it matches that used by GIS.</p>
 </div>
 <div id="exceptions" class="section level2">
 <h2 class="hasAnchor">
-<a href="#exceptions" class="anchor"> </a>Exceptions</h2>
+<a href="#exceptions" class="anchor"></a>Exceptions</h2>
 <p>TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, …</p>
 </div>
 <div id="examples---sf-round-trip" class="section level2">
 <h2 class="hasAnchor">
-<a href="#examples---sf-round-trip" class="anchor"> </a>Examples - sf round trip</h2>
+<a href="#examples---sf-round-trip" class="anchor"></a>Examples - sf round trip</h2>
 <p>See scsf</p>
 </div>
 <div id="example---sf-to-sqlite-and-filtered-read" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example---sf-to-sqlite-and-filtered-read" class="anchor"> </a>Example - sf to SQLite and filtered-read</h2>
+<a href="#example---sf-to-sqlite-and-filtered-read" class="anchor"></a>Example - sf to SQLite and filtered-read</h2>
 <p>See scdb</p>
 </div>
 <div id="primitives-the-planar-straight-line-graph-and-topojson" class="section level2">
 <h2 class="hasAnchor">
-<a href="#primitives-the-planar-straight-line-graph-and-topojson" class="anchor"> </a>Primitives, the planar straight line graph and TopoJSON</h2>
+<a href="#primitives-the-planar-straight-line-graph-and-topojson" class="anchor"></a>Primitives, the planar straight line graph and TopoJSON</h2>
 <div id="arc-node-topoplogy" class="section level3">
 <h3 class="hasAnchor">
-<a href="#arc-node-topoplogy" class="anchor"> </a>Arc-node topoplogy</h3>
+<a href="#arc-node-topoplogy" class="anchor"></a>Arc-node topoplogy</h3>
 <p>WIP</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">example</span>(arc_node)</code></pre></div>
@@ -187,28 +205,27 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>License</h2>
+    <h2 class="hasAnchor">
+<a href="#sidebar" class="anchor"></a>License</h2>
 <p><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></p>
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Michael D. Sumner <br><small class="roles"> Author, maintainer </small> </li>
-<li>Simon Wotherspoon <br><small class="roles"> Author </small> </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
-<html><body>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/mdsumner/sc"><img src="https://travis-ci.org/mdsumner/sc.svg?branch=master" alt="Travis-CI Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/mdsumner/sc"><img src="https://ci.appveyor.com/api/projects/status/github/mdsumner/sc?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://codecov.io/github/mdsumner/sc?branch=master"><img src="https://img.shields.io/codecov/c/github/mdsumner/sc/master.svg" alt="Coverage Status"></a></li>
 </ul>
-</body></html>
 </div>
 
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Michael D. Sumner, Simon Wotherspoon.</p>
+  <p>Developed by Michael D. Sumner.</p>
 </div>
 
 <div class="pkgdown">
