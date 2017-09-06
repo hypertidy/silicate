@@ -1,4 +1,6 @@
-# sc dev
+# silicate dev
+
+* moved sf specific facility from scsf
 
 * renamed package
 

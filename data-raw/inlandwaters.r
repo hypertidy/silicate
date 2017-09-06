@@ -1,5 +1,8 @@
 f <- "https://github.com/r-gris/polyggon/raw/master/inst/extdata/inlandwaters.gpkg"
-download.file(f, file.path("data-raw", basename(f)), mode = "wb")
+lfile <- file.path("data-raw", basename(f))
+if (!file.exists(lfile)){
+download.file(f, lfile, mode = "wb")
+}
 
 library(sf)
 library(dplyr)
