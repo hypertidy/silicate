@@ -14,6 +14,13 @@ NOTE September 2017
 
 I've recently figured out some things that will make the idea of a "universal converter" more realistic. In sc I hit upon the central PATH and PRIMITIVE models, these are dual-views of the two main types of structures used in complex data - paths are the turtle-head-down coordinate lists used by lines, polygons, polypath - primitives are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures (the key thing that makes them topological is unique-vertex-pool, indexed by other types). Paths can be partly topological in that a unique vertex pool is indexed by variable-length paths, and this is a key distinction from primitives which have a constant number of indexed vertices per element. There's a clash here, because most efficient for paths is very different from most efficient for primitives. sc introduced an intermediate form for paths, all instances of all coordinates in one table, and another "path" table that records how many of the coordinates (in native order) are used per path. So this is a kind of rle structure, it provides a common model that can be used by any path-based structure for a decomposition or re-composition form. I initially applied this to sf, spatstat, rgl, some track-based structures, and a bit of ggplot2 exploration - but was kind of stuck with pretty slow sf decomposition. I've now seen how to do that fast enough, so we can now target this common form and from that generate real topology, with edge-lists or full-on triangles from polygons, or quads from rasters to stream to structures in WebGL (for example), and back.
 
+Key examples
+
+the key ones are OSM-like data with names, LiDAR data (xyz multipoints with time, colour, intensity, groupings, etc. - with groupings such as "contiguous surface" - lidR is good for this), animal track data - grouped-multilines with time, depth, temperature etc. on the coordinates, and triangulations - again grouped-structures from rgl
+
+Purpose
+-------
+
 We aim to create a classification of spatial and other hierarchical data in R with tools for more general representations of spatial primitives and the intermediate forms required for translation and analytical tasks. The key is to provide a relational model of indexed primitives and component elements, as a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming.
 
 A **path** can be treated as a first-class type and and stored as such within a relational model, along with the other entities **objects** ("features") and **vertices**. with this approach we gain two advantages, we can *normalize* the relations (detect and remove redundancy) and also store any additional data about the entitities in the model.
@@ -69,7 +76,7 @@ This lens is seen side-on when 1) bringing graphics data (images, drawings) into
 
 The word "spatial" has a rather general meaning, and while GIS idioms sometimes extend into the Z dimension time is usually treated in a special way. Where GIS really starts to show its limits is in the boundary between discrete and continuous measures and entities. We prefer to default to the most general meaning of spatial, work with tools that allow flexibility despite the (rather arbitrary) choice of topological and geometric structures and dimensions that a given model needs. When the particular optimizations and clever constraints of the simple features and GIS world are required and/or valuable then we use those, but prefer not to see that 1) this model must fit into this GIS view 2) GIS has no place in this model. For us the boundaries are not so sharp and there's valuable cross-over in many fields.
 
-The particular GIS-like limitations that we seek are as follows.
+The particular GIS-like limitations that we seek to overcome are as follows.
 
 -   flexibility in the number and type/s of attribute stored as "coordinates", x, y, lon, lat, z, time, temperature, etc.
 -   ability to store attributes on parts i.e. the state is the object, the county is the part

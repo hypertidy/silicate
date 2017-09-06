@@ -9,7 +9,7 @@ pp <- rbind(p1, NA,  p2[nrow(p2):1, ])
 #polypath(pp, col = "grey")
 #polypath(p4, col = "firebrick")
 
-
+library(sf)
 minimal_mesh <- st_sf(a = 1:2, 
                          geom = st_sfc(list(st_multipolygon(list(list(p1, p2[rev(seq(nrow(p2))), ]))),  
                                                  st_multipolygon(list(list(p4))))))

@@ -15,6 +15,7 @@
 #' @export
 PATH <- function(x, ...) UseMethod("PATH")
 
+PATH.PATH <- function(x, ...) x
 
 #' @name PATH
 #' @export
