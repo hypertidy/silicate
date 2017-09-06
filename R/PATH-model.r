@@ -28,7 +28,7 @@ PATH.default  <- function(x, ...) {
   
   v <- sc_coord(x)
   V_names <- names(v)
-  v <- dplyr::mutate(v, path_ = rep(b$path_, b$ncoords_))
+  v <- dplyr::mutate(v, path = rep(b$path, b$ncoords_))
   key_col <- "vertex_"
   maindata <- unjoin::unjoin_(v, V_names, key_col = key_col)
   dd <- maindata[["data"]]

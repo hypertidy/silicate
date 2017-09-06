@@ -54,7 +54,7 @@ sc_edge.default <- function(x, ...) {
 #' @name sc_edge
 sc_edge.PRIMITIVE <- function(x, ...) {
     u1 <- purrr::map(split(x$path_link_vertex, x$path_link_vertex$path_), p2seg)
-    u2 <- dplyr::mutate(dplyr::bind_rows(u1, .id = "path_"), edge_ = row_number())
+    u2 <- dplyr::mutate(dplyr::bind_rows(u1, .id = "path"), edge_ = row_number())
     u2[["uu"]] <- paste(pmin(u2[[".vertex0"]], u2[[".vertex1"]]), pmax(u2[[".vertex0"]], u2[[".vertex1"]]), sep = "_")
     dplyr::distinct(u2, .keep_all = TRUE)
 }
@@ -92,14 +92,14 @@ sc_primitive.PATH <- function(x, ...) {
   all_coordinates <- dplyr::inner_join(bXv, v, "vertex_")
   
   ## what if we had points
-  if (nrow(bXv) == nrow(distinct_(bXv, "path_"))) {
-    return(dplyr::transmute_(all_coordinates, .vertex0 = quote(vertex_), path_ = quote("path_")))
+  if (nrow(bXv) == nrow(distinct_(bXv, "path"))) {
+    return(dplyr::transmute_(all_coordinates, .vertex0 = quote(vertex_), path = quote("path")))
   }
   ## this is a subset of RTriangle::pslg (because the original target was RTriangle::triangulate)
   #pstraight_lgraph <- list(P = as.matrix(v[, c("x_", "y_")]),
   ## only need S for 1D
   segment_longform <- dplyr::bind_rows(lapply(split(all_coordinates, all_coordinates$path_),
-                                         function(x) path_to_segment(x$vertex_, x$path_[1L])))
+                                         function(x) path_to_segment(x$vertex_, x$path[1L])))
   
   
   segment_longform[["segment_"]] <- sc_uid(n = nrow(segment_longform))     
