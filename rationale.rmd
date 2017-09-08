@@ -93,26 +93,24 @@ A **path** can be treated as a first-class type and and stored as such within a 
 
 (There is an interplay between "able to store extra information" and "able to normalize", since extra data may introduce further redundancy, but we defer this issue for now since full normalization is not our primary task). 
 
-An alternative form of representing this information is in the `sc` package, providing two main schemes, the `PATH` and the `PRIMITIVE` models. These provide different ways of linking **objects** and **vertices**.  The two models are not mutually exclusive, and can co-exist sensibly within one data set. The PATH model can always be derived from the PRIMITIVE model and vice versa but the PRIMITIVE model has extra capacities that PATH cannot provide. 
+An alternative form of representing this information is in the `silicate` package, providing two main schemes, the `PATH` and the `PRIMITIVE` models. These provide different ways of linking **objects** and **vertices**.  The two models are not mutually exclusive, and can co-exist sensibly within one data set. The PATH model can always be derived from the PRIMITIVE model and vice versa but the PRIMITIVE model has extra capacities that PATH cannot provide. 
 
-The key feature in `sc` is a relational model of indexed primitives and component elements. This provides a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming. 
+The key feature in `silicate` is a relational model of indexed primitives and component elements. This provides a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming. 
 
 The `PATH` models consists of three tables to store the objects ("features"), paths, and vertices, plus a fourth table `path_link_vertex` that allows de-duplication of the vertices (here in X-Y geometry). 
 
 ```{r}
-#devtools::install_github("mdsumner/sc")
-#devtools::install_github("mdsumner/scsf")
-library(sc)
-library(scsf)
+#devtools::install_github("hypertidy/silicate")
+library(silicate)
 ## build the PATH model from a simple features object
-str(sc::PATH(g))
+str(silicate::PATH(g))
 ```
 
 The `PRIMITIVE` model is derived from and incorporates the `PATH` model, but adds 1-dimensional primitives (`segment`) to the collection of tables. 
 
 ```{r}
 set.seed(39)
-names(prim <- sc::PRIMITIVE(g))
+names(prim <- PRIMITIVE(g))
 str(prim[c("segment")])
 ```
 
@@ -125,7 +123,7 @@ library(dplyr)
 
 get_shared_edge <- function(x, ...) UseMethod("get_shared_edge")
 get_shared_edge.sf <- function(x, ...) {
-  prim <- sc::PRIMITIVE(x)
+  prim <- silicate::PRIMITIVE(x)
   shared <- prim$segment %>% dplyr::select(.vertex0, .vertex1) %>% 
     mutate_all(funs("I" = as.integer(factor(.))))  %>% 
     mutate(edge_id = paste(pmin(.vertex0_I, .vertex1_I), pmax(.vertex0_I, .vertex1_I), sep = "_")) %>% 
@@ -204,7 +202,7 @@ We need relational models and the following broad components to a grammar of spa
 # Supporting documentation
 
 
-The `sc` package is at an early stage, but a predecessor `rangl` takes these ideas further in order to work with the 2-D primitives. One of the problems with `rangl` is a reliance on the `RTriangle` package, and future work with BOOST or CGAL could remove the need to rely on the restrictive license used by `RTriangle`. 
+The `silicate` package is at an early stage, but a predecessor `rangl` takes these ideas further in order to work with the 2-D primitives. One of the problems with `rangl` is a reliance on the `RTriangle` package, and future work with BOOST or CGAL could remove the need to rely on the restrictive license used by `RTriangle`. 
 
 The discussion around these prospects is here: https://github.com/r-spatial/discuss/issues/6
 
