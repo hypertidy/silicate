@@ -23,5 +23,4 @@ Imports:
     tibble, 
     unjoin (>= 0.0.3)
 VignetteBuilder: knitr
-Remotes: mdsumner/gibble
 

@@ -10,7 +10,7 @@ test_that("raw geometry decomposition works", {
 })
 #nc = st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 inner_cascade <- function(x) {
-  tabnames <- sc:::join_ramp(x)
+  tabnames <- join_ramp(x)
   tab <- x[[tabnames[1]]]
   for (ni in tabnames[-1L]) tab <- dplyr::inner_join(tab, x[[ni]])
   tab
