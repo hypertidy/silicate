@@ -3,9 +3,6 @@
 ^data-raw$
 ^docs$
 ^README\.Rmd$
-^README-.*\.png$
 ^\.travis\.yml$
-.*.rmd
 ^codecov\.yml$
 ^appveyor\.yml$
-^rationale.html$
