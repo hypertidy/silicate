@@ -1,0 +1,58 @@
+---
+title: "Format translator"
+author: "Michael D. Sumner"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Format translator}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+There are three low-level elements in planar shapes, they are coordinates, paths, and
+objects. 
+
+Consider a minimal pair of polygons, they share one side and one has a hole. 
+
+```{r}
+library(silicate)
+str(minimal_mesh$geom)
+```
+
+The first lower level element is the coordinates, and in this case there are `r nrow(sc_coord(minimal_mesh))` x,y pairs. 
+
+```{r}
+sc_coord(minimal_mesh)
+```
+
+The second is the paths, we can see these three above in the hierarchical structure, 
+but it's hard to see how many and how they relate. 
+
+```{r}
+sc_path(minimal_mesh)
+```
+
+Finally, is the objects - this is a top-level grouping for the structured shapes. 
+
+```{r}
+sc_object(minimal_mesh)
+```
+
+What is the point of having these elements in this decomposed form? 
+
+# Conversions
+
+We can use the decomposed forms to generate other forms. Here we simply visit every
+path with the `polygon` function. 
+
+```{r}
+
+path <- sc_path(minimal_mesh)
+coord <- sc_coord(minimal_mesh)
+plot(coord)
+lapply(split(seq_len(sum(path$ncoords_)), rep(path$path, path$ncoords_)), 
+       function(i) polygon(sc_coord(minimal_mesh)[i, ]))
+
+```
+
+That looks ok, but what if we want to know it's really a hole? We ignored the fact that there are two polygons, and one has a hole. 
