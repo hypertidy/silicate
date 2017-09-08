@@ -21,6 +21,7 @@ Imports:
     ids,
     purrr,
     tibble, 
-    unjoin
+    unjoin (>= 0.0.3)
 VignetteBuilder: knitr
-Remotes: mdsumner/gibble, mdsumner/unjoin
+Remotes: mdsumner/gibble
+
