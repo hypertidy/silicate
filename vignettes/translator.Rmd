@@ -26,7 +26,10 @@ sc_coord(minimal_mesh)
 ```
 
 The second is the paths, we can see these three above in the hierarchical structure, 
-but it's hard to see how many and how they relate. 
+but it's hard to see how many and how they relate. Here the relationships are
+implicit in the *sequence of paths*. The `object` is a feature (a row at the `sf`-level), 
+and the `path` is an isolated sequence of coordinates, with a `nrow` the number of
+coordinates and `ncol` the geometric dimension which will match the number of coordinate columns. 
 
 ```{r}
 sc_path(minimal_mesh)
@@ -42,7 +45,12 @@ What is the point of having these elements in this decomposed form?
 
 # Conversions
 
-We can use the decomposed forms to generate other forms. Here we simply visit every
+We can use the decomposed forms to generate other forms. 
+
+
+## base plotting
+
+Here we simply visit every
 path with the `polygon` function. 
 
 ```{r}
@@ -56,3 +64,96 @@ lapply(split(seq_len(sum(path$ncoords_)), rep(path$path, path$ncoords_)),
 ```
 
 That looks ok, but what if we want to know it's really a hole? We ignored the fact that there are two polygons, and one has a hole. 
+
+First we identify the objects, and then loop over each. 
+
+```{r}
+rbind_na <- function(x) {
+  head(do.call(rbind, lapply(x, function(a) rbind(a, NA))), -1)
+}
+coord$object <- rep(path$object,  path$ncoords_)
+coord$path <- rep(path$path, path$ncoords_)
+plot(coord[, 1:2])
+for (i in seq_along(unique(path$object))) {
+  asub <- unique(path$object)[i] == coord$object
+  polypath(rbind_na(split(coord[asub, ], coord[asub, ]$path)), col = "grey")
+}
+```
+
+That's not terrible exciting but we managed to recreate the right structures for plotting this object correctly. 
+
+## spatstat
+
+```{r}
+## clearly we have to be very careful with this as SF pointedly
+## doesn't care about ring orientation
+as_list_xy <- function(x, orient = 1) {
+  x <- if(orient == 1) x else x[nrow(x):1, ]
+  list(x = x$x_, y = x$y_)
+}
+library(spatstat)
+lc <- split(coord, coord$path)
+## why does this need non zero but the next example needs > 0?
+ow <- owin(poly = lapply(seq_along(lc), function(a) as_list_xy(lc[[a]], orient = 0)))
+
+plot(ow, col = "red")
+```
+
+Let's see if we can ramp this up a bit. 
+
+```{r}
+data("inlandwaters", package = "silicate")
+
+as_owin_sf <- function(x) {
+  coord <- sc_coord(x)
+  path <- sc_path(x)
+  coord$object <- rep(path$object,  path$ncoords_)
+  coord$path <- rep(path$path, path$ncoords_)
+  lc <- split(coord, coord$path)
+
+
+ow <- owin(poly = lapply(seq_along(lc), function(a) as_list_xy(lc[[a]], orient = a > 1)))
+  ow
+}
+library(sf)
+ow <- as_owin_sf(inlandwaters[4, ])
+plot(ow, col = "firebrick")
+```
+
+That worked for single features, but what happens if we put in two? 
+
+Clearly we need to not pass ungrouped sets of component paths to spatstat, because it will
+detect internal boundaries and (very cleverly) remove them. This is an interesting relationship to the simple features standard and makes spatstat consistent with it for that aspect. Other packages don't care about internal boundaries, including Manifold GIS and some applications for OSM data ...
+
+We also need to be careful about ring winding direction, but this gets us into detailed specifics about
+the relationship between sf and spatstat and that is not the purpose of this document. 
+
+
+```{r}
+ow <- as_owin_sf(inlandwaters[3:4, ])
+plot(ow, col = "dodgerblue")
+```
+
+## rgl
+
+To plot features like this in 3D we need to convert them to **primitive** form, by which I mean composed of *topological primitives* vertices, edges, triangles. 
+
+We can plot the outlines pretty easily by converting our path based structures to edge-based ones. 
+
+```{r}
+as_rgl_sf <- function(x) {
+  coord <- sc_coord(x)
+  path <- sc_path(x)
+  coord$object <- rep(path$object,  path$ncoords_)
+  coord$path <- rep(path$path, path$ncoords_)
+  lc <- split(coord, coord$path)
+  lapply(seq_along(lc), function(a) c(as_list_xy(lc[[a]]), list(z = 0)))
+}
+
+library(rgl)
+outlines <- as_rgl_sf(minimal_mesh)
+lapply(outlines, lines3d)
+rglwidget()
+```
+
+It's no problem to take our component paths and plot them in planar 3D with WebGL, but as we will find this is not sufficient to fill the plane within these boundaries. 
