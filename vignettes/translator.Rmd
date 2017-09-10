@@ -165,7 +165,10 @@ polygons in rgl with ear clippping
 ```{r}
 library(tibble)
 tab <- rbind_na(lapply(outlines, as_tibble))
-rgl::triangulate(tab$x, tab$y)
+wg <- rgl::triangulate(tab$x, tab$y)
+rgl.clear()
+rgl.triangles(cbind(tab$x, tab$y, 0)[c(wg), ])
+rglwidget()
 ```
 
 compare the constrained triangles via Triangle
