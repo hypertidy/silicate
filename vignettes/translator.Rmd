@@ -147,13 +147,36 @@ as_rgl_sf <- function(x) {
   coord$object <- rep(path$object,  path$ncoords_)
   coord$path <- rep(path$path, path$ncoords_)
   lc <- split(coord, coord$path)
-  lapply(seq_along(lc), function(a) c(as_list_xy(lc[[a]]), list(z = 0)))
+  ## drop the closing coord
+  lapply(seq_along(lc), function(a) c(as_list_xy(head(lc[[a]], -1)), list(z = 0)))
 }
 
 library(rgl)
-outlines <- as_rgl_sf(minimal_mesh)
+## todo apply per feature to avoid problems
+outlines <- as_rgl_sf(minimal_mesh[1, ])
 lapply(outlines, lines3d)
 rglwidget()
 ```
 
 It's no problem to take our component paths and plot them in planar 3D with WebGL, but as we will find this is not sufficient to fill the plane within these boundaries. 
+
+polygons in rgl with ear clippping
+
+```{r}
+library(tibble)
+tab <- rbind_na(lapply(outlines, as_tibble))
+rgl::triangulate(tab$x, tab$y)
+```
+
+compare the constrained triangles via Triangle
+
+```{r}
+library(sfdct)
+library(silicate)
+tri1 <- ct_triangulate(minimal_mesh)
+tri2 <- ct_triangulate(minimal_mesh, D = TRUE)
+plot(st_geometry(tri1), col = NA)
+plot(st_geometry(tri2), col = NA)
+```
+polygons by constrained delaunay
+
