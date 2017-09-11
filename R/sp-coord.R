@@ -1,3 +1,4 @@
+#' @importFrom methods slotNames
 .sp_get_geometry <- function(x) {
   slt <- slotNames(x)
   if ("polygons" %in% slt) {

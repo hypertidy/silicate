@@ -43,7 +43,38 @@ sc_coord.sf <- function(x, ...) {
 sc_coord.sfc <- function(x,  ...) {
   x <- lapply(x, sc_coord)
   dplyr::bind_rows(x)
+  
 }
+
+
+# these are short-cut methods for single-type sets
+#' @export
+sc_coord.sfc_MULTIPOLYGON <- function(x, ...) {
+  colnames <- sc_geom_names(sf_geom_names(x[[1]]))
+  out <- tibble::as_tibble(do.call(rbind, lapply(x, function(y) do.call(rbind, lapply(unclass(y), function(a) do.call(rbind, a))))))
+  setNames(out, colnames)
+           
+}
+#' @export
+sc_coord.sfc_MULTILINESTRING <- sc_coord.sfc_POLYGON <- function(x, ...) {
+  colnames <- sc_geom_names(sf_geom_names(x[[1]]))
+  out <- tibble::as_tibble(do.call(rbind, lapply(x, function(y) do.call(rbind, unclass(y)))))
+  setNames(out, colnames)
+  
+}
+#' @export
+sc_coord.sfc_LINESTRING <- sc_coord.sfc_MULTIPOINT <- function(x, ...) {
+  colnames <- sc_geom_names(sf_geom_names(x[[1]]))
+  out <- tibble::as_tibble(do.call(rbind, unclass(x)))
+  setNames(out, colnames)
+}
+#' @export
+sc_coord.sfc_POINT <- function(x, ...) {
+  colnames <- sc_geom_names(sf_geom_names(x[[1]]))
+  out <- tibble::as_tibble(do.call(rbind, unclass(x)))
+  setNames(out, colnames)
+}
+
 #' @name sc_coord
 #' @export
 #' @importFrom  stats setNames 
