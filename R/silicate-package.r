@@ -48,6 +48,22 @@ NULL
 NULL
 
 
+#' Flight tracks
+#' 
+#' Taken from  Kent Johnson (kent37) in a 
+#'  [github discussion](https://github.com/r-spatial/mapview/issues/99#issuecomment-328711275).
+#' 
+#' Original form is a shapefile containing 144 flight tracks of aircraft departing
+#'  runway 33L at Boston Logan airport on June 28, 2017. Data is from an ADS-B 
+#'  recorder so it is kind of rough. Each point includes lat, lon, altitude in feet
+#'  and time in EDT. 
+#' 
+#' Converted via `sf` into `silicate::PATH` normal form. 
+#' @aliases flight_tracks
+#' @name flight_tracks
+#' @docType data
+NULL
+
 #' Deprecated functions from sc. 
 #' 
 #' @name sc-deprecated

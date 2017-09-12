@@ -1,5 +1,9 @@
 # silicate dev
 
+* install flight_tracks example
+
+* support for sp!
+
 * moved sf specific facility from scsf
 
 * renamed package
