@@ -56,7 +56,7 @@ NULL
 #' 
 #' Original form (in extdata/flight_tracks) is a XYZM LINESTRING shapefile
 #' containing 144 flight tracks of aircraft departing runway 33L at Boston Logan
-#' airport on June 27, 2017. Data is from an ADS-B recorder. Each point includes
+#' airport on January 27, 2017. Data is from an ADS-B recorder. Each point includes
 #' lat, lon, altitude in feet and time in North American Eastern Standard Time
 #' (EST).
 #' 

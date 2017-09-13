@@ -52,11 +52,11 @@ sc_coord(x, ...)
 
 \method{sc_coord}{Spatial}(x, ...)
 
-\method{sc_coord}{Polygons}(x)
+\method{sc_coord}{Polygons}(x, ...)
 
-\method{sc_coord}{Lines}(x)
+\method{sc_coord}{Lines}(x, ...)
 
-\method{sc_coord}{default}(x)
+\method{sc_coord}{default}(x, ...)
 }
 \arguments{
 \item{x}{input object}

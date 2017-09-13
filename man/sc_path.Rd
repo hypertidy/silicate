@@ -56,11 +56,11 @@ sc_path(x, ...)
 
 \method{sc_path}{Spatial}(x, ids = NULL, ...)
 
-\method{sc_path}{Polygons}(x)
+\method{sc_path}{Polygons}(x, ...)
 
-\method{sc_path}{Lines}(x)
+\method{sc_path}{Lines}(x, ...)
 
-\method{sc_path}{default}(x)
+\method{sc_path}{default}(x, ...)
 }
 \arguments{
 \item{x}{input object}

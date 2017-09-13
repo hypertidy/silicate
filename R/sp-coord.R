@@ -19,16 +19,16 @@ sc_coord.Spatial <- function(x, ...) {
 }
 #' @name sc_coord
 #' @export
-sc_coord.Polygons <- function(x) {
+sc_coord.Polygons <- function(x, ...){
   do.call(rbind, lapply(x@Polygons, function(xa) xa@coords))
 }
 #' @name sc_coord
 #' @export
-sc_coord.Lines<- function(x) {
+sc_coord.Lines<- function(x, ...){
   do.call(rbind, lapply(x@Lines, function(xa) xa@coords))
 }
 #' @name sc_coord
 #' @export
-sc_coord.default <- function(x) {
+sc_coord.default <- function(x, ...){
   x
 }
