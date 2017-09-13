@@ -5,14 +5,16 @@
 \alias{flight_tracks}
 \title{Flight tracks}
 \description{
-Taken from  Kent Johnson (kent37) in a 
- [github discussion](https://github.com/r-spatial/mapview/issues/99#issuecomment-328711275).
+Provided by  Kent Johnson (kent37) in a 
+ [github discussion](https://github.com/r-spatial/mapview/issues/99#issuecomment-328711275) 
+ where the data was attached in a zip file.
 }
 \details{
-Original form is a shapefile containing 144 flight tracks of aircraft departing
- runway 33L at Boston Logan airport on June 28, 2017. Data is from an ADS-B 
- recorder so it is kind of rough. Each point includes lat, lon, altitude in feet
- and time in EDT.
+Original form (in extdata/flight_tracks) is a XYZM LINESTRING shapefile
+containing 144 flight tracks of aircraft departing runway 33L at Boston Logan
+airport on June 27, 2017. Data is from an ADS-B recorder. Each point includes
+lat, lon, altitude in feet and time in North American Eastern Standard Time
+(EST).
 
-Converted via `sf` into `silicate::PATH` normal form.
+Converted via `sf` into `silicate::PATH` normal form, see (data-raw/flight_tracks.R).
 }
