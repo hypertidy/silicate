@@ -22,7 +22,7 @@ to_leaflet <- function(x, ...) {
                                 POINT = as.list(coord0 %>% dplyr::transmute(lat = y_, lng = x_)),
                                 MULTIPOINT = as.list(coord0 %>% dplyr::transmute(lat = y_, lng = x_)),
                                 LINESTRING = as.list(coord0 %>% dplyr::transmute(lat = y_, lng = x_)),
-                                MULTILINESTRTING = lapply(split(coord0 %>% dplyr::transmute(lat = y_, lng = x_), coord0$object), as.list),
+                                MULTILINESTRING = lapply(split(coord0 %>% dplyr::transmute(lat = y_, lng = x_), coord0$object), as.list),
                                 POLYGON = lapply(split(coord0 %>% dplyr::transmute(lat = y_, lng = x_), coord0$object), as.list),
                                 MULTIPOLYGON = lapply(split(coord0 %>% dplyr::select(x_, y_, subobject), coord0$object),
                                                                           function(subobject) lapply(split(subobject %>% 
