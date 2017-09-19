@@ -110,5 +110,6 @@ TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, ...
 The silicate family
 
 * [scgraph](https://github.com/hypertidy/scgraph)
+* [scspatstat](https://github.com/hypertidy/scspatstat)
 
-scdb, scspatstat, sctrip, scrgl, scraster, scicosa, 
+scdb, sctrip, scrgl, scraster, scicosa, 
