@@ -107,3 +107,29 @@ nrow(prim$vertex)
 prim$segment %>% group_by(path) %>% tally()
 ## no. of nodes per way
 prim$path_link_vertex %>% group_by(path) %>% tally()
+
+
+
+# ###################################################
+# ## convert to igraph
+# library(scgraph)
+# sc_as_igraph(prim)
+# ## propagate a subset through the graph (tidygraph can do this ...)
+# semi_cascade <- function(x, ..., tables = c("o", "b", "bXv", "v")) {
+#   first <- dplyr::filter(x[[tables[1]]], ...)
+#   x[[tables[1]]] <- last <- first 
+#   tables <- tables[-1]
+#   for (itab in tables) {
+#     x[[itab]] <- last <- semi_join_be_quiet_if_there_is_only_1(x[[itab]], last)
+#   }
+#   x
+# }
+# p0 <- PATH(prim)
+# p0$object <- prim$object[1:4, ]
+# semi_cascade(p0, c("object", "path", "path_link_vertex", "vertex"))
+# library(ggraph)
+# ggraph(sc_as_igraph(prim), layout = 'graphopt') + 
+#   geom_edge_link(aes(label = type), 
+#                  arrow = arrow(length = unit(4, 'mm')), 
+#                  end_cap = circle(3, 'mm')) + 
+#   geom_node_point(size = 5)

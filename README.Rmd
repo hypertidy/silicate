@@ -24,11 +24,23 @@ The need for this for spatial data is illustrated here:
 
 http://rpubs.com/cyclemumner/305595
 
-## NOTE September 2017
+There are two main motivations for `silicate`: 
 
-I've recently figured out some things that will make the idea of a "universal converter" more realistic. In silicate I hit upon the central PATH and PRIMITIVE models, these are dual-views of the two main types of structures used in complex data - paths are the turtle-head-down coordinate lists used by lines, polygons, polypath - primitives are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures (the key thing that makes them topological is unique-vertex-pool, indexed by other types). Paths can be partly topological in that a unique vertex pool is indexed by variable-length paths, and this is a key distinction from primitives which have a constant number of indexed vertices per element. There's a clash here, because most efficient for paths is very different from most efficient for primitives. `silicate` introduced an intermediate form for paths, all instances of all coordinates in one table, and another "path" table that records how many of the coordinates (in native order) are used per path. So this is a kind of rle structure, it provides a common model that can be used by any path-based structure for a decomposition or re-composition form. I initially applied this to sf, spatstat, rgl, some track-based structures, and a bit of ggplot2 exploration - but was kind of stuck with pretty slow sf decomposition. I've now seen how to do that fast enough, so we can now target this common form and from that generate real topology, with edge-lists or full-on triangles from polygons, or quads from rasters to stream to  structures in WebGL (for example), and back. 
+* the need for a central common-form of structure data, and a "universal converter"
+* the need for topological primitives for analysis and interaction. 
 
-Key examples
+Central to this are the  `PATH` and `PRIMITIVE` models, these are dual-views of the two main types of structures used in complex data. 
+
+Paths are the turtle-head-down coordinate lists used by lines, polygons, polypath, geom_line. 
+
+Primitives are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures. Tthe key thing that makes them topological is a unique-vertex-pool, indexed by other types. 
+
+Paths can be partly topological in that a unique vertex pool is indexed by variable-length paths, and this is a key distinction from primitives which have a constant number of indexed vertices per element. There's a clash here, because most efficient for paths is very different from most efficient for primitives. 
+
+`silicate` provides an intermediate form for paths, all instances of all coordinates in one table, and another "path" table that records how many of the coordinates (in native order) are used per path. So this is a kind of rle structure, it provides a common model that can be used by any path-based structure for a decomposition or re-composition form. 
+
+
+# Key examples
 
 the key ones are OSM-like data with names, LiDAR data (xyz multipoints with time, colour, intensity, groupings, etc. - with groupings such as "contiguous surface" - lidR is good for this), animal track data -  grouped-multilines with time, depth, temperature etc. on the coordinates, and triangulations - again grouped-structures from rgl
 
@@ -90,10 +102,13 @@ There are decomposition functions for lower-level  `sf` objects organized as `sc
  
 ## Exceptions
 
+There are a number of notable exceptions in the spatial world, but unfortunately this highlights how fragemented the landscape is. 
+
 TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, ...
 
 
 The silicate family
 
-scdb, scspatstat, sctrip, scrgl, scraster, scicosa, scgraph
+* [scgraph](https://github.com/hypertidy/scgraph)
 
+scdb, scspatstat, sctrip, scrgl, scraster, scicosa, 
