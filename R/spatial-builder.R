@@ -62,3 +62,38 @@ split_to_matrix <- function(x, fac) {
 }
 
 
+
+build_sp <- function(gm, coords_in, crs = NULL) {
+  glist <- vector("list", length(unique(gm$object)))
+  coords_in <- gm %>% dplyr::select(-type, -ncol, -nrow) %>%
+    dplyr::slice(rep(seq_len(nrow(gm)), gm$nrow)) %>% dplyr::bind_cols(coords_in)
+  ufeature <- unique(gm$object)
+  #st <- system.time({
+  gmlist <- split(gm, gm$object)[ufeature]
+  coordlist <- split(coords_in, coords_in$object)[unique(coords_in$object)]
+  #})
+  
+  for (ifeature in seq_along(ufeature)) {
+    #  gm0 <- gm %>% dplyr::filter(object == ufeature[ifeature])
+    gm0 <- gmlist[[ifeature]]
+    type <- gm0$type[1]
+    coord0 <- coordlist[[ifeature]]
+    #    coord0 <- coords_in %>% dplyr::filter(object == ifeature)
+    ## object becomes sub-feature element (not a hole, that is "part")
+    coord0$path <- rep(seq_len(nrow(gm0)), gm0$nrow)
+    ## todo need to set XY, XYZ, XYZM, XYM
+    cnames <- c("x_", "y_")
+    pathnames <- c(cnames, "path")
+    
+    feature <- switch(type,
+                      SpatialPoints = structure(unlist(coord0[cnames]), class = c("XY", "POINT", "sfg")),
+                      SpatialMultiPoints = structure(as.matrix(coord0[cnames]), class = c("XY", "MULTIPOINT", "sfg")),
+                      SpatialLines = structure(lapply(split(coord0[cnames], coord0[["path"]]), as.matrix), class = c("XY", "MULTILINESTRING", "sfg")),
+                      SpatialPolygons = structure(split_to_matrix(coord0[cnames], coord0[["path"]]), class = c("XY", "POLYGON", "sfg")))
+    
+    glist[[ifeature]] <- feature
+  }
+
+  glist
+  
+}

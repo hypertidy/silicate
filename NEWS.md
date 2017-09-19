@@ -1,5 +1,7 @@
 # silicate dev
 
+* support for trip
+
 * install flight_tracks example
 
 * support for sp!
