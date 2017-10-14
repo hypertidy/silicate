@@ -1,3 +1,37 @@
+# sf_which_sfc_col <- 
+# function (cls) 
+# {
+#   stopifnot(!missing(cls))
+#   switch(cls, POINT = 0, LINESTRING = 1, MULTIPOINT = 1, MULTILINESTRING = 2, 
+#          POLYGON = 2, MULTIPOLYGON = 3, GEOMETRYCOLLECTION = 4, 
+#          GEOMETRY = 5, stop(paste( cls, "not supported")))
+# }
+# sf_add_attributes <- 
+# function (x, y) 
+# {
+#   attributes(x) = attributes(y)
+#   x
+# }
+# 
+# sf_close_polygon_or_multipolygon <- 
+# function (x, to) 
+# {
+#   to_col = sf_which_sfc_col(to)
+#   close_mat = function(m) {
+#     if (any(m[1, ] != m[nrow(m), ])) 
+#       rbind(m, m[1, ])
+#     else m
+#   }
+#   add_attributes(if (to_col == 2) 
+#     lapply(x, function(y) add_attributes(lapply(y, close_mat), 
+#                                          y))
+#     else if (to_col == 3) 
+#       lapply(x, function(y) add_attributes(lapply(y, function(z) lapply(z, 
+#                                                                         close_mat)), y))
+#     else stop("invalid to_col value"), x)
+# }
+# 
+
 #' a pattern for building sf objects from 
 #' - a gibble, the map of the paths
 #' - the coordinates
@@ -5,7 +39,7 @@
 #' 
 #' currently only XY is supported
 #' @noRd
-build_sf <- function(gm, coords_in, crs = NULL) {
+build_sf <- function(gm, coords_in, crs = NULL, force_close = FALSE) {
   glist <- vector("list", length(unique(gm$object)))
   coords_in <- gm %>% dplyr::select(-type, -ncol, -nrow) %>%
     dplyr::slice(rep(seq_len(nrow(gm)), gm$nrow)) %>% dplyr::bind_cols(coords_in)
@@ -14,7 +48,7 @@ build_sf <- function(gm, coords_in, crs = NULL) {
   gmlist <- split(gm, gm$object)[ufeature]
   coordlist <- split(coords_in, coords_in$object)[unique(coords_in$object)]
   #})
-
+  split_to_matrix0 <- if (force_close) split_to_close_matrix else split_to_matrix
   for (ifeature in seq_along(ufeature)) {
   #  gm0 <- gm %>% dplyr::filter(object == ufeature[ifeature])
     gm0 <- gmlist[[ifeature]]
@@ -26,41 +60,52 @@ build_sf <- function(gm, coords_in, crs = NULL) {
     ## todo need to set XY, XYZ, XYZM, XYM
     cnames <- c("x_", "y_")
     pathnames <- c(cnames, "path")
+    # tidy add final coordinate?
+    # bad <- group_by(coord0 %>% dplyr::select(-object), path) %>% slice(c(1, n())) %>% distinct() %>% tally() %>% filter(n > 1L)
+    # print(bad)
 
     feature <- switch(type,
                                 POINT = structure(unlist(coord0[cnames]), class = c("XY", "POINT", "sfg")),
                                 MULTIPOINT = structure(as.matrix(coord0[cnames]), class = c("XY", "MULTIPOINT", "sfg")),
                                 LINESTRING = structure(as.matrix(coord0[cnames]), class = c("XY", "LINESTRING", "sfg")),
                                 MULTILINESTRING = structure(lapply(split(coord0[cnames], coord0[["path"]]), as.matrix), class = c("XY", "MULTILINESTRING", "sfg")),
-                                POLYGON = structure(split_to_matrix(coord0[cnames], coord0[["path"]]), class = c("XY", "POLYGON", "sfg")),
+                                POLYGON = structure(split_to_matrix0(coord0[cnames], coord0[["path"]]), class = c("XY", "POLYGON", "sfg")),
                                 MULTIPOLYGON = structure(lapply(split(coord0[pathnames], coord0[["subobject"]]),
-                                                                          function(path) split_to_matrix(path[cnames], path[["path"]])), 
+                                                                          function(path) split_to_matrix0(path[cnames], path[["path"]])), 
                                                          class = c("XY", "MULTIPOLYGON", "sfg"))
     )
-
+    
     glist[[ifeature]] <- feature
   }
   if (is.null(crs)) {
-    crs <- structure(list(epsg = NA_real_, proj4string = NA_character_, class = "crs"))
+    crs <- structure(list(epsg = NA_integer_, proj4string = NA_character_), class = "crs")
   } else {
     crs <- switch(mode(crs), 
-        character = structure(list(epsg = NA_real_, proj4string = crs, class = "crs")), 
-        numeric = structure(list(epsg = crs, proj4string = NA_character_, class = "crs")))
+        character = structure(list(epsg = NA_integer_, proj4string = crs), class = "crs"), 
+        numeric = structure(list(epsg = crs, proj4string = NA_character_), class = "crs"))
   }
   bb <- c(range(coords_in[["x_"]]), range(coords_in[["y_"]]))[c(1, 3, 2, 4)]
   names(bb) <- structure(c("xmin", "ymin", "xmax", "ymax"), class = "bbox")
   glist <- structure(glist, class = c(sprintf("sfc_%s", type), "sfc"  ), n_empty = 0, precision = 0, crs = crs, bbox = bb)
- glist
+  glist
   
 }
 
-
+close_mat = function(m) {
+  if (any(m[1, ] != m[nrow(m), ])) 
+    rbind(m, m[1, ])
+  else m
+}
 ## a fast split
+split_to_close_matrix <- function(x, fac) {
+  lapply(split(as.vector(t(as.matrix(x))), rep(fac, each = ncol(x))), 
+         function(mx) close_mat(matrix(mx, byrow = TRUE, ncol = ncol(x))))
+}
+
 split_to_matrix <- function(x, fac) {
   lapply(split(as.vector(t(as.matrix(x))), rep(fac, each = ncol(x))), 
          matrix, byrow = TRUE, ncol = ncol(x))
 }
-
 
 
 build_sp <- function(gm, coords_in, crs = NULL) {

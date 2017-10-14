@@ -56,7 +56,7 @@ sc_edge.PRIMITIVE <- function(x, ...) {
     u1 <- purrr::map(split(x$path_link_vertex, x$path_link_vertex$path), p2seg)
     u2 <- dplyr::mutate(dplyr::bind_rows(u1, .id = "path"), edge_ = row_number())
     u2[["uu"]] <- paste(pmin(u2[[".vertex0"]], u2[[".vertex1"]]), pmax(u2[[".vertex0"]], u2[[".vertex1"]]), sep = "_")
-    dplyr::distinct(u2, .keep_all = TRUE)
+    dplyr::distinct(u2, uu, .keep_all = TRUE)
 }
 
 #' @name sc_node
