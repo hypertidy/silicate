@@ -39,7 +39,7 @@ sc_path.Lines<- function(x, ...) {
 #' @name sc_path
 #' @export
 sc_path.default <- function(x, ...) {
-  tibble::as_tibble(cbind(ncoords_ = nrow(x), ncol = 2L))
+  out <- tibble::as_tibble(cbind(ncoords_ = nrow(x), ncol = 2L))
   out[["type"]] <- "Point"
   out[["path"]] <- sc_uid(nrow(out))
   
