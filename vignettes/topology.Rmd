@@ -18,9 +18,10 @@ are often repeated.
 
 At the highest level silicate provides a normalized form of a complicated structure containing *paths*. This data structure contains three paths, each of which is a sequentially joined set of coordinates. 
 
-The key aspect here is that each component entity is named formally named, and has a unique ID that we persist for subsequent usage. This persistence is required as it records relationships between existing entitites *implicitly* rather than baking data into structure that are both *explicit*  and also discard a lot of information about relationships. 
+The key aspect here is that each component entity is formally named, with a unique ID that we persist for subsequent usage. This persistence is required as it records relationships between existing entitites *implicitly* rather than baking data into structure that are both *explicit*  and also discard a lot of information about relationships. 
 
 ```{r}
+library(silicate)
 x <- PATH(minimal_mesh)
 names(x)
 ```
@@ -32,6 +33,7 @@ library(dplyr)
 purrr::reduce(x[c("object", "path", "path_link_vertex", "vertex")], dplyr::inner_join) %>% 
   dplyr::select(object,subobject, path, x_, y_)
 ```
+
 
 ## EDGE
 
@@ -46,16 +48,17 @@ library(dplyr)
 unique_edges <- dplyr::distinct(silicate:::sc_segment_base(x$path_link_vertex), edge, .keep_all = TRUE)
 vertex <- x$vertex
 nodes <- silicate:::sc_node_base(unique_edges, vertex)
-plot(minimal_mesh)
+library(sf); plot(minimal_mesh$geom)
 inner_join(nodes, x$vertex) %>% select(x_, y_) %>% points()
 
 ```
 There's only one more entity we need, and this is the actual component paths that describe these structures topologically. These are paths that occur between any two nodes, or that have no nodes at all. This will occur for any isolated "island", or for any hole within a polygon.  These arcs are exactly analogous to a LINESTRING, but are used within a context where the nodes are important information about the topology. 
 
-Currently we haven't yet normalized the arcs  ... and there's a bug somewhere screwing this up 
+Currently we haven't yet normalized the arcs  ... 
+
 
 ```{r}
-arcs <- sc_arc_base(x$path_link_vertex, nodes)
+arcs <- silicate:::sc_arc_base(x$path_link_vertex, nodes) 
 distinct(arcs, arc)
 
 
@@ -64,4 +67,29 @@ for (i in seq_along(sarcs)) {
   plot(sf::st_cast(minimal_mesh, "MULTILINESTRING"), col = "black")
   lines(sarcs[[i]] %>% inner_join(x$vertex) %>% select(x_, y_), col = "firebrick", lwd = 2)
 }
+```
+
+We haven't yet done any coordinate precision checking, so there will be mis-identified arcs where coordinates are intended to be but are not exactly the same. (spdep glosses over this in a way we can't control)
+
+```{r}
+
+library(dplyr)
+col1 <- read_sf(system.file("etc/shapes/columbus.shp",
+ package="spdep")[1])
+
+x <- PATH(col1[1:5, ])
+unique_edges <- dplyr::distinct(silicate:::sc_segment_base(x$path_link_vertex), edge, .keep_all = TRUE)
+vertex <- x$vertex
+nodes <- silicate:::sc_node_base(unique_edges, vertex)
+
+arcs <- silicate:::sc_arc_base(x$path_link_vertex, nodes) 
+distinct(arcs, arc)
+
+
+sarcs <- split(arcs, arcs$arc)
+for (i in seq_along(sarcs)) {
+  plot(sf::st_cast(st_geometry(col1[1:5, ]), "MULTILINESTRING"), col = "black")
+  lines(sarcs[[i]] %>% inner_join(x$vertex) %>% select(x_, y_), col = "firebrick", lwd = 2)
+}
+
 ```

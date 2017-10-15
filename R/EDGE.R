@@ -119,7 +119,7 @@ sc_node_base <- function(unique_edges, vertex, ...) {
   nodes
 }
 
-find_arc <- function(path, candidates) {
+find_arc0 <- function(path, candidates) {
   candidates <- candidates[candidates %in% path]
   if (length(candidates) == 0) return(NULL)
   index <- sort(match(candidates, path))
@@ -127,16 +127,65 @@ find_arc <- function(path, candidates) {
   mask[index] <- TRUE
   arc_runs <- cumsum(c(0, abs(diff(mask))))
   out_index <- seq_along(arc_runs)
+  ## wrap around the loop
   if (min(index) > 1) {
    arc_runs[ arc_runs ==arc_runs[1]] <- arc_runs[length(arc_runs)]
    out_index <- c(min(index):length(arc_runs), 1:(min(index)-1))
    
   } 
+
   out <- tibble::tibble(arc = arc_runs, vertex_ = path)
   f <- factor(out[["arc"]])
   out[["arc"]] <- sc_uid(nlevels(f))[f]
-  out[out_index, ]
+  out <- dplyr::slice(out, out_index) %>% dplyr::distinct(arc, vertex_)
+  if (nlevels(f) ==1L) return(out)
+  list_split_arcs <- split(out, out[["arc"]])
+  listn <- length(list_split_arcs)
+  for (i in seq(1, listn)) {
+    list_split_arcs[[i]] <- dplyr::bind_rows(
+      tibble::tibble(arc = list_split_arcs[[i]][["arc"]][1], vertex_ = tail(list_split_arcs[[i - 1 %% listn + 1]][["vertex_"]], 1)),
+      list_split_arcs[[i]], 
+      tibble::tibble(arc = list_split_arcs[[i]][["arc"]][1], vertex_ = head(list_split_arcs[[i %% listn + 1]][["vertex_"]], 1)))
+  }
+  dplyr::bind_rows(list_split_arcs) %>% dplyr::distinct()
 }
+
+find_arc <- function(path, candidates) {
+  candidates <- candidates[candidates %in% path]
+  if (length(candidates) == 0) return(NULL)
+  index <- sort(match(candidates, path))
+  ## wrap the path to start on a node
+  if (min(index) > 1L) {
+    path <- c(path[index[1L]:length(path)], path[1:(index[1L]-1)])    
+    index <- sort(match(candidates, path))
+  }
+  mask <- logical(length(path))
+  mask[index] <- TRUE
+  arc_runs <- cumsum(c(0, abs(diff(mask))))
+  out_index <- seq_along(arc_runs)
+
+  out <- tibble::tibble(arc = arc_runs, vertex_ = path)
+  f <- factor(out[["arc"]])
+  out[["arc"]] <- sc_uid(nlevels(f))[f]
+  if (nlevels(f) ==1L) return(out)
+  list_arcs <- split(out_index, arc_runs)
+  listn <- length(list_arcs)
+  for (i in 2:listn) {
+    list_arcs[[i]] <- c(tail(list_arcs[[i-1]], 1), 
+                        list_arcs[[i]], 
+                        head(list_arcs[[i %% listn + 1]], 1))
+    
+  }
+  list_arc_id <- rep(levels(f), lengths(list_arcs))
+  
+  out <- tibble::tibble(arc = list_arc_id, vertex_ = path[unlist(list_arcs)])
+  f <- factor(out[["arc"]])
+  out[["arc"]] <- sc_uid(nlevels(f))[f]
+  
+  #out <- dplyr::slice(out, out_index) %>% dplyr::distinct(arc, vertex_)
+  out
+}
+
 sc_arc_base <- function(path_link_vertex, node) {
   noded_path <- inner_join(node, path_link_vertex, "vertex_") %>% 
     dplyr::distinct(path)
