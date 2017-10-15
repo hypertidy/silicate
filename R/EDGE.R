@@ -150,7 +150,24 @@ find_arc0 <- function(path, candidates) {
   dplyr::bind_rows(list_split_arcs) %>% dplyr::distinct()
 }
 
+
+expand_segments <- function(path, candidates) {
+  closed <- path[1] == path[length(path)]
+  
+  candidates <- candidates[candidates %in% path]
+  if (length(candidates) == 0) return(NULL)
+  index <- sort(match(candidates, path))
+  ## wrap the path to start on a node
+  if (min(index) > 1L) {
+    path <- c(path[index[1L]:length(path)], path[1:(index[1L]-1)])    
+    index <- sort(match(candidates, path))
+  }
+  ## repeat the vertex at all nodes
+  index_expand <- sort(c(seq_along(path)[-index], rep(index, each = 2)))
+}
+
 find_arc <- function(path, candidates) {
+  
   candidates <- candidates[candidates %in% path]
   if (length(candidates) == 0) return(NULL)
   index <- sort(match(candidates, path))
@@ -170,8 +187,8 @@ find_arc <- function(path, candidates) {
   if (nlevels(f) ==1L) return(out)
   list_arcs <- split(out_index, arc_runs)
   listn <- length(list_arcs)
-  for (i in 2:listn) {
-    list_arcs[[i]] <- c(tail(list_arcs[[i-1]], 1), 
+  for (i in 1:listn) {
+    list_arcs[[i]] <- c(tail(list_arcs[[(i-2) %% listn + 1]], 1), 
                         list_arcs[[i]], 
                         head(list_arcs[[i %% listn + 1]], 1))
     
