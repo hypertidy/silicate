@@ -74,10 +74,11 @@ We haven't yet done any coordinate precision checking, so there will be mis-iden
 ```{r}
 
 library(dplyr)
-col1 <- read_sf(system.file("etc/shapes/columbus.shp",
- package="spdep")[1])
+library(sf)
+col1 <- polymesh
+#example(st_read)
+x <- PATH(polymesh)
 
-x <- PATH(col1[1:5, ])
 unique_edges <- dplyr::distinct(silicate:::sc_segment_base(x$path_link_vertex), edge, .keep_all = TRUE)
 vertex <- x$vertex
 nodes <- silicate:::sc_node_base(unique_edges, vertex)
@@ -86,10 +87,16 @@ arcs <- silicate:::sc_arc_base(x$path_link_vertex, nodes)
 distinct(arcs, arc)
 
 
+
 sarcs <- split(arcs, arcs$arc)
-for (i in seq_along(sarcs)) {
-  plot(sf::st_cast(st_geometry(col1[1:5, ]), "MULTILINESTRING"), col = "black")
-  lines(sarcs[[i]] %>% inner_join(x$vertex) %>% select(x_, y_), col = "firebrick", lwd = 2)
-}
+sf_arcs <- st_sf(arc = seq_along(sarcs), st_sfc(lapply(sarcs, function(a) {
+  st_linestring(inner_join(a, x$vertex, "vertex_") %>% dplyr::select(x_, y_) %>% as.matrix())
+})))
+
+plot(sf_arcs)
+# for (i in seq_along(sarcs)) {
+#   plot(sf::st_cast(st_geometry(col1), "MULTILINESTRING"), col = "black")
+#   lines(sarcs[[i]] %>% inner_join(x$vertex) %>% dplyr::select(x_, y_), col = "firebrick", lwd = 2)
+# }
 
 ```
