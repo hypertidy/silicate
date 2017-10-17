@@ -6,11 +6,10 @@
 
 
 sc_segment_base <- function(path_link_vertex) {
-  #   u1 <- purrr::map(split(x$path_link_vertex, x$path_link_vertex$path), p2seg)
-  #u2 <- dplyr::mutate(dplyr::bind_rows(u1, .id = "path"), edge_ = row_number())
-  
-  segtab <- dplyr::bind_rows(lapply(split(path_link_vertex[["vertex_"]], path_link_vertex[["path"]])[unique(path_link_vertex[["path"]])], 
-                          function(x) path_to_segment(x)), .id = "path")
+  frle <- rle(path_link_vertex[["path"]])
+  segtab <- path_to_segment(path_link_vertex[["vertex_"]])
+  segtab <- segtab[-head(cumsum(frle$lengths), -1L), ]
+  segtab[["path"]] <- rep(frle$values, frle$lengths - 1)
   segtab[["segment"]] <- sc_uid(nrow(segtab))
   edge <- paste(pmin(segtab[[".vertex0"]], segtab[[".vertex1"]]), pmax(segtab[[".vertex0"]], segtab[[".vertex1"]]), sep = "_")
   f <- factor(edge)
