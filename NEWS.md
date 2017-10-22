@@ -1,5 +1,7 @@
 # silicate dev
 
+* added `polymesh` data
+
 * support for trip
 
 * install flight_tracks example

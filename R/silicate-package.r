@@ -4,6 +4,14 @@
 #' @docType package
 NULL
 
+#' Polygonal mesh
+#' 
+#' A simple set of `sf` neighbouring polygons, with redundant vertices created
+#' from polygonizing a raster. 
+#' @name polymesh
+#' @docType data 
+NULL
+
 #' Minimal mesh. 
 #' 
 #' A couple of polygons with a single shared edge between them, in 

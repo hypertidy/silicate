@@ -24,6 +24,7 @@ Imports:
     ids,
     methods,
     purrr,
+    rlang,
     tibble, 
     unjoin (>= 0.0.3)
 VignetteBuilder: knitr

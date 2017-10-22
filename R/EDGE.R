@@ -5,9 +5,14 @@
 # and identify all other paths 
 
 
+path_to_segment0 <- function(x) faster_as_tibble(list(.vertex0 = utils::head(x, -1L), 
+                                                      .vertex1 = utils::tail(x, -1)))
+
 sc_segment_base <- function(path_link_vertex) {
+  ## how many vertices on each path?
   frle <- rle(path_link_vertex[["path"]])
-  segtab <- path_to_segment(path_link_vertex[["vertex_"]])
+  ## push into segments 
+  segtab <- path_to_segment0(path_link_vertex[["vertex_"]])
   segtab <- segtab[-head(cumsum(frle$lengths), -1L), ]
   segtab[["path"]] <- rep(frle$values, frle$lengths - 1)
   segtab[["segment"]] <- sc_uid(nrow(segtab))
@@ -16,13 +21,15 @@ sc_segment_base <- function(path_link_vertex) {
   segtab[["edge"]] <- sc_uid(nlevels(f))[f]
   segtab
 }
-
+#' @importFrom rlang .data
 sc_node_base <- function(unique_edges, vertex, ...) {
-  nodes <- dplyr::bind_rows(vertex %>% dplyr::select(vertex_) %>% dplyr::inner_join(unique_edges, c("vertex_" = ".vertex0")), 
-                     vertex %>% dplyr::select(vertex_) %>% dplyr::inner_join(unique_edges, c("vertex_" = ".vertex1"))) %>% 
-    dplyr::distinct(edge, vertex_) %>% 
-    dplyr::group_by(vertex_) %>% dplyr::tally() %>% dplyr::ungroup() %>% 
-    dplyr::filter(n > 2) %>% dplyr::distinct(vertex_) 
+  nodes <- dplyr::bind_rows(vertex %>% dplyr::select(.data$vertex_) %>% 
+                              dplyr::inner_join(unique_edges, c("vertex_" = ".vertex0")), 
+                     vertex %>% dplyr::select(.data$vertex_) %>% 
+                       dplyr::inner_join(unique_edges, c("vertex_" = ".vertex1"))) %>% 
+    dplyr::distinct(.data$edge, .data$vertex_) %>% 
+    dplyr::group_by(.data$vertex_) %>% dplyr::tally() %>% dplyr::ungroup() %>% 
+    dplyr::filter(.data$n > 2) %>% dplyr::distinct(.data$vertex_) 
   nodes
 }
 
@@ -46,17 +53,17 @@ find_arc <- function(path, nodes) {
                  vertex_ = path[["vertex_"]][unlist(arcs)])
 }
 sc_arc_base <- function(path_link_vertex, node) {
-  noded_path <- inner_join(node, path_link_vertex, "vertex_") %>% 
-    dplyr::distinct(path)
+  noded_path <- dplyr::inner_join(node, path_link_vertex, "vertex_") %>% 
+    dplyr::distinct(.data$path)
   ## any paths not linked to nodes are just arcs
   ## (there may be none)
   arcs0 <- path_link_vertex %>% 
-    anti_join(noded_path, "path")
+    dplyr::anti_join(noded_path, "path")
   f <- factor(arcs0[["path"]])
   arcs0[["path"]] <- NULL
   arcs0[["arc"]] <- sc_uid(nlevels(f))[f]
-  arcs0 <- dplyr::select(arcs0, arc, vertex_)
-  path_link_vertex <- path_link_vertex %>% inner_join(noded_path)
+  arcs0 <- dplyr::select(arcs0, .data$arc, .data$vertex_)
+  path_link_vertex <- path_link_vertex %>% inner_join(noded_path, "path")
   paths <- split(path_link_vertex, path_link_vertex[["path"]])
   bind_rows(arcs0, lapply(paths, function(x) find_arc(x, node[["vertex_"]])))
 }

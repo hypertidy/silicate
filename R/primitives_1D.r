@@ -55,8 +55,9 @@ sc_edge.default <- function(x, ...) {
 sc_edge.PRIMITIVE <- function(x, ...) {
     u1 <- purrr::map(split(x$path_link_vertex, x$path_link_vertex$path), p2seg)
     u2 <- dplyr::mutate(dplyr::bind_rows(u1, .id = "path"), edge_ = row_number())
-    u2[["uu"]] <- paste(pmin(u2[[".vertex0"]], u2[[".vertex1"]]), pmax(u2[[".vertex0"]], u2[[".vertex1"]]), sep = "_")
-    dplyr::distinct(u2, uu, .keep_all = TRUE)
+    u2[["uu"]] <- paste(pmin(u2[[".vertex0"]], u2[[".vertex1"]]), 
+                        pmax(u2[[".vertex0"]], u2[[".vertex1"]]), sep = "_")
+    dplyr::distinct(u2, .data$uu, .keep_all = TRUE)
 }
 
 #' @name sc_node
@@ -70,11 +71,13 @@ sc_node.default <- function(x, ...) {
 #' @export
 sc_node.PRIMITIVE <- function(x, ...) {
   unique_edges <- sc_edge(x, ...)
-  nodes <- bind_rows(x$vertex %>% dplyr::select_("vertex_") %>% dplyr::inner_join(unique_edges, c("vertex_" = ".vertex0")), 
-                     x$vertex %>% dplyr::select_("vertex_") %>% dplyr::inner_join(unique_edges, c("vertex_" = ".vertex1"))) %>% 
-    dplyr::distinct_("edge_", "vertex_") %>% 
-    dplyr::group_by_("vertex_") %>% dplyr::tally() %>% dplyr::ungroup() %>% 
-    dplyr::filter_(quote(n > 2)) %>% distinct_("vertex_") ##%>% dplyr::inner_join(x$vertex, "vertex_")
+  nodes <- bind_rows(x$vertex %>% dplyr::select(.data$vertex_) %>% 
+                       dplyr::inner_join(unique_edges, c("vertex_" = ".vertex0")), 
+                     x$vertex %>% dplyr::select(.data$.data$vertex_) %>% 
+                       dplyr::inner_join(unique_edges, c("vertex_" = ".vertex1"))) %>% 
+    dplyr::distinct(.data$edge_, .data$vertex_) %>% 
+    dplyr::group_by(.data$vertex_) %>% dplyr::tally() %>% dplyr::ungroup() %>% 
+    dplyr::filter(.data$n > 2) %>% distinct(.data$vertex_) 
   nodes
 }
 
@@ -93,7 +96,9 @@ sc_primitive.PATH <- function(x, ...) {
   
   ## what if we had points
   if (nrow(bXv) == nrow(distinct_(bXv, "path"))) {
-    return(dplyr::transmute_(all_coordinates, .vertex0 = quote(vertex_), path = quote("path")))
+    return(dplyr::transmute(all_coordinates, 
+                             .vertex0 = .data$vertex_, 
+                             path = .data$path))
   }
   ## this is a subset of RTriangle::pslg (because the original target was RTriangle::triangulate)
   #pstraight_lgraph <- list(P = as.matrix(v[, c("x_", "y_")]),
