@@ -16,8 +16,12 @@
 #' @export
 sc_path.Spatial <- function(x, ids = NULL, ...) {
   out <- dplyr::bind_rows(lapply(.sp_get_geometry(x), sc_path), .id = "object")
-  if (is.null(ids)) ids <- sc_uid(length(unique(out[["object"]])))
-  out[["object"]] <- ids[as.integer(out[["object"]])]
+  if (is.null(ids)) {
+    ids <- sc_uid(length(unique(out[["object"]])))
+    out[["object"]] <- ids[as.integer(factor(out[["object"]]))]
+  } else {
+    out[["object"]] <- ids
+  }
   out
 }
 #' @name sc_path
