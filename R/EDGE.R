@@ -40,7 +40,8 @@ find_arc <- function(path, nodes) {
   idx <- which(path$candidate)
   if (idx[1L] > 1L) {
     path <- bind_rows(path[idx[1L]:nrow(path), ], 
-                   path[1L:(idx[1L] - 1L), ])
+                   path[1L:(idx[1L] - 1L), ]) %>% dplyr::distinct()
+    path <- bind_rows(path, path %>% dplyr::slice(1L))
     idx <- which(path$candidate)
   }
   
