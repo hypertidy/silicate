@@ -5,6 +5,108 @@
 # and identify all other paths 
 
 
+
+
+# Arc node model, arc-node topology. 
+# 
+#
+# @param x input model
+# @param ... arguments to methods
+#
+# @return `tbl_df` of the node coordinates
+# @export 
+# @importFrom dplyr bind_rows mutate row_number distinct select inner_join group_by filter ungroup 
+
+
+#' Unique edges for arc-node topology. 
+#' 
+#' So-called "arcs" are unclosed paths that end in nodes, vertices shared by other arcs. 
+#' @param x input object
+#' @param ... arguments for methods
+#' @name sc_edge
+#' @export
+sc_edge <- function(x, ...) {
+  UseMethod("sc_edge")
+}
+#' @name sc_edge
+#' @export
+sc_edge.default <- function(x, ...) {
+  x <- PATH(x, ...)
+  sc_edge(x)
+}
+#' @name sc_edge
+#' @export
+sc_edge.PATH <- function(x, ...) {
+  sc_segment(x, ...) %>% dplyr::distinct(edge, .keep_all = TRUE) %>% 
+    dplyr::select(.vertex0, .vertex1, edge)
+}
+
+
+#' Given a `PATH`` model decompose to 1-dimensional primitives (or 0-dimensional). 
+#' 
+#' @param x input object
+#' @param ... arguments passed to methods
+#' @importFrom dplyr %>% inner_join mutate 
+#' @name sc_segment
+#' @export
+sc_segment <- function(x, ...) UseMethod("sc_segment")
+#' @name sc_segment
+#' @export
+sc_segment.default <- function(x, ...) {
+  x <- PATH(x)
+  sc_segment(x, ...)
+}
+#' @name sc_segment
+#' @export
+sc_segment.PATH <- function(x, ...) {
+ sc_segment_base(x[["path_link_vertex"]]) 
+}
+  
+  
+#' Nodes for arc-node topology. 
+#' 
+#' Nodes are the vertices in the graph that are shared by "arcs". 
+#' 
+#' @seealso NARC
+#' @param x input object
+#' @param ... arguments for methods
+#' @export
+sc_node <- function(x, ...) {
+  UseMethod("sc_node")
+}
+#' @name sc_node
+#' @export
+sc_node.default <- function(x, ...) {
+  x <- PATH(x)
+  sc_node(x)
+}
+#' @name sc_node
+#' @export
+sc_node.PATH <- function(x, ...) {
+  sc_node_base(sc_edge(x), x[["vertex"]])
+}
+ 
+
+#' Arcs for arc-node topology. 
+#' 
+#' Arcs are unbranched paths within the line segment graph. Nodes are the vertices where three or more arcs meet. 
+#' @param x input object
+#' @param ... arguments for methods
+#' @export
+sc_arc <- function(x, ...) {
+  UseMethod("sc_arc")
+}
+#' @name sc_arc
+#' @export
+sc_arc.default <- function(x, ...) {
+  x <- PATH(x)
+  sc_arc(x, ...)
+}
+#' @name sc_arc
+#' @export
+sc_arc.PATH <- function(x, ...) {
+  sc_arc_base(x[["path_link_vertex"]], sc_node(x))
+}
 path_to_segment0 <- function(x) faster_as_tibble(list(.vertex0 = utils::head(x, -1L), 
                                                       .vertex1 = utils::tail(x, -1)))
 

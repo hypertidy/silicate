@@ -1,56 +1,7 @@
 
-#' NARC model, arc-node topology. 
-#' 
-#' Arcs are unbranched paths within the line segment graph. Nodes are the vertices where three or more arcs meet. 
-#'
-#' @param x input model
-#' @param ... arguments to methods
-#'
-#' @return `tbl_df` of the node coordinates
-#' @export 
-#'
-NARC <- function(x, ...) {
-  UseMethod("NARC")
-}
 
-#' @name NARC
-#' @export
-#' @importFrom dplyr select_
-#' @importFrom tibble as_tibble
-#' @importFrom dplyr bind_rows mutate row_number distinct select inner_join group_by filter ungroup 
-NARC.PRIMITIVE <- function(x, ...) {
 
-  ## we only have sc_edge yet
-  #x[["arcs"]] <- sc_arc(x)
-  x[["nodes"]] <- sc_node(x)
- #dplyr::select_(nodes, "x_", "y_", "vertex_")
- x
-}
 
-#' Unique edges for arc-node topology. 
-#' 
-#' So-called "arcs" are unclosed paths that end in nodes, vertices shared by other arcs. 
-#' @param x input object
-#' @param ... arguments for methods
-sc_edge <- function(x, ...) {
-  UseMethod("sc_edge")
-}
-#' Nodes for arc-node topology. 
-#' 
-#' Nodes are the vertices in the graph that are shared by "arcs". 
-#' 
-#' @seealso NARC
-#' @param x input object
-#' @param ... arguments for methods
-#' @export
-sc_node <- function(x, ...) {
-  UseMethod("sc_node")
-}
-#' @name sc_edge
-sc_edge.default <- function(x, ...) {
-  x <- PRIMITIVE(x, ...)
-  sc_edge(x)
-}
 #' @name sc_edge
 sc_edge.PRIMITIVE <- function(x, ...) {
     u1 <- purrr::map(split(x$path_link_vertex, x$path_link_vertex$path), p2seg)
