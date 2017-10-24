@@ -39,7 +39,7 @@ sc_edge.default <- function(x, ...) {
 #' @export
 sc_edge.PATH <- function(x, ...) {
   sc_segment(x, ...) %>% dplyr::distinct(edge, .keep_all = TRUE) %>% 
-    dplyr::select(.vertex0, .vertex1, edge)
+    dplyr::select(.data$.vertex0, .data$.vertex1, .data$edge)
 }
 
 
