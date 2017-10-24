@@ -3,7 +3,8 @@
 # identify nodes within the vertex pool nodtab (sc_node(edgtab))
 # identify arcs, paths of edges that end at nodes arctab (sc_arc(edgtab, nodtab))
 # and identify all other paths 
-
+# NARC is the graph of arc-node
+# PRIM is the graph of 1D edges
 
 
 
