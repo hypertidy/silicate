@@ -15,12 +15,12 @@
 #' @importFrom stats setNames
 #' @export
 sc_path.Spatial <- function(x, ids = NULL, ...) {
-  out <- dplyr::bind_rows(lapply(.sp_get_geometry(x), sc_path), .id = "object")
+  out <- dplyr::bind_rows(lapply(.sp_get_geometry(x), sc_path), .id = "object_")
   if (is.null(ids)) {
     ids <- sc_uid(length(unique(out[["object"]])))
-    out[["object"]] <- ids[as.integer(factor(out[["object"]]))]
+    out[["object_"]] <- ids[as.integer(factor(out[["object_"]]))]
   } else {
-    out[["object"]] <- ids
+    out[["object_"]] <- ids
   }
   out
 }

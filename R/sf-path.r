@@ -1,6 +1,6 @@
 
 #' @importFrom purrr map_df
-sc_atom <- function(x, ...) faster_as_tibble(list(ncoords_= nrow(x), path = sc_uid()))
+sc_atom <- function(x, ...) faster_as_tibble(list(ncoords_= nrow(x), path_ = sc_uid()))
 sc_list <- function(x) {
   dplyr::bind_rows(lapply(x, sc_atom))
 }
@@ -38,8 +38,8 @@ sc_path.sfc <- function(x, ids = NULL, ...) {
   if (is.null(ids)) {
      ids <- sc_uid(length(unique(x[["object"]])))
    } 
-   x[["object"]] <- ids[x[["object"]]]
-   x[["path"]] <- sc_uid(nrow(x))
+   x[["object_"]] <- ids[x[["object"]]]
+   x[["path_"]] <- sc_uid(nrow(x))
   x[["ncoords_"]] <- x[["nrow"]]
   x[["nrow"]] <- NULL
   x
@@ -47,7 +47,7 @@ sc_path.sfc <- function(x, ids = NULL, ...) {
 
 gibble_path <- function(x,  ...) {
   out <- gibble::gibble(x)
-  out[["path"]] <- sc_uid(nrow(out))
+  out[["path_"]] <- sc_uid(nrow(out))
   out
 }
 

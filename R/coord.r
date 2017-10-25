@@ -15,8 +15,10 @@ sc_coord <- function(x, ...) UseMethod("sc_coord")
 
 #' @name sc_coord
 #' @export
+#' @importFrom rlang .data
 #' @importFrom dplyr inner_join transmute_ select_
 sc_coord.PATH <- function(x, ...) {
-  dplyr::inner_join(dplyr::transmute_(x[["path_link_vertex"]], vertex_ = quote(vertex_)) , x[["vertex"]], "vertex_") %>% 
-    dplyr::select_(quote(-vertex_))
+  dplyr::inner_join(dplyr::transmute(x[["path_link_vertex"]], vertex_ = .data$vertex_) , 
+                    x[["vertex"]], "vertex_") %>% 
+    dplyr::select(-.data$vertex_)
 }

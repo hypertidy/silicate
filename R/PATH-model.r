@@ -24,12 +24,12 @@ PATH.PATH <- function(x, ...) x
 PATH.default  <- function(x, ...) {
   ## get the main stuff
   o <- sc_object(x)
-  o[["object"]] <- sc_uid(nrow(o))
-  b <- sc_path(x, ids = o[["object"]])
+  o[["object_"]] <- sc_uid(nrow(o))
+  b <- sc_path(x, ids = o[["object_"]])
   
   v <- sc_coord(x)
   V_names <- names(v)
-  v <- dplyr::mutate(v, path = rep(b$path, b$ncoords_))
+  v <- dplyr::mutate(v, path_ = rep(b$path_, b$ncoords_))
   key_col <- "vertex_"
   maindata <- unjoin::unjoin_(v, V_names, key_col = key_col)
   dd <- maindata[["data"]]

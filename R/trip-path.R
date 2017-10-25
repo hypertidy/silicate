@@ -10,10 +10,10 @@
 sc_path.trip <- function(x, ids = NULL, ...) {
   x <- gibble::gibble(x)
   if (is.null(ids)) {
-    ids <- sc_uid(length(unique(x[["object"]])))
+    ids <- sc_uid(length(unique(x[["object_"]])))
   } 
-  x[["object"]] <- ids[x[["object"]]]
-  x[["path"]] <- sc_uid(nrow(x))
+  x[["object_"]] <- ids[x[["object_"]]]
+  x[["path_"]] <- sc_uid(nrow(x))
   x[["ncoords_"]] <- x[["nrow"]]
   x[["nrow"]] <- NULL
   x

@@ -1,36 +1,3 @@
-# sf_which_sfc_col <- 
-# function (cls) 
-# {
-#   stopifnot(!missing(cls))
-#   switch(cls, POINT = 0, LINESTRING = 1, MULTIPOINT = 1, MULTILINESTRING = 2, 
-#          POLYGON = 2, MULTIPOLYGON = 3, GEOMETRYCOLLECTION = 4, 
-#          GEOMETRY = 5, stop(paste( cls, "not supported")))
-# }
-# sf_add_attributes <- 
-# function (x, y) 
-# {
-#   attributes(x) = attributes(y)
-#   x
-# }
-# 
-# sf_close_polygon_or_multipolygon <- 
-# function (x, to) 
-# {
-#   to_col = sf_which_sfc_col(to)
-#   close_mat = function(m) {
-#     if (any(m[1, ] != m[nrow(m), ])) 
-#       rbind(m, m[1, ])
-#     else m
-#   }
-#   add_attributes(if (to_col == 2) 
-#     lapply(x, function(y) add_attributes(lapply(y, close_mat), 
-#                                          y))
-#     else if (to_col == 3) 
-#       lapply(x, function(y) add_attributes(lapply(y, function(z) lapply(z, 
-#                                                                         close_mat)), y))
-#     else stop("invalid to_col value"), x)
-# }
-# 
 
 #' a pattern for building sf objects from 
 #' - a gibble, the map of the paths
@@ -40,13 +7,13 @@
 #' currently only XY is supported
 #' @noRd
 build_sf <- function(gm, coords_in, crs = NULL, force_close = FALSE) {
-  glist <- vector("list", length(unique(gm$object)))
+  glist <- vector("list", length(unique(gm$object_)))
   coords_in <- gm %>% dplyr::select(-type, -ncol, -nrow) %>%
     dplyr::slice(rep(seq_len(nrow(gm)), gm$nrow)) %>% dplyr::bind_cols(coords_in)
-  ufeature <- unique(gm$object)
+  ufeature <- unique(gm$object_)
   #st <- system.time({
-  gmlist <- split(gm, gm$object)[ufeature]
-  coordlist <- split(coords_in, coords_in$object)[unique(coords_in$object)]
+  gmlist <- split(gm, gm$object_)[ufeature]
+  coordlist <- split(coords_in, coords_in$object)[unique(coords_in$object_)]
   #})
   split_to_matrix0 <- if (force_close) split_to_close_matrix else split_to_matrix
   for (ifeature in seq_along(ufeature)) {
@@ -54,24 +21,19 @@ build_sf <- function(gm, coords_in, crs = NULL, force_close = FALSE) {
     gm0 <- gmlist[[ifeature]]
     type <- gm0$type[1]
     coord0 <- coordlist[[ifeature]]
-#    coord0 <- coords_in %>% dplyr::filter(object == ifeature)
-    ## object becomes sub-feature element (not a hole, that is "part")
-    coord0$path <- rep(seq_len(nrow(gm0)), gm0$nrow)
+    coord0$path_ <- rep(seq_len(nrow(gm0)), gm0$nrow)
     ## todo need to set XY, XYZ, XYZM, XYM
     cnames <- c("x_", "y_")
-    pathnames <- c(cnames, "path")
-    # tidy add final coordinate?
-    # bad <- group_by(coord0 %>% dplyr::select(-object), path) %>% slice(c(1, n())) %>% distinct() %>% tally() %>% filter(n > 1L)
-    # print(bad)
+    pathnames <- c(cnames, "path_")
 
     feature <- switch(type,
                                 POINT = structure(unlist(coord0[cnames]), class = c("XY", "POINT", "sfg")),
                                 MULTIPOINT = structure(as.matrix(coord0[cnames]), class = c("XY", "MULTIPOINT", "sfg")),
                                 LINESTRING = structure(as.matrix(coord0[cnames]), class = c("XY", "LINESTRING", "sfg")),
-                                MULTILINESTRING = structure(lapply(split(coord0[cnames], coord0[["path"]]), as.matrix), class = c("XY", "MULTILINESTRING", "sfg")),
-                                POLYGON = structure(split_to_matrix0(coord0[cnames], coord0[["path"]]), class = c("XY", "POLYGON", "sfg")),
+                                MULTILINESTRING = structure(lapply(split(coord0[cnames], coord0[["path_"]]), as.matrix), class = c("XY", "MULTILINESTRING", "sfg")),
+                                POLYGON = structure(split_to_matrix0(coord0[cnames], coord0[["path_"]]), class = c("XY", "POLYGON", "sfg")),
                                 MULTIPOLYGON = structure(lapply(split(coord0[pathnames], coord0[["subobject"]]),
-                                                                          function(path) split_to_matrix0(path[cnames], path[["path"]])), 
+                                                                          function(path) split_to_matrix0(path[cnames], path[["path_"]])), 
                                                          class = c("XY", "MULTIPOLYGON", "sfg"))
     )
     
@@ -109,32 +71,29 @@ split_to_matrix <- function(x, fac) {
 
 
 build_sp <- function(gm, coords_in, crs = NULL) {
-  glist <- vector("list", length(unique(gm$object)))
+  glist <- vector("list", length(unique(gm$object_)))
   coords_in <- gm %>% dplyr::select(-type, -ncol, -nrow) %>%
     dplyr::slice(rep(seq_len(nrow(gm)), gm$nrow)) %>% dplyr::bind_cols(coords_in)
-  ufeature <- unique(gm$object)
+  ufeature <- unique(gm$object_)
   #st <- system.time({
-  gmlist <- split(gm, gm$object)[ufeature]
+  gmlist <- split(gm, gm$object_)[ufeature]
   coordlist <- split(coords_in, coords_in$object)[unique(coords_in$object)]
   #})
   
   for (ifeature in seq_along(ufeature)) {
-    #  gm0 <- gm %>% dplyr::filter(object == ufeature[ifeature])
     gm0 <- gmlist[[ifeature]]
     type <- gm0$type[1]
     coord0 <- coordlist[[ifeature]]
-    #    coord0 <- coords_in %>% dplyr::filter(object == ifeature)
-    ## object becomes sub-feature element (not a hole, that is "part")
-    coord0$path <- rep(seq_len(nrow(gm0)), gm0$nrow)
+    coord0$path_ <- rep(seq_len(nrow(gm0)), gm0$nrow)
     ## todo need to set XY, XYZ, XYZM, XYM
     cnames <- c("x_", "y_")
-    pathnames <- c(cnames, "path")
+    pathnames <- c(cnames, "path_")
     
     feature <- switch(type,
                       SpatialPoints = structure(unlist(coord0[cnames]), class = c("XY", "POINT", "sfg")),
                       SpatialMultiPoints = structure(as.matrix(coord0[cnames]), class = c("XY", "MULTIPOINT", "sfg")),
-                      SpatialLines = structure(lapply(split(coord0[cnames], coord0[["path"]]), as.matrix), class = c("XY", "MULTILINESTRING", "sfg")),
-                      SpatialPolygons = structure(split_to_matrix(coord0[cnames], coord0[["path"]]), class = c("XY", "POLYGON", "sfg")))
+                      SpatialLines = structure(lapply(split(coord0[cnames], coord0[["path_"]]), as.matrix), class = c("XY", "MULTILINESTRING", "sfg")),
+                      SpatialPolygons = structure(split_to_matrix(coord0[cnames], coord0[["path_"]]), class = c("XY", "POLYGON", "sfg")))
     
     glist[[ifeature]] <- feature
   }

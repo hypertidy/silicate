@@ -15,3 +15,6 @@ minimal_mesh <- st_sf(a = 1:2,
                                                  st_multipolygon(list(list(p4))))))
 #plot(x, col = c("grey", "firebrick"))
 devtools::use_data(minimal_mesh)
+
+mmesh <- PRIMITIVE(minimal_mesh)
+devtools::use_data(mmesh, overwrite = TRUE)
