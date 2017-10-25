@@ -13,7 +13,7 @@ build_sf <- function(gm, coords_in, crs = NULL, force_close = FALSE) {
   ufeature <- unique(gm$object_)
   #st <- system.time({
   gmlist <- split(gm, gm$object_)[ufeature]
-  coordlist <- split(coords_in, coords_in$object)[unique(coords_in$object_)]
+  coordlist <- split(coords_in, coords_in$object_)[unique(coords_in$object_)]
   #})
   split_to_matrix0 <- if (force_close) split_to_close_matrix else split_to_matrix
   for (ifeature in seq_along(ufeature)) {
