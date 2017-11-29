@@ -36,29 +36,29 @@ path_link_vertex %>%
 library(dplyr)
 arcs <- sc_arc(x) 
 
-uarcs <- unique(arcs$arc)
+uarcs <- unique(arcs$arc_)
 dige <- character(length(uarcs))
-for (i in seq_along(uarcs)) dige[i] <- digest::digest(sort(arcs$vertex_[arcs$arc == uarcs[i]]))
-arcs$uarc <- rep(dige, rle(arcs$arc)$lengths)
-arcs_one <- arcs %>% distinct(uarc, .keep_all = TRUE) %>% dplyr::select(arc)
+for (i in seq_along(uarcs)) dige[i] <- digest::digest(sort(arcs$vertex_[arcs$arc_ == uarcs[i]]))
+arcs$uarc <- rep(dige, rle(arcs$arc_)$lengths)
+arcs_one <- arcs %>% distinct(uarc, .keep_all = TRUE) %>% dplyr::select(arc_)
 
 
 arcs %>% 
   #inner_join(arcs_one, "arc") %>% 
   inner_join(x$vertex) %>% 
-  ggplot() + geom_path(aes(x_, y_, group = arc, colour = arc)) + guides(colour = FALSE)
+  ggplot() + geom_path(aes(x_, y_, group = arc_, colour = arc_)) + guides(colour = FALSE)
 
 ## convert the arcs to sf lines
-gm <- arcs %>% inner_join(arcs_one, "arc") %>% 
-  group_by(arc) %>% tally() %>% 
-  rename(path= arc, nrow = n) %>% 
-  mutate(type = "LINESTRING", ncol = 2, object = row_number())
+gm <- arcs %>% inner_join(arcs_one, "arc_") %>% 
+  group_by(arc_) %>% tally() %>% 
+  rename(path_= arc_, nrow = n) %>% 
+  mutate(type = "LINESTRING", ncol = 2, object_ = row_number())
 
 ## see how arc needs to be arranged, because of the group/tally for the gibble geom map
 arc_sf <- build_sf(gm, coords_in = arcs %>%   
-                     inner_join(arcs_one, "arc") %>% 
-                     inner_join(vertex) %>% 
-                     arrange(arc) %>% dplyr::select(x_, y_))
+                     inner_join(arcs_one, "arc_") %>% 
+                     inner_join(x$vertex) %>% 
+                     arrange(arc_) %>% dplyr::select(x_, y_))
 library(sf)
 
 ## arcs are now normalized
@@ -66,7 +66,16 @@ plot(st_sf(geom = arc_sf,
            a = seq_along(arc_sf)), col = sample(rainbow(length(arc_sf))), 
      lwd = sample(1:7, length(arc_sf), replace = TRUE))
 
-#############################################################
+#############################
+## convert to segments only
+objects <- sc_segment(x) %>% 
+  inner_join(x$path) %>% 
+  dplyr::select(.vertex0, .vertex1, path_, object_) 
+
+tibble::tibble(vertex_ = purrr::transpose(objects %>% select(.vertex0, .vertex1)) %>% 
+  unlist()) %>% inner_join(x$vertex)
+
+ #############################################################
 ## TODO convert to simplicial complex form
 ## Segment/vertex form for Triangle
 ## unique edge form for CGAL
