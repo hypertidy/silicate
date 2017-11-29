@@ -7,26 +7,26 @@ silicate
 
 The goal of silicate is to provide a general common form for complex multi-dimensional data.
 
-The need for this for spatial data is illustrated here:
+There are two main motivations for `silicate`:
+
+-   to provide a central common-form of structure data, and a "universal converter"
+-   to work with topological primitives for analysis and interaction.
+
+Central is the `PATH` model, a normalized form of spatial data that is an *intermediate form* between standard explicit path forms and topological structures composed of simpler elements. A future version will provide a variety of PRIMITIVE models, but we haven't figured out the final forms yet. PATH and its counterpart/s PRIMITIVE is a dual-view of the two main types of structures used in complex data.
+
+*Paths* are the turtle-head-down coordinate lists used by lines, polygons, polypath, geom\_line.
+
+*Primitives* are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures. The key thing that makes them topological is a unique-vertex-pool, indexed by other types.
+
+The need to provide a language of conversions between these forms for spatial data is illustrated here:
 
 <http://rpubs.com/cyclemumner/305595>
 
-There are two main motivations for `silicate`:
+Paths can be partly topological (as per PATH) in that a unique vertex pool is indexed by variable-length paths, and this is a key distinction from primitives which have a constant number of indexed vertices per element. There's a clash here, because most efficient for paths is very different from most efficient for primitives.
 
--   the need for a central common-form of structure data, and a "universal converter"
--   the need for topological primitives for analysis and interaction.
+`silicate` provides an intermediate form for paths, all instances of all coordinates in one table, and another "path" table that records how many of the coordinates (in native order) are used per path. So this is a kind of *run length encoding* structure, it provides a common model that can be used by any path-based structure for a decomposition or re-composition form. A family of other functions provide the other component elements that we need, including segments, edges, arcs, nodes and vertices.
 
-Central to this are the `PATH` and `PRIMITIVE` models, these are dual-views of the two main types of structures used in complex data.
-
-Paths are the turtle-head-down coordinate lists used by lines, polygons, polypath, geom\_line.
-
-Primitives are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures. The key thing that makes them topological is a unique-vertex-pool, indexed by other types.
-
-Paths can be partly topological in that a unique vertex pool is indexed by variable-length paths, and this is a key distinction from primitives which have a constant number of indexed vertices per element. There's a clash here, because most efficient for paths is very different from most efficient for primitives.
-
-`silicate` provides an intermediate form for paths, all instances of all coordinates in one table, and another "path" table that records how many of the coordinates (in native order) are used per path. So this is a kind of rle structure, it provides a common model that can be used by any path-based structure for a decomposition or re-composition form.
-
-Developer notes.
+Worker functions
 ================
 
 There are key worker functions `sc_coord`, `sc_object`, `sc_path` which provide the basis for interpreting simple features from a silicate perspective.
@@ -102,7 +102,9 @@ There are a number of notable exceptions in the spatial world, but unfortunately
 
 TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, ...
 
-The silicate family
+Other technologies are Mapbox, WebGL, Threejs, D3, AFrame, Lavavu ...
+
+The silicate family is composed of a small number of packages that apply the principles here, either to read from path forms or primitive forms.
 
 -   [scgraph](https://github.com/hypertidy/scgraph)
 -   [scspatstat](https://github.com/hypertidy/scspatstat)
