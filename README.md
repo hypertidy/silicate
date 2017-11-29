@@ -37,12 +37,14 @@ There are key worker functions `sc_coord`, `sc_object`, `sc_path` which provide 
 
 From these three components we can generate other forms, and we can round-trip back to the original features.
 
-There are further workers for the *vertices* (`sc_node`), and *paths* (`sc_arc`, `sc_segment`, `sc_edge`) which provide the necessary lower-level components. These inherently work with identitifiers for components, and so they only make sense with reference to a `PATH` (or PRIMITIVE) silicate form.
+There are further workers for the ***vertices*** (`sc_node`), and ***paths*** (`sc_arc`, `sc_segment`, `sc_edge`) which provide the necessary lower-level components. These inherently work with identitifiers for components, and so they only make sense with reference to a `PATH` (or PRIMITIVE) silicate form.
 
 -   sc\_node returns only those vertices that are met by three or more paths
 -   sc\_arc returns the paths between nodes, and standalone paths that don't visit any nodes
 -   sc\_segment returns all *instances* of any two-vertex line segment (directed)
 -   sc\_edge returns only those unique edges, which are inherently undirected
+
+(We possibly also want `sc_vertex` to return only the unique coordinates, but that can be obtained from `PATH` - though this area needs some care since unique might be in X-Y, Y-Z or X-Y-Z or any geometric space).
 
 This generic set of workers is chosen because we often want the complete set of vertices in their pure form. Returning them with no grouping or identifiers and without any de-duplication means we have a representation of the pure geometry. Since the table has no other columns, generic code can be sure that all columns contain a coordinate. That means we don't need specialist code for 'XYZ', 'XYZM', 'XYT', 'TYX' and so on.
 
