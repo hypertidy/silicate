@@ -17,6 +17,6 @@ faster_as_tibble <- function(x) {
   if (is.matrix(x)) x <- split(as.vector(x), rep(seq_len(ncol(x)), each = nrow(x)))
   dm <- try(dim(x), silent = TRUE)
   ## kludge a bit because x may be a list or a 0-column dataframe
-  nr <- if (inherits(dm, "try-error")) length(x[[1]]) else dm[1]
-  structure(x, row.names = nr, class = c("tbl_df", "tbl", "data.frame"))
+  nr <- if (inherits(dm, "try-error") | is.null(dm)) length(x[[1]]) else dm[1]
+  structure(x, row.names = format(seq_len(nr)), class = c("tbl_df", "tbl", "data.frame"))
 }
