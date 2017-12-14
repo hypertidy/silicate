@@ -29,7 +29,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="/index.html">
+  <a href="index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -45,6 +45,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/topology.html">The fabric of hierarchical structures</a>
+    </li>
+    <li>
       <a href="articles/translator.html">Format translator</a>
     </li>
   </ul>
@@ -75,36 +78,41 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#silicate" class="anchor"></a>silicate</h1></div>
 <p>The goal of silicate is to provide a general common form for complex multi-dimensional data.</p>
-<p>The need for this for spatial data is illustrated here:</p>
-<p><a href="http://rpubs.com/cyclemumner/305595" class="uri">http://rpubs.com/cyclemumner/305595</a></p>
 <p>There are two main motivations for <code>silicate</code>:</p>
 <ul>
-<li>the need for a central common-form of structure data, and a “universal converter”</li>
-<li>the need for topological primitives for analysis and interaction.</li>
+<li>to provide a central common-form of structure data, and a “universal converter”</li>
+<li>to work with topological primitives for analysis and interaction.</li>
 </ul>
-<p>Central to this are the <code>PATH</code> and <code>PRIMITIVE</code> models, these are dual-views of the two main types of structures used in complex data.</p>
-<p>Paths are the turtle-head-down coordinate lists used by lines, polygons, polypath, geom_line.</p>
-<p>Primitives are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures. Tthe key thing that makes them topological is a unique-vertex-pool, indexed by other types.</p>
-<p>Paths can be partly topological in that a unique vertex pool is indexed by variable-length paths, and this is a key distinction from primitives which have a constant number of indexed vertices per element. There’s a clash here, because most efficient for paths is very different from most efficient for primitives.</p>
-<p><code>silicate</code> provides an intermediate form for paths, all instances of all coordinates in one table, and another “path” table that records how many of the coordinates (in native order) are used per path. So this is a kind of rle structure, it provides a common model that can be used by any path-based structure for a decomposition or re-composition form.</p>
+<p>Central is the <code>PATH</code> model, a normalized form of spatial data that is an <em>intermediate form</em> between standard explicit path forms and topological structures composed of simpler elements. A future version will provide a variety of PRIMITIVE models, but we haven’t figured out the final forms yet. PATH and its counterpart/s PRIMITIVE is a dual-view of the two main types of structures used in complex data.</p>
+<p><em>Paths</em> are the turtle-head-down coordinate lists used by lines, polygons, polypath, geom_line.</p>
+<p><em>Primitives</em> are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures. The key thing that makes them topological is a unique-vertex-pool, indexed by other types.</p>
+<p>The need to provide a language of conversions between these forms for spatial data is illustrated here:</p>
+<p><a href="http://rpubs.com/cyclemumner/305595" class="uri">http://rpubs.com/cyclemumner/305595</a></p>
+<p>Paths can be partly topological (as per PATH) in that a unique vertex pool is indexed by variable-length paths, and this is a key distinction from primitives which have a constant number of indexed vertices per element. There’s a clash here, because most efficient for paths is very different from most efficient for primitives.</p>
+<p><code>silicate</code> provides an intermediate form for paths, all instances of all coordinates in one table, and another “path” table that records how many of the coordinates (in native order) are used per path. So this is a kind of <em>run length encoding</em> structure, it provides a common model that can be used by any path-based structure for a decomposition or re-composition form. A family of other functions provide the other component elements that we need, including segments, edges, arcs, nodes and vertices.</p>
 </div>
-<div id="key-examples" class="section level1">
+<div id="worker-functions" class="section level1">
 <h1 class="hasAnchor">
-<a href="#key-examples" class="anchor"></a>Key examples</h1>
-<p>the key ones are OSM-like data with names, LiDAR data (xyz multipoints with time, colour, intensity, groupings, etc. - with groupings such as “contiguous surface” - lidR is good for this), animal track data - grouped-multilines with time, depth, temperature etc. on the coordinates, and triangulations - again grouped-structures from rgl</p>
-</div>
-<div id="developer-notes-" class="section level1">
-<h1 class="hasAnchor">
-<a href="#developer-notes-" class="anchor"></a>Developer notes.</h1>
-<p>There are key worker functions <code>sc_coord</code>, <code>sc_node</code>, <code>sc_object</code>, <code>sc_path</code>.</p>
+<a href="#worker-functions" class="anchor"></a>Worker functions</h1>
+<p>There are key worker functions <code>sc_coord</code>, <code>sc_object</code>, <code>sc_path</code> which provide the basis for interpreting simple features from a silicate perspective.</p>
 <ul>
-<li>sc_coord returns the table of coordinates completely flattened, no normalization</li>
+<li>sc_coord returns the table of coordinates completely flattened, and with no normalization</li>
 <li>sc_object returns the highest level feature metadata</li>
 <li>sc_path returns the table of individual paths, with a coordinate count</li>
 </ul>
+<p>From these three components we can generate other forms, and we can round-trip back to the original features.</p>
+<p>There are further workers for the <strong><em>vertices</em></strong> (<code>sc_node</code>), and <strong><em>paths</em></strong> (<code>sc_arc</code>, <code>sc_segment</code>, <code>sc_edge</code>) which provide the necessary lower-level components. These inherently work with identitifiers for components, and so they only make sense with reference to a <code>PATH</code> (or PRIMITIVE) silicate form.</p>
+<ul>
+<li>sc_node returns only those vertices that are met by three or more paths</li>
+<li>sc_arc returns the paths between nodes, and standalone paths that don’t visit any nodes</li>
+<li>sc_segment returns all <em>instances</em> of any two-vertex line segment (directed)</li>
+<li>sc_edge returns only those unique edges, which are inherently undirected</li>
+</ul>
+<p>(We possibly also want <code>sc_vertex</code> to return only the unique coordinates, but that can be obtained from <code>PATH</code> - though this area needs some care since unique might be in X-Y, Y-Z or X-Y-Z or any geometric space).</p>
 <p>This generic set of workers is chosen because we often want the complete set of vertices in their pure form. Returning them with no grouping or identifiers and without any de-duplication means we have a representation of the pure geometry. Since the table has no other columns, generic code can be sure that all columns contain a coordinate. That means we don’t need specialist code for ‘XYZ’, ‘XYZM’, ‘XYT’, ‘TYX’ and so on.</p>
 <p>The table of individual paths records which object it belongs to, how many coordinates there are and an ID for the path. This is not intended to be ‘relational’, it’s an intermediate form link by pure indexing. Inserting more levels between the paths and the highest objects is possible, but unclear exactly how to do this yet.</p>
 <p>The <code>unjoin</code> concept is key for mapping the key between unique vertices and a path’s instance of those as coordinates, in the right order. We can use the unjoin engine to add structure to other more generic data streams, like GPS, animal tracking, and general sensors.</p>
+<p><strong>NOTE:</strong> An early implentation had PATH and PRIMITIVE forms, but the latter was too simplistic for real use. The functions <code>sc_arc</code>, <code>sc_node</code>, <code>sc_segment</code> and <code>sc_edge</code> were added to the basic <code>sc_coord</code>, <code>sc_path</code> and <code>sc_object</code> as these are all that are required to move between any data structure in simple features or topological form. This is an ongoing area of development. See also <a href="https://github.com/hypertidy/sphier">sphier</a> and <a href="https://github.com/hypertidy/svgplotr">svgplotr</a> for related work.</p>
 <p>The model functions <code>PRIMITIVE</code> and <code>PATH</code> should work in the following cases.</p>
 <ul>
 <li>to flip from one to another <code>PRIMITIVE(PATH(PRIMITIVE(x)))</code> should work for any kind of ‘x’ model</li>
@@ -131,15 +139,21 @@
 <p>The <code>PRIMITIVE</code> function decomposes a layer into actual primitives, rather than “paths”, these are point, line segment, triangle, tetrahedron, and so on.</p>
 <p>Currently <code>PATH()</code> and <code>PRIMITIVE</code> are the highest level functions to decompose simple features objects.</p>
 <p>There are decomposition functions for lower-level <code>sf</code> objects organized as <code>sc_path</code>, <code>sc_coord</code>, and <code>sc_object</code>. <code>sc_path</code> does all the work, building a simple map of all the parts and the vertex count. This is used to classify the vertex table when it is extracted, which makes the unique-id management for path-vertex normalization much simpler than it was in <code>gris</code> or <code>rangl</code>.</p>
+</div>
+</div>
+<div id="key-examples" class="section level1">
+<h1 class="hasAnchor">
+<a href="#key-examples" class="anchor"></a>Key examples</h1>
+<p>the key ones are OSM-like data with names, LiDAR data (xyz multipoints with time, colour, intensity, groupings, etc. - with groupings such as “contiguous surface” - lidR is good for this), animal track data - grouped-multilines with time, depth, temperature etc. on the coordinates, and triangulations - again grouped-structures from rgl</p>
 <p><strong>NOTE:</strong> earlier versions of this used the concept of “branch” rather than path, so there is some ongoing migration of the use of these words. <em>Branch</em> is a more general concept than implemented in geo-spatial systems generally, and so <em>path</em> is more accurate We reserve branch for possible future models that are general. A “point PATH” has meaning in the sense of being a single-vertex “path”, and so a multipoint is a collection of these degenerate forms. “Path” as a concept is clearly rooted in optimization suited to planar forms, and so is more accurate than “branch”.</p>
 <p>In our terminology a branch or path is the group between the raw geometry and the objects, and so applies to a connected polygon ring, closed or open linestring, a single coordinate with a multipoint (a path with one vertex). In this scheme a polygon ring and a closed linestring are exactly the same (since they actually are exactly the same) and there are no plane-filling branches, or indeed volume-filling branches. This is a clear limitation of the branch model and it matches that used by GIS.</p>
-</div>
 <div id="exceptions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#exceptions" class="anchor"></a>Exceptions</h2>
 <p>There are a number of notable exceptions in the spatial world, but unfortunately this highlights how fragemented the landscape is.</p>
 <p>TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, …</p>
-<p>The silicate family</p>
+<p>Other technologies are Mapbox, WebGL, Threejs, D3, AFrame, Lavavu …</p>
+<p>The silicate family is composed of a small number of packages that apply the principles here, either to read from path forms or primitive forms.</p>
 <ul>
 <li><a href="https://github.com/hypertidy/scgraph">scgraph</a></li>
 <li><a href="https://github.com/hypertidy/scspatstat">scspatstat</a></li>

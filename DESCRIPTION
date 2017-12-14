@@ -17,6 +17,7 @@ Suggests:
     gibble (>= 0.0.1),
     knitr,
     rmarkdown,
+    sf,
     testthat
 RoxygenNote: 6.0.1
 Imports: 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Unique edges for arc-node topology. — sc_edge • silicate</title>
+<title>Arcs for arc-node topology. — sc_arc • silicate</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -93,20 +93,20 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Unique edges for arc-node topology.</h1>
+    <h1>Arcs for arc-node topology.</h1>
     </div>
 
     
-    <p>So-called "arcs" are unclosed paths that end in nodes, vertices shared by other arcs.</p>
+    <p>Arcs are unbranched paths within the line segment graph. Nodes are the vertices where three or more arcs meet.</p>
     
 
-    <pre class="usage"><span class='fu'>sc_edge</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>sc_arc</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>sc_edge</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>sc_arc</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for PATH</span>
-<span class='fu'>sc_edge</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>sc_arc</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">

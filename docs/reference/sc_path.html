@@ -52,7 +52,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -67,6 +67,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/topology.html">The fabric of hierarchical structures</a>
+    </li>
     <li>
       <a href="../articles/translator.html">Format translator</a>
     </li>
@@ -172,34 +175,34 @@ the features, and `PATH` for the full model.</p>
 <span class='co'>#sc_path(sf::st_sfc(sfzoo))</span>
 <span class='co'>#sc_path(sf::st_sfc(sfzoo))</span>
 <span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipolygon</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 5
-#&gt;    nrow  ncol         type subobject     path
+#&gt;    nrow  ncol         type subobject    path_
 #&gt;   &lt;int&gt; &lt;int&gt;        &lt;chr&gt;     &lt;int&gt;    &lt;chr&gt;
-#&gt; 1     6     2 MULTIPOLYGON         1 d22b2b4c
-#&gt; 2     4     2 MULTIPOLYGON         1 bb547586
-#&gt; 3     5     2 MULTIPOLYGON         2 ae5c094f
-#&gt; 4     5     2 MULTIPOLYGON         2 d0ab7148
-#&gt; 5     4     2 MULTIPOLYGON         3 68c593b6</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>polygon</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;    nrow  ncol    type     path
+#&gt; 1     6     2 MULTIPOLYGON         1 94dac581
+#&gt; 2     4     2 MULTIPOLYGON         1 165459ee
+#&gt; 3     5     2 MULTIPOLYGON         2 c508d88d
+#&gt; 4     5     2 MULTIPOLYGON         2 a706b1ca
+#&gt; 5     4     2 MULTIPOLYGON         3 0151dfb6</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>polygon</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt;    nrow  ncol    type    path_
 #&gt;   &lt;int&gt; &lt;int&gt;   &lt;chr&gt;    &lt;chr&gt;
-#&gt; 1     6     2 POLYGON a5965429
-#&gt; 2     4     2 POLYGON ee0422f4</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>linestring</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
-#&gt;    nrow  ncol       type     path
+#&gt; 1     6     2 POLYGON 61487019
+#&gt; 2     4     2 POLYGON 71ec6055</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>linestring</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt;    nrow  ncol       type    path_
 #&gt;   &lt;int&gt; &lt;int&gt;      &lt;chr&gt;    &lt;chr&gt;
-#&gt; 1     4     2 LINESTRING 770ebc06</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multilinestring</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 4
-#&gt;    nrow  ncol            type     path
+#&gt; 1     4     2 LINESTRING f6f5b304</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multilinestring</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 4
+#&gt;    nrow  ncol            type    path_
 #&gt;   &lt;int&gt; &lt;int&gt;           &lt;chr&gt;    &lt;chr&gt;
-#&gt; 1     4     2 MULTILINESTRING f504163b
-#&gt; 2     4     2 MULTILINESTRING 0e46c80b
-#&gt; 3     2     2 MULTILINESTRING ec1cdd4f</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>point</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
-#&gt;    nrow  ncol  type     path
+#&gt; 1     4     2 MULTILINESTRING 3400512f
+#&gt; 2     4     2 MULTILINESTRING a282ba57
+#&gt; 3     2     2 MULTILINESTRING f1a89329</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>point</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt;    nrow  ncol  type    path_
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;
-#&gt; 1     1     2 POINT 7514b0c0</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
-#&gt;    nrow  ncol       type     path
+#&gt; 1     1     2 POINT 6d34b9a8</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt;    nrow  ncol       type    path_
 #&gt;   &lt;int&gt; &lt;int&gt;      &lt;chr&gt;    &lt;chr&gt;
-#&gt; 1     6     2 MULTIPOINT c0fea1aa</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
-#&gt;    nrow  ncol       type     path
+#&gt; 1     6     2 MULTIPOINT dbd2edf8</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt;    nrow  ncol       type    path_
 #&gt;   &lt;int&gt; &lt;int&gt;      &lt;chr&gt;    &lt;chr&gt;
-#&gt; 1     6     2 MULTIPOINT fa878bbf</div></pre>
+#&gt; 1     6     2 MULTIPOINT fd5948c5</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

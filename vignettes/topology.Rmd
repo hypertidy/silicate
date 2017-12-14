@@ -31,7 +31,7 @@ At a basic level, the tables in this `PATH` are essentially the same as the kind
 ```{r}
 library(dplyr)
 purrr::reduce(x[c("object", "path", "path_link_vertex", "vertex")], dplyr::inner_join) %>% 
-  dplyr::select(object,subobject, path, x_, y_)
+  dplyr::select(object,subobject, path_, x_, y_)
 ```
 
 
@@ -62,7 +62,7 @@ arcs <- silicate:::sc_arc_base(x$path_link_vertex, nodes)
 distinct(arcs, arc)
 
 
-sarcs <- split(arcs, arcs$arc)
+sarcs <- split(arcs, arcs$arc_)
 for (i in seq_along(sarcs)) {
   plot(sf::st_cast(minimal_mesh, "MULTILINESTRING"), col = "black")
   lines(sarcs[[i]] %>% inner_join(x$vertex) %>% select(x_, y_), col = "firebrick", lwd = 2)
@@ -88,7 +88,7 @@ distinct(arcs, arc)
 
 
 
-sarcs <- split(arcs, arcs$arc)
+sarcs <- split(arcs, arcs$arc_)
 sf_arcs <- st_sf(arc = seq_along(sarcs), st_sfc(lapply(sarcs, function(a) {
   st_linestring(inner_join(a, x$vertex, "vertex_") %>% dplyr::select(x_, y_) %>% as.matrix())
 })))
