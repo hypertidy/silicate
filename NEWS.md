@@ -1,5 +1,8 @@
 # silicate dev
 
+* fixed bug where 0-column dataframe was assumed to be a list of vectors
+ https://github.com/hypertidy/anglr/issues/55
+ 
 * added `polymesh` data
 
 * support for trip
