@@ -107,23 +107,28 @@ x &lt;-<span class="st"> </span><span class="kw">PATH</span>(minimal_mesh)
 <pre><code>## Joining, by = "object_"</code></pre>
 <pre><code>## Joining, by = "path_"</code></pre>
 <pre><code>## Joining, by = "vertex_"</code></pre>
-<pre><code>## # A tibble: 14 x 5
+<pre><code>## # A tibble: 19 x 5
 ##    object subobject    path_    x_    y_
 ##     &lt;int&gt;     &lt;int&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1      1         1 e5e44f71  0.00   0.0
-##  2      1         1 e5e44f71  0.00   1.0
-##  3      1         1 e5e44f71  0.75   1.0
-##  4      1         1 e5e44f71  1.00   0.8
-##  5      1         1 e5e44f71  0.50   0.7
-##  6      1         1 e5e44f71  0.80   0.6
-##  7      1         1 e5e44f71  0.69   0.0
-##  8      1         1 e5e44f71  0.00   0.0
-##  9      1         1 24d4e09b  0.20   0.2
-## 10      1         1 24d4e09b  0.50   0.2
-## 11      1         1 24d4e09b  0.50   0.4
-## 12      1         1 24d4e09b  0.30   0.6
-## 13      1         1 24d4e09b  0.20   0.4
-## 14      1         1 24d4e09b  0.20   0.2</code></pre>
+##  1      1         1 52f599e6  0.00  0.00
+##  2      1         1 52f599e6  0.00  1.00
+##  3      1         1 52f599e6  0.75  1.00
+##  4      1         1 52f599e6  1.00  0.80
+##  5      1         1 52f599e6  0.50  0.70
+##  6      1         1 52f599e6  0.80  0.60
+##  7      1         1 52f599e6  0.69  0.00
+##  8      1         1 52f599e6  0.00  0.00
+##  9      1         1 6680ced5  0.20  0.20
+## 10      1         1 6680ced5  0.50  0.20
+## 11      1         1 6680ced5  0.50  0.40
+## 12      1         1 6680ced5  0.30  0.60
+## 13      1         1 6680ced5  0.20  0.40
+## 14      1         1 6680ced5  0.20  0.20
+## 15      2         1 bbdafc50  0.69  0.00
+## 16      2         1 bbdafc50  0.80  0.60
+## 17      2         1 bbdafc50  1.10  0.63
+## 18      2         1 bbdafc50  1.23  0.30
+## 19      2         1 bbdafc50  0.69  0.00</code></pre>
 </div>
 <div id="edge" class="section level2">
 <h2 class="hasAnchor">
@@ -132,7 +137,7 @@ x &lt;-<span class="st"> </span><span class="kw">PATH</span>(minimal_mesh)
 <p>In this way we have an analogy for edges and segments compared to vertices and coordinates, and I think this terminology makes sense but I’m open to discussion(!).</p>
 <p>Some temporary internal functions (with “_base" appended) here are used to find the unique edges, and then identify what vertices are <em>nodes</em> when treating a structure as a connected mesh. Nodes are any coordinate where three or more edges meet each other, so they are inherently about relationships between neighbouring shapes. This is exactly the same model as was used in the olden days, called arc-node topology, a one-dimensional topology that pre-dates the more modern use of closed planar paths to describe polygons.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-unique_edges &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(silicate<span class="op">:::</span><span class="kw">sc_segment_base</span>(x<span class="op">$</span>path_link_vertex), edge, <span class="dt">.keep_all =</span> <span class="ot">TRUE</span>)
+unique_edges &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(silicate<span class="op">:::</span><span class="kw">sc_segment_base</span>(x<span class="op">$</span>path_link_vertex), edge_, <span class="dt">.keep_all =</span> <span class="ot">TRUE</span>)
 vertex &lt;-<span class="st"> </span>x<span class="op">$</span>vertex
 nodes &lt;-<span class="st"> </span>silicate<span class="op">:::</span><span class="kw">sc_node_base</span>(unique_edges, vertex)
 <span class="kw">library</span>(sf); <span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(minimal_mesh<span class="op">$</span>geom)</code></pre></div>
@@ -146,16 +151,16 @@ nodes &lt;-<span class="st"> </span>silicate<span class="op">:::</span><span cla
 <pre><code>## # A tibble: 21 x 2
 ##        arc_  vertex_
 ##       &lt;chr&gt;    &lt;chr&gt;
-##  1 c99b913a f4ed2d84
-##  2 c99b913a daa9afe9
-##  3 c99b913a 83fd5975
-##  4 c99b913a 63182070
-##  5 c99b913a a5d97fbb
-##  6 c99b913a f4ed2d84
-##  7 024ec7f0 8b56422f
-##  8 024ec7f0 008a3320
-##  9 69257628 008a3320
-## 10 69257628 a41c38cf
+##  1 d0250693 882be62b
+##  2 d0250693 bbd041b1
+##  3 d0250693 6de170b0
+##  4 d0250693 0874ed81
+##  5 d0250693 1f35a976
+##  6 d0250693 882be62b
+##  7 f3eb4f33 0910b87f
+##  8 f3eb4f33 162171c6
+##  9 b0eab400 162171c6
+## 10 b0eab400 e3ab1309
 ## # ... with 11 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sarcs &lt;-<span class="st"> </span><span class="kw">split</span>(arcs, arcs<span class="op">$</span>arc_)
 <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(sarcs)) {
@@ -198,16 +203,16 @@ arcs &lt;-<span class="st"> </span>silicate<span class="op">:::</span><span clas
 <pre><code>## # A tibble: 314 x 2
 ##        arc_  vertex_
 ##       &lt;chr&gt;    &lt;chr&gt;
-##  1 73dc1f28 343e6a66
-##  2 73dc1f28 20730c15
-##  3 73dc1f28 c2edf119
-##  4 73dc1f28 d4affe04
-##  5 aca7e73a d4affe04
-##  6 aca7e73a 348190ee
-##  7 aca7e73a 64e62dc8
-##  8 0761f723 64e62dc8
-##  9 0761f723 d7d1049d
-## 10 0761f723 15b86d8f
+##  1 7ffb38f8 96d25a2c
+##  2 7ffb38f8 0053f293
+##  3 7ffb38f8 e300b0e2
+##  4 7ffb38f8 627bb52d
+##  5 10854a04 627bb52d
+##  6 10854a04 2846844d
+##  7 8a2d9030 2846844d
+##  8 8a2d9030 ab256dc1
+##  9 8a2d9030 a148aa5b
+## 10 8a2d9030 14d60f16
 ## # ... with 304 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sarcs &lt;-<span class="st"> </span><span class="kw">split</span>(arcs, arcs<span class="op">$</span>arc_)
 sf_arcs &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/sf">st_sf</a></span>(<span class="dt">arc =</span> <span class="kw">seq_along</span>(sarcs), <span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/sfc">st_sfc</a></span>(<span class="kw">lapply</span>(sarcs, <span class="cf">function</span>(a) {

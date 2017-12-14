@@ -45,7 +45,7 @@ Some temporary internal functions (with "_base" appended) here are used to find 
 
 ```{r}
 library(dplyr)
-unique_edges <- dplyr::distinct(silicate:::sc_segment_base(x$path_link_vertex), edge, .keep_all = TRUE)
+unique_edges <- dplyr::distinct(silicate:::sc_segment_base(x$path_link_vertex), edge_, .keep_all = TRUE)
 vertex <- x$vertex
 nodes <- silicate:::sc_node_base(unique_edges, vertex)
 library(sf); plot(minimal_mesh$geom)
