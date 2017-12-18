@@ -6,8 +6,6 @@
 # NARC is the graph of arc-node
 # PRIM is the graph of 1D edges
 
-
-
 # Arc node model, arc-node topology. 
 # 
 #
@@ -116,7 +114,11 @@ sc_segment_base <- function(path_link_vertex) {
   frle <- rle(path_link_vertex[["path_"]])
   ## push into segments 
   segtab <- path_to_segment0(path_link_vertex[["vertex_"]])
-  segtab <- segtab[-head(cumsum(frle$lengths), -1L), ]
+  if (length(frle$values) > 1L) {
+    ## this fails if there's only one path in the whole set
+    ## fixes https://github.com/hypertidy/silicate/issues/40
+    segtab <- segtab[-head(cumsum(frle$lengths), -1L), ]
+  }
   segtab[["path_"]] <- rep(frle$values, frle$lengths - 1)
   segtab[["segment_"]] <- sc_uid(nrow(segtab))
   edge <- paste(pmin(segtab[[".vertex0"]], segtab[[".vertex1"]]), pmax(segtab[[".vertex0"]], segtab[[".vertex1"]]), sep = "_")

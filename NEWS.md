@@ -1,5 +1,8 @@
 # silicate dev
 
+* fixed bug where a single-path data set exposed an offset assumption applied
+ by sc_segment, fixes https://github.com/hypertidy/silicate/issues/40
+ 
 * fixed bug where 0-column dataframe was assumed to be a list of vectors
  https://github.com/hypertidy/anglr/issues/55
  
