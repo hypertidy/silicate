@@ -14,10 +14,11 @@ Encoding: UTF-8
 LazyData: true
 Suggests:
     covr,
-    gibble (>= 0.0.1),
+    gibble (>= 0.0.1.9002),
     knitr,
     rmarkdown,
     sf,
+    sp,
     testthat
 RoxygenNote: 6.0.1
 Imports: 
