@@ -1,6 +1,6 @@
 Package: silicate
 Title: Common Forms for Complex Data
-Version: 0.0.3.9002
+Version: 0.0.3.9003
 Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com"), 
              as.person("Simon Wotherspoon <Simon.Wotherspoon@utas.edu.au> [ctb]"), 
              person("Kent", "Johnson", role = c("dtc"))
