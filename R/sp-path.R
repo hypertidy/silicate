@@ -15,38 +15,13 @@
 #' @importFrom stats setNames
 #' @export
 sc_path.Spatial <- function(x, ids = NULL, ...) {
-  out <- dplyr::bind_rows(lapply(.sp_get_geometry(x), sc_path), .id = "object_")
+  x <- gibble::gibble(x)
   if (is.null(ids)) {
-    ids <- sc_uid(length(unique(out[["object_"]])))
-    out[["object_"]] <- ids[as.integer(factor(out[["object_"]]))]
-  } else {
-    out[["object_"]] <- ids[as.integer(out[["object_"]])]
-  }
-  out
-}
-#' @name sc_path
-#' @export
-sc_path.Polygons <- function(x, ...) {
-  out <- tibble::as_tibble(do.call(rbind, lapply(x@Polygons, function(xa) cbind(ncoords_ = nrow(xa@coords), ncol = 2L))))
-  out[["type"]] <- "Polygon"
-  out[["path_"]] <- sc_uid(nrow(out))
-  out
-}
-#' @name sc_path
-#' @export
-sc_path.Lines <- function(x, ...) {
-  out <- tibble::as_tibble(do.call(rbind, lapply(x@Lines, function(xa) cbind(ncoords_ = nrow(xa@coords), ncol = 2L))))
-  out[["type"]] <- "Line"
-  out[["path_"]] <- sc_uid(nrow(out))
-  out
-}
-#' @name sc_path
-#' @export
-sc_path.default <- function(x, ...) {
-  out <- tibble::as_tibble(cbind(ncoords_ = nrow(x), ncol = 2L))
-  out[["type"]] <- "Point"
-  out[["path_"]] <- sc_uid(nrow(out))
-  
-  out
-  
+    ids <- sc_uid(length(unique(x[["object"]])))
+  } 
+  x[["object_"]] <- ids[x[["object"]]]
+  x[["path_"]] <- sc_uid(nrow(x))
+  x[["ncoords_"]] <- x[["nrow"]]
+  x[["nrow"]] <- NULL
+  x
 }

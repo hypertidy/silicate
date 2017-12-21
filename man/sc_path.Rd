@@ -24,12 +24,6 @@
 \alias{sc_path.GEOMETRYCOLLECTION}
 \alias{sc_path}
 \alias{sc_path.Spatial}
-\alias{sc_path}
-\alias{sc_path.Polygons}
-\alias{sc_path}
-\alias{sc_path.Lines}
-\alias{sc_path}
-\alias{sc_path.default}
 \title{Path decomposition}
 \usage{
 sc_path(x, ...)
@@ -55,12 +49,6 @@ sc_path(x, ...)
 \method{sc_path}{GEOMETRYCOLLECTION}(x, ...)
 
 \method{sc_path}{Spatial}(x, ids = NULL, ...)
-
-\method{sc_path}{Polygons}(x, ...)
-
-\method{sc_path}{Lines}(x, ...)
-
-\method{sc_path}{default}(x, ...)
 }
 \arguments{
 \item{x}{input object}
