@@ -1,12 +1,16 @@
 Package: silicate
-Title: Common Forms for Complex Data
-Version: 0.0.3.9003
+Title: A Common Form for Complex Data
+Version: 0.0.4
 Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com"), 
              as.person("Simon Wotherspoon <Simon.Wotherspoon@utas.edu.au> [ctb]"), 
              person("Kent", "Johnson", role = c("dtc"))
              )
 Description: Generate a generic common form of complex data, suitable for conversions and
- transmission. 
+ transmission. Many complex data structures are composed of 'paths' (sequentially-linked records) or 
+ 'primitives' (basic, component types grouped into higher forms). These two kinds of structure are
+ very common, particularly in spatial data, graphics and analytical structures. The two broad models
+ 'PATH' and 'PRIMITIVE' are provided along with tools to switch between these forms, and the component
+ functions for conversions. 
 Depends:
     R (>= 3.3.2)
 License: GPL-3
@@ -14,7 +18,7 @@ Encoding: UTF-8
 LazyData: true
 Suggests:
     covr,
-    gibble (>= 0.0.1.9002),
+    gibble (>= 0.0.2),
     knitr,
     rmarkdown,
     sf,
