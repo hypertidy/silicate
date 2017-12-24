@@ -5,6 +5,10 @@
 \alias{flight_tracks}
 \title{Flight tracks}
 \description{
+An interesting data set in XYZM form, so it can act as a form of 4D tracks. Primarily to
+explore the use of `silicate` as able to represent this topologically,  and to experiment with
+auto-time-based plotting in `anglr`. 
+ 
 Provided by  Kent Johnson (kent37) in a 
  [github discussion](https://github.com/r-spatial/mapview/issues/99#issuecomment-328711275) 
  where the data was attached in a zip file.

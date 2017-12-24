@@ -3,11 +3,22 @@
 \docType{data}
 \name{inlandwaters}
 \alias{inlandwaters}
-\title{Inland waters, for parts of Australia.}
+\title{Inland waters, for parts of Australia, and New Caledonia.}
 \description{
-The inland waters are lake and so on, presenting as holes
-within the bounded regions of Australian provinces.
+The inland waters are lakes and so on, presenting as holes
+within the bounded regions of Australian (and New Caledonian) provinces.
 }
 \details{
 This is an extract from the old Manifold DVD. It is in `sf` format`.
+The features have variables `ID` and `Province` they are (in order):
+\itemize{
+ \item{"103841"}{Australian Capital Territory}
+ \item{"103842"}{New Caledonia}
+ \item{"103843"}{New South Wales}
+ \item{"103846"}{South Australia}
+ \item{"103847"}{Tasmania}
+ \item{"103848"}{Victoria}
+}
+There's no good reason that New Caledonia is included and not Queensland (for example)
+it's just what happened doing a quick crop and extract with the mouse.
 }
