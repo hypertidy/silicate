@@ -1,0 +1,119 @@
+---
+title: "Aw Snap"
+author: "Michael Sumner"
+date: "01/01/2018"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Worker functions, for coordinate precision. 
+
+```{r}
+## straight round()ing
+mutate_round <- function(x, digits = 0) {
+  dplyr::mutate_if(x, is.double, .funs = function(x) round(x, digits = digits))
+}
+## snap to grid (with Manifold's name for tihs)
+orthogonalize <- function(x, precision) precision * (x %/% precision)
+mutate_orthogonalize <- function(x, precision = 1) {
+  dplyr::mutate_if(x, is.double, .funs = function(x) orthogonalize(x, precision))
+}
+## determine an appropriate "precision"
+## by find the smallest edge length
+min_not_zero <- function(x) {
+  dx <- diff(x)
+  min(dx[dx > 0])
+}
+## summarize, applying min_not_zero above
+summarize_mindist <- function(x) {
+  dplyr::summarize_if(x, is.double, .funs = function(x) min_not_zero(x))
+}
+
+```
+
+
+
+
+```{r snap}
+library(spData)
+library(sf)
+library(dplyr)
+
+world_continents1 <- world %>% 
+  group_by(continent) %>% 
+  summarise(pop = sum(pop, na.rm = TRUE), country_n = n())
+plot(world_continents1[1]) 
+
+
+## two test cases
+w <- world[c(27, 141), ]
+plot(w[1])
+
+
+## spdep says they are neightbours
+library(spdep)
+spdep::poly2nb(as(w, "Spatial"), queen = FALSE)
+spdep::poly2nb(as(w, "Spatial"), queen = TRUE)
+
+## if we maintain precision spdep finds no neighbours
+spdep::poly2nb(as(w, "Spatial"), queen = FALSE, snap = .Machine$double.eps)
+spdep::poly2nb(as(w, "Spatial"), queen = TRUE, snap = .Machine$double.eps)
+
+
+#devtools::install_github("hypertidy/silicate")
+library(silicate)
+
+## the PATH model, normal forms for objects compsed of sequential paths
+## (not primitives like line segments and triangles)
+p1 <- PATH(w[1, ])
+p2 <- PATH(w[2, ])
+
+
+p <- PATH(w)
+
+## find a "minimum distance", the length shortest edge anywhere in an object
+xy_precision <- p$vertex %>% summarize_mindist() %>% unlist() %>% min()
+
+## orthogonalize the model
+p$vertex <- mutate_orthogonalize(p$vertex, xy_precision)
+
+## recreate sf after orthogonalizing
+wf <-  w
+wf[[attr(w, "sf_column")]] <- 
+        silicate:::build_sf(p$path, p$path_link_vertex %>% inner_join(p$vertex))
+ 
+ 
+## cf. no intersection with original
+st_intersection(w[1, ], w[2, ])
+## but now we get a shared boundary
+st_cast(st_intersection(wf[1, ], wf[2, ]))
+plot(w[1])
+plot(st_intersection(wf[1, ], wf[2, ])[1], 
+     add = TRUE, col = "firebrick", lwd = 4)
+
+
+## let's apply what we've learned
+
+## recreate sf after choosing a shared "snap to" orthogonalization
+ww <- world %>% filter(continent == "Africa")
+p <- PATH(ww)
+p$vertex <- mutate_orthogonalize(p$vertex, min(unlist(p$vertex %>% summarize_mindist()))*4)
+sf2 <- ww
+sf2[[attr(ww, "sf_column")]] <- 
+        silicate:::build_sf(p$path, p$path_link_vertex %>% inner_join(p$vertex))
+
+#sf2 <- scsf::sf(p) %>% st_buffer(dist = 0)
+world_continents3 = sf2 %>% 
+  group_by(continent) %>% 
+  summarise(pop = sum(pop, na.rm = TRUE), country_n = n())
+plot(world_continents3[1])
+
+
+pnb <- poly2nb(as(world, "Spatial"), snap = .Machine$double.eps)
+```
