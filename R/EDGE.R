@@ -35,6 +35,11 @@ sc_edge.default <- function(x, ...) {
 }
 #' @name sc_edge
 #' @export
+sc_edge.EDGE <- function(x, ...) {
+  x[["edge"]]
+}
+#' @name sc_edge
+#' @export
 sc_edge.PATH <- function(x, ...) {
   sc_segment(x, ...) %>% dplyr::distinct(.data$edge_, .keep_all = TRUE) %>% 
     dplyr::select(.data$.vertex0, .data$.vertex1, .data$edge_)

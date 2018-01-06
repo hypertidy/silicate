@@ -16,6 +16,7 @@ sc_uid.default <- function(x, ...) {
   if (is.numeric(x)) {
     warning("old behaviour where input is integer to be removed")
   }
+  if ("n" %in% names(list(...))) stop("sc_uid(): use of n argument defunct, use x = ")
   ids::random_id(x, bytes = 4L)
 }
 #' @export
@@ -31,8 +32,9 @@ sc_uid.data.frame <- function(x, ...) {
   }
   rn
 }
+#' @export
 sc_uid.Spatial <- function(x, ...) {
-  nr <- if (spbabel:::has_data(x)) dim(x)[1L] else length(x)
+  nr <- if (methods::.hasSlot(x, "data")(x)) dim(x)[1L] else length(x)
   sc_uid(nr)
 }
   

@@ -1,5 +1,7 @@
 # silicate dev
 
+* (breaking) `sc_uid` now generic, with argument `x` (not `n`)
+
 * various fixes in line with gibble 0.0.1.9002 to properly support sp structures
 
 * fixed bug where a single-path data set exposed an offset assumption applied

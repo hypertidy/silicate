@@ -5,12 +5,16 @@
 \alias{sc_edge}
 \alias{sc_edge.default}
 \alias{sc_edge}
+\alias{sc_edge.EDGE}
+\alias{sc_edge}
 \alias{sc_edge.PATH}
 \title{Unique edges for arc-node topology.}
 \usage{
 sc_edge(x, ...)
 
 \method{sc_edge}{default}(x, ...)
+
+\method{sc_edge}{EDGE}(x, ...)
 
 \method{sc_edge}{PATH}(x, ...)
 }

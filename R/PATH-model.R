@@ -33,7 +33,7 @@ PATH.default  <- function(x, ...) {
   key_col <- "vertex_"
   maindata <- unjoin::unjoin_(v, V_names, key_col = key_col)
   dd <- maindata[["data"]]
-  id <- sc_uid(n = nrow(dd))
+  id <- sc_uid(dd)
   v <- dplyr::mutate(maindata[[key_col]], vertex_ = id[maindata[[key_col]][[key_col]]])
   bXv <- dplyr::mutate(maindata[["data"]], vertex_ = id[dd[[key_col]]])
   #v[[key_col]] <- bXv[[key_col]] <- NULL
