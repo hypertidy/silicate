@@ -6,6 +6,7 @@
 #' 
 #' See `ids` package for `random_id` when they are created. 
 #' @param x number of unique IDs to generate
+#' @param ... reserved for future use
 #' @export
 sc_uid <- function(x, ...) {
   UseMethod("sc_uid")

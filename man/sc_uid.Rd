@@ -8,6 +8,8 @@ sc_uid(x, ...)
 }
 \arguments{
 \item{x}{number of unique IDs to generate}
+
+\item{...}{reserved for future use}
 }
 \description{
 Find unique labels for entities, or create them
