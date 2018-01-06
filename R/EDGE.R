@@ -33,9 +33,8 @@ sc_edge.default <- function(x, ...) {
   x <- PATH(x, ...)
   sc_edge(x)
 }
-#' @name sc_edge
 #' @export
-sc_edge.EDGE <- function(x, ...) {
+sc_edge.SC <- function(x, ...) {
   x[["edge"]]
 }
 #' @name sc_edge
