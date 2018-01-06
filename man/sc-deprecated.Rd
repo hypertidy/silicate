@@ -2,7 +2,8 @@
 % Please edit documentation in R/silicate-package.R
 \name{sc-deprecated}
 \alias{sc-deprecated}
-\title{Deprecated functions from sc.}
+\title{Deprecated functions from silicate.}
 \description{
-Deprecated functions from sc.
+`sc_uid(n = )` replaced by `sc_uid(x = )`
+PRIMITIVE
 }

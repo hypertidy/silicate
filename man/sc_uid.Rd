@@ -7,7 +7,7 @@
 sc_uid(x, ...)
 }
 \arguments{
-\item{n}{number of bytes per ID}
+\item{x}{number of unique IDs to generate}
 }
 \description{
 Find unique labels for entities, or create them

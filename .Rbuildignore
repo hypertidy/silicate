@@ -7,3 +7,4 @@
 ^codecov\.yml$
 ^appveyor\.yml$
 ^inst/examples
+^R/old

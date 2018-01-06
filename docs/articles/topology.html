@@ -108,27 +108,27 @@ x &lt;-<span class="st"> </span><span class="kw">PATH</span>(minimal_mesh)
 <pre><code>## Joining, by = "path_"</code></pre>
 <pre><code>## Joining, by = "vertex_"</code></pre>
 <pre><code>## # A tibble: 19 x 5
-##    object subobject    path_    x_    y_
-##     &lt;int&gt;     &lt;int&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1      1         1 adfbd53d  0.00  0.00
-##  2      1         1 adfbd53d  0.00  1.00
-##  3      1         1 adfbd53d  0.75  1.00
-##  4      1         1 adfbd53d  1.00  0.80
-##  5      1         1 adfbd53d  0.50  0.70
-##  6      1         1 adfbd53d  0.80  0.60
-##  7      1         1 adfbd53d  0.69  0.00
-##  8      1         1 adfbd53d  0.00  0.00
-##  9      1         1 2796a603  0.20  0.20
-## 10      1         1 2796a603  0.50  0.20
-## 11      1         1 2796a603  0.50  0.40
-## 12      1         1 2796a603  0.30  0.60
-## 13      1         1 2796a603  0.20  0.40
-## 14      1         1 2796a603  0.20  0.20
-## 15      2         1 8fdf6504  0.69  0.00
-## 16      2         1 8fdf6504  0.80  0.60
-## 17      2         1 8fdf6504  1.10  0.63
-## 18      2         1 8fdf6504  1.23  0.30
-## 19      2         1 8fdf6504  0.69  0.00</code></pre>
+##    object subobject path_       x_    y_
+##     &lt;int&gt;     &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;
+##  1      1         1 17faf71b 0     0    
+##  2      1         1 17faf71b 0     1.00 
+##  3      1         1 17faf71b 0.750 1.00 
+##  4      1         1 17faf71b 1.00  0.800
+##  5      1         1 17faf71b 0.500 0.700
+##  6      1         1 17faf71b 0.800 0.600
+##  7      1         1 17faf71b 0.690 0    
+##  8      1         1 17faf71b 0     0    
+##  9      1         1 60551235 0.200 0.200
+## 10      1         1 60551235 0.500 0.200
+## 11      1         1 60551235 0.500 0.400
+## 12      1         1 60551235 0.300 0.600
+## 13      1         1 60551235 0.200 0.400
+## 14      1         1 60551235 0.200 0.200
+## 15      2         1 372c5f77 0.690 0    
+## 16      2         1 372c5f77 0.800 0.600
+## 17      2         1 372c5f77 1.10  0.630
+## 18      2         1 372c5f77 1.23  0.300
+## 19      2         1 372c5f77 0.690 0</code></pre>
 </div>
 <div id="edge" class="section level2">
 <h2 class="hasAnchor">
@@ -149,41 +149,31 @@ nodes &lt;-<span class="st"> </span>silicate<span class="op">:::</span><span cla
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">arcs &lt;-<span class="st"> </span>silicate<span class="op">:::</span><span class="kw">sc_arc_base</span>(x<span class="op">$</span>path_link_vertex, nodes) 
 <span class="kw"><a href="http://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(arcs, arc)</code></pre></div>
 <pre><code>## # A tibble: 21 x 2
-##        arc_  vertex_
-##       &lt;chr&gt;    &lt;chr&gt;
-##  1 41331c45 00c6cba1
-##  2 41331c45 2d1536f7
-##  3 41331c45 a21e2f2d
-##  4 41331c45 1c645c09
-##  5 41331c45 73c73462
-##  6 41331c45 00c6cba1
-##  7 cc479918 8afb2b4e
-##  8 cc479918 70ee6813
-##  9 5ee72f5e 70ee6813
-## 10 5ee72f5e 0597ef43
+##    arc_     vertex_ 
+##    &lt;chr&gt;    &lt;chr&gt;   
+##  1 2779ef5b 06408f25
+##  2 2779ef5b 82b51e6d
+##  3 2779ef5b 44e36e6f
+##  4 2779ef5b 7372ed30
+##  5 2779ef5b df4a31e5
+##  6 2779ef5b 06408f25
+##  7 b39c1721 b585cbea
+##  8 b39c1721 65c29fc0
+##  9 c7cf2002 65c29fc0
+## 10 c7cf2002 471c61d5
 ## # ... with 11 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sarcs &lt;-<span class="st"> </span><span class="kw">split</span>(arcs, arcs<span class="op">$</span>arc_)
 <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(sarcs)) {
   <span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(sf<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_cast">st_cast</a></span>(minimal_mesh, <span class="st">"MULTILINESTRING"</span>), <span class="dt">col =</span> <span class="st">"black"</span>)
   <span class="kw">lines</span>(sarcs[[i]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/join.html">inner_join</a></span>(x<span class="op">$</span>vertex) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(x_, y_), <span class="dt">col =</span> <span class="st">"firebrick"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)
 }</code></pre></div>
-<pre><code>## Warning in st_cast.sf(minimal_mesh, "MULTILINESTRING"): repeating
-## attributes for all sub-geometries for which they may not be constant</code></pre>
 <pre><code>## Joining, by = "vertex_"</code></pre>
-<pre><code>## Warning in st_cast.sf(minimal_mesh, "MULTILINESTRING"): repeating
-## attributes for all sub-geometries for which they may not be constant</code></pre>
 <p><img src="topology_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
 <pre><code>## Joining, by = "vertex_"</code></pre>
-<pre><code>## Warning in st_cast.sf(minimal_mesh, "MULTILINESTRING"): repeating
-## attributes for all sub-geometries for which they may not be constant</code></pre>
 <p><img src="topology_files/figure-html/unnamed-chunk-4-2.png" width="672"></p>
 <pre><code>## Joining, by = "vertex_"</code></pre>
-<pre><code>## Warning in st_cast.sf(minimal_mesh, "MULTILINESTRING"): repeating
-## attributes for all sub-geometries for which they may not be constant</code></pre>
 <p><img src="topology_files/figure-html/unnamed-chunk-4-3.png" width="672"></p>
 <pre><code>## Joining, by = "vertex_"</code></pre>
-<pre><code>## Warning in st_cast.sf(minimal_mesh, "MULTILINESTRING"): repeating
-## attributes for all sub-geometries for which they may not be constant</code></pre>
 <p><img src="topology_files/figure-html/unnamed-chunk-4-4.png" width="672"></p>
 <pre><code>## Joining, by = "vertex_"</code></pre>
 <p><img src="topology_files/figure-html/unnamed-chunk-4-5.png" width="672"></p>
@@ -201,18 +191,18 @@ nodes &lt;-<span class="st"> </span>silicate<span class="op">:::</span><span cla
 arcs &lt;-<span class="st"> </span>silicate<span class="op">:::</span><span class="kw">sc_arc_base</span>(x<span class="op">$</span>path_link_vertex, nodes) 
 <span class="kw"><a href="http://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(arcs, arc)</code></pre></div>
 <pre><code>## # A tibble: 314 x 2
-##        arc_  vertex_
-##       &lt;chr&gt;    &lt;chr&gt;
-##  1 51fd5d22 1ec7e39b
-##  2 51fd5d22 69b2b09a
-##  3 51fd5d22 6b45fade
-##  4 51fd5d22 7a1ab965
-##  5 4a95d173 7a1ab965
-##  6 4a95d173 8c9278b8
-##  7 4a95d173 5a93d21d
-##  8 4a95d173 8b895b4a
-##  9 54cfc43a 8b895b4a
-## 10 54cfc43a 4a25d59b
+##    arc_     vertex_ 
+##    &lt;chr&gt;    &lt;chr&gt;   
+##  1 88e77f5c f0191afd
+##  2 88e77f5c 0ad95a80
+##  3 88e77f5c d73cef9e
+##  4 88e77f5c 2d319da4
+##  5 b45557d4 2d319da4
+##  6 b45557d4 276ddab8
+##  7 b45557d4 53c06b83
+##  8 b45557d4 d2790155
+##  9 bded6ede d2790155
+## 10 bded6ede 7cfa226b
 ## # ... with 304 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sarcs &lt;-<span class="st"> </span><span class="kw">split</span>(arcs, arcs<span class="op">$</span>arc_)
 sf_arcs &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/sf">st_sf</a></span>(<span class="dt">arc =</span> <span class="kw">seq_along</span>(sarcs), <span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/sfc">st_sfc</a></span>(<span class="kw">lapply</span>(sarcs, <span class="cf">function</span>(a) {
@@ -245,7 +235,7 @@ sf_arcs &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocu
 
 
       <footer><div class="copyright">
-  <p>Developed by Michael D. Sumner.</p>
+  <p>Developed by Michael D. Sumner, Mark Padgham.</p>
 </div>
 
 <div class="pkgdown">

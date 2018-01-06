@@ -5,7 +5,7 @@
 #' if not present. 
 #' 
 #' See `ids` package for `random_id` when they are created. 
-#' @param n number of bytes per ID
+#' @param x number of unique IDs to generate
 #' @export
 sc_uid <- function(x, ...) {
   UseMethod("sc_uid")

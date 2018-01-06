@@ -12,8 +12,9 @@ NULL
 #' @docType data 
 NULL
 
-#' Minimal mesh. 
+#' Deprecated data set.  
 #' 
+#' This data set is in legacy format and will be removed. 
 #' A couple of polygons with a single shared edge between them, in 
 #' PRIMITIVE form.
 #' @name mmesh
@@ -91,7 +92,9 @@ NULL
 #' @docType data
 NULL
 
-#' Deprecated functions from sc. 
+#' Deprecated functions from silicate. 
 #' 
+#' `sc_uid(n = )` replaced by `sc_uid(x = )`
+#' PRIMITIVE
 #' @name sc-deprecated
 NULL

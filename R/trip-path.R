@@ -1,10 +1,3 @@
-# data("walrus818", package = "trip")
-# sc_coord(walrus818)
-# sc_object(walrus818)
-# sc_path(walrus818)
-# PATH(walrus818)
-# PRIMITIVE(walrus818)
-
 
 #' @export
 sc_path.trip <- function(x, ids = NULL, ...) {

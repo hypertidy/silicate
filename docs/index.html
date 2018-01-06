@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Common Forms for Complex Data • silicate</title>
+<title>A Common Form for Complex Data • silicate</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
@@ -83,7 +83,7 @@
 <li>to provide a central common-form of structure data, and a “universal converter”</li>
 <li>to work with topological primitives for analysis and interaction.</li>
 </ul>
-<p>Central is the <code>PATH</code> model, a normalized form of spatial data that is an <em>intermediate form</em> between standard explicit path forms and topological structures composed of simpler elements. A future version will provide a variety of PRIMITIVE models, but we haven’t figured out the final forms yet. PATH and its counterpart/s PRIMITIVE is a dual-view of the two main types of structures used in complex data.</p>
+<p>Central is the <code>PATH</code> model, a normalized form of spatial data that is an <em>intermediate form</em> between standard explicit path forms and topological structures composed of simpler elements. PATH and its counterpart SC is a dual-view of the two main types of structures used in complex data. We anticipate that SC will be the universal core, and PATH more specialized along with other types such as triangulations.</p>
 <p><em>Paths</em> are the turtle-head-down coordinate lists used by lines, polygons, polypath, geom_line.</p>
 <p><em>Primitives</em> are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures. The key thing that makes them topological is a unique-vertex-pool, indexed by other types.</p>
 <p>The need to provide a language of conversions between these forms for spatial data is illustrated here:</p>
@@ -101,7 +101,7 @@
 <li>sc_path returns the table of individual paths, with a coordinate count</li>
 </ul>
 <p>From these three components we can generate other forms, and we can round-trip back to the original features.</p>
-<p>There are further workers for the <strong><em>vertices</em></strong> (<code>sc_node</code>), and <strong><em>paths</em></strong> (<code>sc_arc</code>, <code>sc_segment</code>, <code>sc_edge</code>) which provide the necessary lower-level components. These inherently work with identitifiers for components, and so they only make sense with reference to a <code>PATH</code> (or PRIMITIVE) silicate form.</p>
+<p>There are further workers for the <strong><em>vertices</em></strong> (<code>sc_node</code>), and <strong><em>paths</em></strong> (<code>sc_arc</code>, <code>sc_segment</code>, <code>sc_edge</code>) which provide the necessary lower-level components. These inherently work with identitifiers for components, and so they only make sense with reference to a <code>SC</code> silicate form.</p>
 <ul>
 <li>sc_node returns only those vertices that are met by three or more paths</li>
 <li>sc_arc returns the paths between nodes, and standalone paths that don’t visit any nodes</li>
@@ -113,13 +113,13 @@
 <p>The table of individual paths records which object it belongs to, how many coordinates there are and an ID for the path. This is not intended to be ‘relational’, it’s an intermediate form link by pure indexing. Inserting more levels between the paths and the highest objects is possible, but unclear exactly how to do this yet.</p>
 <p>The <code>unjoin</code> concept is key for mapping the key between unique vertices and a path’s instance of those as coordinates, in the right order. We can use the unjoin engine to add structure to other more generic data streams, like GPS, animal tracking, and general sensors.</p>
 <p><strong>NOTE:</strong> An early implentation had PATH and PRIMITIVE forms, but the latter was too simplistic for real use. The functions <code>sc_arc</code>, <code>sc_node</code>, <code>sc_segment</code> and <code>sc_edge</code> were added to the basic <code>sc_coord</code>, <code>sc_path</code> and <code>sc_object</code> as these are all that are required to move between any data structure in simple features or topological form. This is an ongoing area of development. See also <a href="https://github.com/hypertidy/sphier">sphier</a> and <a href="https://github.com/hypertidy/svgplotr">svgplotr</a> for related work.</p>
-<p>The model functions <code>PRIMITIVE</code> and <code>PATH</code> should work in the following cases.</p>
+<p>The model functions <code>SC</code> and <code>PATH</code> should work in the following cases.</p>
 <ul>
-<li>to flip from one to another <code>PRIMITIVE(PATH(PRIMITIVE(x)))</code> should work for any kind of ‘x’ model</li>
+<li>to flip from one to another <code>SC(PATH(SC(x)))</code> should work for any kind of ‘x’ model</li>
 <li>for any <code>sf</code> object</li>
-<li>convert to igraph objects WIP: <a href="https://github.com/mdsumner/scgraph" class="uri">https://github.com/mdsumner/scgraph</a>
+<li>convert to igraph objects WIP: <a href="https://github.com/hypertidy/scgraph" class="uri">https://github.com/hypertidy/scgraph</a>
 </li>
-<li>spatstat objects WIP: <a href="https://github.com/mdsumner/scspatstat" class="uri">https://github.com/mdsumner/scspatstat</a>
+<li>spatstat objects WIP: <a href="https://github.com/hypertidy/scspatstat" class="uri">https://github.com/hypertidy/scspatstat</a>
 </li>
 <li>…</li>
 </ul>
@@ -134,10 +134,9 @@
 <h2 class="hasAnchor">
 <a href="#design" class="anchor"></a>Design</h2>
 <p>There is a hierarchy of sorts with layer, object, path, primitives, coordinates, and vertices.</p>
-<p>The current design uses capitalized function names <code>PATH</code>, <code>PRIMITIVE</code> … that act on layers, while prefixed lower-case function names produce or derive the named entity at a given level for a given input. E.g. <code>sc_path</code> will decompose all the geometries in an <code>sf</code> layer to the PATH model and return them in generic form. <code>PATH</code> will decompose the layer as a whole, including the component geometries.</p>
-<p><code>PATH()</code> is the main model used to decompose inputs, as it is the a more general form of the GIS idioms (simple features and georeferenced raster data) This treats connected <em>paths</em> as fully-fledged entities like vertices and objects are, creating a relational model that stores all <em>vertices</em> in one table, all <em>paths</em> in another, and and all highest-level <em>objects</em> in another. The PATH model also takes the extra step of <em>normalizing</em> vertices, finding duplicates in a given geometric space and creating an intermediate link table to record all <em>instances of the vertices</em>. The PATH model does not currently normalize paths, but this is something that could be done, and is close to what arc-node topology is.</p>
-<p>The <code>PRIMITIVE</code> function decomposes a layer into actual primitives, rather than “paths”, these are point, line segment, triangle, tetrahedron, and so on.</p>
-<p>Currently <code>PATH()</code> and <code>PRIMITIVE</code> are the highest level functions to decompose simple features objects.</p>
+<p>The current design uses capitalized function names <code>SC</code>, <code>PATH</code> … that act on layers, while prefixed lower-case function names produce or derive the named entity at a given level for a given input. E.g. <code>sc_path</code> will decompose all the geometries in an <code>sf</code> layer to the PATH model and return them in generic form. <code>PATH</code> will decompose the layer as a whole, including the component geometries.</p>
+<p><code>PATH()</code> is the main model currently used to decompose inputs. Soon <code>SC</code> will be the more general, and universal core model from which other models derive or specialize.</p>
+<p>PATH is the more general form of the GIS idioms (simple features and georeferenced raster data) This treats connected <em>paths</em> as fully-fledged entities like vertices and objects are, creating a relational model that stores all <em>vertices</em> in one table, all <em>paths</em> in another, and and all highest-level <em>objects</em> in another. The PATH model also takes the extra step of <em>normalizing</em> vertices, finding duplicates in a given geometric space and creating an intermediate link table to record all <em>instances of the vertices</em>. The PATH model does not currently normalize paths, but this is something that could be done, and is close to what arc-node topology is.</p>
 <p>There are decomposition functions for lower-level <code>sf</code> objects organized as <code>sc_path</code>, <code>sc_coord</code>, and <code>sc_object</code>. <code>sc_path</code> does all the work, building a simple map of all the parts and the vertex count. This is used to classify the vertex table when it is extracted, which makes the unique-id management for path-vertex normalization much simpler than it was in <code>gris</code> or <code>rangl</code>.</p>
 </div>
 </div>
@@ -171,6 +170,7 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Michael D. Sumner <br><small class="roles"> Author, maintainer </small> </li>
+<li>Mark Padgham <br><small class="roles"> Author </small> </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 <h2>Dev status</h2>
@@ -185,7 +185,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Michael D. Sumner.</p>
+  <p>Developed by Michael D. Sumner, Mark Padgham.</p>
 </div>
 
 <div class="pkgdown">

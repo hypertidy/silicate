@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Random IDs. — sc_uid • silicate</title>
+<title>Unique labels — sc_uid • silicate</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -93,23 +93,28 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Random IDs.</h1>
+    <h1>Unique labels</h1>
     </div>
 
     
-    <p>See `ids` package.</p>
+    <p>Find unique labels for entities, or create them
+if not present.</p>
     
 
-    <pre class="usage"><span class='fu'>sc_uid</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
+    <pre class="usage"><span class='fu'>sc_uid</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>n</th>
-      <td><p>number of bytes per ID</p></td>
+      <th>x</th>
+      <td><p>number of unique IDs to generate</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>See `ids` package for `random_id` when they are created.</p>
     
 
   </div>
@@ -117,14 +122,16 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael D. Sumner.</p>
+  <p>Developed by Michael D. Sumner, Mark Padgham.</p>
 </div>
 
 <div class="pkgdown">

@@ -3,8 +3,9 @@
 \docType{data}
 \name{mmesh}
 \alias{mmesh}
-\title{Minimal mesh.}
+\title{Deprecated data set.}
 \description{
+This data set is in legacy format and will be removed. 
 A couple of polygons with a single shared edge between them, in 
 PRIMITIVE form.
 }
