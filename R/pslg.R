@@ -1,7 +1,28 @@
-## PATH() sc_coord, sc_path, sc_object
+## PATH() sc_coord, sc_path, sc_object,
 
 ## SC() sc_vertex, sc_edge, sc_segment
-
+#' @examples
+#' dd <- minimal_mesh
+#' #dd <- nc
+#' #dd <- rnaturalearth::ne_countries(scale = 50, returnclass = "sf")
+#' x <- SC(dd)
+#' plot(x)
+#' xt <- triangulate.SC(x, D = TRUE)
+#' plot(xt)
+triangulate.SC <- function(x, ...) {
+  v <- x$vertex
+  a <- match(x$edge$.vertex0, v$vertex_)
+  b <- match(x$edge$.vertex1, v$vertex_)
+  p <- RTriangle::pslg(as.matrix(dplyr::select(v, x_, y_)), 
+                       S = cbind(a, b))
+  t <- RTriangle::triangulate(p, ...)
+  structure(list(TRI = t$T, V = t$P), class = "TRI")
+}
+plot.TRI <- function(x, ...) {
+  plot(x$V, pch = ".")
+  idx <- t(cbind(x$TRI, NA))
+  polygon(x$V[idx, ])
+}
 ## this is the pure Planar Straight Line Graph model
 #' @export
 sc_vertex <- function(x, ...) {
