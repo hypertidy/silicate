@@ -7,6 +7,8 @@ silicate
 
 The goal of silicate is to provide a general common form for complex multi-dimensional data.
 
+NOTE: as of January 2018 major work is going on in the [pslg](https://github.com/hypertidy/silicate/tree/pslg) branch, this will be disruptive so **master** will remain stable in the original PATH/PRIMITIVE form until we figure the edge-first scheme.
+
 There are two main motivations for `silicate`:
 
 -   to provide a central common-form of structure data, and a "universal converter"
