@@ -38,7 +38,7 @@ PATH.default  <- function(x, ...) {
   bXv <- dplyr::mutate(maindata[["data"]], vertex_ = id[dd[[key_col]]])
   #v[[key_col]] <- bXv[[key_col]] <- NULL
   join_ramp <-  tabnames <- c("object", "path",  "path_link_vertex", "vertex")
-  structure(list(object = o, path = b, vertex = v, path_link_vertex = bXv), 
+  structure(list(object = o, path = b,path_link_vertex = bXv, vertex = v), 
             class = c("PATH", "sc"), 
             join_ramp = join_ramp)
 }

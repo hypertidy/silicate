@@ -23,19 +23,7 @@ plot.TRI <- function(x, ...) {
   idx <- t(cbind(x$TRI, NA))
   polygon(x$V[idx, ])
 }
-## this is the pure Planar Straight Line Graph model
-#' @export
-sc_vertex <- function(x, ...) {
-  UseMethod("sc_vertex")
-}
-#' @export
-sc_vertex.default <- function(x, ...) {
-  PATH(x)[["vertex"]]
-}
-#' @export
-sc_vertex.SC <- function(x, ...) {
-  x[["vertex"]]
-}
+
 #' @export
 SC <- function(x, ...) {
   UseMethod("SC")
@@ -44,8 +32,15 @@ SC <- function(x, ...) {
 SC.default <- function(x, ...) {
   P <- PATH(x, ...)
   O <- sc_object(P)
-  E <- sc_edge(P)
-  structure(list(object = O, 
+  S <- sc_segment(P)
+  E <- dplyr::select(S, .data$.vertex0, .data$.vertex1, .data$edge_) %>% 
+    dplyr::distinct(.data$edge_, .keep_all = TRUE)
+  ExO <- S %>% 
+    dplyr::select(.data$path_, .data$edge_) %>% 
+    dplyr::inner_join(dplyr::select(P[["path"]], .data$path_, .data$object_), "path_") %>% 
+  dplyr::distinct(.data$edge_, .data$object_) 
+  structure(list(object = O,
+                 object_link_edge = ExO,
        edge = E, 
        vertex = sc_vertex(P)), 
        class = c("SC", "sc"))
@@ -67,4 +62,33 @@ plot.SC <- function(x, ...) {
   x1 <- e %>% dplyr::inner_join(v, c(".vertex1" = "vertex_"))
   plot(v$x_, v$y_, pch = ".")
   segments(x0$x_, x0$y_, x1$x_, x1$y_, ...)
+}
+
+filter.SC <- function(x, ...) {
+  x[["object"]] <- dplyr::filter(x[["object"]], ...)
+  tabs <- c("object", "object_link_edge", "edge")
+  x[tabs] <- semi_cascade0(x[tabs], tables = tabs)
+  x
+}
+
+semi_cascade0 <- function (x, ..., tables = c("o", "b", "bXv", "v")) {
+  itab <- tables[1L]
+  first <- dplyr::filter(x[[itab]], ...)
+  x[[itab]] <- last <- first
+  tables <- tables[-1]
+  for (itab in tables) {
+    x[[itab]] <- last <- semi_join_1(x[[itab]], 
+                                                               last)
+  }
+  x
+}
+
+semi_join_1 <- 
+function (x, y, by = NULL, copy = FALSE, ...) 
+{
+  comm <- base::intersect(names(x), names(y))
+  if (length(comm) == 1L) {
+    by <- comm
+  }
+  dplyr::semi_join(x, y, by = by, copy = copy, ...)
 }
