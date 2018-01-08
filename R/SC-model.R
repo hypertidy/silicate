@@ -55,8 +55,14 @@ compact_labels <- function(x) {
   x
 }
 #' @export
-plot.SC <- function(x, ...) {
+plot.SC <- function(x, ..., vars = NULL) {
+  
   v <- sc_vertex(x)
+  if (!is.null(vars)) {
+    vars <- c(vars, "vertex_")
+    v <- dplyr::select(v, vars) %>% 
+      setNames(c("x_", "y_", "vertex_"))
+  }
   e <- sc_edge(x)
   x0 <- e %>% dplyr::inner_join(v, c(".vertex0" = "vertex_"))
   x1 <- e %>% dplyr::inner_join(v, c(".vertex1" = "vertex_"))
