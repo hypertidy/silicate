@@ -1,3 +1,7 @@
+#' @export
+plot.PATH <- function(x, ...) {
+  plot(SC(x), ...)
+}
 #' Generate a PATH model. 
 #' 
 #' A PATH model is a direct translation of a simple features-alike
