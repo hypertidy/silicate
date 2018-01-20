@@ -1,10 +1,27 @@
 sc_compact <- function(x, ...) {
-  UseMethod("sc_compact")
+  .Defunct("compact_indexes")
+  #UseMethod("sc_compact")
 }
+#' Compact form, structural indexing
+#'
+#' @param x 
+#' @param ... 
+#'
+#' @return a special "compact_*" form, of e.g.  SC, or PATH
+#' @export
+#'
+#' @examples
+#' expand_indexes(SC(minimal_mesh))
+compact_indexes <- function(x, ...) {
+  UseMethod("compact_indexes")
+}
+
 match_int <- function(x, y, ...) {
   match(x, y)
 }
-sc_compact.SC <- function(x, ...) {
+#' @name compact_indexes
+#' @export
+compact_indexes.SC <- function(x, ...) {
   oXe <- x[["object_link_edge"]]
   oXe$object_ <- match_int(oXe$object_, x$object$object_)
   oXe$edge_ <- match_int(oXe$edge_, x$edge$edge_)
@@ -22,11 +39,42 @@ sc_compact.SC <- function(x, ...) {
   x$vertex$vertex_ <- NULL
   structure(x, class = c("compact_SC", "sc"))
 }
-
+#' @name compact_indexes
+#' @export
+compact_indexes.PATH <- function(x, ...) {
+  path <- x[["path"]]
+  path$object_ <- match_int(path$object_, x$object$object_)
+  x$object$object_ <- NULL
+  
+  pXv <- x[["path_link_vertex"]]
+  pXv$path_ <- match_int(pXv$path_, path$path_)
+  path$path_ <- NULL
+  x[["path"]] <- path
+  pXv$vertex_ <- match_int(pXv$vertex_, x$vertex$vertex_)
+  x[["path_link_vertex"]] <- pXv
+  x$vertex$vertex_ <- NULL
+  structure(x, class = c("compact_PATH", "sc"))
+}
 sc_expand <- function(x, ...) {
+  .Defunct("expand_indexes")
   UseMethod("sc_expand")
 }
-sc_expand.compact_SC <- function(x, ...)  {
+#' Expand indexes from structural compaction
+#'
+#' @param x 
+#' @param ... 
+#'
+#' @return non-compact form, i.e. SC or PATH
+#' @export
+#'
+#' @examples
+#' plot(SC(expand_indexes(compact_indexes(PATH(minimal_mesh)))))
+expand_indexes <- function(x, ...) {
+  UseMethod("expand_indexes")
+}
+#' @name expand_indexes
+#' @export
+expand_indexes.compact_SC <- function(x, ...)  {
   x$object$object_ <- sc_uid(x$object)
   oXe <- x[["object_link_edge"]]
   edge <- x[["edge"]]
@@ -42,4 +90,22 @@ sc_expand.compact_SC <- function(x, ...)  {
   x[["edge"]] <- edge
   x[["vertex"]] <- vertex
   structure(x, class = c("SC", "sc"))
+}
+#' @name expand_indexes
+#' @export
+expand_indexes.compact_PATH <- function(x, ...) {
+  x$object$object_ <- sc_uid(x$object)
+  path <- x[["path"]]
+  pXv <- x[["path_link_vertex"]]
+  vertex <- x[["vertex"]]
+  path$path_ <- sc_uid(path)
+  path$object_ <- x$object$object_[path$object_]
+  
+  pXv$path_ <- path$path_[pXv$path_]
+  vertex$vertex_ <- sc_uid(vertex)
+  pXv$vertex_ <- vertex$vertex_[pXv$vertex_]
+  x[["path"]] <- path
+  x[["path_link_vertex"]] <- pXv
+  x[["vertex"]] <- vertex
+  structure(x, class = c("PATH", "sc"))
 }

@@ -66,8 +66,10 @@ plot.SC <- function(x, ..., vars = NULL) {
   e <- sc_edge(x)
   x0 <- e %>% dplyr::inner_join(v, c(".vertex0" = "vertex_"))
   x1 <- e %>% dplyr::inner_join(v, c(".vertex1" = "vertex_"))
+  idx <- factor(x$object_link_edge$object_)
+  col <- rainbow(nlevels(idx))[idx]
   plot(v$x_, v$y_, pch = ".")
-  segments(x0$x_, x0$y_, x1$x_, x1$y_, ...)
+  segments(x0$x_, x0$y_, x1$x_, x1$y_, ..., col = col)
 }
 
 filter.SC <- function(x, ...) {
