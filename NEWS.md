@@ -1,4 +1,4 @@
-# silicate dev
+# silicate 0.0.4
 
 * various fixes in line with gibble 0.0.1.9002 to properly support sp structures
 
