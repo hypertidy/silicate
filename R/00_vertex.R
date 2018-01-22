@@ -4,9 +4,15 @@ sc_vertex <- function(x, ...) {
 }
 #' @export
 sc_vertex.default <- function(x, ...) {
-  PATH(x)[["vertex"]]
+  SC(x)[["vertex"]]
 }
 #' @export
 sc_vertex.SC <- function(x, ...) {
+  x[["vertex"]]
+}
+sc_vertex.ARC <- function(x, ...) {
+  x[["vertex"]]
+}
+sc_vertex.PATH <- function(x, ...) {
   x[["vertex"]]
 }

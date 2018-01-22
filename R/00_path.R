@@ -15,6 +15,21 @@ sc_path <- function(x, ...) {
 }
 #' @name sc_path
 #' @export
+sc_path.default <- function(x, ...) {
+  PATH(x)[["path"]]
+}
+#' @name sc_path
+#' @export
 sc_path.PATH <- function(x, ...) {
   x[["path"]]
+}
+#' @name sc_path
+#' @export
+sc_path.ARC <- function(x, ...) {
+  stop("sc_path not yet supported for ARC")
+}
+#' @name sc_path
+#' @export
+sc_path.SC <- function(x, ...) {
+  stop("sc_path not yet supported for SC")
 }

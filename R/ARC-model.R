@@ -10,7 +10,7 @@ plot.ARC <- function(x, ..., lwd = 2L) {
  plot(x$vertex[c("x_", "y_")], pch = "")
  a1 <- x$arc_link_vertex %>% split(.$arc_)
  col <- setNames(sc_colours(length(a1)), names(a1))
- a1 %>% purrr::iwalk(~lines(inner_join(.x, x$vertex, "vertex_") %>% select(x_, y_), col = col[.y], lwd = lwd))
+ a1 %>% purrr::iwalk(~lines(dplyr::inner_join(.x, x$vertex, "vertex_") %>% dplyr::select(x_, y_), col = col[.y], lwd = lwd))
 }
   
 #' ARC model
@@ -51,9 +51,6 @@ ARC.PATH <- function(x, ...) {
   oXa <- arc_map %>% dplyr::distinct(.data$object_, .data$arc_)
   aXv  <-  arc_map %>% dplyr::select(.data$arc_, .data$vertex_)
   v <- sc_vertex(x)
-#  arc <- arc_map %>% group_by(.data$arc_) %>% dplyr::tally() %>% 
-#    dplyr::rename(ncoords_ = .data$n)
-  # oXa must have orientation as well as object_ and arc_
   lst <- list(object = o, 
               object_link_arc = oXa, 
           #    arc = arc, 
@@ -64,7 +61,7 @@ ARC.PATH <- function(x, ...) {
 }
 PATH.ARC <- function(x, ...) {
   o <- sc_object(x)
-  dplyr::inner_join(o[1, "object_"], x$object_link_arc) %>% 
+  paths <- dplyr::inner_join(o[1, "object_"], x$object_link_arc) %>% 
     dplyr::inner_join(x$arc_link_vertex)
 }
 #' x is the sc_arc_PATH()
