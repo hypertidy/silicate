@@ -20,8 +20,12 @@ sc_node.default <- function(x, ...) {
 sc_node.PATH <- function(x, ...) {
   sc_node_base(sc_edge(x), x[["vertex"]])
 }
-
-
+#' @name sc_node
+#' @export
+sc_node.ARC <- function(x, ...) {
+  ## remove all non-noded arcs
+  x$arc_link_vertex %>% dplyr::add_count(vertex_) %>% dplyr::filter(n > 2) %>% dplyr::distinct(.data$vertex_)
+}
 #' @importFrom rlang .data
 sc_node_base <- function(unique_edges, vertex, ...) {
   nodes <- dplyr::bind_rows(vertex %>% dplyr::select(.data$vertex_) %>% 
