@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deprecated data set. — mmesh • silicate</title>
+<title>Compact form, structural indexing — compact_indexes • silicate</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -93,22 +93,51 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Deprecated data set.</h1>
+    <h1>Compact form, structural indexing</h1>
     </div>
 
     
-    <p>This data set is in legacy format and will be removed. 
-A couple of polygons with a single shared edge between them, in 
-PRIMITIVE form.</p>
+    <p>Compact form, structural indexing</p>
     
 
-        
+    <pre class="usage"><span class='fu'>compact_indexes</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
+<span class='co'># S3 method for SC</span>
+<span class='fu'>compact_indexes</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for PATH</span>
+<span class='fu'>compact_indexes</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a special "compact_*" form, of e.g.  SC, or PATH</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>expand_indexes</span>(<span class='fu'>SC</span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("expand_indexes"): no applicable method for 'expand_indexes' applied to an object of class "c('SC', 'sc')"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

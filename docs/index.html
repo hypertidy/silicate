@@ -78,11 +78,44 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#silicate" class="anchor"></a>silicate</h1></div>
 <p>The goal of silicate is to provide a general common form for complex multi-dimensional data.</p>
+<p>NOTE: as of January 2018 major work is going on in the <strong><a href="https://github.com/hypertidy/silicate/tree/pslg">pslg</a></strong> branch, this will be disruptive so <strong>master</strong> will remain stable in the original PATH/PRIMITIVE form until we figure the edge-first scheme.</p>
 <p>There are two main motivations for <code>silicate</code>:</p>
 <ul>
 <li>to provide a central common-form of structure data, and a “universal converter”</li>
 <li>to work with topological primitives for analysis and interaction.</li>
 </ul>
+<p>There are two kinds of models, <em>primitive</em> and <em>sequential</em>.</p>
+<p>Primitive-based models are composed of <em>atomic</em> elements that may be worked with arbitrarily, by identity and grouping alone.</p>
+<p>Sequential-based models are bound to ordering and contextual assumptions. We provide the <code>PATH</code> and <code>ARC</code> models as generic, relational forms that provide a convenient intermediate between external forms and primitives models. Further intermediate models exist, including monotone and convex decompositions of polygons.</p>
+<p>There is one universal primitives-based model, an edge-only model with two tables at its core. Higher level structures are described by grouping tables, with as many levels as required. Any other model can be expressed in this form.</p>
+<p>We also differentiate <em>structural primitives</em>, which are specializations that are more convenient or more efficient in certain cases. These include triangulations (2D primitives), and segment structures (1D primitives), and could provide higher dimensional forms (3D primitives, etc. ).</p>
+<p>Currently, we provide support for the universal model <code>SC</code>, the sequential models <code>PATH</code> (simple features) and <code>ARC</code> (arc-node topology, TopoJSON-like), and structual primitives <code>TRI</code>.</p>
+<p>In practice a segment model is trivial to generate, “SEG” but we haven’t done that.</p>
+<p>We take care to allow for <em>labelling</em> (identity) of component elements, without taking full responsibility for maintaining them. Random IDs are created as needed, but any operation that works with existing IDs should be stable with them.</p>
+<p>We have the following worker verbs that are used to build the above models, and work between what each model offers.</p>
+<ul>
+<li>
+<code>sc_object</code> - highest level properties, the “features”</li>
+<li>
+<code>sc_coord</code> - all instances of coordinates, labelled by vertex if the source model includes them</li>
+<li>
+<code>sc_vertex</code> - only unique coordinates (in some geometric space)</li>
+<li>
+<code>sc_path</code> - individual paths, sequential traces</li>
+<li>
+<code>sc_edge</code> - unique binary relations, unordered segments</li>
+<li>
+<code>sc_segment</code> - all instances of edges</li>
+<li>
+<code>sc_arc</code> - unique topological paths, arcs either meet two other arcs at a node, or include no nodes</li>
+<li>
+<code>sc_node</code> - unique nodes</li>
+</ul>
+<p>This scheme (in the <a href="https://github.com/hypertidy/silicate/tree/pslg">pslg</a> branch) provides most of the infrastructure that we need to work with a wide variety of spatial and hierarchical structures. Pending work relates to identity management and efficiency for the universal model. The goal is for all model functions to be capable of transforming to any other model type, and for all worker verbs to work on any model (even if of limited utility).</p>
+<p>WIP</p>
+<div id="older-readme" class="section level2">
+<h2 class="hasAnchor">
+<a href="#older-readme" class="anchor"></a>(older readme)</h2>
 <p>Central is the <code>PATH</code> model, a normalized form of spatial data that is an <em>intermediate form</em> between standard explicit path forms and topological structures composed of simpler elements. PATH and its counterpart SC is a dual-view of the two main types of structures used in complex data. We anticipate that SC will be the universal core, and PATH more specialized along with other types such as triangulations.</p>
 <p><em>Paths</em> are the turtle-head-down coordinate lists used by lines, polygons, polypath, geom_line.</p>
 <p><em>Primitives</em> are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures. The key thing that makes them topological is a unique-vertex-pool, indexed by other types.</p>
@@ -90,6 +123,7 @@
 <p><a href="http://rpubs.com/cyclemumner/305595" class="uri">http://rpubs.com/cyclemumner/305595</a></p>
 <p>Paths can be partly topological (as per PATH) in that a unique vertex pool is indexed by variable-length paths, and this is a key distinction from primitives which have a constant number of indexed vertices per element. There’s a clash here, because most efficient for paths is very different from most efficient for primitives.</p>
 <p><code>silicate</code> provides an intermediate form for paths, all instances of all coordinates in one table, and another “path” table that records how many of the coordinates (in native order) are used per path. So this is a kind of <em>run length encoding</em> structure, it provides a common model that can be used by any path-based structure for a decomposition or re-composition form. A family of other functions provide the other component elements that we need, including segments, edges, arcs, nodes and vertices.</p>
+</div>
 </div>
 <div id="worker-functions" class="section level1">
 <h1 class="hasAnchor">
@@ -189,7 +223,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

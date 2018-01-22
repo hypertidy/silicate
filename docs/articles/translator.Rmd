@@ -1,0 +1,16 @@
+---
+title: "Format translator"
+author: "Michael D. Sumner"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Format translator}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+
+https://github.com/mdsumner/silicate-book/blob/master/04-translator.Rmd
+

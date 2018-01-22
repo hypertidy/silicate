@@ -21,13 +21,51 @@ knitr::opts_chunk$set(
 
 The goal of silicate is to provide a general common form for complex multi-dimensional data. 
 
-NOTE: as of January 2018 major work is going on in the **pslg** branch, this will be disruptive so **master** will remain stable in the original PATH/PRIMITIVE form until we figure the edge-first scheme. 
+NOTE: as of January 2018 major work is going on in the **[pslg](https://github.com/hypertidy/silicate/tree/pslg)** branch, this will be disruptive so **master** will remain stable in the original PATH/PRIMITIVE form until we figure the edge-first scheme. 
+
 
 There are two main motivations for `silicate`: 
 
 * to provide a central common-form of structure data, and a "universal converter"
 * to work with topological primitives for analysis and interaction. 
 
+
+There are two kinds of models, *primitive* and *sequential*. 
+
+Primitive-based models are composed of *atomic* elements that may be worked with arbitrarily, by identity and grouping alone. 
+
+Sequential-based models are bound to ordering and contextual assumptions. We provide the `PATH` and `ARC` models 
+as generic, relational forms that provide a convenient intermediate between external forms and primitives models. Further intermediate models exist, including monotone and convex decompositions of polygons. 
+
+There is one universal primitives-based model, an edge-only model with two tables at its core. Higher level structures are described by grouping tables, with as many levels as required. Any other model can be expressed in this form. 
+
+We also differentiate *structural primitives*, which are specializations that are more convenient or more efficient in certain cases. These include triangulations (2D primitives), and segment structures (1D primitives), and could provide higher dimensional forms (3D primitives, etc. ).   
+
+Currently, we provide support for the universal model `SC`, the sequential models `PATH` (simple features) and `ARC` (arc-node topology, TopoJSON-like), and structual primitives `TRI`. 
+
+In practice a segment model is trivial to generate, "SEG" but we haven't done that. 
+
+We take care to allow for *labelling* (identity) of component elements, without taking full responsibility for
+maintaining them. Random IDs are created as needed, but any operation that works with existing IDs should be stable with them. 
+
+We have the following worker verbs that are used to build the above models, and work between what each model offers. 
+
+* `sc_object` - highest level properties, the "features"
+* `sc_coord` - all instances of coordinates, labelled by vertex if the source model includes them
+* `sc_vertex` - only unique coordinates (in some geometric space)
+* `sc_path` - individual paths, sequential traces
+* `sc_edge` - unique binary relations, unordered segments
+* `sc_segment` - all instances of edges
+* `sc_arc` - unique topological paths, arcs either meet two other arcs at a node, or include no nodes
+* `sc_node` - unique nodes
+
+
+This scheme (in the [pslg](https://github.com/hypertidy/silicate/tree/pslg) branch) provides most of the infrastructure that we need to work with a wide variety of spatial and hierarchical structures. Pending work relates to identity management and efficiency for the universal model. The goal is for all model functions to be capable of transforming to any other model type, and for all worker verbs to work on any model (even if of limited utility). 
+
+WIP
+
+
+## (older readme)
 Central is the  `PATH` model, a normalized form of spatial data that is an *intermediate form* between standard explicit path forms and topological structures composed of simpler elements. PATH and its counterpart SC is a dual-view of the two main types of structures used in complex data. We anticipate that 
 SC will be the universal core, and PATH more specialized along with other types such as triangulations. 
 

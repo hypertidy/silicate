@@ -103,7 +103,16 @@
 
     <pre class="usage"><span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
+<span class='co'># S3 method for default</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
 <span class='co'># S3 method for PATH</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for ARC</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for SC</span>
 <span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for sf</span>
@@ -168,32 +177,32 @@ the features, and `PATH` for the full model.</p>
 <span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipolygon</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 5
 #&gt;    nrow  ncol type         subobject path_   
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;   
-#&gt; 1     6     2 MULTIPOLYGON         1 c5f143c9
-#&gt; 2     4     2 MULTIPOLYGON         1 0d55426e
-#&gt; 3     5     2 MULTIPOLYGON         2 05cb2881
-#&gt; 4     5     2 MULTIPOLYGON         2 92871836
-#&gt; 5     4     2 MULTIPOLYGON         3 7bcbf8d3</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>polygon</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt; 1     6     2 MULTIPOLYGON         1 068101ac
+#&gt; 2     4     2 MULTIPOLYGON         1 40570af6
+#&gt; 3     5     2 MULTIPOLYGON         2 75e5fc38
+#&gt; 4     5     2 MULTIPOLYGON         2 abd74384
+#&gt; 5     4     2 MULTIPOLYGON         3 143dd84c</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>polygon</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
 #&gt;    nrow  ncol type    path_   
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;   
-#&gt; 1     6     2 POLYGON 35f501c7
-#&gt; 2     4     2 POLYGON a26d22ec</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>linestring</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt; 1     6     2 POLYGON 98160fc6
+#&gt; 2     4     2 POLYGON 84703564</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>linestring</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type       path_   
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;   
-#&gt; 1     4     2 LINESTRING ae97c6f8</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multilinestring</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 4
+#&gt; 1     4     2 LINESTRING 9b82a78c</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multilinestring</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 4
 #&gt;    nrow  ncol type            path_   
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;   
-#&gt; 1     4     2 MULTILINESTRING 7044d5f3
-#&gt; 2     4     2 MULTILINESTRING 16ed8ec4
-#&gt; 3     2     2 MULTILINESTRING 62e7e795</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>point</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt; 1     4     2 MULTILINESTRING 8359b035
+#&gt; 2     4     2 MULTILINESTRING ff8c086d
+#&gt; 3     2     2 MULTILINESTRING 155fce12</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>point</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type  path_   
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   
-#&gt; 1  1.00  2.00 POINT 04dbb9a0</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt; 1  1.00  2.00 POINT 77239829</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type       path_   
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;   
-#&gt; 1     6     2 MULTIPOINT e7361b65</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt; 1     6     2 MULTIPOINT c7d064e2</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type       path_   
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;   
-#&gt; 1     6     2 MULTIPOINT efbe8b71</div></pre>
+#&gt; 1     6     2 MULTIPOINT d74cdd1b</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -214,7 +223,7 @@ the features, and `PATH` for the full model.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

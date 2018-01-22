@@ -97,7 +97,7 @@
     </div>
 
     
-    <p>Arcs are unbranched paths within the line segment graph. Nodes are the vertices where three or more arcs meet.</p>
+    <p>Return a label and vertex count of each arc.</p>
     
 
     <pre class="usage"><span class='fu'>sc_arc</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -105,7 +105,7 @@
 <span class='co'># S3 method for default</span>
 <span class='fu'>sc_arc</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for PATH</span>
+<span class='co'># S3 method for ARC</span>
 <span class='fu'>sc_arc</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -121,13 +121,33 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p>Arcs are unbranched paths within the line segment graph. Nodes are the vertices where three or more arcs meet.</p>
+<p>As with the `PATH` and `SC` models the arc id values will only be relevant when 
+those entities are identified and labelled. Running `sc_arc` on a simple features model (for example) will
+identify them and return a summary, but without having any record of what they refer to. Use `ARC(x)` first to 
+work with models that don't included labels.</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
+#&gt;   arc_     ncoords_
+#&gt;   &lt;chr&gt;       &lt;int&gt;
+#&gt; 1 11ccf9bf        2
+#&gt; 2 5fdffde9        6
+#&gt; 3 8f27ab06        7
+#&gt; 4 b9b8fef0        4</div><div class='input'><span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)<span class='kw'>[[</span><span class='st'>"arc"</span>]]</div><div class='output co'>#&gt; NULL</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
@@ -138,7 +158,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
