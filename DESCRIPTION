@@ -33,7 +33,8 @@ Imports:
     methods,
     purrr,
     rlang,
-    tibble, 
-    unjoin (>= 0.0.3)
+    tibble,
+    unjoin (>= 0.0.3),
+    earclip.rgl
 VignetteBuilder: knitr
-Remotes: mdsumner/gibble
+Remotes: mdsumner/gibble, hypertidy/earclip.rgl

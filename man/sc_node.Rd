@@ -6,6 +6,8 @@
 \alias{sc_node.default}
 \alias{sc_node}
 \alias{sc_node.PATH}
+\alias{sc_node}
+\alias{sc_node.ARC}
 \title{Nodes for arc-node topology.}
 \usage{
 sc_node(x, ...)
@@ -13,6 +15,8 @@ sc_node(x, ...)
 \method{sc_node}{default}(x, ...)
 
 \method{sc_node}{PATH}(x, ...)
+
+\method{sc_node}{ARC}(x, ...)
 }
 \arguments{
 \item{x}{input object}
