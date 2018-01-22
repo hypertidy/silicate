@@ -12,7 +12,7 @@
 # lfuns[-c(5, 6, 7)] %>% invoke_map(, SC(minimal_mesh))
 
 na_split <- function(x) {
-  x <- split(x[c("x_", "y_")], x$path_)
+  x <- split(x[c("x_", "y_")], x$path_)[unique(x$path_)]
   if (length(x) == 1) x[[1]] else head(dplyr::bind_rows(lapply(x, function(x) rbind(dplyr::distinct(x), NA))), -1)
 }
 
@@ -27,7 +27,7 @@ triangulate.PATH <- function(x, ...) {
       dplyr::select(.data$path_) %>% 
       dplyr::inner_join(x$path_link_vertex, "path_") %>% 
       dplyr::inner_join(x$vertex, "vertex_")
-    trimat <- na_split(verts) %>% earclip.rgl::earclip_rgl()
+    trimat <- na_split(verts) %>% earclip.rgl::earclip_rgl(random = FALSE)
     #trimat <- try(na_split(verts) %>% earclip.rgl::earclip_rgl(), silent = TRUE)
     #if (inherits(trimat, "try-error")) {
     #  trilist[[i]] <- NULL 
@@ -44,7 +44,7 @@ TRI <- function(x, ...) {
   UseMethod("TRI")
 }
 TRI.default <- function(x, ...) {
-  TRI(PATH(x, ...))
+  TRI(PATH(x), ...)
 }
 TRI.PATH <- function(x, ...) {
   if(any(grepl("MULTIPOLYGON", x$path$type))) {
@@ -62,17 +62,18 @@ sc_object.TRI <- function(x, ...) {
 }
 plot.TRI <- function(x, ...) {
   
-  plot(x$vertex[c("x_", "y_")])
+  plot(x$vertex[c("x_", "y_")], type = "n")
   cols <- sc_colours(nrow(sc_object(x)))
-  purrr::iwalk(sc_object(x)$object_, 
-              ~dplyr::filter(x$triangle, .data$object_ == .x) %>% 
+  for (i in seq_len(nrow(x$object))) { 
+            asub <- dplyr::filter(x$triangle, .data$object_ == x$object$object_[i]) %>% 
                 dplyr::transmute(.vertex0, .vertex1, .vertex2, fill = NA_character_) %>% 
                t() %>% 
                as.vector() %>% 
-               tibble::tibble(vertex_ = .) %>% 
-                dplyr::left_join(x$vertex, "vertex_") %>% dplyr::select(x_, y_) %>% 
-                dplyr::slice(-n()) %>% 
-               polypath(col = cols[.y]))
+               tibble::tibble(vertex_ = .) %>% slice(-n())
+            polypath(dplyr::left_join(asub,x$vertex,  "vertex_") %>% dplyr::select(x_, y_), 
+                     col = cols[i], ...)
+            
+ }
 }
 #plot(TRI(minimal_mesh))
 
