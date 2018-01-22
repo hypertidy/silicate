@@ -1,24 +1,41 @@
 
-
 #' Arcs for arc-node topology. 
 #' 
-#' Arcs are unbranched paths within the line segment graph. Nodes are the vertices where three or more arcs meet. 
+#' Return a label and vertex count of each arc. 
+#' 
+#' Arcs are unbranched paths within the line segment graph. Nodes are the vertices where three or more arcs meet.
+#' 
+#' As with the `PATH` and `SC` models the arc id values will only be relevant when 
+#' those entities are identified and labelled. Running `sc_arc` on a simple features model (for example) will
+#' identify them and return a summary, but without having any record of what they refer to. Use `ARC(x)` first to 
+#' work with models that don't included labels. 
 #' @param x input object
 #' @param ... arguments for methods
 #' @export
+#' @examples
+#' sc_arc(minimal_mesh)
+#' ARC(minimal_mesh)[["arc"]]
 sc_arc <- function(x, ...) {
   UseMethod("sc_arc")
 }
 #' @name sc_arc
 #' @export
 sc_arc.default <- function(x, ...) {
-  x <- PATH(x)
+  x <- ARC(x)
   sc_arc(x, ...)
 }
 #' @name sc_arc
 #' @export
-sc_arc.PATH <- function(x, ...) {
-  sc_arc_base(x[["path_link_vertex"]], sc_node(x))
+sc_arc.ARC <- function(x, ...) {
+  x[["arc_link_vertex"]] %>% dplyr::group_by(.data$arc_) %>% 
+    dplyr::tally() %>% dplyr::rename(ncoords_ = .data$n)
+}
+
+sc_arc_PATH <- function(x, ...) {
+ path_link_vertex <- x[["path_link_vertex"]] %>% 
+   dplyr::inner_join(x[["path"]] %>% dplyr::select(.data$path_, .data$object_), "path_")
+
+  sc_arc_base(path_link_vertex, sc_node(x))
 }
 
 
@@ -37,10 +54,10 @@ find_arc <- function(path, nodes) {
   
   arcs <- vector("list", length(idx) - 1)
   for (i in seq_along(arcs)) {
-    arcs[[i]] <- seq(idx[i], idx[i+1])
+    arcs[[i]] <- seq(idx[i], idx[i + 1L])
   }
   
-  tibble::tibble(arc_ = sc_uid(length(arcs))[rep(seq_along(arcs), lengths(arcs))], 
+  tibble::tibble(object_ = path$object_[1L], arc_ = sc_uid(length(arcs))[rep(seq_along(arcs), lengths(arcs))], 
                  vertex_ = path[["vertex_"]][unlist(arcs)])
 }
 sc_arc_base <- function(path_link_vertex, node) {
@@ -53,7 +70,7 @@ sc_arc_base <- function(path_link_vertex, node) {
   f <- factor(arcs0[["path_"]])
   arcs0[["path_"]] <- NULL
   arcs0[["arc_"]] <- sc_uid(nlevels(f))[f]
-  arcs0 <- dplyr::select(arcs0, .data$arc_, .data$vertex_)
+  arcs0 <- dplyr::select(arcs0, .data$arc_, .data$vertex_, .data$object_)
   path_link_vertex <- path_link_vertex %>% inner_join(noded_path, "path_")
   paths <- split(path_link_vertex, path_link_vertex[["path_"]])
   bind_rows(arcs0, lapply(paths, function(x) find_arc(x, node[["vertex_"]])))
