@@ -113,11 +113,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td></td>
+      <td><p>input model</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td></td>
+      <td><p>arguments passed to methods</p></td>
     </tr>
     </table>
     
@@ -127,7 +127,75 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>expand_indexes</span>(<span class='fu'>SC</span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("expand_indexes"): no applicable method for 'expand_indexes' applied to an object of class "c('SC', 'sc')"</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>compact_indexes</span>(<span class='fu'>SC</span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; $object
+#&gt; # A tibble: 2 x 1
+#&gt;       a
+#&gt; * &lt;int&gt;
+#&gt; 1     1
+#&gt; 2     2
+#&gt; 
+#&gt; $object_link_edge
+#&gt; # A tibble: 16 x 2
+#&gt;    edge_ object_
+#&gt;    &lt;int&gt;   &lt;int&gt;
+#&gt;  1     1       1
+#&gt;  2     2       1
+#&gt;  3     3       1
+#&gt;  4     4       1
+#&gt;  5     5       1
+#&gt;  6     6       1
+#&gt;  7     7       1
+#&gt;  8     8       1
+#&gt;  9     9       1
+#&gt; 10    10       1
+#&gt; 11    11       1
+#&gt; 12    12       1
+#&gt; 13     6       2
+#&gt; 14    13       2
+#&gt; 15    14       2
+#&gt; 16    15       2
+#&gt; 
+#&gt; $edge
+#&gt; # A tibble: 15 x 2
+#&gt;    .vertex0 .vertex1
+#&gt;       &lt;int&gt;    &lt;int&gt;
+#&gt;  1        1        2
+#&gt;  2        2        3
+#&gt;  3        3        4
+#&gt;  4        4        5
+#&gt;  5        5        6
+#&gt;  6        6        7
+#&gt;  7        7        1
+#&gt;  8        8        9
+#&gt;  9        9       10
+#&gt; 10       10       11
+#&gt; 11       11       12
+#&gt; 12       12        8
+#&gt; 13        6       13
+#&gt; 14       13       14
+#&gt; 15       14        7
+#&gt; 
+#&gt; $vertex
+#&gt; # A tibble: 14 x 2
+#&gt;       x_    y_
+#&gt;    &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1 0     0    
+#&gt;  2 0     1.00 
+#&gt;  3 0.750 1.00 
+#&gt;  4 1.00  0.800
+#&gt;  5 0.500 0.700
+#&gt;  6 0.800 0.600
+#&gt;  7 0.690 0    
+#&gt;  8 0.200 0.200
+#&gt;  9 0.500 0.200
+#&gt; 10 0.500 0.400
+#&gt; 11 0.300 0.600
+#&gt; 12 0.200 0.400
+#&gt; 13 1.10  0.630
+#&gt; 14 1.23  0.300
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "compact_SC" "sc"        </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

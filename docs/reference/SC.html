@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ARC model — ARC • silicate</title>
+<title>The universal model — SC • silicate</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -93,20 +93,19 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ARC model</h1>
+    <h1>The universal model</h1>
     </div>
 
     
-    <p>Arcs are paths within the line segment graph between nodes.</p>
+    <p>The universal model `SC` is coordinates and binary relations between
+pairs of coordinates. This is purely an edge (or segment) model, with all 
+higher level structures recorded as groupings of edges.</p>
     
 
-    <pre class="usage"><span class='fu'>ARC</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>SC</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for default</span>
-<span class='fu'>ARC</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for PATH</span>
-<span class='fu'>ARC</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='co'># S3 method for SC</span>
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -119,49 +118,19 @@
       <th>...</th>
       <td><p>arguments passed to methods</p></td>
     </tr>
+    <tr>
+      <th>vars</th>
+      <td><p>variables to plot</p></td>
+    </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ARC model</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Nodes are the vertices where three or more arcs meet. 
-An arc can exist without including any nodes, a path that has no neighbouring relationship with another path.</p>
-<p>This is _not_ the same terminology as used by other systems. The `arc_link_vertex` mapping is inherently ordered, 
-but we don't consider order of arcs. Duplicated arcs (i.e. complementary turns around neighbouring polygons) are 
-not kept. The `object_link_arc` mapping records which arc belongs to the objects, so can be reconstructed within 
-objects by tracing `arc_link_vertex` start and end point identity.</p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)
-<span class='fu'>sc_arc</span>(<span class='no'>a</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
-#&gt;   arc_     ncoords_
-#&gt;   &lt;chr&gt;       &lt;int&gt;
-#&gt; 1 19176fa2        7
-#&gt; 2 4470dce0        6
-#&gt; 3 679ef0c7        2
-#&gt; 4 acf764d9        4</div><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
-#&gt;   arc_     ncoords_
-#&gt;   &lt;chr&gt;       &lt;int&gt;
-#&gt; 1 0c71c01f        2
-#&gt; 2 480467a4        7
-#&gt; 3 9e751dcc        4
-#&gt; 4 ca2c0758        6</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

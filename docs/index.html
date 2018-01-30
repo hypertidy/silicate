@@ -74,24 +74,18 @@
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<div id="silicate" class="section level1">
+<div id="overview" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#silicate" class="anchor"></a>silicate</h1></div>
+<a href="#overview" class="anchor"></a>Overview</h1></div>
 <p>The goal of silicate is to provide a general common form for complex multi-dimensional data.</p>
-<p>NOTE: as of January 2018 major work is going on in the <strong><a href="https://github.com/hypertidy/silicate/tree/pslg">pslg</a></strong> branch, this will be disruptive so <strong>master</strong> will remain stable in the original PATH/PRIMITIVE form until we figure the edge-first scheme.</p>
 <p>There are two main motivations for <code>silicate</code>:</p>
 <ul>
-<li>to provide a central common-form of structure data, and a “universal converter”</li>
+<li>provide a central common-form of structure data, and a “universal converter”</li>
 <li>to work with topological primitives for analysis and interaction.</li>
 </ul>
-<p>There are two kinds of models, <em>primitive</em> and <em>sequential</em>.</p>
-<p>Primitive-based models are composed of <em>atomic</em> elements that may be worked with arbitrarily, by identity and grouping alone.</p>
-<p>Sequential-based models are bound to ordering and contextual assumptions. We provide the <code>PATH</code> and <code>ARC</code> models as generic, relational forms that provide a convenient intermediate between external forms and primitives models. Further intermediate models exist, including monotone and convex decompositions of polygons.</p>
-<p>There is one universal primitives-based model, an edge-only model with two tables at its core. Higher level structures are described by grouping tables, with as many levels as required. Any other model can be expressed in this form.</p>
-<p>We also differentiate <em>structural primitives</em>, which are specializations that are more convenient or more efficient in certain cases. These include triangulations (2D primitives), and segment structures (1D primitives), and could provide higher dimensional forms (3D primitives, etc. ).</p>
-<p>Currently, we provide support for the universal model <code>SC</code>, the sequential models <code>PATH</code> (simple features) and <code>ARC</code> (arc-node topology, TopoJSON-like), and structual primitives <code>TRI</code>.</p>
-<p>In practice a segment model is trivial to generate, “SEG” but we haven’t done that.</p>
-<p>We take care to allow for <em>labelling</em> (identity) of component elements, without taking full responsibility for maintaining them. Random IDs are created as needed, but any operation that works with existing IDs should be stable with them.</p>
+<p>We have created three models <code>SC</code>, <code>PATH</code>, <code>ARC</code>, and <code>TRI</code> which cover the broadest range of complex types, with <code>SC</code> being the core, universal representation. Other models exist to cover specific use-cases or specific intermediate forms.</p>
+<p>Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context.</p>
+<p>Silicate models are built by using lower level worker verbs, listed here.</p>
 <p>We have the following worker verbs that are used to build the above models, and work between what each model offers.</p>
 <ul>
 <li>
@@ -111,75 +105,89 @@
 <li>
 <code>sc_node</code> - unique nodes</li>
 </ul>
-<p>This scheme (in the <a href="https://github.com/hypertidy/silicate/tree/pslg">pslg</a> branch) provides most of the infrastructure that we need to work with a wide variety of spatial and hierarchical structures. Pending work relates to identity management and efficiency for the universal model. The goal is for all model functions to be capable of transforming to any other model type, and for all worker verbs to work on any model (even if of limited utility).</p>
-<p>WIP</p>
-<div id="older-readme" class="section level2">
-<h2 class="hasAnchor">
-<a href="#older-readme" class="anchor"></a>(older readme)</h2>
-<p>Central is the <code>PATH</code> model, a normalized form of spatial data that is an <em>intermediate form</em> between standard explicit path forms and topological structures composed of simpler elements. PATH and its counterpart SC is a dual-view of the two main types of structures used in complex data. We anticipate that SC will be the universal core, and PATH more specialized along with other types such as triangulations.</p>
-<p><em>Paths</em> are the turtle-head-down coordinate lists used by lines, polygons, polypath, geom_line.</p>
-<p><em>Primitives</em> are the edge-lists or triangle-lists or quad-lists used in rgl and in many topological structures. The key thing that makes them topological is a unique-vertex-pool, indexed by other types.</p>
-<p>The need to provide a language of conversions between these forms for spatial data is illustrated here:</p>
-<p><a href="http://rpubs.com/cyclemumner/305595" class="uri">http://rpubs.com/cyclemumner/305595</a></p>
-<p>Paths can be partly topological (as per PATH) in that a unique vertex pool is indexed by variable-length paths, and this is a key distinction from primitives which have a constant number of indexed vertices per element. There’s a clash here, because most efficient for paths is very different from most efficient for primitives.</p>
-<p><code>silicate</code> provides an intermediate form for paths, all instances of all coordinates in one table, and another “path” table that records how many of the coordinates (in native order) are used per path. So this is a kind of <em>run length encoding</em> structure, it provides a common model that can be used by any path-based structure for a decomposition or re-composition form. A family of other functions provide the other component elements that we need, including segments, edges, arcs, nodes and vertices.</p>
 </div>
-</div>
-<div id="worker-functions" class="section level1">
+<div id="installation" class="section level1">
 <h1 class="hasAnchor">
-<a href="#worker-functions" class="anchor"></a>Worker functions</h1>
-<p>There are key worker functions <code>sc_coord</code>, <code>sc_object</code>, <code>sc_path</code> which provide the basis for interpreting simple features from a silicate perspective.</p>
-<ul>
-<li>sc_coord returns the table of coordinates completely flattened, and with no normalization</li>
-<li>sc_object returns the highest level feature metadata</li>
-<li>sc_path returns the table of individual paths, with a coordinate count</li>
-</ul>
-<p>From these three components we can generate other forms, and we can round-trip back to the original features.</p>
-<p>There are further workers for the <strong><em>vertices</em></strong> (<code>sc_node</code>), and <strong><em>paths</em></strong> (<code>sc_arc</code>, <code>sc_segment</code>, <code>sc_edge</code>) which provide the necessary lower-level components. These inherently work with identitifiers for components, and so they only make sense with reference to a <code>SC</code> silicate form.</p>
-<ul>
-<li>sc_node returns only those vertices that are met by three or more paths</li>
-<li>sc_arc returns the paths between nodes, and standalone paths that don’t visit any nodes</li>
-<li>sc_segment returns all <em>instances</em> of any two-vertex line segment (directed)</li>
-<li>sc_edge returns only those unique edges, which are inherently undirected</li>
-</ul>
-<p>(We possibly also want <code>sc_vertex</code> to return only the unique coordinates, but that can be obtained from <code>PATH</code> - though this area needs some care since unique might be in X-Y, Y-Z or X-Y-Z or any geometric space).</p>
-<p>This generic set of workers is chosen because we often want the complete set of vertices in their pure form. Returning them with no grouping or identifiers and without any de-duplication means we have a representation of the pure geometry. Since the table has no other columns, generic code can be sure that all columns contain a coordinate. That means we don’t need specialist code for ‘XYZ’, ‘XYZM’, ‘XYT’, ‘TYX’ and so on.</p>
-<p>The table of individual paths records which object it belongs to, how many coordinates there are and an ID for the path. This is not intended to be ‘relational’, it’s an intermediate form link by pure indexing. Inserting more levels between the paths and the highest objects is possible, but unclear exactly how to do this yet.</p>
-<p>The <code>unjoin</code> concept is key for mapping the key between unique vertices and a path’s instance of those as coordinates, in the right order. We can use the unjoin engine to add structure to other more generic data streams, like GPS, animal tracking, and general sensors.</p>
-<p><strong>NOTE:</strong> An early implentation had PATH and PRIMITIVE forms, but the latter was too simplistic for real use. The functions <code>sc_arc</code>, <code>sc_node</code>, <code>sc_segment</code> and <code>sc_edge</code> were added to the basic <code>sc_coord</code>, <code>sc_path</code> and <code>sc_object</code> as these are all that are required to move between any data structure in simple features or topological form. This is an ongoing area of development. See also <a href="https://github.com/hypertidy/sphier">sphier</a> and <a href="https://github.com/hypertidy/svgplotr">svgplotr</a> for related work.</p>
-<p>The model functions <code>SC</code> and <code>PATH</code> should work in the following cases.</p>
-<ul>
-<li>to flip from one to another <code>SC(PATH(SC(x)))</code> should work for any kind of ‘x’ model</li>
-<li>for any <code>sf</code> object</li>
-<li>convert to igraph objects WIP: <a href="https://github.com/hypertidy/scgraph" class="uri">https://github.com/hypertidy/scgraph</a>
-</li>
-<li>spatstat objects WIP: <a href="https://github.com/hypertidy/scspatstat" class="uri">https://github.com/hypertidy/scspatstat</a>
-</li>
-<li>…</li>
-</ul>
-<p>The classes for all variants of simple features are not worked out, for instance a MULTIPOINT can end up with a degenerate (and expensive) segment table.</p>
-<p>More functions <code>sc_uid</code> provides unique IDs, and <code>sc_node</code> is a worker for a arc-node intermediate model.</p>
-<p>Intermediate models</p>
-<ul>
-<li>Arc-node (WIP)</li>
-<li>Monotone polygons (future work)</li>
-</ul>
-<div id="design" class="section level2">
-<h2 class="hasAnchor">
-<a href="#design" class="anchor"></a>Design</h2>
-<p>There is a hierarchy of sorts with layer, object, path, primitives, coordinates, and vertices.</p>
-<p>The current design uses capitalized function names <code>SC</code>, <code>PATH</code> … that act on layers, while prefixed lower-case function names produce or derive the named entity at a given level for a given input. E.g. <code>sc_path</code> will decompose all the geometries in an <code>sf</code> layer to the PATH model and return them in generic form. <code>PATH</code> will decompose the layer as a whole, including the component geometries.</p>
-<p><code>PATH()</code> is the main model currently used to decompose inputs. Soon <code>SC</code> will be the more general, and universal core model from which other models derive or specialize.</p>
-<p>PATH is the more general form of the GIS idioms (simple features and georeferenced raster data) This treats connected <em>paths</em> as fully-fledged entities like vertices and objects are, creating a relational model that stores all <em>vertices</em> in one table, all <em>paths</em> in another, and and all highest-level <em>objects</em> in another. The PATH model also takes the extra step of <em>normalizing</em> vertices, finding duplicates in a given geometric space and creating an intermediate link table to record all <em>instances of the vertices</em>. The PATH model does not currently normalize paths, but this is something that could be done, and is close to what arc-node topology is.</p>
-<p>There are decomposition functions for lower-level <code>sf</code> objects organized as <code>sc_path</code>, <code>sc_coord</code>, and <code>sc_object</code>. <code>sc_path</code> does all the work, building a simple map of all the parts and the vertex count. This is used to classify the vertex table when it is extracted, which makes the unique-id management for path-vertex normalization much simpler than it was in <code>gris</code> or <code>rangl</code>.</p>
+<a href="#installation" class="anchor"></a>Installation</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Install the development version from GitHub:</span>
+<span class="co"># install.packages("devtools")</span>
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"hypertidy/silicate"</span>)</code></pre></div>
 </div>
-</div>
-<div id="key-examples" class="section level1">
+<div id="usage" class="section level1">
 <h1 class="hasAnchor">
-<a href="#key-examples" class="anchor"></a>Key examples</h1>
-<p>the key ones are OSM-like data with names, LiDAR data (xyz multipoints with time, colour, intensity, groupings, etc. - with groupings such as “contiguous surface” - lidR is good for this), animal track data - grouped-multilines with time, depth, temperature etc. on the coordinates, and triangulations - again grouped-structures from rgl</p>
-<p><strong>NOTE:</strong> earlier versions of this used the concept of “branch” rather than path, so there is some ongoing migration of the use of these words. <em>Branch</em> is a more general concept than implemented in geo-spatial systems generally, and so <em>path</em> is more accurate We reserve branch for possible future models that are general. A “point PATH” has meaning in the sense of being a single-vertex “path”, and so a multipoint is a collection of these degenerate forms. “Path” as a concept is clearly rooted in optimization suited to planar forms, and so is more accurate than “branch”.</p>
-<p>In our terminology a branch or path is the group between the raw geometry and the objects, and so applies to a connected polygon ring, closed or open linestring, a single coordinate with a multipoint (a path with one vertex). In this scheme a polygon ring and a closed linestring are exactly the same (since they actually are exactly the same) and there are no plane-filling branches, or indeed volume-filling branches. This is a clear limitation of the branch model and it matches that used by GIS.</p>
+<a href="#usage" class="anchor"></a>Usage</h1>
+<p>Convert a known external model to a silicate model.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(silicate)
+x &lt;-<span class="st"> </span><span class="kw">SC</span>(minimal_mesh) ## convert simple features to universal form
+
+y &lt;-<span class="st"> </span><span class="kw">ARC</span>(minimal_mesh) ## convert simple features to "arc-node" form</code></pre></div>
+<p>Obtain the elements of a known model type.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/sc_vertex.html">sc_vertex</a></span>(x)
+<span class="co">#&gt; # A tibble: 14 x 3</span>
+<span class="co">#&gt;       x_    y_ vertex_ </span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   </span>
+<span class="co">#&gt;  1 0     0     a7a1a0a3</span>
+<span class="co">#&gt;  2 0     1.00  94bedcc3</span>
+<span class="co">#&gt;  3 0.750 1.00  51ab1e6a</span>
+<span class="co">#&gt;  4 1.00  0.800 725b16e1</span>
+<span class="co">#&gt;  5 0.500 0.700 e94d9173</span>
+<span class="co">#&gt;  6 0.800 0.600 d8cc0a33</span>
+<span class="co">#&gt;  7 0.690 0     88027a9c</span>
+<span class="co">#&gt;  8 0.200 0.200 33653208</span>
+<span class="co">#&gt;  9 0.500 0.200 91136493</span>
+<span class="co">#&gt; 10 0.500 0.400 b31d03b6</span>
+<span class="co">#&gt; 11 0.300 0.600 d67ed380</span>
+<span class="co">#&gt; 12 0.200 0.400 89652f47</span>
+<span class="co">#&gt; 13 1.10  0.630 23c9f3f7</span>
+<span class="co">#&gt; 14 1.23  0.300 f8139828</span>
+
+<span class="kw">sc_edge</span>(x)
+<span class="co">#&gt; # A tibble: 15 x 3</span>
+<span class="co">#&gt;    .vertex0 .vertex1 edge_   </span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   </span>
+<span class="co">#&gt;  1 a7a1a0a3 94bedcc3 7339298b</span>
+<span class="co">#&gt;  2 94bedcc3 51ab1e6a d9943a31</span>
+<span class="co">#&gt;  3 51ab1e6a 725b16e1 b9a776b1</span>
+<span class="co">#&gt;  4 725b16e1 e94d9173 23a549d2</span>
+<span class="co">#&gt;  5 e94d9173 d8cc0a33 f2114449</span>
+<span class="co">#&gt;  6 d8cc0a33 88027a9c 72426d0f</span>
+<span class="co">#&gt;  7 88027a9c a7a1a0a3 ee8be749</span>
+<span class="co">#&gt;  8 33653208 91136493 a091c139</span>
+<span class="co">#&gt;  9 91136493 b31d03b6 4da78ebc</span>
+<span class="co">#&gt; 10 b31d03b6 d67ed380 12cac699</span>
+<span class="co">#&gt; 11 d67ed380 89652f47 00349173</span>
+<span class="co">#&gt; 12 89652f47 33653208 43952e64</span>
+<span class="co">#&gt; 13 d8cc0a33 23c9f3f7 94840194</span>
+<span class="co">#&gt; 14 23c9f3f7 f8139828 42af950d</span>
+<span class="co">#&gt; 15 f8139828 88027a9c 5b051ae2</span>
+
+<span class="kw">sc_node</span>(y)
+<span class="co">#&gt; # A tibble: 2 x 1</span>
+<span class="co">#&gt;   vertex_ </span>
+<span class="co">#&gt;   &lt;chr&gt;   </span>
+<span class="co">#&gt; 1 b40d5bbe</span>
+<span class="co">#&gt; 2 5135fe2a</span>
+
+<span class="kw">sc_arc</span>(y)
+<span class="co">#&gt; # A tibble: 4 x 2</span>
+<span class="co">#&gt;   arc_     ncoords_</span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;</span>
+<span class="co">#&gt; 1 17547d32        4</span>
+<span class="co">#&gt; 2 63cc0bef        2</span>
+<span class="co">#&gt; 3 6edb9bdc        7</span>
+<span class="co">#&gt; 4 77d2ab1f        6</span></code></pre></div>
+<div id="silicate-models" class="section level2">
+<h2 class="hasAnchor">
+<a href="#silicate-models" class="anchor"></a>silicate models</h2>
+<p>There are two kinds of models, <em>primitive</em> and <em>sequential</em>.</p>
+<p>Primitive-based models are composed of <em>atomic</em> elements that may be worked with arbitrarily, by identity and grouping alone.</p>
+<p>Sequential-based models are bound to ordering and contextual assumptions. We provide the <code>PATH</code> and <code>ARC</code> models as generic, relational forms that provide a convenient intermediate between external forms and primitives models. Further intermediate models exist, including monotone and convex decompositions of polygons.</p>
+<p>There is one universal primitives-based model, an edge-only model with two tables at its core. Higher level structures are described by grouping tables, with as many levels as required. Any other model can be expressed in this form.</p>
+<p>We also differentiate <em>structural primitives</em>, which are specializations that are more convenient or more efficient in certain cases. These include triangulations (2D primitives), and segment structures (1D primitives), and could provide higher dimensional forms (3D primitives, etc. ).</p>
+<p>Currently, we provide support for the universal model <code>SC</code>, the sequential models <code>PATH</code> (simple features) and <code>ARC</code> (arc-node topology, TopoJSON-like), and structual primitives <code>TRI</code>.</p>
+<p>In practice a segment model is trivial to generate, “SEG” but we haven’t done that.</p>
+<p>We take care to allow for <em>labelling</em> (identity) of component elements, without taking full responsibility for maintaining them. Random IDs are created as needed, but any operation that works with existing IDs should be stable with them.</p>
+</div>
 <div id="exceptions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#exceptions" class="anchor"></a>Exceptions</h2>
