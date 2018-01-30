@@ -98,6 +98,41 @@
     </div>
 
     <div class="contents">
+    <div id="silicate-0-1-0" class="section level1">
+<h1 class="hasAnchor">
+<a href="#silicate-0-1-0" class="anchor"></a>silicate 0.1.0</h1>
+<ul>
+<li><p>added functions compact_indexes and expand_indexes to remove and restore the unique labels on entities - these are purely to explore what the minimal size of a model might be</p></li>
+<li><p>more consistency for sc_verbs, sc_coord, sc_vertex, sc_object, sc_node, sc_arc, sc_path, sc_uid</p></li>
+<li><p>established models SC, PATH, ARC, TRI</p></li>
+<li><p>removed PRIMITIVE</p></li>
+<li><p>(breaking) <code>sc_uid</code> now generic, with argument <code>x</code> (not <code>n</code>)</p></li>
+<li><p>various fixes in line with gibble 0.0.1.9002 to properly support sp structures</p></li>
+<li><p>fixed bug where a single-path data set exposed an offset assumption applied by sc_segment, fixes <a href="https://github.com/hypertidy/silicate/issues/40" class="uri">https://github.com/hypertidy/silicate/issues/40</a></p></li>
+<li><p>fixed bug where 0-column dataframe was assumed to be a list of vectors <a href="https://github.com/hypertidy/anglr/issues/55" class="uri">https://github.com/hypertidy/anglr/issues/55</a></p></li>
+<li><p>added <code>polymesh</code> data</p></li>
+<li><p>support for trip</p></li>
+<li><p>install flight_tracks example</p></li>
+<li><p>support for sp!</p></li>
+<li><p>moved sf specific facility from scsf</p></li>
+<li><p>renamed package</p></li>
+<li><p><code>sc_rand</code> is deprecated, to be replaced by <code>sc_uid</code></p></li>
+</ul>
+</div>
+    <div id="sc-0-0-2" class="section level1">
+<h1 class="hasAnchor">
+<a href="#sc-0-0-2" class="anchor"></a>sc 0.0.2</h1>
+<ul>
+<li>cleaned up the un-join with a specific function from ‘unjoin’ package</li>
+<li>added internal function <code>sc_edge</code>, and exported <code>sc_node</code> and renamed arc_node to <code>NARC</code>
+</li>
+<li>removed all sf-specific facilities to external package</li>
+<li>revert to sf 0.2-7 to enable vignette migration</li>
+<li>PATH model added (with ongoing migration from “branch” term to “path” term)</li>
+<li>BRANCH model effectively removed, replaced by the PATH model</li>
+<li>PRIMITIVES model added, including bare-nodes arc_node function to return the 3-way nodes</li>
+</ul>
+</div>
     <div id="sc-0-0-1" class="section level1">
 <h1 class="hasAnchor">
 <a href="#sc-0-0-1" class="anchor"></a>sc 0.0.1</h1>
@@ -105,7 +140,6 @@
 <li>first functions, the BRANCH model for sf</li>
 </ul>
 </div>
-    NA
     </div>
   </div>
 
@@ -113,8 +147,9 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#silicate-0-1-0">0.1.0</a></li>
+        <li><a href="#sc-0-0-2">0.0.2</a></li>
         <li><a href="#sc-0-0-1">0.0.1</a></li>
-        <li><a href="#NA">NA</a></li>
       </ul>
     </div>
   </div>
@@ -127,7 +162,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

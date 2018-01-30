@@ -49,7 +49,7 @@ unique_edges <- dplyr::distinct(silicate:::sc_segment_base(x$path_link_vertex), 
 vertex <- x$vertex
 nodes <- silicate:::sc_node_base(unique_edges, vertex)
 library(sf); plot(minimal_mesh$geom)
-inner_join(nodes, x$vertex) %>% select(x_, y_) %>% points()
+inner_join(nodes, x$vertex) %>% dplyr::select(x_, y_) %>% points()
 
 ```
 There's only one more entity we need, and this is the actual component paths that describe these structures topologically. These are paths that occur between any two nodes, or that have no nodes at all. This will occur for any isolated "island", or for any hole within a polygon.  These arcs are exactly analogous to a LINESTRING, but are used within a context where the nodes are important information about the topology. 
@@ -57,7 +57,10 @@ There's only one more entity we need, and this is the actual component paths tha
 Currently we haven't yet normalized the arcs  ... 
 
 
-```{r}
+or made this work yet ...
+
+
+```{r arc-node, eval=FALSE}
 arcs <- silicate:::sc_arc_base(x$path_link_vertex, nodes) 
 distinct(arcs, arc)
 
@@ -71,7 +74,7 @@ for (i in seq_along(sarcs)) {
 
 We haven't yet done any coordinate precision checking, so there will be mis-identified arcs where coordinates are intended to be but are not exactly the same. (spdep glosses over this in a way we can't control)
 
-```{r}
+```{r, eval=FALSE}
 
 library(dplyr)
 library(sf)

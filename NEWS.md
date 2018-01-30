@@ -1,4 +1,15 @@
-# silicate dev
+# silicate 0.1.0
+
+* added functions compact_indexes and expand_indexes to remove 
+ and restore the unique labels on entities - these are purely 
+ to explore what the minimal size of a model might be 
+ 
+* more consistency for sc_verbs, sc_coord, sc_vertex, sc_object,
+ sc_node, sc_arc, sc_path, sc_uid
+ 
+* established models SC, PATH, ARC, TRI
+
+* removed PRIMITIVE
 
 * (breaking) `sc_uid` now generic, with argument `x` (not `n`)
 
