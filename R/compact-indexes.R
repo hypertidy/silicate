@@ -4,14 +4,13 @@ sc_compact <- function(x, ...) {
 }
 #' Compact form, structural indexing
 #'
-#' @param x 
-#' @param ... 
+#' @inheritParams SC
 #'
 #' @return a special "compact_*" form, of e.g.  SC, or PATH
 #' @export
 #'
 #' @examples
-#' expand_indexes(SC(minimal_mesh))
+#' compact_indexes(SC(minimal_mesh))
 compact_indexes <- function(x, ...) {
   UseMethod("compact_indexes")
 }
@@ -59,16 +58,18 @@ sc_expand <- function(x, ...) {
   .Defunct("expand_indexes")
   UseMethod("sc_expand")
 }
+
+
 #' Expand indexes from structural compaction
 #'
-#' @param x 
-#' @param ... 
+#' @inheritParams SC
 #'
 #' @return non-compact form, i.e. SC or PATH
 #' @export
 #'
 #' @examples
-#' plot(SC(expand_indexes(compact_indexes(PATH(minimal_mesh)))))
+#' small <- compact_indexes(PATH(minimal_mesh))
+#' large <- expand_indexes(small)
 expand_indexes <- function(x, ...) {
   UseMethod("expand_indexes")
 }

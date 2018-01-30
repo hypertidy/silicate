@@ -3,12 +3,18 @@ sc_colours <- function(x, ...) {
   cl <- grDevices::colors()[grep('gr(a|e)y', grDevices::colors(), invert = T)]
   sample(cl, x, replace = x > length(cl))
 }
+#' @noRd
+#' 
+#' @param x  
+#' @param ... 
+#' @param lwd 
+#'
 #' @name ARC
 #' @export
 plot.ARC <- function(x, ..., lwd = 2L) {
  
  plot(x$vertex[c("x_", "y_")], pch = "")
- a1 <- x$arc_link_vertex %>% split(.$arc_)
+ a1 <- split(x$arc_link_vertex, x$arc_link_vertex$arc_)
  col <- setNames(sc_colours(length(a1)), names(a1))
  a1 %>% purrr::iwalk(~lines(dplyr::inner_join(.x, x$vertex, "vertex_") %>% dplyr::select(x_, y_), col = col[.y], lwd = lwd))
 }
@@ -24,9 +30,8 @@ plot.ARC <- function(x, ..., lwd = 2L) {
 #' but we don't consider order of arcs. Duplicated arcs (i.e. complementary turns around neighbouring polygons) are 
 #' not kept. The `object_link_arc` mapping records which arc belongs to the objects, so can be reconstructed within 
 #' objects by tracing `arc_link_vertex` start and end point identity.
-#' @param x input model
-#' @param ... passed to methods
-#'
+#' @inheritParams SC
+#' 
 #' @return ARC model
 #' @export
 #'
@@ -64,11 +69,10 @@ PATH.ARC <- function(x, ...) {
   paths <- dplyr::inner_join(o[1, "object_"], x$object_link_arc) %>% 
     dplyr::inner_join(x$arc_link_vertex)
 }
-#' x is the sc_arc_PATH()
 unique_arcs <- function(x, ...) {
-  dat <- x %>% split(.$arc_)
+  dat <- split(x, x$arc_)
   arc_id <- dat %>% 
-    purrr::map(~paste(first_sort(.x$vertex_), collapse = ""))
+    purrr::map(function(.x) paste(first_sort(.x$vertex_), collapse = ""))
   bind_rows(dat[!duplicated(arc_id)])
 }
 

@@ -15,9 +15,9 @@ compact_indexes(x, ...)
 \method{compact_indexes}{PATH}(x, ...)
 }
 \arguments{
-\item{x}{}
+\item{x}{input model}
 
-\item{...}{}
+\item{...}{arguments passed to methods}
 }
 \value{
 a special "compact_*" form, of e.g.  SC, or PATH
@@ -26,5 +26,5 @@ a special "compact_*" form, of e.g.  SC, or PATH
 Compact form, structural indexing
 }
 \examples{
-expand_indexes(SC(minimal_mesh))
+compact_indexes(SC(minimal_mesh))
 }

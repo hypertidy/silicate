@@ -2,16 +2,12 @@
 % Please edit documentation in R/ARC-model.R
 \name{ARC}
 \alias{ARC}
-\alias{plot.ARC}
-\alias{ARC}
 \alias{ARC}
 \alias{ARC.default}
 \alias{ARC}
 \alias{ARC.PATH}
 \title{ARC model}
 \usage{
-\method{plot}{ARC}(x, ..., lwd = 2L)
-
 ARC(x, ...)
 
 \method{ARC}{default}(x, ...)
@@ -21,7 +17,7 @@ ARC(x, ...)
 \arguments{
 \item{x}{input model}
 
-\item{...}{passed to methods}
+\item{...}{arguments passed to methods}
 }
 \value{
 ARC model

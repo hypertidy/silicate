@@ -1,40 +1,83 @@
-
-
-#' Triangulation
-#' 
-triangulate_model <- function(x, ...) {
-  UseMethod("triangulate_model")
+#' Triangulation model
+#'
+#' @inheritParams SC
+#' @return TRI model
+#' @export
+TRI <- function(x, ...) {
+  UseMethod("TRI")
 }
-#' @examples
-#' dd <- minimal_mesh
-#' #dd <- nc
-#' #dd <- rnaturalearth::ne_countries(scale = 50, returnclass = "sf")
-#' x <- SC(dd)
-#' plot(x)
-#' xt <- triangulate.SC(x, D = TRUE)
-#' plot(xt)
+#' @export
+TRI.default <- function(x, ...) {
+  TRI(PATH(x), ...)
+}
+#' @export
+TRI.PATH <- function(x, ...) {
+  if(any(grepl("MULTIPOLYGON", x$path$type))) {
+    message("MULTIPOLYGON ear clipping doesn't work in some cases:")
+    message("* try `sf::st_cast(x, \"POLYGON\")` if it fails")
+  }
+  tri <- triangulate.PATH(x)
+  obj <- sc_object(x)
+  #obj <- obj[obj$object_ %in% tri$object_, ]
+  structure(list(object = obj, triangle = tri, 
+                 vertex = sc_vertex(x)), class = c("TRI", "sc"))
+}
+#' @name sc_object
+#' @export
+sc_object.TRI <- function(x, ...) {
+  x[["object"]]
+}
+#' @name TRI
+#' @export
+plot.TRI <- function(x, ...) {
+  
+  plot(x$vertex[c("x_", "y_")], type = "n")
+  cols <- sc_colours(nrow(sc_object(x)))
+  for (i in seq_len(nrow(x$object))) { 
+    asub <- dplyr::filter(x$triangle, .data$object_ == x$object$object_[i]) %>% 
+      dplyr::transmute(.data$.vertex0, .data$.vertex1, .data$.vertex2, fill = NA_character_) %>% 
+      t() %>% 
+      as.vector() 
+    asub <-   tibble::tibble(vertex_ = asub)
+    asub <- head(asub, -nrow(asub))
+    graphics::polypath(dplyr::left_join(asub,x$vertex,  "vertex_") %>% dplyr::select(.data$x_, .data$y_), 
+             col = cols[i], ...)
+    
+  }
+}
+#plot(TRI(minimal_mesh))
+
+
+
+
+# dd <- minimal_mesh
+# #dd <- nc
+# #dd <- rnaturalearth::ne_countries(scale = 50, returnclass = "sf")
+# x <- SC(dd)
+# plot(x)
+# xt <- triangulate.SC(x, D = TRUE)
+# plot(xt)
 triangulate.SC <- function(x, ...) {
   v <- x$vertex
   a <- match(x$edge$.vertex0, v$vertex_)
   b <- match(x$edge$.vertex1, v$vertex_)
-  p <- RTriangle::pslg(as.matrix(dplyr::select(v, x_, y_)), 
+  p <- RTriangle::pslg(as.matrix(dplyr::select(v, .data$x_, .data$y_)), 
                        S = cbind(a, b))
   t <- RTriangle::triangulate(p, ...)
   structure(list(TRI = t$T, V = t$P), class = "TRI")
 }
-plot.TRI <- function(x, ...) {
-  plot(x$V, pch = ".")
-  idx <- t(cbind(x$TRI, NA))
-  polygon(x$V[idx, ])
-}
+# plot.TRI <- function(x, ...) {
+#   plot(x$V, pch = ".")
+#   idx <- t(cbind(x$TRI, NA))
+#   polygon(x$V[idx, ])
+# }
 na_split <- function(x) {
   x <- split(x[c("x_", "y_")], x$path_)[unique(x$path_)]
   if (length(x) == 1) x[[1]] else head(dplyr::bind_rows(lapply(x, function(x) rbind(dplyr::distinct(x), NA))), -1)
 }
 
-#x <- PATH(minimal_mesh)
 triangulate.PATH <- function(x, ...) {
-  objlist <- x$path %>% split(.$object_)
+  objlist <- split(x$path, x$path$object_)
   objlist <- objlist[unique(x$path$object_)]
   trilist <- setNames(vector("list", length(objlist)), names(objlist))
   for (i in seq_along(objlist)) {
@@ -56,41 +99,3 @@ triangulate.PATH <- function(x, ...) {
   }
   dplyr::bind_rows(trilist, .id = "object_")
 }
-TRI <- function(x, ...) {
-  UseMethod("TRI")
-}
-TRI.default <- function(x, ...) {
-  TRI(PATH(x), ...)
-}
-TRI.PATH <- function(x, ...) {
-  if(any(grepl("MULTIPOLYGON", x$path$type))) {
-    message("MULTIPOLYGON ear clipping doesn't work in some cases:")
-    message("* try `sf::st_cast(x, \"POLYGON\")` if it fails")
-  }
-  tri <- triangulate.PATH(x)
-  obj <- sc_object(x)
-  #obj <- obj[obj$object_ %in% tri$object_, ]
-  structure(list(object = obj, triangle = tri, 
-                 vertex = sc_vertex(x)), class = c("TRI", "sc"))
-}
-sc_object.TRI <- function(x, ...) {
-  x[["object"]]
-}
-plot.TRI <- function(x, ...) {
-  
-  plot(x$vertex[c("x_", "y_")], type = "n")
-  cols <- sc_colours(nrow(sc_object(x)))
-  for (i in seq_len(nrow(x$object))) { 
-            asub <- dplyr::filter(x$triangle, .data$object_ == x$object$object_[i]) %>% 
-                dplyr::transmute(.vertex0, .vertex1, .vertex2, fill = NA_character_) %>% 
-               t() %>% 
-               as.vector() %>% 
-               tibble::tibble(vertex_ = .) %>% slice(-n())
-            polypath(dplyr::left_join(asub,x$vertex,  "vertex_") %>% dplyr::select(x_, y_), 
-                     col = cols[i], ...)
-            
- }
-}
-#plot(TRI(minimal_mesh))
-
-

@@ -8,6 +8,11 @@
 \usage{
 PRIMITIVE(x, ...)
 }
+\arguments{
+\item{x}{input model}
+
+\item{...}{arguments passed to methods}
+}
 \description{
 `sc_uid(n = )` replaced by `sc_uid(x = )`
 `PRIMITIVE()`

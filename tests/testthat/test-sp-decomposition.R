@@ -11,9 +11,12 @@ test_that("sp decomposition works", {
   expect_false(any(is.na(as.matrix(p))))
   
   a <- sc_arc(spobj)
-  a %>% expect_named(c("arc_", "vertex_"))
+  a %>% expect_named(c("arc_", "ncoords_"))
   pp <- PATH(spobj)
-  expect_equal(unname(unlist(lapply(pp, dim))), c(2L, 2L, 3L, 7L, 14L, 3L, 19L, 2L))
+
+  ## this table changed order in the pslg branch
+  ## but naming properly, will mean that never matters
+  expect_equal(unname(unlist(lapply(pp, dim))), c(2L, 2L, 3L, 7L, 19L, 2L, 14L, 3L))
   e <- sc_edge(spobj)
   e %>% expect_named(c(".vertex0", ".vertex1", "edge_"))
 })

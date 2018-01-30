@@ -99,7 +99,7 @@ NULL
 #' @name sc-deprecated
 NULL
 
-
+#' @inheritParams SC
 #' @name sc-deprecated
 PRIMITIVE <- function(x, ...) {
   .Defunct("SC", msg = "PRIMITIVE function no longer supported, see `SC` or `TRI` for alternatives")

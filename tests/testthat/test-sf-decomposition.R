@@ -26,7 +26,7 @@ test_that("geometrycollection decomposition works", {
 test_that("sf decomposition works", {
   PATH(minimal_mesh) %>% 
     expect_s3_class("PATH") %>% 
-    expect_named(c("object", "path", "vertex", "path_link_vertex"))
+    expect_named(c("object", "path", "path_link_vertex", "vertex"))
 })
 #nc = st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 test_that("joins are valid", {
@@ -37,7 +37,7 @@ obj <- polymesh
 test_that("object and path names as expected", {
    gibble::gibble(obj) %>% expect_named(c("nrow", "ncol", "type", "subobject", "object"))
    expect_true("layer" %in%                              names(sc_object(obj)))
-   expect_true(all(c("arc_", "vertex_") %in%               names(sc_arc(obj))))
+   expect_true(all(c("arc_", "ncoords_") %in%               names(sc_arc(obj))))
    expect_true(all(c("x_", "y_") %in%                      names(sc_coord(obj))))
    expect_true(all(c(".vertex0", ".vertex1", "edge_") %in% names(sc_edge(obj))))
    expect_equal("vertex_",                                       names(sc_node(obj)))

@@ -10,6 +10,13 @@ SC(x, ...)
 
 \method{plot}{SC}(x, ..., vars = NULL)
 }
+\arguments{
+\item{x}{input model}
+
+\item{...}{arguments passed to methods}
+
+\item{vars}{variables to plot}
+}
 \description{
 The universal model `SC` is coordinates and binary relations between
 pairs of coordinates. This is purely an edge (or segment) model, with all 

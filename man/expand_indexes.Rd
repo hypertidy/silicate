@@ -15,9 +15,9 @@ expand_indexes(x, ...)
 \method{expand_indexes}{compact_PATH}(x, ...)
 }
 \arguments{
-\item{x}{}
+\item{x}{input model}
 
-\item{...}{}
+\item{...}{arguments passed to methods}
 }
 \value{
 non-compact form, i.e. SC or PATH
@@ -26,5 +26,6 @@ non-compact form, i.e. SC or PATH
 Expand indexes from structural compaction
 }
 \examples{
-plot(SC(expand_indexes(compact_indexes(PATH(minimal_mesh)))))
+small <- compact_indexes(PATH(minimal_mesh))
+large <- expand_indexes(small)
 }

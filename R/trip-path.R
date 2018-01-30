@@ -1,7 +1,8 @@
 
 #' @export
 sc_path.trip <- function(x, ids = NULL, ...) {
-  x <- gibble::gibble(x) %>% dplyr::mutate(object_ = object)
+  x <- gibble::gibble(x) %>%
+    dplyr::mutate(object_ = .data$object)
   if (is.null(ids)) {
     ids <- sc_uid(length(unique(x[["object_"]])))
   } 
