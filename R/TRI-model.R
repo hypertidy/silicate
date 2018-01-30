@@ -1,16 +1,32 @@
-# sort(unique(unlist(lapply(strsplit(grep("sc_", ls("package:silicate"), value = TRUE), "\\."), "[", 1))))
-# [1] "sc_arc"          "sc_arc_base"     "sc_arc_PATH"     "sc_atom"         "sc_colours"      "sc_compact"     
-# [7] "sc_coord"        "sc_edge"         "sc_expand"       "sc_geom_names"   "sc_list"         "sc_node"        
-# [13] "sc_node_base"    "sc_object"       "sc_path"         "sc_segment"      "sc_segment_base" "sc_uid"         
-# [19] "sc_vertex"  
-# 
-# 
-# lfuns <- list(sc_arc, sc_coord, sc_edge, sc_node, sc_object, sc_path, sc_segment,  sc_vertex)
-# 
-# lfuns %>% invoke_map(, minimal_mesh) %>% purrr::map_int(nrow)
-# lfuns[-5] %>% invoke_map(, PATH(minimal_mesh)) %>% purrr::map_int(nrow)
-# lfuns[-c(5, 6, 7)] %>% invoke_map(, SC(minimal_mesh))
 
+
+#' Triangulation
+#' 
+triangulate_model <- function(x, ...) {
+  UseMethod("triangulate_model")
+}
+#' @examples
+#' dd <- minimal_mesh
+#' #dd <- nc
+#' #dd <- rnaturalearth::ne_countries(scale = 50, returnclass = "sf")
+#' x <- SC(dd)
+#' plot(x)
+#' xt <- triangulate.SC(x, D = TRUE)
+#' plot(xt)
+triangulate.SC <- function(x, ...) {
+  v <- x$vertex
+  a <- match(x$edge$.vertex0, v$vertex_)
+  b <- match(x$edge$.vertex1, v$vertex_)
+  p <- RTriangle::pslg(as.matrix(dplyr::select(v, x_, y_)), 
+                       S = cbind(a, b))
+  t <- RTriangle::triangulate(p, ...)
+  structure(list(TRI = t$T, V = t$P), class = "TRI")
+}
+plot.TRI <- function(x, ...) {
+  plot(x$V, pch = ".")
+  idx <- t(cbind(x$TRI, NA))
+  polygon(x$V[idx, ])
+}
 na_split <- function(x) {
   x <- split(x[c("x_", "y_")], x$path_)[unique(x$path_)]
   if (length(x) == 1) x[[1]] else head(dplyr::bind_rows(lapply(x, function(x) rbind(dplyr::distinct(x), NA))), -1)

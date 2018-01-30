@@ -1,28 +1,10 @@
-#' Triangulation
-#' 
-#' @examples
-#' dd <- minimal_mesh
-#' #dd <- nc
-#' #dd <- rnaturalearth::ne_countries(scale = 50, returnclass = "sf")
-#' x <- SC(dd)
-#' plot(x)
-#' xt <- triangulate.SC(x, D = TRUE)
-#' plot(xt)
-triangulate.SC <- function(x, ...) {
-  v <- x$vertex
-  a <- match(x$edge$.vertex0, v$vertex_)
-  b <- match(x$edge$.vertex1, v$vertex_)
-  p <- RTriangle::pslg(as.matrix(dplyr::select(v, x_, y_)), 
-                       S = cbind(a, b))
-  t <- RTriangle::triangulate(p, ...)
-  structure(list(TRI = t$T, V = t$P), class = "TRI")
-}
-plot.TRI <- function(x, ...) {
-  plot(x$V, pch = ".")
-  idx <- t(cbind(x$TRI, NA))
-  polygon(x$V[idx, ])
-}
 
+
+#' The universal model
+#' 
+#' The universal model `SC` is coordinates and binary relations between
+#' pairs of coordinates. This is purely an edge (or segment) model, with all 
+#' higher level structures recorded as groupings of edges. 
 #' @export
 SC <- function(x, ...) {
   UseMethod("SC")
@@ -53,6 +35,7 @@ compact_labels <- function(x) {
   x$edge <- dplyr::mutate(x$edge, .vertex0 = v0, .vertex1 = v1, edge_ = seq_len(nrow(x$edge)))
   x
 }
+#' @name SC
 #' @export
 plot.SC <- function(x, ..., vars = NULL) {
   
