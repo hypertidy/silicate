@@ -1,11 +1,11 @@
-#' object-value for cell-based raster (discrete pixels)
-#' (continuous pixels store values with coordinates)
+# object-value for cell-based raster (discrete pixels)
+# (continuous pixels store values with coordinates)
 sc_object.RasterLayer <- function(x, ...) {
   tibble::as_tibble(stats::setNames(list(seq_len(x@nrows * x@ncols), values(x)), c("object_", names(x))))
 }
 
 
-#' corner coordinates
+# corner coordinates
 sc_coord.RasterLayer <- function(x, ...) {
   setNames(tibble::as_tibble(quadmesh:::edgesXY(x)), c("x_", "y_"))
 }
@@ -15,11 +15,6 @@ sc_path.RasterLayer <- function(x, ...) {
   tibble::tibble(ncoords_ = 4, path_ = sc_uid(x@nrows * x@ncols))
 }
 
-
-
-#' the topology
-#'
-#'
 
 ## from quadmesh:::prs
 pairs_index <- function (x) {
