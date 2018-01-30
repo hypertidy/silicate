@@ -17,5 +17,5 @@ minimal_mesh <- st_sf(a = 1:2,
 devtools::use_data(minimal_mesh)
 
 ## this object will be removed once dodgr takes over
-mmesh <- PRIMITIVE(minimal_mesh)
-devtools::use_data(mmesh, overwrite = TRUE)
+#mmesh <- PRIMITIVE(minimal_mesh)
+#devtools::use_data(mmesh, overwrite = TRUE)

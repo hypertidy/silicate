@@ -10,11 +10,7 @@ sc_coord.RasterLayer <- function(x, ...) {
   setNames(tibble::as_tibble(quadmesh:::edgesXY(x)), c("x_", "y_"))
 }
 
-#' @examples
-#' r <- raster(matrix(1:2, 3))
-#' sc_object(r)
-#' sc_coord(r)
-#' sc_path(r)
+
 sc_path.RasterLayer <- function(x, ...) {
   tibble::tibble(ncoords_ = 4, path_ = sc_uid(x@nrows * x@ncols))
 }

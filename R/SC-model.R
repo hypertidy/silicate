@@ -1,6 +1,5 @@
-## PATH() sc_coord, sc_path, sc_object,
-
-## SC() sc_vertex, sc_edge, sc_segment
+#' Triangulation
+#' 
 #' @examples
 #' dd <- minimal_mesh
 #' #dd <- nc
