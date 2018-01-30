@@ -12,6 +12,10 @@ SC <- function(x, ...) {
   UseMethod("SC")
 }
 #' @export
+SC.SC <- function(x, ...) {
+  x
+}
+#' @export
 SC.default <- function(x, ...) {
   P <- PATH(x, ...)
   O <- sc_object(P)
