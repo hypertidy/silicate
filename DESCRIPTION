@@ -39,4 +39,4 @@ Imports:
     unjoin (>= 0.0.3),
     earclip.rgl
 VignetteBuilder: knitr
-Remotes: mdsumner/gibble, hypertidy/earclip.rgl
+Remotes: mdsumner/gibble, mdsumner/earclip.rgl
