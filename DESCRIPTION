@@ -29,6 +29,7 @@ Suggests:
 RoxygenNote: 6.0.1
 Imports: 
     dplyr,
+    earclip.rgl,
     ids,
     methods,
     purrr,
@@ -36,7 +37,6 @@ Imports:
     rlang,
     RTriangle,
     tibble,
-    earclip.rgl,
     unjoin (>= 0.0.3),
     viridis
 VignetteBuilder: knitr
