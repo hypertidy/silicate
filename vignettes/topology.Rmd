@@ -11,31 +11,82 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## silicate
 
-The `silicate` package is a response to a fragmented landscape where many workarounds and re-implementations of similar patterns
-are often repeated. 
+The `silicate` package provides a flexible basis for working with hierarchical data structures, 
+including spatial data. The key  strategy is to provide a clean separation betweeen topology and 
+geometry, to allow *naming* (or *labelling*) of component entities, and to support *intermediate* 
+and *universal* forms, patterns that exist within otherwise specific and bespoke types. Silicate is 
+a response to a fragmented landscape where many workarounds and re-implementations of similar 
+patterns are often repeated. 
 
-## PATH
+Silicate is composed of *normal-form models* and worker verbs for extracting (or otherwise 
+identifying) underlying entities.  By normal-form, we mean de-duplication, normalization in the database
+*removal of redundancy* sense. 
+
+The entities that we identify correspond to the names of the worker verbs. Whether a given model has all or
+any of these entities explicitly depends on the circumstances, but implicitly these are usually always present and depend only on interpretation. 
+
+* `sc_object` - highest level properties, the "features"
+* `sc_coord` - all instances of coordinates, labelled by vertex if the source model includes them
+* `sc_vertex` - only unique coordinates (in some geometric space)
+* `sc_path` - individual paths, sequential traces
+* `sc_edge` - unique binary relations, unordered segments
+* `sc_segment` - all instances of edges
+* `sc_arc` - unique topological paths, arcs either meet two other arcs at a node, or include no nodes
+* `sc_node` - unique nodes
+
+
+Finally there is an important extra verb, the `unjoin` - a function to *un join* a table, the 
+opposite of the database join which is used as a key step when building these models, used to 
+remove duplication at various levels. It's the primary mechanism for defining and building-in 
+*topology*, which is (precisely) the relationships between entities in a model.
+
+## MODELS
+
+Our capitalized model forms are all built from workflows that use these verbs. Here we illustrate with a very simple *simple features* model `minimal_mesh`, two polygons that share a single edge.  
+
+```{r minimal_mesh}
+library(silicate)
+
+plot(matrix(attr(minimal_mesh$geom, "bbox"), 2, byrow = TRUE), type = "n", xlab = "", ylab = "")
+rbind_na <- function(x) head(do.call(rbind, unlist(lapply(x, function(a) rbind(a, NA)), recursive = F)), -1)
+cols <- viridis::viridis(nrow(minimal_mesh))
+junk <- lapply(seq_along(minimal_mesh$geom), function(y) polypath(rbind_na(minimal_mesh$geom[[y]]), col = cols[y] ))
+
+
+```
+
+### SC
+
+This is the universal model, the one model that can be used to represent anything at all. 
+
+```{r SC}
+x <- SC(minimal_mesh)
+names(x)
+x$edge
+plot(x)
+text(x$vertex[c("x_", "y_")], label = x$vertex$vertex_)
+```
+
+### PATH
 
 At the highest level silicate provides a normalized form of a complicated structure containing *paths*. This data structure contains three paths, each of which is a sequentially joined set of coordinates. 
 
 The key aspect here is that each component entity is formally named, with a unique ID that we persist for subsequent usage. This persistence is required as it records relationships between existing entitites *implicitly* rather than baking data into structure that are both *explicit*  and also discard a lot of information about relationships. 
 
-```{r}
-library(silicate)
+```{r PATH}
 x <- PATH(minimal_mesh)
 names(x)
 ```
 
 At a basic level, the tables in this `PATH` are essentially the same as the kinds of structures we normally use, but we need to de-normalize them to see this exactly. 
 
-```{r}
+```{r reduce-path}
 library(dplyr)
 purrr::reduce(x[c("object", "path", "path_link_vertex", "vertex")], dplyr::inner_join) %>% 
   dplyr::select(object,subobject, path_, x_, y_)
 ```
 
 
-## EDGE
 
 Paths are easily re-expressed as a set of edges, treating each pair of coordinates as a new kind of entity. Some edges are *shared*, in that two objects might have a particular edge in their own path. If the shared neighbours are two polygons, then it's likely that each polygon encounters that edge in a different direction, but this is not a stable pattern so it's best to not assume it to be the case. It's important here because we need to differentiate between an *instance of an edge*, which is a particular *line segment* that is part of one particular polygon. If that polygon segment is a shared edge with a neighbour polygon, then we distinguish the instances as a particular *segment* of a unique *edge*. This allows us the opportunity to treat the edge as completely abstract, and also to decide or record what it's orientation is, which records which vertex is the first one, and which is the second. Not all applications need to care about this distinction, though. 
 
@@ -43,63 +94,33 @@ In this way we have an analogy for edges and segments compared to vertices and c
 
 Some temporary internal functions (with "_base" appended) here are used to find the unique edges, and then identify what vertices are *nodes* when treating a structure as a connected mesh. Nodes are any coordinate where three or more edges meet each other, so they are inherently about relationships between neighbouring shapes. This is exactly the same model as was used in the olden days, called arc-node topology, a one-dimensional topology that pre-dates the more modern use of closed planar paths to describe polygons. 
 
-```{r}
+```{r segment}
 library(dplyr)
-unique_edges <- dplyr::distinct(silicate:::sc_segment_base(x$path_link_vertex), edge_, .keep_all = TRUE)
-vertex <- x$vertex
-nodes <- silicate:::sc_node_base(unique_edges, vertex)
-library(sf); plot(minimal_mesh$geom)
-inner_join(nodes, x$vertex) %>% dplyr::select(x_, y_) %>% points()
+arc <- ARC(minimal_mesh)
+#unique_edges <- dplyr::distinct(silicate:::sc_segment_base(x$path_link_vertex), edge_, .keep_all = TRUE)
+#vertex <- x$vertex
+nodes <- sc_node(arc)
+plot(arc$vertex[c("x_", "y_")])
+inner_join(nodes, arc$vertex) %>% dplyr::select(x_, y_) %>% points(pch = "N")
 
 ```
+
+### ARC
+
 There's only one more entity we need, and this is the actual component paths that describe these structures topologically. These are paths that occur between any two nodes, or that have no nodes at all. This will occur for any isolated "island", or for any hole within a polygon.  These arcs are exactly analogous to a LINESTRING, but are used within a context where the nodes are important information about the topology. 
 
-Currently we haven't yet normalized the arcs  ... 
 
-
-or made this work yet ...
-
-
-```{r arc-node, eval=FALSE}
-arcs <- silicate:::sc_arc_base(x$path_link_vertex, nodes) 
-distinct(arcs, arc)
-
-
-sarcs <- split(arcs, arcs$arc_)
-for (i in seq_along(sarcs)) {
-  plot(sf::st_cast(minimal_mesh, "MULTILINESTRING"), col = "black")
-  lines(sarcs[[i]] %>% inner_join(x$vertex) %>% select(x_, y_), col = "firebrick", lwd = 2)
-}
+```{r arc-node}
+plot(arc)
 ```
 
 We haven't yet done any coordinate precision checking, so there will be mis-identified arcs where coordinates are intended to be but are not exactly the same. (spdep glosses over this in a way we can't control)
 
-```{r, eval=FALSE}
 
-library(dplyr)
-library(sf)
-col1 <- polymesh
-#example(st_read)
-x <- PATH(polymesh)
+### TRI
 
-unique_edges <- dplyr::distinct(silicate:::sc_segment_base(x$path_link_vertex), edge, .keep_all = TRUE)
-vertex <- x$vertex
-nodes <- silicate:::sc_node_base(unique_edges, vertex)
+Triangulations. Here we strictly want *constrained triangulations*, where there is no divergence from the
+planar coverage of input shape and it's triangulated decomposition. This is not easy to do, and there are
+two main methods. One is high-quality *mostly-Delaunay*  triangulations where the Delaunay condition is 
+relaxed in order to always align to input boundaries. Holes in a near-Delaunay triangulation are either removed by flood-fill from a seed-vertex, or by post-filtering the triangles whose centroid does not intersect the input boundaries. The second method is ear-clippping, a relatively inexpensive algorithm that produces low-quality triangle meshes. 
 
-arcs <- silicate:::sc_arc_base(x$path_link_vertex, nodes) 
-distinct(arcs, arc)
-
-
-
-sarcs <- split(arcs, arcs$arc_)
-sf_arcs <- st_sf(arc = seq_along(sarcs), st_sfc(lapply(sarcs, function(a) {
-  st_linestring(inner_join(a, x$vertex, "vertex_") %>% dplyr::select(x_, y_) %>% as.matrix())
-})))
-
-plot(sf_arcs)
-# for (i in seq_along(sarcs)) {
-#   plot(sf::st_cast(st_geometry(col1), "MULTILINESTRING"), col = "black")
-#   lines(sarcs[[i]] %>% inner_join(x$vertex) %>% dplyr::select(x_, y_), col = "firebrick", lwd = 2)
-# }
-
-```

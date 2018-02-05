@@ -80,15 +80,77 @@
 <div id="silicate" class="section level2">
 <h2 class="hasAnchor">
 <a href="#silicate" class="anchor"></a>silicate</h2>
-<p>The <code>silicate</code> package is a response to a fragmented landscape where many workarounds and re-implementations of similar patterns are often repeated.</p>
+<p>The <code>silicate</code> package provides a flexible basis for working with hierarchical data structures, including spatial data. The key strategy is to provide a clean separation betweeen topology and geometry, to allow <em>naming</em> (or <em>labelling</em>) of component entities, and to support <em>intermediate</em> and <em>universal</em> forms, patterns that exist within otherwise specific and bespoke types. Silicate is a response to a fragmented landscape where many workarounds and re-implementations of similar patterns are often repeated.</p>
+<p>Silicate is composed of <em>normal-form models</em> and worker verbs for extracting (or otherwise identifying) underlying entities. By normal-form, we mean de-duplication, normalization in the database <em>removal of redundancy</em> sense.</p>
+<p>The entities that we identify correspond to the names of the worker verbs. Whether a given model has all or any of these entities explicitly depends on the circumstances, but implicitly these are usually always present and depend only on interpretation.</p>
+<ul>
+<li>
+<code>sc_object</code> - highest level properties, the “features”</li>
+<li>
+<code>sc_coord</code> - all instances of coordinates, labelled by vertex if the source model includes them</li>
+<li>
+<code>sc_vertex</code> - only unique coordinates (in some geometric space)</li>
+<li>
+<code>sc_path</code> - individual paths, sequential traces</li>
+<li>
+<code>sc_edge</code> - unique binary relations, unordered segments</li>
+<li>
+<code>sc_segment</code> - all instances of edges</li>
+<li>
+<code>sc_arc</code> - unique topological paths, arcs either meet two other arcs at a node, or include no nodes</li>
+<li>
+<code>sc_node</code> - unique nodes</li>
+</ul>
+<p>Finally there is an important extra verb, the <code>unjoin</code> - a function to <em>un join</em> a table, the opposite of the database join which is used as a key step when building these models, used to remove duplication at various levels. It’s the primary mechanism for defining and building-in <em>topology</em>, which is (precisely) the relationships between entities in a model.</p>
 </div>
-<div id="path" class="section level2">
+<div id="models" class="section level2">
 <h2 class="hasAnchor">
-<a href="#path" class="anchor"></a>PATH</h2>
+<a href="#models" class="anchor"></a>MODELS</h2>
+<p>Our capitalized model forms are all built from workflows that use these verbs. Here we illustrate with a very simple <em>simple features</em> model <code>minimal_mesh</code>, two polygons that share a single edge.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(silicate)
+
+<span class="kw">plot</span>(<span class="kw">matrix</span>(<span class="kw">attr</span>(minimal_mesh<span class="op">$</span>geom, <span class="st">"bbox"</span>), <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>), <span class="dt">type =</span> <span class="st">"n"</span>, <span class="dt">xlab =</span> <span class="st">""</span>, <span class="dt">ylab =</span> <span class="st">""</span>)
+rbind_na &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">head</span>(<span class="kw">do.call</span>(rbind, <span class="kw">unlist</span>(<span class="kw">lapply</span>(x, <span class="cf">function</span>(a) <span class="kw">rbind</span>(a, <span class="ot">NA</span>)), <span class="dt">recursive =</span> F)), <span class="dv">-1</span>)
+cols &lt;-<span class="st"> </span>viridis<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/viridis/topics/reexports">viridis</a></span>(<span class="kw">nrow</span>(minimal_mesh))
+junk &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seq_along</span>(minimal_mesh<span class="op">$</span>geom), <span class="cf">function</span>(y) <span class="kw">polypath</span>(<span class="kw">rbind_na</span>(minimal_mesh<span class="op">$</span>geom[[y]]), <span class="dt">col =</span> cols[y] ))</code></pre></div>
+<p><img src="topology_files/figure-html/minimal_mesh-1.png" width="672"></p>
+<div id="sc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#sc" class="anchor"></a>SC</h3>
+<p>This is the universal model, the one model that can be used to represent anything at all.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">SC</span>(minimal_mesh)
+<span class="kw">names</span>(x)</code></pre></div>
+<pre><code>## [1] "object"           "object_link_edge" "edge"            
+## [4] "vertex"</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>edge</code></pre></div>
+<pre><code>## # A tibble: 15 x 3
+##    .vertex0 .vertex1 edge_   
+##    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   
+##  1 287fc18d cb3e5eef 53cf9782
+##  2 cb3e5eef 35db4aef 2c0da89c
+##  3 35db4aef 8603e73c 9054e889
+##  4 8603e73c 9d43c521 33915046
+##  5 9d43c521 6a180113 8e8b33d9
+##  6 6a180113 029aea9c 67037648
+##  7 029aea9c 287fc18d 29c640b3
+##  8 54a9e4b2 54edaab2 cec9675a
+##  9 54edaab2 8c2ec9cb 58263ec4
+## 10 8c2ec9cb b60d91fb f72819c5
+## 11 b60d91fb 2303e3a5 b9056541
+## 12 2303e3a5 54a9e4b2 a6e650f0
+## 13 6a180113 9cb76e64 9340e59e
+## 14 9cb76e64 fa5a7ba2 6ccc5d92
+## 15 fa5a7ba2 029aea9c 0f1b9a63</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(x)
+<span class="kw">text</span>(x<span class="op">$</span>vertex[<span class="kw">c</span>(<span class="st">"x_"</span>, <span class="st">"y_"</span>)], <span class="dt">label =</span> x<span class="op">$</span>vertex<span class="op">$</span>vertex_)</code></pre></div>
+<p><img src="topology_files/figure-html/SC-1.png" width="672"></p>
+</div>
+<div id="path" class="section level3">
+<h3 class="hasAnchor">
+<a href="#path" class="anchor"></a>PATH</h3>
 <p>At the highest level silicate provides a normalized form of a complicated structure containing <em>paths</em>. This data structure contains three paths, each of which is a sequentially joined set of coordinates.</p>
 <p>The key aspect here is that each component entity is formally named, with a unique ID that we persist for subsequent usage. This persistence is required as it records relationships between existing entitites <em>implicitly</em> rather than baking data into structure that are both <em>explicit</em> and also discard a lot of information about relationships.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(silicate)
-x &lt;-<span class="st"> </span><span class="kw">PATH</span>(minimal_mesh)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">PATH</span>(minimal_mesh)
 <span class="kw">names</span>(x)</code></pre></div>
 <pre><code>## [1] "object"           "path"             "path_link_vertex"
 ## [4] "vertex"</code></pre>
@@ -110,78 +172,51 @@ x &lt;-<span class="st"> </span><span class="kw">PATH</span>(minimal_mesh)
 <pre><code>## # A tibble: 19 x 5
 ##    object subobject path_       x_    y_
 ##     &lt;int&gt;     &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;
-##  1      1         1 4375eda1 0     0    
-##  2      1         1 4375eda1 0     1.00 
-##  3      1         1 4375eda1 0.750 1.00 
-##  4      1         1 4375eda1 1.00  0.800
-##  5      1         1 4375eda1 0.500 0.700
-##  6      1         1 4375eda1 0.800 0.600
-##  7      1         1 4375eda1 0.690 0    
-##  8      1         1 4375eda1 0     0    
-##  9      1         1 69ca0bf8 0.200 0.200
-## 10      1         1 69ca0bf8 0.500 0.200
-## 11      1         1 69ca0bf8 0.500 0.400
-## 12      1         1 69ca0bf8 0.300 0.600
-## 13      1         1 69ca0bf8 0.200 0.400
-## 14      1         1 69ca0bf8 0.200 0.200
-## 15      2         1 61422a96 0.690 0    
-## 16      2         1 61422a96 0.800 0.600
-## 17      2         1 61422a96 1.10  0.630
-## 18      2         1 61422a96 1.23  0.300
-## 19      2         1 61422a96 0.690 0</code></pre>
-</div>
-<div id="edge" class="section level2">
-<h2 class="hasAnchor">
-<a href="#edge" class="anchor"></a>EDGE</h2>
+##  1      1         1 fe3d26b4 0     0    
+##  2      1         1 fe3d26b4 0     1.00 
+##  3      1         1 fe3d26b4 0.750 1.00 
+##  4      1         1 fe3d26b4 1.00  0.800
+##  5      1         1 fe3d26b4 0.500 0.700
+##  6      1         1 fe3d26b4 0.800 0.600
+##  7      1         1 fe3d26b4 0.690 0    
+##  8      1         1 fe3d26b4 0     0    
+##  9      1         1 7d167cc4 0.200 0.200
+## 10      1         1 7d167cc4 0.500 0.200
+## 11      1         1 7d167cc4 0.500 0.400
+## 12      1         1 7d167cc4 0.300 0.600
+## 13      1         1 7d167cc4 0.200 0.400
+## 14      1         1 7d167cc4 0.200 0.200
+## 15      2         1 2853bdda 0.690 0    
+## 16      2         1 2853bdda 0.800 0.600
+## 17      2         1 2853bdda 1.10  0.630
+## 18      2         1 2853bdda 1.23  0.300
+## 19      2         1 2853bdda 0.690 0</code></pre>
 <p>Paths are easily re-expressed as a set of edges, treating each pair of coordinates as a new kind of entity. Some edges are <em>shared</em>, in that two objects might have a particular edge in their own path. If the shared neighbours are two polygons, then it’s likely that each polygon encounters that edge in a different direction, but this is not a stable pattern so it’s best to not assume it to be the case. It’s important here because we need to differentiate between an <em>instance of an edge</em>, which is a particular <em>line segment</em> that is part of one particular polygon. If that polygon segment is a shared edge with a neighbour polygon, then we distinguish the instances as a particular <em>segment</em> of a unique <em>edge</em>. This allows us the opportunity to treat the edge as completely abstract, and also to decide or record what it’s orientation is, which records which vertex is the first one, and which is the second. Not all applications need to care about this distinction, though.</p>
 <p>In this way we have an analogy for edges and segments compared to vertices and coordinates, and I think this terminology makes sense but I’m open to discussion(!).</p>
 <p>Some temporary internal functions (with “_base" appended) here are used to find the unique edges, and then identify what vertices are <em>nodes</em> when treating a structure as a connected mesh. Nodes are any coordinate where three or more edges meet each other, so they are inherently about relationships between neighbouring shapes. This is exactly the same model as was used in the olden days, called arc-node topology, a one-dimensional topology that pre-dates the more modern use of closed planar paths to describe polygons.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-unique_edges &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(silicate<span class="op">:::</span><span class="kw">sc_segment_base</span>(x<span class="op">$</span>path_link_vertex), edge_, <span class="dt">.keep_all =</span> <span class="ot">TRUE</span>)
-vertex &lt;-<span class="st"> </span>x<span class="op">$</span>vertex
-nodes &lt;-<span class="st"> </span>silicate<span class="op">:::</span><span class="kw">sc_node_base</span>(unique_edges, vertex)
-<span class="kw">library</span>(sf); <span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(minimal_mesh<span class="op">$</span>geom)</code></pre></div>
-<pre><code>## Linking to GEOS 3.6.2, GDAL 2.2.3, proj.4 4.9.3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/join.html">inner_join</a></span>(nodes, x<span class="op">$</span>vertex) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(x_, y_) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">points</span>()</code></pre></div>
+arc &lt;-<span class="st"> </span><span class="kw">ARC</span>(minimal_mesh)
+<span class="co">#unique_edges &lt;- dplyr::distinct(silicate:::sc_segment_base(x$path_link_vertex), edge_, .keep_all = TRUE)</span>
+<span class="co">#vertex &lt;- x$vertex</span>
+nodes &lt;-<span class="st"> </span><span class="kw">sc_node</span>(arc)
+<span class="kw">plot</span>(arc<span class="op">$</span>vertex[<span class="kw">c</span>(<span class="st">"x_"</span>, <span class="st">"y_"</span>)])
+<span class="kw"><a href="http://dplyr.tidyverse.org/reference/join.html">inner_join</a></span>(nodes, arc<span class="op">$</span>vertex) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(x_, y_) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">points</span>(<span class="dt">pch =</span> <span class="st">"N"</span>)</code></pre></div>
 <pre><code>## Joining, by = "vertex_"</code></pre>
-<p><img src="topology_files/figure-html/unnamed-chunk-3-1.png" width="672"> There’s only one more entity we need, and this is the actual component paths that describe these structures topologically. These are paths that occur between any two nodes, or that have no nodes at all. This will occur for any isolated “island”, or for any hole within a polygon. These arcs are exactly analogous to a LINESTRING, but are used within a context where the nodes are important information about the topology.</p>
-<p>Currently we haven’t yet normalized the arcs …</p>
-<p>or made this work yet …</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">arcs &lt;-<span class="st"> </span>silicate<span class="op">:::</span><span class="kw">sc_arc_base</span>(x<span class="op">$</span>path_link_vertex, nodes) 
-<span class="kw"><a href="http://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(arcs, arc)
-
-
-sarcs &lt;-<span class="st"> </span><span class="kw">split</span>(arcs, arcs<span class="op">$</span>arc_)
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(sarcs)) {
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(sf<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_cast">st_cast</a></span>(minimal_mesh, <span class="st">"MULTILINESTRING"</span>), <span class="dt">col =</span> <span class="st">"black"</span>)
-  <span class="kw">lines</span>(sarcs[[i]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/join.html">inner_join</a></span>(x<span class="op">$</span>vertex) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(x_, y_), <span class="dt">col =</span> <span class="st">"firebrick"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)
-}</code></pre></div>
+<p><img src="topology_files/figure-html/segment-1.png" width="672"></p>
+</div>
+<div id="arc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#arc" class="anchor"></a>ARC</h3>
+<p>There’s only one more entity we need, and this is the actual component paths that describe these structures topologically. These are paths that occur between any two nodes, or that have no nodes at all. This will occur for any isolated “island”, or for any hole within a polygon. These arcs are exactly analogous to a LINESTRING, but are used within a context where the nodes are important information about the topology.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(arc)</code></pre></div>
+<p><img src="topology_files/figure-html/arc-node-1.png" width="672"></p>
 <p>We haven’t yet done any coordinate precision checking, so there will be mis-identified arcs where coordinates are intended to be but are not exactly the same. (spdep glosses over this in a way we can’t control)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(sf)
-col1 &lt;-<span class="st"> </span>polymesh
-<span class="co">#example(st_read)</span>
-x &lt;-<span class="st"> </span><span class="kw">PATH</span>(polymesh)
-
-unique_edges &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(silicate<span class="op">:::</span><span class="kw">sc_segment_base</span>(x<span class="op">$</span>path_link_vertex), edge, <span class="dt">.keep_all =</span> <span class="ot">TRUE</span>)
-vertex &lt;-<span class="st"> </span>x<span class="op">$</span>vertex
-nodes &lt;-<span class="st"> </span>silicate<span class="op">:::</span><span class="kw">sc_node_base</span>(unique_edges, vertex)
-
-arcs &lt;-<span class="st"> </span>silicate<span class="op">:::</span><span class="kw">sc_arc_base</span>(x<span class="op">$</span>path_link_vertex, nodes) 
-<span class="kw"><a href="http://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(arcs, arc)
-
-
-
-sarcs &lt;-<span class="st"> </span><span class="kw">split</span>(arcs, arcs<span class="op">$</span>arc_)
-sf_arcs &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/sf">st_sf</a></span>(<span class="dt">arc =</span> <span class="kw">seq_along</span>(sarcs), <span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/sfc">st_sfc</a></span>(<span class="kw">lapply</span>(sarcs, <span class="cf">function</span>(a) {
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st">st_linestring</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/join.html">inner_join</a></span>(a, x<span class="op">$</span>vertex, <span class="st">"vertex_"</span>) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(x_, y_) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.matrix</span>())
-})))
-
-<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(sf_arcs)
-<span class="co"># for (i in seq_along(sarcs)) {</span>
-<span class="co">#   plot(sf::st_cast(st_geometry(col1), "MULTILINESTRING"), col = "black")</span>
-<span class="co">#   lines(sarcs[[i]] %&gt;% inner_join(x$vertex) %&gt;% dplyr::select(x_, y_), col = "firebrick", lwd = 2)</span>
-<span class="co"># }</span></code></pre></div>
+</div>
+<div id="tri" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tri" class="anchor"></a>TRI</h3>
+<p>Triangulations. Here we strictly want <em>constrained triangulations</em>, where there is no divergence from the planar coverage of input shape and it’s triangulated decomposition. This is not easy to do, and there are two main methods. One is high-quality <em>mostly-Delaunay</em> triangulations where the Delaunay condition is relaxed in order to always align to input boundaries. Holes in a near-Delaunay triangulation are either removed by flood-fill from a seed-vertex, or by post-filtering the triangles whose centroid does not intersect the input boundaries. The second method is ear-clippping, a relatively inexpensive algorithm that produces low-quality triangle meshes.</p>
+</div>
 </div>
 </div>
   </div>
@@ -192,8 +227,7 @@ sf_arcs &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocu
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#silicate">silicate</a></li>
-      <li><a href="#path">PATH</a></li>
-      <li><a href="#edge">EDGE</a></li>
+      <li><a href="#models">MODELS</a></li>
       </ul>
 </div>
       </div>
