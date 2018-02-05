@@ -64,56 +64,56 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_ 
 #>    <dbl> <dbl> <chr>   
-#>  1 0     0     9b121605
-#>  2 0     1.00  da249097
-#>  3 0.750 1.00  b52eb39f
-#>  4 1.00  0.800 00f108e6
-#>  5 0.500 0.700 ff6db764
-#>  6 0.800 0.600 d45a9aef
-#>  7 0.690 0     8efc6b50
-#>  8 0.200 0.200 552321b2
-#>  9 0.500 0.200 36bb58ce
-#> 10 0.500 0.400 3a4bb89a
-#> 11 0.300 0.600 19820251
-#> 12 0.200 0.400 73d9ef84
-#> 13 1.10  0.630 2ae072a2
-#> 14 1.23  0.300 9aa5c50f
+#>  1 0     0     ea8986f8
+#>  2 0     1.00  fc041dd2
+#>  3 0.750 1.00  43f7f7d5
+#>  4 1.00  0.800 26ff3bef
+#>  5 0.500 0.700 efa75e62
+#>  6 0.800 0.600 b34ccc99
+#>  7 0.690 0     75e54f88
+#>  8 0.200 0.200 9a2f5ccb
+#>  9 0.500 0.200 185d853d
+#> 10 0.500 0.400 5c0dffcc
+#> 11 0.300 0.600 1828ecc2
+#> 12 0.200 0.400 28f9ea4a
+#> 13 1.10  0.630 c97e4dc4
+#> 14 1.23  0.300 56a420c1
 
 sc_edge(x)
 #> # A tibble: 15 x 3
 #>    .vertex0 .vertex1 edge_   
 #>    <chr>    <chr>    <chr>   
-#>  1 9b121605 da249097 f1014655
-#>  2 da249097 b52eb39f 99eb8265
-#>  3 b52eb39f 00f108e6 ad44b5f6
-#>  4 00f108e6 ff6db764 ebf20bdb
-#>  5 ff6db764 d45a9aef dd93198e
-#>  6 d45a9aef 8efc6b50 69f1c6bf
-#>  7 8efc6b50 9b121605 3b400745
-#>  8 552321b2 36bb58ce 7c0b8c25
-#>  9 36bb58ce 3a4bb89a 318ce6d2
-#> 10 3a4bb89a 19820251 90b534dd
-#> 11 19820251 73d9ef84 dc6a6489
-#> 12 73d9ef84 552321b2 5b7f921e
-#> 13 d45a9aef 2ae072a2 f3dfae3b
-#> 14 2ae072a2 9aa5c50f a758327d
-#> 15 9aa5c50f 8efc6b50 049ec380
+#>  1 ea8986f8 fc041dd2 37e442c2
+#>  2 fc041dd2 43f7f7d5 60208806
+#>  3 43f7f7d5 26ff3bef 0b4922ac
+#>  4 26ff3bef efa75e62 ecc5e1fa
+#>  5 efa75e62 b34ccc99 24e14b80
+#>  6 b34ccc99 75e54f88 14fa38a1
+#>  7 75e54f88 ea8986f8 630879e5
+#>  8 9a2f5ccb 185d853d 89b68157
+#>  9 185d853d 5c0dffcc 1854e9be
+#> 10 5c0dffcc 1828ecc2 062c76a3
+#> 11 1828ecc2 28f9ea4a 5e3ec6f0
+#> 12 28f9ea4a 9a2f5ccb 0dc4c630
+#> 13 b34ccc99 c97e4dc4 a4e75dc1
+#> 14 c97e4dc4 56a420c1 6958570f
+#> 15 56a420c1 75e54f88 7035383d
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_ 
 #>   <chr>   
-#> 1 0615748f
-#> 2 d0644678
+#> 1 9fe2c048
+#> 2 8b57e2d3
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_     ncoords_
 #>   <chr>       <int>
-#> 1 0aca5d03        2
-#> 2 4bbee0bf        6
-#> 3 c159f16b        7
-#> 4 ca45f6d0        4
+#> 1 0b8d1b76        2
+#> 2 1a8df9ef        7
+#> 3 4c5f7d91        4
+#> 4 f66c9818        6
 ```
 
 silicate models

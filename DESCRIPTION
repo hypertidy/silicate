@@ -37,8 +37,8 @@ Imports:
     RTriangle,
     tibble,
     unjoin (>= 0.0.3),
-    earclip.rgl
+    earclip.rgl,
+    viridis
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 Remotes: mdsumner/gibble, mdsumner/earclip.rgl
-

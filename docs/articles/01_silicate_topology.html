@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The fabric of hierarchical structures • silicate</title>
+<title>silicate: the fabric of hierarchical structures • silicate</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
@@ -45,10 +45,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/topology.html">The fabric of hierarchical structures</a>
-    </li>
-    <li>
-      <a href="../articles/translator.html">Format translator</a>
+      <a href="../articles/01_silicate_topology.html">silicate: the fabric of hierarchical structures</a>
     </li>
   </ul>
 </li>
@@ -68,18 +65,18 @@
       </header><div class="row">
   <div class="col-md-9">
     <div class="page-header toc-ignore">
-      <h1>The fabric of hierarchical structures</h1>
-                        <h4 class="author">Michael Sumner</h4>
+      <h1>silicate: the fabric of hierarchical structures</h1>
+                        <h4 class="author">Michael D. Sumner</h4>
             
-            <h4 class="date">9/27/2017</h4>
+            <h4 class="date">2018-02-05</h4>
           </div>
 
     
     
 <div class="contents">
-<div id="silicate" class="section level2">
-<h2 class="hasAnchor">
-<a href="#silicate" class="anchor"></a>silicate</h2>
+<div id="silicate" class="section level1">
+<h1 class="hasAnchor">
+<a href="#silicate" class="anchor"></a>silicate</h1>
 <p>The <code>silicate</code> package provides a flexible basis for working with hierarchical data structures, including spatial data. The key strategy is to provide a clean separation betweeen topology and geometry, to allow <em>naming</em> (or <em>labelling</em>) of component entities, and to support <em>intermediate</em> and <em>universal</em> forms, patterns that exist within otherwise specific and bespoke types. Silicate is a response to a fragmented landscape where many workarounds and re-implementations of similar patterns are often repeated.</p>
 <p>Silicate is composed of <em>normal-form models</em> and worker verbs for extracting (or otherwise identifying) underlying entities. By normal-form, we mean de-duplication, normalization in the database <em>removal of redundancy</em> sense.</p>
 <p>The entities that we identify correspond to the names of the worker verbs. Whether a given model has all or any of these entities explicitly depends on the circumstances, but implicitly these are usually always present and depend only on interpretation.</p>
@@ -103,9 +100,9 @@
 </ul>
 <p>Finally there is an important extra verb, the <code>unjoin</code> - a function to <em>un join</em> a table, the opposite of the database join which is used as a key step when building these models, used to remove duplication at various levels. It’s the primary mechanism for defining and building-in <em>topology</em>, which is (precisely) the relationships between entities in a model.</p>
 </div>
-<div id="models" class="section level2">
-<h2 class="hasAnchor">
-<a href="#models" class="anchor"></a>MODELS</h2>
+<div id="models" class="section level1">
+<h1 class="hasAnchor">
+<a href="#models" class="anchor"></a>MODELS</h1>
 <p>Our capitalized model forms are all built from workflows that use these verbs. Here we illustrate with a very simple <em>simple features</em> model <code>minimal_mesh</code>, two polygons that share a single edge.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(silicate)
 
@@ -113,11 +110,11 @@
 rbind_na &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">head</span>(<span class="kw">do.call</span>(rbind, <span class="kw">unlist</span>(<span class="kw">lapply</span>(x, <span class="cf">function</span>(a) <span class="kw">rbind</span>(a, <span class="ot">NA</span>)), <span class="dt">recursive =</span> F)), <span class="dv">-1</span>)
 cols &lt;-<span class="st"> </span>viridis<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/viridis/topics/reexports">viridis</a></span>(<span class="kw">nrow</span>(minimal_mesh))
 junk &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seq_along</span>(minimal_mesh<span class="op">$</span>geom), <span class="cf">function</span>(y) <span class="kw">polypath</span>(<span class="kw">rbind_na</span>(minimal_mesh<span class="op">$</span>geom[[y]]), <span class="dt">col =</span> cols[y] ))</code></pre></div>
-<p><img src="topology_files/figure-html/minimal_mesh-1.png" width="672"></p>
-<div id="sc" class="section level3">
-<h3 class="hasAnchor">
-<a href="#sc" class="anchor"></a>SC</h3>
-<p>This is the universal model, the one model that can be used to represent anything at all.</p>
+<p><img src="01_silicate_topology_files/figure-html/minimal_mesh-1.png" width="672"></p>
+<div id="sc" class="section level2">
+<h2 class="hasAnchor">
+<a href="#sc" class="anchor"></a>SC</h2>
+<p>This is the universal model, the one model that can be used to represent anything at all. The key entity in SC is the <em>edge</em>, a single binary relationship identifying a line segment joining two vertices. Note how each edge and each vertex has a unique label. Since each primitive has exactly the same structure this model presents a number of optimizations, and all structures can be expressed in these terms. We can even abandon any record of <em>sequential paths</em> in these models because they can be re-derived by tracing through the labels at a later time.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">SC</span>(minimal_mesh)
 <span class="kw">names</span>(x)</code></pre></div>
 <pre><code>## [1] "object"           "object_link_edge" "edge"            
@@ -126,45 +123,38 @@ junk &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="k
 <pre><code>## # A tibble: 15 x 3
 ##    .vertex0 .vertex1 edge_   
 ##    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   
-##  1 0a77901a 957fd1a6 a405a122
-##  2 957fd1a6 dee90291 28d45ea2
-##  3 dee90291 db9978e3 90d48856
-##  4 db9978e3 f316d38f b9cb3b94
-##  5 f316d38f 92420516 686748dc
-##  6 92420516 e26d999c b3bcc668
-##  7 e26d999c 0a77901a 5fa3ca9e
-##  8 d77368de 66da5875 5cc11769
-##  9 66da5875 4dc7b299 4921fd50
-## 10 4dc7b299 d536f71d f0816504
-## 11 d536f71d 6bcb7f00 a9534264
-## 12 6bcb7f00 d77368de af0b71e2
-## 13 92420516 efd2be42 56ad2c4e
-## 14 efd2be42 75a7186d 47c5eab9
-## 15 75a7186d e26d999c 3b6750ef</code></pre>
+##  1 6af3f118 0a96e47a 1a82330f
+##  2 0a96e47a 250d42f3 7c308b88
+##  3 250d42f3 e5c05ca0 6df649fe
+##  4 e5c05ca0 4d48816c 78cbb2f9
+##  5 4d48816c 57ed97f8 ceb4d704
+##  6 57ed97f8 991e41d6 32085854
+##  7 991e41d6 6af3f118 40869ac5
+##  8 59f801ad c4fc58f5 934156a8
+##  9 c4fc58f5 35c337e9 1b253e85
+## 10 35c337e9 4bdbd993 015eee6e
+## 11 4bdbd993 eb2e3c25 4eafe8ce
+## 12 eb2e3c25 59f801ad ebd7f65a
+## 13 57ed97f8 76b4e2b1 d14bced9
+## 14 76b4e2b1 2cc8ff13 df80b169
+## 15 2cc8ff13 991e41d6 8ce6f520</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(x)
 <span class="kw">text</span>(x<span class="op">$</span>vertex[<span class="kw">c</span>(<span class="st">"x_"</span>, <span class="st">"y_"</span>)], <span class="dt">label =</span> x<span class="op">$</span>vertex<span class="op">$</span>vertex_)</code></pre></div>
-<p><img src="topology_files/figure-html/SC-1.png" width="672"></p>
+<p><img src="01_silicate_topology_files/figure-html/SC-1.png" width="672"></p>
 </div>
-<div id="path" class="section level3">
-<h3 class="hasAnchor">
-<a href="#path" class="anchor"></a>PATH</h3>
+<div id="path" class="section level2">
+<h2 class="hasAnchor">
+<a href="#path" class="anchor"></a>PATH</h2>
 <p>At the highest level silicate provides a normalized form of a complicated structure containing <em>paths</em>. This data structure contains three paths, each of which is a sequentially joined set of coordinates.</p>
 <p>The key aspect here is that each component entity is formally named, with a unique ID that we persist for subsequent usage. This persistence is required as it records relationships between existing entitites <em>implicitly</em> rather than baking data into structure that are both <em>explicit</em> and also discard a lot of information about relationships.</p>
+<p>Even though the path scheme requires that two vertices are visited separately by two polygon rings, we don’t expand out the vertices but simply record a reference to it in the path.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">PATH</span>(minimal_mesh)
 <span class="kw">names</span>(x)</code></pre></div>
 <pre><code>## [1] "object"           "path"             "path_link_vertex"
 ## [4] "vertex"</code></pre>
 <p>At a basic level, the tables in this <code>PATH</code> are essentially the same as the kinds of structures we normally use, but we need to de-normalize them to see this exactly.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
-<pre><code>## 
-## Attaching package: 'dplyr'</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/reduce">reduce</a></span>(x[<span class="kw">c</span>(<span class="st">"object"</span>, <span class="st">"path"</span>, <span class="st">"path_link_vertex"</span>, <span class="st">"vertex"</span>)], dplyr<span class="op">::</span>inner_join) <span class="op">%&gt;%</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/reduce">reduce</a></span>(x[<span class="kw">c</span>(<span class="st">"object"</span>, <span class="st">"path"</span>, <span class="st">"path_link_vertex"</span>, <span class="st">"vertex"</span>)], dplyr<span class="op">::</span>inner_join) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(object,subobject, path_, x_, y_)</code></pre></div>
 <pre><code>## Joining, by = "object_"</code></pre>
 <pre><code>## Joining, by = "path_"</code></pre>
@@ -172,56 +162,54 @@ junk &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="k
 <pre><code>## # A tibble: 19 x 5
 ##    object subobject path_       x_    y_
 ##     &lt;int&gt;     &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;
-##  1      1         1 167ea6dc 0     0    
-##  2      1         1 167ea6dc 0     1.00 
-##  3      1         1 167ea6dc 0.750 1.00 
-##  4      1         1 167ea6dc 1.00  0.800
-##  5      1         1 167ea6dc 0.500 0.700
-##  6      1         1 167ea6dc 0.800 0.600
-##  7      1         1 167ea6dc 0.690 0    
-##  8      1         1 167ea6dc 0     0    
-##  9      1         1 75873d0a 0.200 0.200
-## 10      1         1 75873d0a 0.500 0.200
-## 11      1         1 75873d0a 0.500 0.400
-## 12      1         1 75873d0a 0.300 0.600
-## 13      1         1 75873d0a 0.200 0.400
-## 14      1         1 75873d0a 0.200 0.200
-## 15      2         1 8ed955e2 0.690 0    
-## 16      2         1 8ed955e2 0.800 0.600
-## 17      2         1 8ed955e2 1.10  0.630
-## 18      2         1 8ed955e2 1.23  0.300
-## 19      2         1 8ed955e2 0.690 0</code></pre>
+##  1      1         1 ef96cfc4 0     0    
+##  2      1         1 ef96cfc4 0     1.00 
+##  3      1         1 ef96cfc4 0.750 1.00 
+##  4      1         1 ef96cfc4 1.00  0.800
+##  5      1         1 ef96cfc4 0.500 0.700
+##  6      1         1 ef96cfc4 0.800 0.600
+##  7      1         1 ef96cfc4 0.690 0    
+##  8      1         1 ef96cfc4 0     0    
+##  9      1         1 aee5e552 0.200 0.200
+## 10      1         1 aee5e552 0.500 0.200
+## 11      1         1 aee5e552 0.500 0.400
+## 12      1         1 aee5e552 0.300 0.600
+## 13      1         1 aee5e552 0.200 0.400
+## 14      1         1 aee5e552 0.200 0.200
+## 15      2         1 20df8948 0.690 0    
+## 16      2         1 20df8948 0.800 0.600
+## 17      2         1 20df8948 1.10  0.630
+## 18      2         1 20df8948 1.23  0.300
+## 19      2         1 20df8948 0.690 0</code></pre>
 <p>Paths are easily re-expressed as a set of edges, treating each pair of coordinates as a new kind of entity. Some edges are <em>shared</em>, in that two objects might have a particular edge in their own path. If the shared neighbours are two polygons, then it’s likely that each polygon encounters that edge in a different direction, but this is not a stable pattern so it’s best to not assume it to be the case. It’s important here because we need to differentiate between an <em>instance of an edge</em>, which is a particular <em>line segment</em> that is part of one particular polygon. If that polygon segment is a shared edge with a neighbour polygon, then we distinguish the instances as a particular <em>segment</em> of a unique <em>edge</em>. This allows us the opportunity to treat the edge as completely abstract, and also to decide or record what it’s orientation is, which records which vertex is the first one, and which is the second. Not all applications need to care about this distinction, though.</p>
-<p>In this way we have an analogy for edges and segments compared to vertices and coordinates, and I think this terminology makes sense but I’m open to discussion(!).</p>
-<p>Some temporary internal functions (with “_base" appended) here are used to find the unique edges, and then identify what vertices are <em>nodes</em> when treating a structure as a connected mesh. Nodes are any coordinate where three or more edges meet each other, so they are inherently about relationships between neighbouring shapes. This is exactly the same model as was used in the olden days, called arc-node topology, a one-dimensional topology that pre-dates the more modern use of closed planar paths to describe polygons.</p>
+<p>In this way we have an analogy for edges and segments compared to vertices and coordinates, and I think this terminology makes sense!</p>
+</div>
+<div id="arc" class="section level2">
+<h2 class="hasAnchor">
+<a href="#arc" class="anchor"></a>ARC</h2>
+<p>There’s only one more entity we need to describe an alternative view of this polygon data, the actual component paths that describe these structures topologically. These are paths that occur between any two nodes, or that have no nodes at all. This will occur for any isolated “island”, or for any hole within a polygon. These arcs are exactly analogous to a LINESTRING, but are used within a context where the nodes are important information about the topology.</p>
+<p>Nodes are any coordinate where three or more edges meet each other, so they are inherently about relationships between neighbouring shapes. This is exactly the same model as was used in the olden days, called arc-node topology, a one-dimensional topology that pre-dates the more modern use of closed planar paths to describe polygons.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 arc &lt;-<span class="st"> </span><span class="kw">ARC</span>(minimal_mesh)
-<span class="co">#unique_edges &lt;- dplyr::distinct(silicate:::sc_segment_base(x$path_link_vertex), edge_, .keep_all = TRUE)</span>
-<span class="co">#vertex &lt;- x$vertex</span>
 nodes &lt;-<span class="st"> </span><span class="kw">sc_node</span>(arc)
-<span class="kw">plot</span>(arc<span class="op">$</span>vertex[<span class="kw">c</span>(<span class="st">"x_"</span>, <span class="st">"y_"</span>)])
+
+<span class="kw">plot</span>(arc)
 <span class="kw"><a href="http://dplyr.tidyverse.org/reference/join.html">inner_join</a></span>(nodes, arc<span class="op">$</span>vertex) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(x_, y_) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">points</span>(<span class="dt">pch =</span> <span class="st">"N"</span>)</code></pre></div>
 <pre><code>## Joining, by = "vertex_"</code></pre>
-<p><img src="topology_files/figure-html/segment-1.png" width="672"></p>
-</div>
-<div id="arc" class="section level3">
-<h3 class="hasAnchor">
-<a href="#arc" class="anchor"></a>ARC</h3>
-<p>There’s only one more entity we need, and this is the actual component paths that describe these structures topologically. These are paths that occur between any two nodes, or that have no nodes at all. This will occur for any isolated “island”, or for any hole within a polygon. These arcs are exactly analogous to a LINESTRING, but are used within a context where the nodes are important information about the topology.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(arc)</code></pre></div>
-<p><img src="topology_files/figure-html/arc-node-1.png" width="672"></p>
+<p><img src="01_silicate_topology_files/figure-html/arc-node-1.png" width="672"></p>
 <p>We haven’t yet done any coordinate precision checking, so there will be mis-identified arcs where coordinates are intended to be but are not exactly the same. (spdep glosses over this in a way we can’t control)</p>
+<p>Example from wrld_simpl …</p>
 </div>
-<div id="tri" class="section level3">
-<h3 class="hasAnchor">
-<a href="#tri" class="anchor"></a>TRI</h3>
+<div id="tri" class="section level2">
+<h2 class="hasAnchor">
+<a href="#tri" class="anchor"></a>TRI</h2>
 <p>Triangulations. Here we strictly want <em>constrained triangulations</em>, where there is no divergence from the planar coverage of input shape and its triangulated decomposition. This is not easy to do, and there are two main methods. One is high-quality <em>mostly-Delaunay</em> triangulations where the Delaunay condition is relaxed in order to always align to input boundaries. Holes in a near-Delaunay triangulation are either removed by flood-fill from a seed-vertex, or by post-filtering the triangles whose centroid does not intersect the input boundaries. The second method is ear-clippping, a relatively inexpensive algorithm that produces low-quality triangle meshes.</p>
 <p>Currently silicate can only provide the second form, the ear-clipping method as used in package <code>rgl</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tri &lt;-<span class="st"> </span><span class="kw">TRI</span>(minimal_mesh)</code></pre></div>
 <pre><code>## MULTIPOLYGON ear clipping doesn't work in some cases:</code></pre>
 <pre><code>## * try `sf::st_cast(x, "POLYGON")` if it fails</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(tri)</code></pre></div>
-<p><img src="topology_files/figure-html/TRI-1.png" width="672"></p>
+<p><img src="01_silicate_topology_files/figure-html/TRI-1.png" width="672"></p>
 <p>The <a href="https://CRAN.R-project.org/package=unjoin">CRAN package sfdct</a> will use the first method (package <code>RTriangle</code> wraps the Triangle library) for simple features.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#plot(sfdct::ct_triangulate(minimal_mesh))</span></code></pre></div>
 </div>
@@ -235,7 +223,14 @@ nodes &lt;-<span class="st"> </span><span class="kw">sc_node</span>(arc)
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#silicate">silicate</a></li>
-      <li><a href="#models">MODELS</a></li>
+      <li>
+<a href="#models">MODELS</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#sc">SC</a></li>
+      <li><a href="#path">PATH</a></li>
+      <li><a href="#arc">ARC</a></li>
+      <li><a href="#tri">TRI</a></li>
+      </ul>
+</li>
       </ul>
 </div>
       </div>

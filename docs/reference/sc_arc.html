@@ -68,10 +68,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/topology.html">The fabric of hierarchical structures</a>
-    </li>
-    <li>
-      <a href="../articles/translator.html">Format translator</a>
+      <a href="../articles/01_silicate_topology.html">silicate: the fabric of hierarchical structures</a>
     </li>
   </ul>
 </li>
@@ -134,14 +131,14 @@ work with models that don't included labels.</p>
     <pre class="examples"><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;   arc_     ncoords_
 #&gt;   &lt;chr&gt;       &lt;int&gt;
-#&gt; 1 5f80aa1d        4
-#&gt; 2 a6b7199a        2
-#&gt; 3 b046db1f        6
-#&gt; 4 de4b522d        7</div><div class='input'><span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)<span class='kw'>[[</span><span class='st'>"arc"</span>]]</div><div class='output co'>#&gt; NULL</div><div class='input'>
+#&gt; 1 0b4a8722        2
+#&gt; 2 126d3059        4
+#&gt; 3 9468b22d        6
+#&gt; 4 a4211fbb        7</div><div class='input'><span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)<span class='kw'>[[</span><span class='st'>"arc"</span>]]</div><div class='output co'>#&gt; NULL</div><div class='input'>
 <span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)
-<span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>arc</span>$<span class='no'>vertex</span>[<span class='fu'>match</span>(<span class='fu'>sc_node</span>(<span class='no'>arc</span>)$<span class='no'>vertex_</span>, <span class='no'>arc</span>$<span class='no'>vertex</span>$<span class='no'>vertex_</span>), <span class='fu'>c</span>(<span class='st'>"x_"</span>, <span class='st'>"y_"</span>)])</div><div class='img'><img src='sc_arc-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='fu'>points</span>(<span class='no'>arc</span>$<span class='no'>vertex</span>[<span class='fu'>match</span>(<span class='fu'>sc_node</span>(<span class='no'>arc</span>)$<span class='no'>vertex_</span>, <span class='no'>arc</span>$<span class='no'>vertex</span>$<span class='no'>vertex_</span>), <span class='fu'>c</span>(<span class='st'>"x_"</span>, <span class='st'>"y_"</span>)])</div><div class='output co'>#&gt; <span class='error'>Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet</span></div><div class='input'>
 <span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'>ARC</span>(<span class='no'>polymesh</span>)
-<span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='input'><span class='fu'>title</span>(<span class='st'>"arcs and nodes"</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>arc</span>$<span class='no'>vertex</span>[<span class='fu'>match</span>(<span class='fu'>sc_node</span>(<span class='no'>arc</span>)$<span class='no'>vertex_</span>, <span class='no'>arc</span>$<span class='no'>vertex</span>$<span class='no'>vertex_</span>), <span class='fu'>c</span>(<span class='st'>"x_"</span>, <span class='st'>"y_"</span>)])</div><div class='img'><img src='sc_arc-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.xy(xy, type, ...): invalid graphics state</span></div><div class='input'><span class='fu'>title</span>(<span class='st'>"arcs and nodes"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in title("arcs and nodes"): invalid graphics state</span></div><div class='input'><span class='fu'>points</span>(<span class='no'>arc</span>$<span class='no'>vertex</span>[<span class='fu'>match</span>(<span class='fu'>sc_node</span>(<span class='no'>arc</span>)$<span class='no'>vertex_</span>, <span class='no'>arc</span>$<span class='no'>vertex</span>$<span class='no'>vertex_</span>), <span class='fu'>c</span>(<span class='st'>"x_"</span>, <span class='st'>"y_"</span>)])</div><div class='output co'>#&gt; <span class='error'>Error in plot.xy(xy.coords(x, y), type = type, ...): invalid graphics state</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

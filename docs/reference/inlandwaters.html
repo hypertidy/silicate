@@ -68,10 +68,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/topology.html">The fabric of hierarchical structures</a>
-    </li>
-    <li>
-      <a href="../articles/translator.html">Format translator</a>
+      <a href="../articles/01_silicate_topology.html">silicate: the fabric of hierarchical structures</a>
     </li>
   </ul>
 </li>
@@ -118,7 +115,7 @@ Macquarie Island are both present, as part of New South Wales and Tasmania respe
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='fu'>PATH</span>(<span class='no'>inlandwaters</span>)
-<span class='fu'>plot</span>(<span class='no'>path</span>)</div><div class='img'><img src='inlandwaters-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'>split</span>(<span class='no'>path</span>$<span class='no'>path_link_vertex</span>, <span class='no'>path</span>$<span class='no'>path_link_vertex</span>$<span class='no'>path_</span>)
+<span class='fu'>plot</span>(<span class='no'>path</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'>split</span>(<span class='no'>path</span>$<span class='no'>path_link_vertex</span>, <span class='no'>path</span>$<span class='no'>path_link_vertex</span>$<span class='no'>path_</span>)
 <span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>grDevices</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/grDevices/topics/colors'>colors</a></span>()[-<span class='fl'>1L</span>]
 <span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'>sample</span>(<span class='no'>cl</span>, <span class='fu'>length</span>(<span class='no'>obj</span>), <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fu'>length</span>(<span class='no'>obj</span>) <span class='kw'>&gt;</span> <span class='fu'>length</span>(<span class='no'>cl</span>))
 <span class='no'>op</span> <span class='kw'>&lt;-</span> <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='kw pkg'>grDevices</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/grDevices/topics/n2mfrow'>n2mfrow</a></span>(<span class='fu'>length</span>(<span class='no'>obj</span>)), <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>0</span>, <span class='fl'>4</span>))
@@ -131,7 +128,7 @@ Macquarie Island are both present, as part of New South Wales and Tasmania respe
   <span class='fu'>funplot</span>(<span class='no'>obj</span><span class='kw'>[[</span><span class='no'>a</span>]], <span class='no'>path</span>$<span class='no'>vertex</span>, <span class='no'>cols</span>[<span class='no'>a</span>])
   <span class='fu'>invisible</span>(<span class='kw'>NULL</span>)
   })
-  <span class='fu'>par</span>(<span class='no'>op</span>)</div><div class='img'><img src='inlandwaters-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+  <span class='fu'>par</span>(<span class='no'>op</span>)</div><div class='img'><img src='inlandwaters-5.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

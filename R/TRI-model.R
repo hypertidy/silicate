@@ -39,7 +39,7 @@ plot.TRI <- function(x, ...) {
       t() %>% 
       as.vector() 
     asub <-   tibble::tibble(vertex_ = asub)
-    asub <- head(asub, -nrow(asub))
+    asub <- head(asub, -1L)
     graphics::polypath(dplyr::left_join(asub,x$vertex,  "vertex_") %>% dplyr::select(.data$x_, .data$y_), 
              col = cols[i], ...)
     
