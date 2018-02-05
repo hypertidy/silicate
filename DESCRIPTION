@@ -36,8 +36,8 @@ Imports:
     rlang,
     RTriangle,
     tibble,
-    unjoin (>= 0.0.3),
     earclip.rgl,
+    unjoin (>= 0.0.3),
     viridis
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
