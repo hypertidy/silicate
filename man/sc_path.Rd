@@ -67,7 +67,7 @@ sc_path(x, ...)
 
 \item{...}{arguments passed to methods}
 
-\item{ids}{object id, one for each object in the `sfc`}
+\item{ids}{object id, one for each object in the \code{sfc}}
 }
 \description{
 Start in the middle, and build the 'path-link-vertex' table.
@@ -89,6 +89,6 @@ sc_path(sfzoo$multipoint)
 sc_path(sfzoo$multipoint)
 }
 \seealso{
-`sc_coord` for the coordinates part of the model, `sc_object` for 
-the features, and `PATH` for the full model.
+\code{sc_coord} for the coordinates part of the model, \code{sc_object} for
+the features, and \code{PATH} for the full model.
 }

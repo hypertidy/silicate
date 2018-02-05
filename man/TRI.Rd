@@ -4,7 +4,7 @@
 \alias{TRI}
 \alias{TRI}
 \alias{plot.TRI}
-\title{Triangulation model}
+\title{TRI model, triangulations}
 \usage{
 TRI(x, ...)
 
@@ -19,5 +19,5 @@ TRI(x, ...)
 TRI model
 }
 \description{
-Triangulation model
+TRI model, triangulations
 }

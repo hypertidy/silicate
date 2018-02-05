@@ -4,7 +4,7 @@
 \alias{SC}
 \alias{SC}
 \alias{plot.SC}
-\title{The universal model}
+\title{The universal model, SC}
 \usage{
 SC(x, ...)
 
@@ -18,7 +18,7 @@ SC(x, ...)
 \item{vars}{variables to plot}
 }
 \description{
-The universal model `SC` is coordinates and binary relations between
-pairs of coordinates. This is purely an edge (or segment) model, with all 
+The universal model \code{SC} is coordinates and binary relations between
+pairs of coordinates. This is purely an edge (or segment) model, with all
 higher level structures recorded as groupings of edges.
 }

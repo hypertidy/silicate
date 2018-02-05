@@ -8,6 +8,11 @@ NULL
 #' 
 #' A simple set of `sf` neighbouring polygons, with redundant vertices created
 #' from polygonizing a raster. 
+#' @examples 
+#' arc <- ARC(polymesh)
+#' plot(arc)
+#' sc <- SC(polymesh)
+#' plot(sc)
 #' @name polymesh
 #' @docType data 
 NULL
@@ -24,21 +29,30 @@ NULL
 
 #' Minimal mesh. 
 #' 
-#' The simplest pairing of two polygons with one shared edge. 
+#' The simplest pairing of two polygons with one shared edge. One polygon
+#' contains a hole and a concavity, the other is a simply convex. This is 
+#' composed of four "arcs", one around each polygon, one for the shared edge, and 
+#' one for the isolated hole. There are two nodes, the endpoints of the single shared edge.
+#' @examples
+#' arc <- ARC(minimal_mesh) 
+#' plot(arc) 
+#' sc_arc(arc)
+#' sc_node(arc)
 #' @name minimal_mesh
 #' @docType package
 NULL
 
 #' Simple features zoo.
 #' 
-#' A list with basic examples of each type of simple feature. 
-#' 
-#' \code{sfgc} is a GEOMETRYCOLLECTION, separate from the \code{sfzoo}. 
-#' 
-#'  The gc contains the zoo.  
-#'  @examples 
-#' # sf::st_sfc(sfzoo)
-#' # sf::st_sfc(sfgc)
+#' Basic examples of each type of simple feature geometry. `sfzoo` is a list
+#' with each of *point*, *multipoin*, *linestring*, *multilinestring*, *polygon* and
+#' *multipolygon*. `sfgc` is a *GEOMETRYCOLLECTION* of all the types in `sfzoo`. 
+#' @examples 
+#' lapply(sfzoo, sc_coord)
+#' lapply(sfzoo, sc_path)
+#'  
+#' ## unsure how usefult this is ...
+#' sc_path(sfgc)
 #' @aliases sfgc sfzoo
 #' @name sfzoo
 #' @docType data
@@ -47,7 +61,7 @@ NULL
 
 #' Inland waters, for parts of Australia, and New Caledonia. 
 #' 
-#' The inland waters are lakes and so on, presenting as holes
+#' The inland waters are lakes and inland waters presenting as holes
 #' within the bounded regions of Australian (and New Caledonian) provinces. 
 #' 
 #' This is an extract from the old Manifold DVD. It is in `sf` format`.
@@ -61,8 +75,20 @@ NULL
 #'  \item{"103848"}{Victoria}
 #' }
 #' There's no good reason that New Caledonia is included and not Queensland (for example)
-#' it's just what happened doing a quick crop and extract with the mouse. 
-#' 
+#' it's just what happened doing a quick crop and extract with the mouse. Lord Howe Island and
+#' Macquarie Island are both present, as part of New South Wales and Tasmania respectively. 
+#' @examples 
+#' path <- PATH(inlandwaters)
+#' plot(path)
+#' obj <- split(path$path_link_vertex, path$path_link_vertex$path_)
+#' cl <- grDevices::colors()[-1L]
+#' cols <- sample(cl, length(obj), replace = length(obj) > length(cl))
+#' par(mfrow = grDevices::n2mfrow(length(obj)), mar = rep(0, 4))
+#' junk <- lapply(seq_along(obj), 
+#' function(a) {
+#'   plot(dplyr::inner_join(obj[[a]], path$vertex, "vertex_")[c("x_", "y_")], col = cols[a], type = "l", axes = FALSE)
+#'   invisible(NULL)
+#'   })
 #' @aliases inlandwaters
 #' @name inlandwaters
 #' @docType data
@@ -71,12 +97,12 @@ NULL
 
 #' Flight tracks
 #' 
-#' An interesting data set in XYZM form, so it can act as a form of 4D tracks. Primarily to
+#' A data set flight tracks in XYZM form, a form of 4D tracks. Primarily to
 #' explore the use of `silicate` as able to represent this topologically,  and to experiment with
 #' auto-time-based plotting in `anglr`. 
 #'  
 #' Provided by  Kent Johnson (kent37) in a 
-#'  [github discussion](https://github.com/r-spatial/mapview/issues/99#issuecomment-328711275) 
+#'  [github discusion](https://github.com/r-spatial/mapview/issues/99#issuecomment-328711275)
 #'  where the data was attached in a zip file.
 #' 
 #' Original form (in extdata/flight_tracks) is a XYZM LINESTRING shapefile

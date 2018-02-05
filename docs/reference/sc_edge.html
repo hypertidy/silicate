@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Unique edges for arc-node topology. — sc_edge • silicate</title>
+<title>Edges. — sc_edge • silicate</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -93,11 +93,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Unique edges for arc-node topology.</h1>
+    <h1>Edges.</h1>
     </div>
 
     
-    <p>So-called "arcs" are unclosed paths that end in nodes, vertices shared by other arcs.</p>
+    <p>Simple binary relationships, a primitive composed of two vertices.</p>
     
 
     <pre class="usage"><span class='fu'>sc_edge</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -121,13 +121,20 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Edges are unique, undirected line segments. Compare to <code>sc_segment</code> which refers to all
+instances of edges.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

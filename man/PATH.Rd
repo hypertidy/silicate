@@ -4,7 +4,7 @@
 \alias{PATH}
 \alias{PATH}
 \alias{PATH.default}
-\title{Generate a PATH model.}
+\title{PATH model.}
 \usage{
 PATH(x, ...)
 
@@ -17,8 +17,8 @@ PATH(x, ...)
 }
 \description{
 A PATH model is a direct translation of a simple features-alike
-object to normal form. This is four tables with the three kinds of entities, 
-"objects" (or "features"), "paths" (or "parts") and "vertices", and a table 
+object to normal form. This is four tables with the three kinds of entities,
+"objects" (or "features"), "paths" (or "parts") and "vertices", and a table
 to link the one-to-many relation between paths and vertices.
 }
 \details{
@@ -27,5 +27,5 @@ will be the removal of the duplicated closing coordinate on any polygon ring, an
 any self-intersecting case within a single path.
 }
 \seealso{
-`sc_path`, `sc_coord`
+\code{sc_path}, \code{sc_coord}
 }

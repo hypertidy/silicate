@@ -59,13 +59,13 @@ sc_coord(x, ...)
 \method{sc_coord}{default}(x, ...)
 }
 \arguments{
-\item{x}{input object}
+\item{x}{input model}
 
 \item{...}{arguments passed to methods}
 }
 \description{
-Collect all coordinates in one table, the path_link_vertex table
-has the information about the original grouping.
+Collect all instances of all coordinates in one table. This complementary to the \code{sc_path} of
+an object, since the number of coordinates per path gives a structural mapping into this set.
 
 Collect all coordinates in one table, the path_link_vertex table
 has the information about the original grouping.
@@ -77,9 +77,9 @@ data("sfzoo")
 #sc_coord(sf::st_sfc(sfzoo))
 }
 \seealso{
-`sc_path` for the central part of the model, `sc_object` for 
-the features, and `PATH` for the full model.
+\code{sc_path} for the central part of the model, \code{sc_object} for
+the features, and \code{PATH} for the full model.
 
-`sc_path` for the central part of the model, `sc_object` for 
-the features, and `PATH` for the full model.
+\code{sc_path} for the central part of the model, \code{sc_object} for
+the features, and \code{PATH} for the full model.
 }

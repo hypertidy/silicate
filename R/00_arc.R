@@ -1,5 +1,5 @@
 
-#' Arcs for arc-node topology. 
+#' Arc-node topology. 
 #' 
 #' Return a label and vertex count of each arc. 
 #' 
@@ -15,6 +15,15 @@
 #' @examples
 #' sc_arc(minimal_mesh)
 #' ARC(minimal_mesh)[["arc"]]
+#'
+#' arc <- ARC(minimal_mesh)
+#' plot(arc)
+#' points(arc$vertex[match(sc_node(arc)$vertex_, arc$vertex$vertex_), c("x_", "y_")])
+#' 
+#' arc <- ARC(polymesh)
+#' plot(arc)
+#' title("arcs and nodes")
+#' points(arc$vertex[match(sc_node(arc)$vertex_, arc$vertex$vertex_), c("x_", "y_")])
 sc_arc <- function(x, ...) {
   UseMethod("sc_arc")
 }

@@ -40,3 +40,4 @@ Imports:
     earclip.rgl
 VignetteBuilder: knitr
 Remotes: mdsumner/gibble, hypertidy/earclip.rgl
+Roxygen: list(markdown = TRUE)

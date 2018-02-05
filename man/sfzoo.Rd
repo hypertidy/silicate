@@ -6,13 +6,14 @@
 \alias{sfgc}
 \title{Simple features zoo.}
 \description{
-A list with basic examples of each type of simple feature.
+Basic examples of each type of simple feature geometry. \code{sfzoo} is a list
+with each of \emph{point}, \emph{multipoin}, \emph{linestring}, \emph{multilinestring}, \emph{polygon} and
+\emph{multipolygon}. \code{sfgc} is a \emph{GEOMETRYCOLLECTION} of all the types in \code{sfzoo}.
 }
-\details{
-\code{sfgc} is a GEOMETRYCOLLECTION, separate from the \code{sfzoo}.
-
-The gc contains the zoo.  
- @examples 
-# sf::st_sfc(sfzoo)
-# sf::st_sfc(sfgc)
+\examples{
+lapply(sfzoo, sc_coord)
+lapply(sfzoo, sc_path)
+ 
+## unsure how usefult this is ...
+sc_path(sfgc)
 }

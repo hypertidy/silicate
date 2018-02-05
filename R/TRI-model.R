@@ -1,4 +1,4 @@
-#' Triangulation model
+#' TRI model, triangulations
 #'
 #' @inheritParams SC
 #' @return TRI model

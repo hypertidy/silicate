@@ -16,5 +16,5 @@ Find unique labels for entities, or create them
 if not present.
 }
 \details{
-See `ids` package for `random_id` when they are created.
+See \code{ids} package for \code{random_id} when they are created.
 }

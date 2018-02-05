@@ -1,6 +1,9 @@
-#' Unique edges for arc-node topology. 
+#' Edges. 
 #' 
-#' So-called "arcs" are unclosed paths that end in nodes, vertices shared by other arcs. 
+#' Simple binary relationships, a primitive composed of two vertices. 
+#' 
+#' Edges are unique, undirected line segments. Compare to `sc_segment` which refers to all
+#' instances of edges. 
 #' @param x input object
 #' @param ... arguments for methods
 #' @name sc_edge

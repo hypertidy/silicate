@@ -5,20 +5,33 @@
 \alias{inlandwaters}
 \title{Inland waters, for parts of Australia, and New Caledonia.}
 \description{
-The inland waters are lakes and so on, presenting as holes
+The inland waters are lakes and inland waters presenting as holes
 within the bounded regions of Australian (and New Caledonian) provinces.
 }
 \details{
-This is an extract from the old Manifold DVD. It is in `sf` format`.
-The features have variables `ID` and `Province` they are (in order):
+This is an extract from the old Manifold DVD. It is in \code{sf} format\code{. The features have variables}ID\code{and}Province` they are (in order):
 \itemize{
- \item{"103841"}{Australian Capital Territory}
- \item{"103842"}{New Caledonia}
- \item{"103843"}{New South Wales}
- \item{"103846"}{South Australia}
- \item{"103847"}{Tasmania}
- \item{"103848"}{Victoria}
+\item{"103841"}{Australian Capital Territory}
+\item{"103842"}{New Caledonia}
+\item{"103843"}{New South Wales}
+\item{"103846"}{South Australia}
+\item{"103847"}{Tasmania}
+\item{"103848"}{Victoria}
 }
 There's no good reason that New Caledonia is included and not Queensland (for example)
-it's just what happened doing a quick crop and extract with the mouse.
+it's just what happened doing a quick crop and extract with the mouse. Lord Howe Island and
+Macquarie Island are both present, as part of New South Wales and Tasmania respectively.
+}
+\examples{
+path <- PATH(inlandwaters)
+plot(path)
+obj <- split(path$path_link_vertex, path$path_link_vertex$path_)
+cl <- grDevices::colors()[-1L]
+cols <- sample(cl, length(obj), replace = length(obj) > length(cl))
+par(mfrow = grDevices::n2mfrow(length(obj)), mar = rep(0, 4))
+lapply(seq_along(obj), 
+function(a) {
+  plot(dplyr::inner_join(obj[[a]], path$vertex, "vertex_")[c("x_", "y_")], col = cols[a], type = "l", axes = FALSE)
+  invisible(NULL)
+  })
 }

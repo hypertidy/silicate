@@ -83,8 +83,8 @@
 <li>provide a central common-form of structure data, and a “universal converter”</li>
 <li>to work with topological primitives for analysis and interaction.</li>
 </ul>
-<p>We have created three models <code>SC</code>, <code>PATH</code>, <code>ARC</code>, and <code>TRI</code> which cover the broadest range of complex types, with <code>SC</code> being the core, universal representation. Other models exist to cover specific use-cases or specific intermediate forms.</p>
-<p>Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context.</p>
+<p>We have created the general models <code>SC</code>, <code>PATH</code>, <code>ARC</code>, and <code>TRI</code> to cover the broadest range of complex types, with <code>SC</code> being the core, universal representation. The other models exist to cover specific use-cases, intermediate forms or to illustrate the relationships between these model types.</p>
+<p>Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context. Our ideal situation would be for external packages to publish methods for these verbs, keeping package-specific code in the original package. We think this provides a very powerful and general mechanism for a family of consistent packages.</p>
 <p>Silicate models are built by using lower level worker verbs, listed here.</p>
 <p>We have the following worker verbs that are used to build the above models, and work between what each model offers.</p>
 <ul>
@@ -122,60 +122,60 @@ x &lt;-<span class="st"> </span><span class="kw">SC</span>(minimal_mesh) ## conv
 
 y &lt;-<span class="st"> </span><span class="kw">ARC</span>(minimal_mesh) ## convert simple features to "arc-node" form</code></pre></div>
 <p>Obtain the elements of a known model type.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/sc_vertex.html">sc_vertex</a></span>(x)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sc_vertex</span>(x)
 <span class="co">#&gt; # A tibble: 14 x 3</span>
 <span class="co">#&gt;       x_    y_ vertex_ </span>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   </span>
-<span class="co">#&gt;  1 0     0     0992f194</span>
-<span class="co">#&gt;  2 0     1.00  0ab8ce08</span>
-<span class="co">#&gt;  3 0.750 1.00  8e73d3ea</span>
-<span class="co">#&gt;  4 1.00  0.800 fc99a68f</span>
-<span class="co">#&gt;  5 0.500 0.700 fed7a479</span>
-<span class="co">#&gt;  6 0.800 0.600 120c657d</span>
-<span class="co">#&gt;  7 0.690 0     5d7bf812</span>
-<span class="co">#&gt;  8 0.200 0.200 0eb2bd1d</span>
-<span class="co">#&gt;  9 0.500 0.200 6abf4ea2</span>
-<span class="co">#&gt; 10 0.500 0.400 2c181b4d</span>
-<span class="co">#&gt; 11 0.300 0.600 3da7ac0b</span>
-<span class="co">#&gt; 12 0.200 0.400 d19fe7d3</span>
-<span class="co">#&gt; 13 1.10  0.630 c820e99a</span>
-<span class="co">#&gt; 14 1.23  0.300 f042b12b</span>
+<span class="co">#&gt;  1 0     0     19863eeb</span>
+<span class="co">#&gt;  2 0     1.00  e7a3296f</span>
+<span class="co">#&gt;  3 0.750 1.00  2a4ca527</span>
+<span class="co">#&gt;  4 1.00  0.800 6e2b01b4</span>
+<span class="co">#&gt;  5 0.500 0.700 1beb4add</span>
+<span class="co">#&gt;  6 0.800 0.600 1613964e</span>
+<span class="co">#&gt;  7 0.690 0     bd56f06d</span>
+<span class="co">#&gt;  8 0.200 0.200 2f2f4359</span>
+<span class="co">#&gt;  9 0.500 0.200 33b9ff2e</span>
+<span class="co">#&gt; 10 0.500 0.400 754e6ae7</span>
+<span class="co">#&gt; 11 0.300 0.600 c25bde92</span>
+<span class="co">#&gt; 12 0.200 0.400 525c4feb</span>
+<span class="co">#&gt; 13 1.10  0.630 c6f68da4</span>
+<span class="co">#&gt; 14 1.23  0.300 62f3dfe1</span>
 
 <span class="kw">sc_edge</span>(x)
 <span class="co">#&gt; # A tibble: 15 x 3</span>
 <span class="co">#&gt;    .vertex0 .vertex1 edge_   </span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   </span>
-<span class="co">#&gt;  1 0992f194 0ab8ce08 fc215921</span>
-<span class="co">#&gt;  2 0ab8ce08 8e73d3ea 0cffa888</span>
-<span class="co">#&gt;  3 8e73d3ea fc99a68f 42b522dc</span>
-<span class="co">#&gt;  4 fc99a68f fed7a479 0601bde5</span>
-<span class="co">#&gt;  5 fed7a479 120c657d 0b6624aa</span>
-<span class="co">#&gt;  6 120c657d 5d7bf812 c1fc32ad</span>
-<span class="co">#&gt;  7 5d7bf812 0992f194 d3f166db</span>
-<span class="co">#&gt;  8 0eb2bd1d 6abf4ea2 25cbe8bd</span>
-<span class="co">#&gt;  9 6abf4ea2 2c181b4d 1ee58b73</span>
-<span class="co">#&gt; 10 2c181b4d 3da7ac0b a72a5843</span>
-<span class="co">#&gt; 11 3da7ac0b d19fe7d3 995c8ad6</span>
-<span class="co">#&gt; 12 d19fe7d3 0eb2bd1d 2178aad4</span>
-<span class="co">#&gt; 13 120c657d c820e99a 2e33c07a</span>
-<span class="co">#&gt; 14 c820e99a f042b12b 5b00eb73</span>
-<span class="co">#&gt; 15 f042b12b 5d7bf812 be38d3e7</span>
+<span class="co">#&gt;  1 19863eeb e7a3296f 426e8f9e</span>
+<span class="co">#&gt;  2 e7a3296f 2a4ca527 f11a2d08</span>
+<span class="co">#&gt;  3 2a4ca527 6e2b01b4 e10a3606</span>
+<span class="co">#&gt;  4 6e2b01b4 1beb4add 487de12d</span>
+<span class="co">#&gt;  5 1beb4add 1613964e c83d20e2</span>
+<span class="co">#&gt;  6 1613964e bd56f06d 81b11031</span>
+<span class="co">#&gt;  7 bd56f06d 19863eeb e30d2f4c</span>
+<span class="co">#&gt;  8 2f2f4359 33b9ff2e b6b2d935</span>
+<span class="co">#&gt;  9 33b9ff2e 754e6ae7 8a746930</span>
+<span class="co">#&gt; 10 754e6ae7 c25bde92 1a69c4ca</span>
+<span class="co">#&gt; 11 c25bde92 525c4feb 5f350d5f</span>
+<span class="co">#&gt; 12 525c4feb 2f2f4359 ddff145e</span>
+<span class="co">#&gt; 13 1613964e c6f68da4 a209ab8e</span>
+<span class="co">#&gt; 14 c6f68da4 62f3dfe1 686ff737</span>
+<span class="co">#&gt; 15 62f3dfe1 bd56f06d a7f319b7</span>
 
 <span class="kw">sc_node</span>(y)
 <span class="co">#&gt; # A tibble: 2 x 1</span>
 <span class="co">#&gt;   vertex_ </span>
 <span class="co">#&gt;   &lt;chr&gt;   </span>
-<span class="co">#&gt; 1 a83e53db</span>
-<span class="co">#&gt; 2 4942dee4</span>
+<span class="co">#&gt; 1 beec874e</span>
+<span class="co">#&gt; 2 b9f3d089</span>
 
 <span class="kw">sc_arc</span>(y)
 <span class="co">#&gt; # A tibble: 4 x 2</span>
 <span class="co">#&gt;   arc_     ncoords_</span>
 <span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;</span>
-<span class="co">#&gt; 1 0e800572        6</span>
-<span class="co">#&gt; 2 50ab9807        4</span>
-<span class="co">#&gt; 3 c47235da        2</span>
-<span class="co">#&gt; 4 f9ff4dc5        7</span></code></pre></div>
+<span class="co">#&gt; 1 16c17259        6</span>
+<span class="co">#&gt; 2 5052ec69        4</span>
+<span class="co">#&gt; 3 52184019        2</span>
+<span class="co">#&gt; 4 e63fd12c        7</span></code></pre></div>
 <div id="silicate-models" class="section level2">
 <h2 class="hasAnchor">
 <a href="#silicate-models" class="anchor"></a>silicate models</h2>
@@ -184,17 +184,15 @@ y &lt;-<span class="st"> </span><span class="kw">ARC</span>(minimal_mesh) ## con
 <p>Sequential-based models are bound to ordering and contextual assumptions. We provide the <code>PATH</code> and <code>ARC</code> models as generic, relational forms that provide a convenient intermediate between external forms and primitives models. Further intermediate models exist, including monotone and convex decompositions of polygons.</p>
 <p>There is one universal primitives-based model, an edge-only model with two tables at its core. Higher level structures are described by grouping tables, with as many levels as required. Any other model can be expressed in this form.</p>
 <p>We also differentiate <em>structural primitives</em>, which are specializations that are more convenient or more efficient in certain cases. These include triangulations (2D primitives), and segment structures (1D primitives), and could provide higher dimensional forms (3D primitives, etc. ).</p>
-<p>Currently, we provide support for the universal model <code>SC</code>, the sequential models <code>PATH</code> (simple features) and <code>ARC</code> (arc-node topology, TopoJSON-like), and structual primitives <code>TRI</code>.</p>
-<p>In practice a segment model is trivial to generate, “SEG” but we haven’t done that.</p>
+<p>Currently, we provide support for the universal model <code>SC</code>, the sequential models <code>PATH</code> (simple features belongs here, amongst many others) and <code>ARC</code> (arc-node topology, TopoJSON-like, OpenStreetMap), and structural primitives <code>TRI</code>.</p>
+<p>In practice a segment model is trivial to generate, “SEG” but we haven’t done that. This would be analogous to the format used by <code><a href="http://www.rdocumentation.org/packages/rgl/topics/primitive">rgl::rgl.lines</a></code> or <code><a href="http://www.rdocumentation.org/packages/spatstat/topics/psp">spatstat::psp</a></code>.</p>
 <p>We take care to allow for <em>labelling</em> (identity) of component elements, without taking full responsibility for maintaining them. Random IDs are created as needed, but any operation that works with existing IDs should be stable with them.</p>
 </div>
-<div id="exceptions" class="section level2">
+<div id="context-and-some-related-projects" class="section level2">
 <h2 class="hasAnchor">
-<a href="#exceptions" class="anchor"></a>Exceptions</h2>
-<p>There are a number of notable exceptions in the spatial world, but unfortunately this highlights how fragemented the landscape is.</p>
-<p>TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, …</p>
-<p>Other technologies are Mapbox, WebGL, Threejs, D3, AFrame, Lavavu …</p>
-<p>The silicate family is composed of a small number of packages that apply the principles here, either to read from path forms or primitive forms.</p>
+<a href="#context-and-some-related-projects" class="anchor"></a>Context, and some related projects</h2>
+<p>The key difference between the silicate approach and simple features is the separation of geometry and topology. This allows for normalization (de-duplication) of the entities that are present or that can be identitied. Simple features has no capacity to de-duplicate or otherwise identify vertices, edges, paths or arcs, though tools that work with simple features do construct these schemes routinely in order to perform operations. When these richer, topological structures are built they are usually then discarded and the vertices are again de-normalized and again expressed explicitly without recording any of the relationships. In this sense, simple features can be described as an <em>explicitly-stored PATH analogue</em>, and is no different from the model used by shapefiles, binary blobs in databases, and many other spatial vector formats. There are a number of notable exceptions to this including TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, Mapbox, WebGL, Threejs, D3, AFrame, Lavavu but unfortunately there’s no overall scheme that can unify these richer structures.</p>
+<p>The silicate family is composed of a small number of packages that apply the principles here, either to read from path forms or primitive forms. As work continues some of these will be incorporated into the silicate core, when that is possible without requiring heavy external dependencies.</p>
 <ul>
 <li><a href="https://github.com/hypertidy/scgraph">scgraph</a></li>
 <li><a href="https://github.com/hypertidy/scspatstat">scspatstat</a></li>

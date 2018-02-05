@@ -5,6 +5,12 @@
 \alias{polymesh}
 \title{Polygonal mesh}
 \description{
-A simple set of `sf` neighbouring polygons, with redundant vertices created
+A simple set of \code{sf} neighbouring polygons, with redundant vertices created
 from polygonizing a raster.
+}
+\examples{
+arc <- ARC(polymesh)
+plot(arc)
+sc <- SC(polymesh)
+plot(sc)
 }

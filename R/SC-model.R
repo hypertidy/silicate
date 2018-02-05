@@ -1,6 +1,6 @@
 
 
-#' The universal model
+#' The universal model, SC
 #' 
 #' The universal model `SC` is coordinates and binary relations between
 #' pairs of coordinates. This is purely an edge (or segment) model, with all 

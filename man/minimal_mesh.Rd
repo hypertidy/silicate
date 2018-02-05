@@ -6,5 +6,14 @@
 \alias{minimal_mesh-package}
 \title{Minimal mesh.}
 \description{
-The simplest pairing of two polygons with one shared edge.
+The simplest pairing of two polygons with one shared edge. One polygon
+contains a hole and a concavity, the other is a simply convex. This is
+composed of four "arcs", one around each polygon, one for the shared edge, and
+one for the isolated hole. There are two nodes, the endpoints of the single shared edge.
+}
+\examples{
+arc <- ARC(minimal_mesh) 
+plot(arc) 
+sc_arc(arc)
+sc_node(arc)
 }

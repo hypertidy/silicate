@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Arcs for arc-node topology. — sc_arc • silicate</title>
+<title>Arc-node topology. — sc_arc • silicate</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -93,7 +93,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Arcs for arc-node topology.</h1>
+    <h1>Arc-node topology.</h1>
     </div>
 
     
@@ -124,9 +124,9 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Arcs are unbranched paths within the line segment graph. Nodes are the vertices where three or more arcs meet.</p>
-<p>As with the `PATH` and `SC` models the arc id values will only be relevant when 
-those entities are identified and labelled. Running `sc_arc` on a simple features model (for example) will
-identify them and return a summary, but without having any record of what they refer to. Use `ARC(x)` first to 
+<p>As with the <code>PATH</code> and <code>SC</code> models the arc id values will only be relevant when
+those entities are identified and labelled. Running <code>sc_arc</code> on a simple features model (for example) will
+identify them and return a summary, but without having any record of what they refer to. Use <code>ARC(x)</code> first to
 work with models that don't included labels.</p>
     
 
@@ -134,10 +134,14 @@ work with models that don't included labels.</p>
     <pre class="examples"><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;   arc_     ncoords_
 #&gt;   &lt;chr&gt;       &lt;int&gt;
-#&gt; 1 1c9c3b57        4
-#&gt; 2 296db929        2
-#&gt; 3 3b726ab4        6
-#&gt; 4 82cde164        7</div><div class='input'><span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)<span class='kw'>[[</span><span class='st'>"arc"</span>]]</div><div class='output co'>#&gt; NULL</div></pre>
+#&gt; 1 24b0c3e0        2
+#&gt; 2 67d296c9        4
+#&gt; 3 d145d062        7
+#&gt; 4 d6ac67a9        6</div><div class='input'><span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)<span class='kw'>[[</span><span class='st'>"arc"</span>]]</div><div class='output co'>#&gt; NULL</div><div class='input'>
+<span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)
+<span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='fu'>points</span>(<span class='no'>arc</span>$<span class='no'>vertex</span>[<span class='fu'>match</span>(<span class='fu'>sc_node</span>(<span class='no'>arc</span>)$<span class='no'>vertex_</span>, <span class='no'>arc</span>$<span class='no'>vertex</span>$<span class='no'>vertex_</span>), <span class='fu'>c</span>(<span class='st'>"x_"</span>, <span class='st'>"y_"</span>)])</div><div class='output co'>#&gt; <span class='error'>Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet</span></div><div class='input'>
+<span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'>ARC</span>(<span class='no'>polymesh</span>)
+<span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.xy(xy, type, ...): invalid graphics state</span></div><div class='input'><span class='fu'>title</span>(<span class='st'>"arcs and nodes"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in title("arcs and nodes"): invalid graphics state</span></div><div class='input'><span class='fu'>points</span>(<span class='no'>arc</span>$<span class='no'>vertex</span>[<span class='fu'>match</span>(<span class='fu'>sc_node</span>(<span class='no'>arc</span>)$<span class='no'>vertex_</span>, <span class='no'>arc</span>$<span class='no'>vertex</span>$<span class='no'>vertex_</span>), <span class='fu'>c</span>(<span class='st'>"x_"</span>, <span class='st'>"y_"</span>)])</div><div class='output co'>#&gt; <span class='error'>Error in plot.xy(xy.coords(x, y), type = type, ...): invalid graphics state</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -2,7 +2,6 @@
 #' 
 #' Nodes are the vertices in the graph that are shared by "arcs". 
 #' 
-#' @seealso NARC
 #' @param x input object
 #' @param ... arguments for methods
 #' @export

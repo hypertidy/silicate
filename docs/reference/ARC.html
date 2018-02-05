@@ -127,12 +127,12 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Nodes are the vertices where three or more arcs meet. 
+    <p>Nodes are the vertices where three or more arcs meet.
 An arc can exist without including any nodes, a path that has no neighbouring relationship with another path.</p>
-<p>This is _not_ the same terminology as used by other systems. The `arc_link_vertex` mapping is inherently ordered, 
-but we don't consider order of arcs. Duplicated arcs (i.e. complementary turns around neighbouring polygons) are 
-not kept. The `object_link_arc` mapping records which arc belongs to the objects, so can be reconstructed within 
-objects by tracing `arc_link_vertex` start and end point identity.</p>
+<p>This is <em>not</em> the same terminology as used by other systems. The <code>arc_link_vertex</code> mapping is inherently ordered,
+but we don't consider order of arcs. Duplicated arcs (i.e. complementary turns around neighbouring polygons) are
+not kept. The <code>object_link_arc</code> mapping records which arc belongs to the objects, so can be reconstructed within
+objects by tracing <code>arc_link_vertex</code> start and end point identity.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -140,16 +140,16 @@ objects by tracing `arc_link_vertex` start and end point identity.</p>
 <span class='fu'>sc_arc</span>(<span class='no'>a</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;   arc_     ncoords_
 #&gt;   &lt;chr&gt;       &lt;int&gt;
-#&gt; 1 17e7bc25        2
-#&gt; 2 a9c614cf        4
-#&gt; 3 b0c0362a        7
-#&gt; 4 de26d2e3        6</div><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
+#&gt; 1 4a48d158        2
+#&gt; 2 57d95e16        7
+#&gt; 3 5f0c31d3        6
+#&gt; 4 67a667af        4</div><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;   arc_     ncoords_
 #&gt;   &lt;chr&gt;       &lt;int&gt;
-#&gt; 1 0cca8625        2
-#&gt; 2 27bb404f        4
-#&gt; 3 71d3a4e9        6
-#&gt; 4 bfb83e9b        7</div></pre>
+#&gt; 1 16a43178        7
+#&gt; 2 2996b657        6
+#&gt; 3 4aa23e4d        2
+#&gt; 4 de95591a        4</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

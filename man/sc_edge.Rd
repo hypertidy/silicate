@@ -6,7 +6,7 @@
 \alias{sc_edge.default}
 \alias{sc_edge}
 \alias{sc_edge.PATH}
-\title{Unique edges for arc-node topology.}
+\title{Edges.}
 \usage{
 sc_edge(x, ...)
 
@@ -20,5 +20,9 @@ sc_edge(x, ...)
 \item{...}{arguments for methods}
 }
 \description{
-So-called "arcs" are unclosed paths that end in nodes, vertices shared by other arcs.
+Simple binary relationships, a primitive composed of two vertices.
+}
+\details{
+Edges are unique, undirected line segments. Compare to \code{sc_segment} which refers to all
+instances of edges.
 }

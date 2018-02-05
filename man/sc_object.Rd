@@ -24,10 +24,10 @@ sc_object(x, ...)
 \item{...}{arguments passed to methods}
 }
 \description{
-The objects are the front end entities, the usual "GIS contract" objects, 
+The objects are the front end entities, the usual "GIS contract" objects,
 or features.
 
-The objects are the front end entities, the usual "GIS contract" objects, 
+The objects are the front end entities, the usual "GIS contract" objects,
 the features.
 }
 \examples{
@@ -36,9 +36,9 @@ the features.
 #sc_object(nc)
 }
 \seealso{
-`sc_coord` for the coordinates part of the model, `sc_path` for 
-the central part of the model, and `PATH` for the full model.
+\code{sc_coord} for the coordinates part of the model, \code{sc_path} for
+the central part of the model, and \code{PATH} for the full model.
 
-`sc_coord` for the coordinates part of the model, `sc_path` for 
-the central part of the model, and `PATH` for the full model.
+\code{sc_coord} for the coordinates part of the model, \code{sc_path} for
+the central part of the model, and \code{PATH} for the full model.
 }

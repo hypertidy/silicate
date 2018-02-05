@@ -1,10 +1,9 @@
-
 #' Coordinate decomposition
 #' 
-#' Collect all coordinates in one table, the path_link_vertex table
-#' has the information about the original grouping.  
+#' Collect all instances of all coordinates in one table. This complementary to the `sc_path` of
+#' an object, since the number of coordinates per path gives a structural mapping into this set. 
 #' 
-#' @param x input object
+#' @param x input model
 #' @param ... arguments passed to methods
 #'
 #' @name sc_coord

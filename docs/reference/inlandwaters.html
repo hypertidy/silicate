@@ -97,15 +97,14 @@
     </div>
 
     
-    <p>The inland waters are lakes and so on, presenting as holes
+    <p>The inland waters are lakes and inland waters presenting as holes
 within the bounded regions of Australian (and New Caledonian) provinces.</p>
     
 
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This is an extract from the old Manifold DVD. It is in `sf` format`.
-The features have variables `ID` and `Province` they are (in order):</p><ul>
+    <p>This is an extract from the old Manifold DVD. It is in <code>sf</code> format<code>. The features have variables</code>ID<code>and</code>Province` they are (in order):</p><ul>
 <li><p>"103841"Australian Capital Territory</p></li>
 <li><p>"103842"New Caledonia</p></li>
 <li><p>"103843"New South Wales</p></li>
@@ -113,16 +112,596 @@ The features have variables `ID` and `Province` they are (in order):</p><ul>
 <li><p>"103847"Tasmania</p></li>
 <li><p>"103848"Victoria</p></li>
 </ul><p>There's no good reason that New Caledonia is included and not Queensland (for example)
-it's just what happened doing a quick crop and extract with the mouse.</p>
+it's just what happened doing a quick crop and extract with the mouse. Lord Howe Island and
+Macquarie Island are both present, as part of New South Wales and Tasmania respectively.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='fu'>PATH</span>(<span class='no'>inlandwaters</span>)
+<span class='fu'>plot</span>(<span class='no'>path</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'>split</span>(<span class='no'>path</span>$<span class='no'>path_link_vertex</span>, <span class='no'>path</span>$<span class='no'>path_link_vertex</span>$<span class='no'>path_</span>)
+<span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>grDevices</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/grDevices/topics/colors'>colors</a></span>()[-<span class='fl'>1L</span>]
+<span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'>sample</span>(<span class='no'>cl</span>, <span class='fu'>length</span>(<span class='no'>obj</span>), <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fu'>length</span>(<span class='no'>obj</span>) <span class='kw'>&gt;</span> <span class='fu'>length</span>(<span class='no'>cl</span>))
+<span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='kw pkg'>grDevices</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/grDevices/topics/n2mfrow'>n2mfrow</a></span>(<span class='fu'>length</span>(<span class='no'>obj</span>)), <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>0</span>, <span class='fl'>4</span>))
+<span class='fu'>lapply</span>(<span class='fu'>seq_along</span>(<span class='no'>obj</span>),
+<span class='kw'>function</span>(<span class='no'>a</span>) {
+  <span class='fu'>plot</span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>inner_join</a></span>(<span class='no'>obj</span><span class='kw'>[[</span><span class='no'>a</span>]], <span class='no'>path</span>$<span class='no'>vertex</span>, <span class='st'>"vertex_"</span>)[<span class='fu'>c</span>(<span class='st'>"x_"</span>, <span class='st'>"y_"</span>)], <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>cols</span>[<span class='no'>a</span>], <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"l"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='fu'>invisible</span>(<span class='kw'>NULL</span>)
+  })</div><div class='output co'>#&gt; [[1]]
+#&gt; NULL
+#&gt; 
+#&gt; [[2]]
+#&gt; NULL
+#&gt; 
+#&gt; [[3]]
+#&gt; NULL
+#&gt; 
+#&gt; [[4]]
+#&gt; NULL
+#&gt; 
+#&gt; [[5]]
+#&gt; NULL
+#&gt; 
+#&gt; [[6]]
+#&gt; NULL
+#&gt; 
+#&gt; [[7]]
+#&gt; NULL
+#&gt; 
+#&gt; [[8]]
+#&gt; NULL
+#&gt; 
+#&gt; [[9]]
+#&gt; NULL
+#&gt; 
+#&gt; [[10]]
+#&gt; NULL
+#&gt; 
+#&gt; [[11]]
+#&gt; NULL
+#&gt; 
+#&gt; [[12]]
+#&gt; NULL
+#&gt; 
+#&gt; [[13]]
+#&gt; NULL
+#&gt; 
+#&gt; [[14]]
+#&gt; NULL
+#&gt; 
+#&gt; [[15]]
+#&gt; NULL
+#&gt; 
+#&gt; [[16]]
+#&gt; NULL
+#&gt; 
+#&gt; [[17]]
+#&gt; NULL
+#&gt; 
+#&gt; [[18]]
+#&gt; NULL
+#&gt; 
+#&gt; [[19]]
+#&gt; NULL
+#&gt; 
+#&gt; [[20]]
+#&gt; NULL
+#&gt; 
+#&gt; [[21]]
+#&gt; NULL
+#&gt; 
+#&gt; [[22]]
+#&gt; NULL
+#&gt; 
+#&gt; [[23]]
+#&gt; NULL
+#&gt; 
+#&gt; [[24]]
+#&gt; NULL
+#&gt; 
+#&gt; [[25]]
+#&gt; NULL
+#&gt; 
+#&gt; [[26]]
+#&gt; NULL
+#&gt; 
+#&gt; [[27]]
+#&gt; NULL
+#&gt; 
+#&gt; [[28]]
+#&gt; NULL
+#&gt; 
+#&gt; [[29]]
+#&gt; NULL
+#&gt; 
+#&gt; [[30]]
+#&gt; NULL
+#&gt; 
+#&gt; [[31]]
+#&gt; NULL
+#&gt; 
+#&gt; [[32]]
+#&gt; NULL
+#&gt; 
+#&gt; [[33]]
+#&gt; NULL
+#&gt; 
+#&gt; [[34]]
+#&gt; NULL
+#&gt; 
+#&gt; [[35]]
+#&gt; NULL
+#&gt; 
+#&gt; [[36]]
+#&gt; NULL
+#&gt; 
+#&gt; [[37]]
+#&gt; NULL
+#&gt; 
+#&gt; [[38]]
+#&gt; NULL
+#&gt; 
+#&gt; [[39]]
+#&gt; NULL
+#&gt; 
+#&gt; [[40]]
+#&gt; NULL
+#&gt; 
+#&gt; [[41]]
+#&gt; NULL
+#&gt; 
+#&gt; [[42]]
+#&gt; NULL
+#&gt; 
+#&gt; [[43]]
+#&gt; NULL
+#&gt; 
+#&gt; [[44]]
+#&gt; NULL
+#&gt; 
+#&gt; [[45]]
+#&gt; NULL
+#&gt; 
+#&gt; [[46]]
+#&gt; NULL
+#&gt; 
+#&gt; [[47]]
+#&gt; NULL
+#&gt; 
+#&gt; [[48]]
+#&gt; NULL
+#&gt; 
+#&gt; [[49]]
+#&gt; NULL
+#&gt; 
+#&gt; [[50]]
+#&gt; NULL
+#&gt; 
+#&gt; [[51]]
+#&gt; NULL
+#&gt; 
+#&gt; [[52]]
+#&gt; NULL
+#&gt; 
+#&gt; [[53]]
+#&gt; NULL
+#&gt; 
+#&gt; [[54]]
+#&gt; NULL
+#&gt; 
+#&gt; [[55]]
+#&gt; NULL
+#&gt; 
+#&gt; [[56]]
+#&gt; NULL
+#&gt; 
+#&gt; [[57]]
+#&gt; NULL
+#&gt; 
+#&gt; [[58]]
+#&gt; NULL
+#&gt; 
+#&gt; [[59]]
+#&gt; NULL
+#&gt; 
+#&gt; [[60]]
+#&gt; NULL
+#&gt; 
+#&gt; [[61]]
+#&gt; NULL
+#&gt; 
+#&gt; [[62]]
+#&gt; NULL
+#&gt; 
+#&gt; [[63]]
+#&gt; NULL
+#&gt; 
+#&gt; [[64]]
+#&gt; NULL
+#&gt; 
+#&gt; [[65]]
+#&gt; NULL
+#&gt; 
+#&gt; [[66]]
+#&gt; NULL
+#&gt; 
+#&gt; [[67]]
+#&gt; NULL
+#&gt; 
+#&gt; [[68]]
+#&gt; NULL
+#&gt; 
+#&gt; [[69]]
+#&gt; NULL
+#&gt; 
+#&gt; [[70]]
+#&gt; NULL
+#&gt; 
+#&gt; [[71]]
+#&gt; NULL
+#&gt; 
+#&gt; [[72]]
+#&gt; NULL
+#&gt; 
+#&gt; [[73]]
+#&gt; NULL
+#&gt; 
+#&gt; [[74]]
+#&gt; NULL
+#&gt; 
+#&gt; [[75]]
+#&gt; NULL
+#&gt; 
+#&gt; [[76]]
+#&gt; NULL
+#&gt; 
+#&gt; [[77]]
+#&gt; NULL
+#&gt; 
+#&gt; [[78]]
+#&gt; NULL
+#&gt; 
+#&gt; [[79]]
+#&gt; NULL
+#&gt; 
+#&gt; [[80]]
+#&gt; NULL
+#&gt; 
+#&gt; [[81]]
+#&gt; NULL
+#&gt; 
+#&gt; [[82]]
+#&gt; NULL
+#&gt; 
+#&gt; [[83]]
+#&gt; NULL
+#&gt; 
+#&gt; [[84]]
+#&gt; NULL
+#&gt; 
+#&gt; [[85]]
+#&gt; NULL
+#&gt; 
+#&gt; [[86]]
+#&gt; NULL
+#&gt; 
+#&gt; [[87]]
+#&gt; NULL
+#&gt; 
+#&gt; [[88]]
+#&gt; NULL
+#&gt; 
+#&gt; [[89]]
+#&gt; NULL
+#&gt; 
+#&gt; [[90]]
+#&gt; NULL
+#&gt; 
+#&gt; [[91]]
+#&gt; NULL
+#&gt; 
+#&gt; [[92]]
+#&gt; NULL
+#&gt; 
+#&gt; [[93]]
+#&gt; NULL
+#&gt; 
+#&gt; [[94]]
+#&gt; NULL
+#&gt; 
+#&gt; [[95]]
+#&gt; NULL
+#&gt; 
+#&gt; [[96]]
+#&gt; NULL
+#&gt; 
+#&gt; [[97]]
+#&gt; NULL
+#&gt; 
+#&gt; [[98]]
+#&gt; NULL
+#&gt; 
+#&gt; [[99]]
+#&gt; NULL
+#&gt; 
+#&gt; [[100]]
+#&gt; NULL
+#&gt; 
+#&gt; [[101]]
+#&gt; NULL
+#&gt; 
+#&gt; [[102]]
+#&gt; NULL
+#&gt; 
+#&gt; [[103]]
+#&gt; NULL
+#&gt; 
+#&gt; [[104]]
+#&gt; NULL
+#&gt; 
+#&gt; [[105]]
+#&gt; NULL
+#&gt; 
+#&gt; [[106]]
+#&gt; NULL
+#&gt; 
+#&gt; [[107]]
+#&gt; NULL
+#&gt; 
+#&gt; [[108]]
+#&gt; NULL
+#&gt; 
+#&gt; [[109]]
+#&gt; NULL
+#&gt; 
+#&gt; [[110]]
+#&gt; NULL
+#&gt; 
+#&gt; [[111]]
+#&gt; NULL
+#&gt; 
+#&gt; [[112]]
+#&gt; NULL
+#&gt; 
+#&gt; [[113]]
+#&gt; NULL
+#&gt; 
+#&gt; [[114]]
+#&gt; NULL
+#&gt; 
+#&gt; [[115]]
+#&gt; NULL
+#&gt; 
+#&gt; [[116]]
+#&gt; NULL
+#&gt; 
+#&gt; [[117]]
+#&gt; NULL
+#&gt; 
+#&gt; [[118]]
+#&gt; NULL
+#&gt; 
+#&gt; [[119]]
+#&gt; NULL
+#&gt; 
+#&gt; [[120]]
+#&gt; NULL
+#&gt; 
+#&gt; [[121]]
+#&gt; NULL
+#&gt; 
+#&gt; [[122]]
+#&gt; NULL
+#&gt; 
+#&gt; [[123]]
+#&gt; NULL
+#&gt; 
+#&gt; [[124]]
+#&gt; NULL
+#&gt; 
+#&gt; [[125]]
+#&gt; NULL
+#&gt; 
+#&gt; [[126]]
+#&gt; NULL
+#&gt; 
+#&gt; [[127]]
+#&gt; NULL
+#&gt; 
+#&gt; [[128]]
+#&gt; NULL
+#&gt; 
+#&gt; [[129]]
+#&gt; NULL
+#&gt; 
+#&gt; [[130]]
+#&gt; NULL
+#&gt; 
+#&gt; [[131]]
+#&gt; NULL
+#&gt; 
+#&gt; [[132]]
+#&gt; NULL
+#&gt; 
+#&gt; [[133]]
+#&gt; NULL
+#&gt; 
+#&gt; [[134]]
+#&gt; NULL
+#&gt; 
+#&gt; [[135]]
+#&gt; NULL
+#&gt; 
+#&gt; [[136]]
+#&gt; NULL
+#&gt; 
+#&gt; [[137]]
+#&gt; NULL
+#&gt; 
+#&gt; [[138]]
+#&gt; NULL
+#&gt; 
+#&gt; [[139]]
+#&gt; NULL
+#&gt; 
+#&gt; [[140]]
+#&gt; NULL
+#&gt; 
+#&gt; [[141]]
+#&gt; NULL
+#&gt; 
+#&gt; [[142]]
+#&gt; NULL
+#&gt; 
+#&gt; [[143]]
+#&gt; NULL
+#&gt; 
+#&gt; [[144]]
+#&gt; NULL
+#&gt; 
+#&gt; [[145]]
+#&gt; NULL
+#&gt; 
+#&gt; [[146]]
+#&gt; NULL
+#&gt; 
+#&gt; [[147]]
+#&gt; NULL
+#&gt; 
+#&gt; [[148]]
+#&gt; NULL
+#&gt; 
+#&gt; [[149]]
+#&gt; NULL
+#&gt; 
+#&gt; [[150]]
+#&gt; NULL
+#&gt; 
+#&gt; [[151]]
+#&gt; NULL
+#&gt; 
+#&gt; [[152]]
+#&gt; NULL
+#&gt; 
+#&gt; [[153]]
+#&gt; NULL
+#&gt; 
+#&gt; [[154]]
+#&gt; NULL
+#&gt; 
+#&gt; [[155]]
+#&gt; NULL
+#&gt; 
+#&gt; [[156]]
+#&gt; NULL
+#&gt; 
+#&gt; [[157]]
+#&gt; NULL
+#&gt; 
+#&gt; [[158]]
+#&gt; NULL
+#&gt; 
+#&gt; [[159]]
+#&gt; NULL
+#&gt; 
+#&gt; [[160]]
+#&gt; NULL
+#&gt; 
+#&gt; [[161]]
+#&gt; NULL
+#&gt; 
+#&gt; [[162]]
+#&gt; NULL
+#&gt; 
+#&gt; [[163]]
+#&gt; NULL
+#&gt; 
+#&gt; [[164]]
+#&gt; NULL
+#&gt; 
+#&gt; [[165]]
+#&gt; NULL
+#&gt; 
+#&gt; [[166]]
+#&gt; NULL
+#&gt; 
+#&gt; [[167]]
+#&gt; NULL
+#&gt; 
+#&gt; [[168]]
+#&gt; NULL
+#&gt; 
+#&gt; [[169]]
+#&gt; NULL
+#&gt; 
+#&gt; [[170]]
+#&gt; NULL
+#&gt; 
+#&gt; [[171]]
+#&gt; NULL
+#&gt; 
+#&gt; [[172]]
+#&gt; NULL
+#&gt; 
+#&gt; [[173]]
+#&gt; NULL
+#&gt; 
+#&gt; [[174]]
+#&gt; NULL
+#&gt; 
+#&gt; [[175]]
+#&gt; NULL
+#&gt; 
+#&gt; [[176]]
+#&gt; NULL
+#&gt; 
+#&gt; [[177]]
+#&gt; NULL
+#&gt; 
+#&gt; [[178]]
+#&gt; NULL
+#&gt; 
+#&gt; [[179]]
+#&gt; NULL
+#&gt; 
+#&gt; [[180]]
+#&gt; NULL
+#&gt; 
+#&gt; [[181]]
+#&gt; NULL
+#&gt; 
+#&gt; [[182]]
+#&gt; NULL
+#&gt; 
+#&gt; [[183]]
+#&gt; NULL
+#&gt; 
+#&gt; [[184]]
+#&gt; NULL
+#&gt; 
+#&gt; [[185]]
+#&gt; NULL
+#&gt; 
+#&gt; [[186]]
+#&gt; NULL
+#&gt; 
+#&gt; [[187]]
+#&gt; NULL
+#&gt; 
+#&gt; [[188]]
+#&gt; NULL
+#&gt; 
+#&gt; [[189]]
+#&gt; NULL
+#&gt; </div><div class='img'><img src='inlandwaters-7.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       
       <li><a href="#details">Details</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

@@ -26,9 +26,10 @@ There are two main motivations for `silicate`:
 * provide a central common-form of structure data, and a "universal converter"
 * to work with topological primitives for analysis and interaction. 
 
-We have created three models `SC`, `PATH`, `ARC`, and `TRI` which cover the broadest range of complex types, with `SC` being the core, universal representation. Other models exist to cover specific use-cases or specific intermediate forms. 
+We have created the general models `SC`, `PATH`, `ARC`, and `TRI` to cover the broadest range of complex types, with `SC` being the core, universal representation. The other models exist to cover specific use-cases, intermediate forms or to illustrate the relationships between these model types. 
 
-Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context. 
+Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context. Our ideal situation would be for external packages to publish methods
+for these verbs, keeping package-specific code in the original package. We think this provides a very powerful and general mechanism for a family of consistent packages. 
 
 Silicate models are built by using lower level worker verbs, listed here. 
 
@@ -91,9 +92,10 @@ There is one universal primitives-based model, an edge-only model with two table
 
 We also differentiate *structural primitives*, which are specializations that are more convenient or more efficient in certain cases. These include triangulations (2D primitives), and segment structures (1D primitives), and could provide higher dimensional forms (3D primitives, etc. ).   
 
-Currently, we provide support for the universal model `SC`, the sequential models `PATH` (simple features) and `ARC` (arc-node topology, TopoJSON-like), and structual primitives `TRI`. 
+Currently, we provide support for the universal model `SC`, the sequential models `PATH` (simple features belongs here, amongst many others) and `ARC` (arc-node topology, TopoJSON-like, OpenStreetMap), and structural primitives `TRI`. 
 
-In practice a segment model is trivial to generate, "SEG" but we haven't done that. 
+In practice a segment model is trivial to generate, "SEG" but we haven't done that. This would be analogous
+to the format used by `rgl::rgl.lines` or `spatstat::psp`. 
 
 We take care to allow for *labelling* (identity) of component elements, without taking full responsibility for
 maintaining them. Random IDs are created as needed, but any operation that works with existing IDs should be stable with them. 
@@ -102,16 +104,13 @@ maintaining them. Random IDs are created as needed, but any operation that works
 
 
  
-## Exceptions
+## Context, and some related projects
 
-There are a number of notable exceptions in the spatial world, but unfortunately this highlights how fragemented the landscape is. 
+The key difference between the silicate approach and simple features is the separation of geometry and topology. This allows for normalization (de-duplication) of the entities that are present or that can be identitied. Simple features has no capacity to de-duplicate or otherwise identify vertices, edges, paths or arcs, though tools that work with simple features do construct these schemes routinely in order to perform operations. When these richer, topological structures are built they are usually then discarded and the vertices are again de-normalized and again expressed explicitly without recording any of the relationships. 
+In this sense, simple features can be described as an *explicitly-stored PATH analogue*, and is no different
+from the model used by shapefiles, binary blobs in databases, and many other spatial vector formats. There are a number of notable exceptions to this including TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, Mapbox, WebGL, Threejs, D3, AFrame, Lavavu but unfortunately there's no overall scheme that can unify these richer structures. 
 
-TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, ...
-
-
-Other technologies are Mapbox, WebGL, Threejs, D3, AFrame, Lavavu ...
-
-The silicate family is composed of a small number of packages that apply the principles here, either to read from path forms or primitive forms. 
+The silicate family is composed of a small number of packages that apply the principles here, either to read from path forms or primitive forms.  As work continues some of these will be incorporated into the silicate core, when that is possible without requiring heavy external dependencies. 
 
 * [scgraph](https://github.com/hypertidy/scgraph)
 * [scspatstat](https://github.com/hypertidy/scspatstat)

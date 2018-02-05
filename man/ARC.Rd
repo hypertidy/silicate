@@ -26,13 +26,13 @@ ARC model
 Arcs are paths within the line segment graph between nodes.
 }
 \details{
-Nodes are the vertices where three or more arcs meet. 
+Nodes are the vertices where three or more arcs meet.
 An arc can exist without including any nodes, a path that has no neighbouring relationship with another path.
 
-This is _not_ the same terminology as used by other systems. The `arc_link_vertex` mapping is inherently ordered, 
-but we don't consider order of arcs. Duplicated arcs (i.e. complementary turns around neighbouring polygons) are 
-not kept. The `object_link_arc` mapping records which arc belongs to the objects, so can be reconstructed within 
-objects by tracing `arc_link_vertex` start and end point identity.
+This is \emph{not} the same terminology as used by other systems. The \code{arc_link_vertex} mapping is inherently ordered,
+but we don't consider order of arcs. Duplicated arcs (i.e. complementary turns around neighbouring polygons) are
+not kept. The \code{object_link_arc} mapping records which arc belongs to the objects, so can be reconstructed within
+objects by tracing \code{arc_link_vertex} start and end point identity.
 }
 \examples{
 a <- ARC(minimal_mesh)

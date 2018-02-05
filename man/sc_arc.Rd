@@ -6,7 +6,7 @@
 \alias{sc_arc.default}
 \alias{sc_arc}
 \alias{sc_arc.ARC}
-\title{Arcs for arc-node topology.}
+\title{Arc-node topology.}
 \usage{
 sc_arc(x, ...)
 
@@ -25,12 +25,21 @@ Return a label and vertex count of each arc.
 \details{
 Arcs are unbranched paths within the line segment graph. Nodes are the vertices where three or more arcs meet.
 
-As with the `PATH` and `SC` models the arc id values will only be relevant when 
-those entities are identified and labelled. Running `sc_arc` on a simple features model (for example) will
-identify them and return a summary, but without having any record of what they refer to. Use `ARC(x)` first to 
+As with the \code{PATH} and \code{SC} models the arc id values will only be relevant when
+those entities are identified and labelled. Running \code{sc_arc} on a simple features model (for example) will
+identify them and return a summary, but without having any record of what they refer to. Use \code{ARC(x)} first to
 work with models that don't included labels.
 }
 \examples{
 sc_arc(minimal_mesh)
 ARC(minimal_mesh)[["arc"]]
+
+arc <- ARC(minimal_mesh)
+plot(arc)
+points(arc$vertex[match(sc_node(arc)$vertex_, arc$vertex$vertex_), c("x_", "y_")])
+
+arc <- ARC(polymesh)
+plot(arc)
+title("arcs and nodes")
+points(arc$vertex[match(sc_node(arc)$vertex_, arc$vertex$vertex_), c("x_", "y_")])
 }

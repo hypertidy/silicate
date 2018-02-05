@@ -5,13 +5,13 @@
 \alias{flight_tracks}
 \title{Flight tracks}
 \description{
-An interesting data set in XYZM form, so it can act as a form of 4D tracks. Primarily to
-explore the use of `silicate` as able to represent this topologically,  and to experiment with
-auto-time-based plotting in `anglr`. 
- 
-Provided by  Kent Johnson (kent37) in a 
- [github discussion](https://github.com/r-spatial/mapview/issues/99#issuecomment-328711275) 
- where the data was attached in a zip file.
+A data set flight tracks in XYZM form, a form of 4D tracks. Primarily to
+explore the use of \code{silicate} as able to represent this topologically,  and to experiment with
+auto-time-based plotting in \code{anglr}.
+
+Provided by  Kent Johnson (kent37) in a
+\href{https://github.com/r-spatial/mapview/issues/99#issuecomment-328711275}{github discusion}
+where the data was attached in a zip file.
 }
 \details{
 Original form (in extdata/flight_tracks) is a XYZM LINESTRING shapefile
@@ -20,5 +20,5 @@ airport on January 27, 2017. Data is from an ADS-B recorder. Each point includes
 lat, lon, altitude in feet and time in North American Eastern Standard Time
 (EST).
 
-Converted via `sf` into `silicate::PATH` normal form, see (data-raw/flight_tracks.R).
+Converted via \code{sf} into \code{silicate::PATH} normal form, see (data-raw/flight_tracks.R).
 }

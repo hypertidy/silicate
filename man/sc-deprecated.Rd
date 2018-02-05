@@ -14,6 +14,6 @@ PRIMITIVE(x, ...)
 \item{...}{arguments passed to methods}
 }
 \description{
-`sc_uid(n = )` replaced by `sc_uid(x = )`
-`PRIMITIVE()`
+\code{sc_uid(n = )} replaced by \code{sc_uid(x = )}
+\code{PRIMITIVE()}
 }

@@ -1,7 +1,6 @@
 sc_colours <- function(x, ...) {
   # https://stackoverflow.com/a/33144808/355270
   cl <- grDevices::colors()[-1L]
-  
   sample(cl, x, replace = x > length(cl))
 }
 #' @noRd
