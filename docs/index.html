@@ -77,15 +77,26 @@
 <div id="overview" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h1></div>
-<p>The goal of silicate is to provide a general common form for complex multi-dimensional data.</p>
-<p>There are two main motivations for <code>silicate</code>:</p>
+<p>The goal of silicate is to provide a general normal-form for complex multi-dimensional data.</p>
+<p>These are the primary motivations for <code>silicate</code>:</p>
 <ul>
-<li>provide a central common-form of structure data, and a “universal converter”</li>
+<li>provide a universal <em>common-form</em> of hierarchical data</li>
+<li>provide a framework for a <em>universal converter</em> between complex data types</li>
 <li>to work with topological primitives for analysis and interaction.</li>
 </ul>
 <p>We have created the general models <code>SC</code>, <code>PATH</code>, <code>ARC</code>, and <code>TRI</code> to cover the broadest range of complex types, with <code>SC</code> being the core, universal representation. The other models exist to cover specific use-cases, intermediate forms or to illustrate the relationships between these model types.</p>
+<ul>
+<li>
+<code>SC</code> the universal model, composed of binary relationships, edges defined by pairs of vertices</li>
+<li>
+<code>PATH</code> a sequential model, for the standard spatial vector types, shapes defined by <em>paths</em>
+</li>
+<li>
+<code>ARC</code> a sequential model, for <em>arc-node topology</em> a shared-boundary decomposition of path models</li>
+<li>
+<code>TRI</code> a structural primitive model, for triangulations</li>
+</ul>
 <p>Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context. Our ideal situation would be for external packages to publish methods for these verbs, keeping package-specific code in the original package. We think this provides a very powerful and general mechanism for a family of consistent packages.</p>
-<p>Silicate models are built by using lower level worker verbs, listed here.</p>
 <p>We have the following worker verbs that are used to build the above models, and work between what each model offers.</p>
 <ul>
 <li>
@@ -104,7 +115,10 @@
 <code>sc_arc</code> - unique topological paths, arcs either meet two other arcs at a node, or include no nodes</li>
 <li>
 <code>sc_node</code> - unique nodes</li>
+<li>
+<code>unjoin</code> - a function to <em>un join</em> a table, the opposite of the database join</li>
 </ul>
+<p>The <code>unjoin</code> is a bit out of place here, but it’s a key step when building these models, used to remove duplication at various levels. It’s the primary mechanism for <em>defining and building-in</em> topology, which is precisely the relationships between entities in a model. This function is published in the <a href="https://CRAN.R-project.org/package=unjoin">CRAN package unjoin</a>.</p>
 </div>
 <div id="installation" class="section level1">
 <h1 class="hasAnchor">
@@ -126,56 +140,56 @@ y &lt;-<span class="st"> </span><span class="kw">ARC</span>(minimal_mesh) ## con
 <span class="co">#&gt; # A tibble: 14 x 3</span>
 <span class="co">#&gt;       x_    y_ vertex_ </span>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   </span>
-<span class="co">#&gt;  1 0     0     19863eeb</span>
-<span class="co">#&gt;  2 0     1.00  e7a3296f</span>
-<span class="co">#&gt;  3 0.750 1.00  2a4ca527</span>
-<span class="co">#&gt;  4 1.00  0.800 6e2b01b4</span>
-<span class="co">#&gt;  5 0.500 0.700 1beb4add</span>
-<span class="co">#&gt;  6 0.800 0.600 1613964e</span>
-<span class="co">#&gt;  7 0.690 0     bd56f06d</span>
-<span class="co">#&gt;  8 0.200 0.200 2f2f4359</span>
-<span class="co">#&gt;  9 0.500 0.200 33b9ff2e</span>
-<span class="co">#&gt; 10 0.500 0.400 754e6ae7</span>
-<span class="co">#&gt; 11 0.300 0.600 c25bde92</span>
-<span class="co">#&gt; 12 0.200 0.400 525c4feb</span>
-<span class="co">#&gt; 13 1.10  0.630 c6f68da4</span>
-<span class="co">#&gt; 14 1.23  0.300 62f3dfe1</span>
+<span class="co">#&gt;  1 0     0     454ba01c</span>
+<span class="co">#&gt;  2 0     1.00  07e5ffbf</span>
+<span class="co">#&gt;  3 0.750 1.00  4df56cef</span>
+<span class="co">#&gt;  4 1.00  0.800 0414bff2</span>
+<span class="co">#&gt;  5 0.500 0.700 dfcab078</span>
+<span class="co">#&gt;  6 0.800 0.600 417fbf20</span>
+<span class="co">#&gt;  7 0.690 0     86980528</span>
+<span class="co">#&gt;  8 0.200 0.200 74234a9f</span>
+<span class="co">#&gt;  9 0.500 0.200 9c9d426d</span>
+<span class="co">#&gt; 10 0.500 0.400 37d95886</span>
+<span class="co">#&gt; 11 0.300 0.600 3758ee83</span>
+<span class="co">#&gt; 12 0.200 0.400 1de59702</span>
+<span class="co">#&gt; 13 1.10  0.630 029583c3</span>
+<span class="co">#&gt; 14 1.23  0.300 2d98190c</span>
 
 <span class="kw">sc_edge</span>(x)
 <span class="co">#&gt; # A tibble: 15 x 3</span>
 <span class="co">#&gt;    .vertex0 .vertex1 edge_   </span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   </span>
-<span class="co">#&gt;  1 19863eeb e7a3296f 426e8f9e</span>
-<span class="co">#&gt;  2 e7a3296f 2a4ca527 f11a2d08</span>
-<span class="co">#&gt;  3 2a4ca527 6e2b01b4 e10a3606</span>
-<span class="co">#&gt;  4 6e2b01b4 1beb4add 487de12d</span>
-<span class="co">#&gt;  5 1beb4add 1613964e c83d20e2</span>
-<span class="co">#&gt;  6 1613964e bd56f06d 81b11031</span>
-<span class="co">#&gt;  7 bd56f06d 19863eeb e30d2f4c</span>
-<span class="co">#&gt;  8 2f2f4359 33b9ff2e b6b2d935</span>
-<span class="co">#&gt;  9 33b9ff2e 754e6ae7 8a746930</span>
-<span class="co">#&gt; 10 754e6ae7 c25bde92 1a69c4ca</span>
-<span class="co">#&gt; 11 c25bde92 525c4feb 5f350d5f</span>
-<span class="co">#&gt; 12 525c4feb 2f2f4359 ddff145e</span>
-<span class="co">#&gt; 13 1613964e c6f68da4 a209ab8e</span>
-<span class="co">#&gt; 14 c6f68da4 62f3dfe1 686ff737</span>
-<span class="co">#&gt; 15 62f3dfe1 bd56f06d a7f319b7</span>
+<span class="co">#&gt;  1 454ba01c 07e5ffbf fcdc05d1</span>
+<span class="co">#&gt;  2 07e5ffbf 4df56cef 380471f2</span>
+<span class="co">#&gt;  3 4df56cef 0414bff2 ef0cc3a4</span>
+<span class="co">#&gt;  4 0414bff2 dfcab078 8d6b8a80</span>
+<span class="co">#&gt;  5 dfcab078 417fbf20 233a6868</span>
+<span class="co">#&gt;  6 417fbf20 86980528 5ed59931</span>
+<span class="co">#&gt;  7 86980528 454ba01c 208b5904</span>
+<span class="co">#&gt;  8 74234a9f 9c9d426d 61695019</span>
+<span class="co">#&gt;  9 9c9d426d 37d95886 5212aaab</span>
+<span class="co">#&gt; 10 37d95886 3758ee83 8927b230</span>
+<span class="co">#&gt; 11 3758ee83 1de59702 47890cfa</span>
+<span class="co">#&gt; 12 1de59702 74234a9f f600f0f6</span>
+<span class="co">#&gt; 13 417fbf20 029583c3 c5cadbe5</span>
+<span class="co">#&gt; 14 029583c3 2d98190c 0eb7e5ce</span>
+<span class="co">#&gt; 15 2d98190c 86980528 9ceb1073</span>
 
 <span class="kw">sc_node</span>(y)
 <span class="co">#&gt; # A tibble: 2 x 1</span>
 <span class="co">#&gt;   vertex_ </span>
 <span class="co">#&gt;   &lt;chr&gt;   </span>
-<span class="co">#&gt; 1 beec874e</span>
-<span class="co">#&gt; 2 b9f3d089</span>
+<span class="co">#&gt; 1 88835ba3</span>
+<span class="co">#&gt; 2 8d41b557</span>
 
 <span class="kw">sc_arc</span>(y)
 <span class="co">#&gt; # A tibble: 4 x 2</span>
 <span class="co">#&gt;   arc_     ncoords_</span>
 <span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;</span>
-<span class="co">#&gt; 1 16c17259        6</span>
-<span class="co">#&gt; 2 5052ec69        4</span>
-<span class="co">#&gt; 3 52184019        2</span>
-<span class="co">#&gt; 4 e63fd12c        7</span></code></pre></div>
+<span class="co">#&gt; 1 2b94eee4        7</span>
+<span class="co">#&gt; 2 38514cc1        6</span>
+<span class="co">#&gt; 3 583d647f        4</span>
+<span class="co">#&gt; 4 58f5bdfa        2</span></code></pre></div>
 <div id="silicate-models" class="section level2">
 <h2 class="hasAnchor">
 <a href="#silicate-models" class="anchor"></a>silicate models</h2>

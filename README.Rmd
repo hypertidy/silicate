@@ -19,19 +19,24 @@ knitr::opts_chunk$set(
   
 # Overview
 
-The goal of silicate is to provide a general common form for complex multi-dimensional data. 
+The goal of silicate is to provide a general normal-form for complex multi-dimensional data. 
 
-There are two main motivations for `silicate`: 
+These are the primary motivations for `silicate`: 
 
-* provide a central common-form of structure data, and a "universal converter"
+* provide a universal *common-form* of hierarchical data
+* provide a framework for a *universal converter* between complex data types
 * to work with topological primitives for analysis and interaction. 
 
 We have created the general models `SC`, `PATH`, `ARC`, and `TRI` to cover the broadest range of complex types, with `SC` being the core, universal representation. The other models exist to cover specific use-cases, intermediate forms or to illustrate the relationships between these model types. 
 
+* `SC` the universal model, composed of binary relationships, edges defined by pairs of vertices
+* `PATH` a sequential model, for the standard spatial vector types, shapes defined by *paths*
+* `ARC` a sequential model, for *arc-node topology* a shared-boundary decomposition of path models
+* `TRI` a structural primitive model, for triangulations
+
+
 Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context. Our ideal situation would be for external packages to publish methods
 for these verbs, keeping package-specific code in the original package. We think this provides a very powerful and general mechanism for a family of consistent packages. 
-
-Silicate models are built by using lower level worker verbs, listed here. 
 
 We have the following worker verbs that are used to build the above models, and work between what each model offers. 
 
@@ -43,6 +48,9 @@ We have the following worker verbs that are used to build the above models, and 
 * `sc_segment` - all instances of edges
 * `sc_arc` - unique topological paths, arcs either meet two other arcs at a node, or include no nodes
 * `sc_node` - unique nodes
+* `unjoin` - a function to *un join* a table, the opposite of the database join
+
+The `unjoin` is a bit out of place here, but it's a key step when building these models, used to remove duplication at various levels. It's the primary mechanism for *defining and building-in* topology, which is precisely the relationships between entities in a model.  This function is published in the [CRAN package unjoin]( https://CRAN.R-project.org/package=unjoin). 
 
 # Installation
 

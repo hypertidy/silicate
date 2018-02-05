@@ -5,18 +5,22 @@
 Overview
 ========
 
-The goal of silicate is to provide a general common form for complex multi-dimensional data.
+The goal of silicate is to provide a general normal-form for complex multi-dimensional data.
 
-There are two main motivations for `silicate`:
+These are the primary motivations for `silicate`:
 
--   provide a central common-form of structure data, and a "universal converter"
+-   provide a universal *common-form* of hierarchical data
+-   provide a framework for a *universal converter* between complex data types
 -   to work with topological primitives for analysis and interaction.
 
 We have created the general models `SC`, `PATH`, `ARC`, and `TRI` to cover the broadest range of complex types, with `SC` being the core, universal representation. The other models exist to cover specific use-cases, intermediate forms or to illustrate the relationships between these model types.
 
-Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context. Our ideal situation would be for external packages to publish methods for these verbs, keeping package-specific code in the original package. We think this provides a very powerful and general mechanism for a family of consistent packages.
+-   `SC` the universal model, composed of binary relationships, edges defined by pairs of vertices
+-   `PATH` a sequential model, for the standard spatial vector types, shapes defined by *paths*
+-   `ARC` a sequential model, for *arc-node topology* a shared-boundary decomposition of path models
+-   `TRI` a structural primitive model, for triangulations
 
-Silicate models are built by using lower level worker verbs, listed here.
+Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context. Our ideal situation would be for external packages to publish methods for these verbs, keeping package-specific code in the original package. We think this provides a very powerful and general mechanism for a family of consistent packages.
 
 We have the following worker verbs that are used to build the above models, and work between what each model offers.
 
@@ -28,6 +32,9 @@ We have the following worker verbs that are used to build the above models, and 
 -   `sc_segment` - all instances of edges
 -   `sc_arc` - unique topological paths, arcs either meet two other arcs at a node, or include no nodes
 -   `sc_node` - unique nodes
+-   `unjoin` - a function to *un join* a table, the opposite of the database join
+
+The `unjoin` is a bit out of place here, but it's a key step when building these models, used to remove duplication at various levels. It's the primary mechanism for *defining and building-in* topology, which is precisely the relationships between entities in a model. This function is published in the [CRAN package unjoin](https://CRAN.R-project.org/package=unjoin).
 
 Installation
 ============
@@ -57,56 +64,56 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_ 
 #>    <dbl> <dbl> <chr>   
-#>  1 0     0     bac0b6cb
-#>  2 0     1.00  ee0764a0
-#>  3 0.750 1.00  7b378197
-#>  4 1.00  0.800 676b4eda
-#>  5 0.500 0.700 3c2cc028
-#>  6 0.800 0.600 d382e91b
-#>  7 0.690 0     06bbbf74
-#>  8 0.200 0.200 7bb4dfe9
-#>  9 0.500 0.200 cab58b23
-#> 10 0.500 0.400 51dc08f3
-#> 11 0.300 0.600 a278603c
-#> 12 0.200 0.400 4830f31e
-#> 13 1.10  0.630 76877cc3
-#> 14 1.23  0.300 5e9a0e79
+#>  1 0     0     a8c60376
+#>  2 0     1.00  f1d4c7a2
+#>  3 0.750 1.00  65b78a16
+#>  4 1.00  0.800 ec5e50a8
+#>  5 0.500 0.700 dff7098d
+#>  6 0.800 0.600 422a60f8
+#>  7 0.690 0     cb9a2793
+#>  8 0.200 0.200 a754f617
+#>  9 0.500 0.200 f976333f
+#> 10 0.500 0.400 11a29d47
+#> 11 0.300 0.600 20918c90
+#> 12 0.200 0.400 c1f1ba66
+#> 13 1.10  0.630 fa4a3b37
+#> 14 1.23  0.300 0c0f43ea
 
 sc_edge(x)
 #> # A tibble: 15 x 3
 #>    .vertex0 .vertex1 edge_   
 #>    <chr>    <chr>    <chr>   
-#>  1 bac0b6cb ee0764a0 e7050e3c
-#>  2 ee0764a0 7b378197 d1dc156c
-#>  3 7b378197 676b4eda 3be53067
-#>  4 676b4eda 3c2cc028 51bdb11d
-#>  5 3c2cc028 d382e91b 90b4e7af
-#>  6 d382e91b 06bbbf74 b1c4214a
-#>  7 06bbbf74 bac0b6cb e81545c4
-#>  8 7bb4dfe9 cab58b23 80569ab5
-#>  9 cab58b23 51dc08f3 ebe4b152
-#> 10 51dc08f3 a278603c 02df18eb
-#> 11 a278603c 4830f31e 625d2277
-#> 12 4830f31e 7bb4dfe9 26c33e33
-#> 13 d382e91b 76877cc3 fea9325c
-#> 14 76877cc3 5e9a0e79 9e38b41d
-#> 15 5e9a0e79 06bbbf74 26b60d4c
+#>  1 a8c60376 f1d4c7a2 86b23891
+#>  2 f1d4c7a2 65b78a16 784e0a81
+#>  3 65b78a16 ec5e50a8 5af2e8fb
+#>  4 ec5e50a8 dff7098d 7ca8153d
+#>  5 dff7098d 422a60f8 f5e8c901
+#>  6 422a60f8 cb9a2793 2766c606
+#>  7 cb9a2793 a8c60376 a8d17524
+#>  8 a754f617 f976333f a0b99119
+#>  9 f976333f 11a29d47 60656a3b
+#> 10 11a29d47 20918c90 a3e12a1f
+#> 11 20918c90 c1f1ba66 d723cbb3
+#> 12 c1f1ba66 a754f617 df162717
+#> 13 422a60f8 fa4a3b37 09bcf659
+#> 14 fa4a3b37 0c0f43ea 9ce2200e
+#> 15 0c0f43ea cb9a2793 f2cfe697
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_ 
 #>   <chr>   
-#> 1 45599a90
-#> 2 cbe9b007
+#> 1 ef5e61e9
+#> 2 93814188
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_     ncoords_
 #>   <chr>       <int>
-#> 1 56cb61c6        7
-#> 2 61a2ef33        4
-#> 3 d24dbbbd        2
-#> 4 f724daf9        6
+#> 1 03a1f709        2
+#> 2 71861328        4
+#> 3 b4d07dcf        7
+#> 4 f988b62f        6
 ```
 
 silicate models

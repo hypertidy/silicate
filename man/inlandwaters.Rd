@@ -28,10 +28,15 @@ plot(path)
 obj <- split(path$path_link_vertex, path$path_link_vertex$path_)
 cl <- grDevices::colors()[-1L]
 cols <- sample(cl, length(obj), replace = length(obj) > length(cl))
-par(mfrow = grDevices::n2mfrow(length(obj)), mar = rep(0, 4))
-lapply(seq_along(obj), 
+op <- par(mfrow = grDevices::n2mfrow(length(obj)), mar = rep(0, 4))
+funplot <- function(ob, vert, col) {
+vx <- c("x_", "y_")
+  plot(dplyr::inner_join(ob, vert, "vertex_")[vx], col = col, type = "l", axes = FALSE)
+  }
+junk <- lapply(seq_along(obj), 
 function(a) {
-  plot(dplyr::inner_join(obj[[a]], path$vertex, "vertex_")[c("x_", "y_")], col = cols[a], type = "l", axes = FALSE)
+  funplot(obj[[a]], path$vertex, cols[a])
   invisible(NULL)
   })
+  par(op)
 }
