@@ -45,7 +45,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/01_silicate_topology.html">silicate: the fabric of hierarchical structures</a>
+      <a href="articles/silicate_topology_01.html">silicate: the fabric of hierarchical structures</a>
     </li>
   </ul>
 </li>
@@ -129,64 +129,64 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <a href="#usage" class="anchor"></a>Usage</h1>
 <p>Convert a known external model to a silicate model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(silicate)
-x &lt;-<span class="st"> </span><span class="kw">SC</span>(minimal_mesh) ## convert simple features to universal form
+x &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/silicate/topics/SC">SC</a></span>(minimal_mesh) ## convert simple features to universal form
 
-y &lt;-<span class="st"> </span><span class="kw">ARC</span>(minimal_mesh) ## convert simple features to "arc-node" form</code></pre></div>
+y &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/silicate/topics/ARC">ARC</a></span>(minimal_mesh) ## convert simple features to "arc-node" form</code></pre></div>
 <p>Obtain the elements of a known model type.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sc_vertex</span>(x)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/silicate/topics/sc_vertex">sc_vertex</a></span>(x)
 <span class="co">#&gt; # A tibble: 14 x 3</span>
 <span class="co">#&gt;       x_    y_ vertex_ </span>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   </span>
-<span class="co">#&gt;  1 0     0     c8a0a955</span>
-<span class="co">#&gt;  2 0     1.00  d9320eca</span>
-<span class="co">#&gt;  3 0.750 1.00  5710496b</span>
-<span class="co">#&gt;  4 1.00  0.800 41d2f3b8</span>
-<span class="co">#&gt;  5 0.500 0.700 de6ce896</span>
-<span class="co">#&gt;  6 0.800 0.600 a6beed87</span>
-<span class="co">#&gt;  7 0.690 0     7155d89d</span>
-<span class="co">#&gt;  8 0.200 0.200 a9b79796</span>
-<span class="co">#&gt;  9 0.500 0.200 28380c74</span>
-<span class="co">#&gt; 10 0.500 0.400 ee8f3bac</span>
-<span class="co">#&gt; 11 0.300 0.600 4a36989e</span>
-<span class="co">#&gt; 12 0.200 0.400 30c79f78</span>
-<span class="co">#&gt; 13 1.10  0.630 a5c3055a</span>
-<span class="co">#&gt; 14 1.23  0.300 9eb388c7</span>
+<span class="co">#&gt;  1 0.    0.    5bc7fa9b</span>
+<span class="co">#&gt;  2 0.    1.00  3a4c776c</span>
+<span class="co">#&gt;  3 0.750 1.00  768e86a4</span>
+<span class="co">#&gt;  4 1.00  0.800 f7b817c3</span>
+<span class="co">#&gt;  5 0.500 0.700 66b76d04</span>
+<span class="co">#&gt;  6 0.800 0.600 4b8b4383</span>
+<span class="co">#&gt;  7 0.690 0.    5b85ba29</span>
+<span class="co">#&gt;  8 0.200 0.200 2f946ccc</span>
+<span class="co">#&gt;  9 0.500 0.200 1b09ac3e</span>
+<span class="co">#&gt; 10 0.500 0.400 70d2eee1</span>
+<span class="co">#&gt; 11 0.300 0.600 39928029</span>
+<span class="co">#&gt; 12 0.200 0.400 4dd9cba0</span>
+<span class="co">#&gt; 13 1.10  0.630 587f2132</span>
+<span class="co">#&gt; 14 1.23  0.300 360c301b</span>
 
-<span class="kw">sc_edge</span>(x)
+<span class="kw"><a href="http://www.rdocumentation.org/packages/silicate/topics/sc_edge">sc_edge</a></span>(x)
 <span class="co">#&gt; # A tibble: 15 x 3</span>
 <span class="co">#&gt;    .vertex0 .vertex1 edge_   </span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   </span>
-<span class="co">#&gt;  1 c8a0a955 d9320eca 4eeaaa2a</span>
-<span class="co">#&gt;  2 d9320eca 5710496b 07c0a070</span>
-<span class="co">#&gt;  3 5710496b 41d2f3b8 aa988fc1</span>
-<span class="co">#&gt;  4 41d2f3b8 de6ce896 5021c2e9</span>
-<span class="co">#&gt;  5 de6ce896 a6beed87 6dabdd34</span>
-<span class="co">#&gt;  6 a6beed87 7155d89d 7a254d28</span>
-<span class="co">#&gt;  7 7155d89d c8a0a955 2a9ad6be</span>
-<span class="co">#&gt;  8 a9b79796 28380c74 c8c6fe13</span>
-<span class="co">#&gt;  9 28380c74 ee8f3bac c7fa0d59</span>
-<span class="co">#&gt; 10 ee8f3bac 4a36989e 0e656b88</span>
-<span class="co">#&gt; 11 4a36989e 30c79f78 2b9088c0</span>
-<span class="co">#&gt; 12 30c79f78 a9b79796 662b822d</span>
-<span class="co">#&gt; 13 a6beed87 a5c3055a 241b7fe1</span>
-<span class="co">#&gt; 14 a5c3055a 9eb388c7 e0106520</span>
-<span class="co">#&gt; 15 9eb388c7 7155d89d 01186ee0</span>
+<span class="co">#&gt;  1 5bc7fa9b 3a4c776c 2a62ba64</span>
+<span class="co">#&gt;  2 3a4c776c 768e86a4 2b0c16f8</span>
+<span class="co">#&gt;  3 768e86a4 f7b817c3 2848b943</span>
+<span class="co">#&gt;  4 f7b817c3 66b76d04 6ecb32a1</span>
+<span class="co">#&gt;  5 66b76d04 4b8b4383 e4600249</span>
+<span class="co">#&gt;  6 4b8b4383 5b85ba29 6f53a733</span>
+<span class="co">#&gt;  7 5b85ba29 5bc7fa9b eb5728cf</span>
+<span class="co">#&gt;  8 2f946ccc 1b09ac3e a44d6747</span>
+<span class="co">#&gt;  9 1b09ac3e 70d2eee1 c90f6e24</span>
+<span class="co">#&gt; 10 70d2eee1 39928029 1c18be6d</span>
+<span class="co">#&gt; 11 39928029 4dd9cba0 743b03c4</span>
+<span class="co">#&gt; 12 4dd9cba0 2f946ccc e2de47c1</span>
+<span class="co">#&gt; 13 4b8b4383 587f2132 be066820</span>
+<span class="co">#&gt; 14 587f2132 360c301b cbf50a94</span>
+<span class="co">#&gt; 15 360c301b 5b85ba29 6d7ee088</span>
 
-<span class="kw">sc_node</span>(y)
+<span class="kw"><a href="http://www.rdocumentation.org/packages/silicate/topics/sc_node">sc_node</a></span>(y)
 <span class="co">#&gt; # A tibble: 2 x 1</span>
 <span class="co">#&gt;   vertex_ </span>
 <span class="co">#&gt;   &lt;chr&gt;   </span>
-<span class="co">#&gt; 1 a08f85a4</span>
-<span class="co">#&gt; 2 d37d8911</span>
+<span class="co">#&gt; 1 5c21af5a</span>
+<span class="co">#&gt; 2 719131e2</span>
 
-<span class="kw">sc_arc</span>(y)
+<span class="kw"><a href="http://www.rdocumentation.org/packages/silicate/topics/sc_arc">sc_arc</a></span>(y)
 <span class="co">#&gt; # A tibble: 4 x 2</span>
 <span class="co">#&gt;   arc_     ncoords_</span>
 <span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;</span>
-<span class="co">#&gt; 1 1655070d        2</span>
-<span class="co">#&gt; 2 3e0190f0        7</span>
-<span class="co">#&gt; 3 6d013c23        4</span>
-<span class="co">#&gt; 4 dc001a7e        6</span></code></pre></div>
+<span class="co">#&gt; 1 2a1c6284        2</span>
+<span class="co">#&gt; 2 57ff8578        7</span>
+<span class="co">#&gt; 3 8dda9903        6</span>
+<span class="co">#&gt; 4 d33a15f2        4</span></code></pre></div>
 <div id="silicate-models" class="section level2">
 <h2 class="hasAnchor">
 <a href="#silicate-models" class="anchor"></a>silicate models</h2>
