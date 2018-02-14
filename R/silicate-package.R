@@ -78,6 +78,7 @@ NULL
 #' it's just what happened doing a quick crop and extract with the mouse. Lord Howe Island and
 #' Macquarie Island are both present, as part of New South Wales and Tasmania respectively. 
 #' @examples 
+#' \dontrun{
 #' path <- PATH(inlandwaters)
 #' plot(path)
 #' obj <- split(path$path_link_vertex, path$path_link_vertex$path_)
@@ -94,6 +95,7 @@ NULL
 #'   invisible(NULL)
 #'   })
 #'   par(op)
+#'   }
 #' @aliases inlandwaters
 #' @name inlandwaters
 #' @docType data
