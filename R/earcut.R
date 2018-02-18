@@ -1,6 +1,7 @@
 #' @name earcut
 #' @export
 #' @importFrom rearcut earcut
+#' @export earcut
 earcut.PATH <- function(x, ...) {
   path <- silicate::sc_path(x)
   path_link_vertex <- x$path_link_vertex

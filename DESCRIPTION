@@ -29,16 +29,16 @@ Suggests:
 RoxygenNote: 6.0.1
 Imports: 
     dplyr,
-    earclip.rgl,
     ids,
     methods,
     purrr,
     quadmesh,
     rlang,
     RTriangle,
+    rearcut,
     tibble,
     unjoin (>= 0.0.3),
     viridis
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-Remotes: mdsumner/gibble, mdsumner/earclip.rgl
+Remotes: mdsumner/gibble, hypertidy/rearcut
