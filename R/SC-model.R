@@ -1,6 +1,52 @@
 
+##https://github.com/hypertidy/silicate/issues/46
+ring_cycles <- function(aa) {
+  ii <- 1
+  set0 <- ii
+  visited <- logical(nrow(aa))
+  while(!all(visited)) {
+    i0 <- ii
+    repeat {
+      ii <- which(aa[,1] == aa[ii, 2])
+      if (length(ii) < 1 | ii[1] == i0) {
+        set0 <- c(set0, NA_integer_)
+        break; 
+      }
+      set0 <- c(set0, ii)
+    }
+    visited <- seq(nrow(aa)) %in% na.omit(set0)
+    ii <- which(!visited)[1L]
+    if (!is.na(ii)) set0 <- c(set0, ii)
+  }
+  l <- split(set0, c(0, cumsum(abs(diff(is.na(set0))))))
+  bind_rows(lapply(l[!unlist(lapply(l, function(x) all(is.na(x))))], 
+                   function(x) tibble(row = x)), .id = "cycle")
+}
 
-#' The universal model, SC
+sc_segment.SC <- function(x, ...) {
+  ## expand all instances of edges
+  segments <- x$object_link_edge %>% 
+    inner_join(x$edge) %>% 
+    ## and badge them as segments
+    mutate(segment_ = sc_uid(.))
+  segments[c("edge_", "object_", "segment_")]
+}
+# sc_path.SC <- function(x, ...) {
+#   segments <- sc_segment(x)
+#   ## iterate all objects and find all paths
+#   objects <- split(segments, segments$object_)
+#   out <- vector("list", length(objects))
+#   for (i in seq_along(objects)) {
+#     obj <- objects[[i]]
+#     rc <- ring_cycles(as.matrix(obj[c(".vertex0", ".vertex1")]))
+#     obj$path_ <- sc_uid(length(unique(rc$cycle)))[factor(rc$cycle)]
+#     out[[i]] <- obj[rc$row, ]
+#   }
+#   object <- bind_rows(out)
+#   ## and split out object grouping from path grouping
+#   object
+# }
+#' The universal model
 #' 
 #' The universal model `SC` is coordinates and binary relations between
 #' pairs of coordinates. This is purely an edge (or segment) model, with all 
@@ -12,10 +58,6 @@ SC <- function(x, ...) {
   UseMethod("SC")
 }
 #' @export
-SC.SC <- function(x, ...) {
-  x
-}
-#' @export
 SC.default <- function(x, ...) {
   P <- PATH(x, ...)
   O <- sc_object(P)
@@ -25,12 +67,12 @@ SC.default <- function(x, ...) {
   ExO <- S %>% 
     dplyr::select(.data$path_, .data$edge_) %>% 
     dplyr::inner_join(dplyr::select(P[["path"]], .data$path_, .data$object_), "path_") %>% 
-  dplyr::distinct(.data$edge_, .data$object_) 
+    dplyr::distinct(.data$edge_, .data$object_) 
   structure(list(object = O,
                  object_link_edge = ExO,
-       edge = E, 
-       vertex = sc_vertex(P)), 
-       class = c("SC", "sc"))
+                 edge = E, 
+                 vertex = sc_vertex(P)), 
+            class = c("SC", "sc"))
 }
 
 compact_labels <- function(x) {
@@ -76,17 +118,17 @@ semi_cascade0 <- function (x, ..., tables = c("o", "b", "bXv", "v")) {
   tables <- tables[-1]
   for (itab in tables) {
     x[[itab]] <- last <- semi_join_1(x[[itab]], 
-                                                               last)
+                                     last)
   }
   x
 }
 
 semi_join_1 <- 
-function (x, y, by = NULL, copy = FALSE, ...) 
-{
-  comm <- base::intersect(names(x), names(y))
-  if (length(comm) == 1L) {
-    by <- comm
+  function (x, y, by = NULL, copy = FALSE, ...) 
+  {
+    comm <- base::intersect(names(x), names(y))
+    if (length(comm) == 1L) {
+      by <- comm
+    }
+    dplyr::semi_join(x, y, by = by, copy = copy, ...)
   }
-  dplyr::semi_join(x, y, by = by, copy = copy, ...)
-}
