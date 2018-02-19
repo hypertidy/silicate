@@ -12,10 +12,10 @@ TRI.default <- function(x, ...) {
 }
 #' @export
 TRI.PATH <- function(x, ...) {
-  if(any(grepl("MULTIPOLYGON", x$path$type))) {
-    message("MULTIPOLYGON ear clipping doesn't work in some cases:")
-    message("* try `sf::st_cast(x, \"POLYGON\")` if it fails")
-  }
+  #if(any(grepl("MULTIPOLYGON", x$path$type))) {
+  #  message("MULTIPOLYGON ear clipping doesn't work in some cases:")
+  #  message("* try `sf::st_cast(x, \"POLYGON\")` if it fails")
+  #}
   tri <- triangulate.PATH(x)
   obj <- sc_object(x)
   #obj <- obj[obj$object_ %in% tri$object_, ]
@@ -79,23 +79,31 @@ na_split <- function(x) {
 triangulate.PATH <- function(x, ...) {
   objlist <- split(x$path, x$path$object_)
   objlist <- objlist[unique(x$path$object_)]
-  trilist <- setNames(vector("list", length(objlist)), names(objlist))
+  polygon_count <- nrow(dplyr::distinct(x$path[c("object", "subobject")]))
+  trilist <- vector("list", polygon_count)
+  itri <- 0
   for (i in seq_along(objlist)) {
-    verts <- objlist[[i]] %>% dplyr::select(.data$object_, .data$path_) %>% 
+    obj <- objlist[[i]]
+    subobjlist <- split(obj, obj$subobject)
+    subobjlist <- subobjlist[unique(obj$subobject)]
+    for (j in seq_along(subobjlist)) {
+      itri <- itri + 1
+    verts <- subobjlist[[j]] %>% 
+      dplyr::select(.data$object_, .data$path_) %>% 
       dplyr::inner_join(x$path[c("path_", "object_")], "path_") %>% 
       dplyr::select(.data$path_) %>% 
       dplyr::inner_join(x$path_link_vertex, "path_") %>% 
       dplyr::inner_join(x$vertex, "vertex_")
-    trimat <- na_split(verts) %>% earclip.rgl::earclip_rgl(random = FALSE)
-    #trimat <- try(na_split(verts) %>% earclip.rgl::earclip_rgl(), silent = TRUE)
-    #if (inherits(trimat, "try-error")) {
-    #  trilist[[i]] <- NULL 
-    #  } else {
-    trilist[[i]] <- tibble::tibble(.vertex0 = verts$vertex_[trimat[1, ]], 
-                   .vertex1 = verts$vertex_[trimat[2, ]], 
-                   .vertex2 = verts$vertex_[trimat[3, ]], 
-                   triangle_ = sc_uid(ncol(trimat)))
-     # }
+    holes <- which(c(0, abs(diff(as.integer(as.factor(verts$path_))))) > 0)
+    trindex <- rearcut::earcut(verts[c("x_", "y_")], holes)
+    trimat <- matrix(trindex, ncol = 3L, byrow = TRUE)
+    trilist[[itri]] <- tibble::tibble(.vertex0 = verts$vertex_[trimat[,1L]], 
+                                      .vertex1 = verts$vertex_[trimat[,2L]],
+                                      .vertex2 = verts$vertex_[trimat[,3L]],
+                                      path_ = verts$path_[1L], 
+                                      object_ = obj$object_[1L])
+    
+    }
   }
-  dplyr::bind_rows(trilist, .id = "object_")
+  dplyr::bind_rows(trilist)
 }
