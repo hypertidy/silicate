@@ -18,11 +18,11 @@ sc_uid.default <- function(x, ...) {
     warning("old behaviour where input is integer to be removed")
   }
   if ("n" %in% names(list(...))) stop("sc_uid(): use of n argument defunct, use x = ")
-  ids::random_id(x, bytes = 4L)
+  ids::random_id(x, bytes = 5L)
 }
 #' @export
 sc_uid.numeric <- function(x, ...) {
-  ids::random_id(x, bytes = 4L)
+  ids::random_id(x, bytes = 5L)
 }
 #' @export
 sc_uid.data.frame <- function(x, ...) {
