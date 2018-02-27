@@ -24,9 +24,9 @@ test_that("geometrycollection decomposition works", {
 
 #nc = st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 test_that("sf decomposition works", {
-  PATH(minimal_mesh) %>% 
-    expect_s3_class("PATH") %>% 
-    expect_named(c("object", "path", "path_link_vertex", "vertex"))
+  path <- PATH(minimal_mesh)
+  path %>%   expect_s3_class("PATH") 
+  expect_true(all(c("object", "path", "path_link_vertex", "vertex") %in% names(path))) 
 })
 #nc = st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 test_that("joins are valid", {

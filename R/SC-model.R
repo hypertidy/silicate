@@ -29,23 +29,27 @@ sc_segment.SC <- function(x, ...) {
     inner_join(x$edge) %>% 
     ## and badge them as segments
     mutate(segment_ = sc_uid(.))
-  segments[c("edge_", "object_", "segment_")]
+  segments
 }
-# sc_path.SC <- function(x, ...) {
-#   segments <- sc_segment(x)
-#   ## iterate all objects and find all paths
-#   objects <- split(segments, segments$object_)
-#   out <- vector("list", length(objects))
-#   for (i in seq_along(objects)) {
-#     obj <- objects[[i]]
-#     rc <- ring_cycles(as.matrix(obj[c(".vertex0", ".vertex1")]))
-#     obj$path_ <- sc_uid(length(unique(rc$cycle)))[factor(rc$cycle)]
-#     out[[i]] <- obj[rc$row, ]
-#   }
-#   object <- bind_rows(out)
-#   ## and split out object grouping from path grouping
-#   object
-# }
+sc_path_link_vertex.SC <- function(x,  ...) {
+  segments <- sc_segment(x)
+  ## iterate all objects and find all paths
+  objects <- split(segments, segments$object_)[unique(segments$object_)]
+  out <- vector("list", length(objects))
+  for (i in seq_along(objects)) {
+    obj <- objects[[i]]
+    rc <- ring_cycles(as.matrix(obj[c(".vertex0", ".vertex1")]))
+    obj$path_ <- sc_uid(length(unique(rc$cycle)))[factor(rc$cycle)]
+    out[[i]] <- obj %>% dplyr::group_by(path_) %>% 
+      dplyr::rename(vertex_ = .vertex0) %>%
+      dplyr::select(vertex_, path_) %>% 
+      dplyr::slice(c(1:n(), 1)) %>% 
+      dplyr::ungroup()
+  }
+  object <- bind_rows(out)
+  ## and split out object grouping from path grouping
+  object
+}
 #' The universal model
 #' 
 #' The universal model `SC` is coordinates and binary relations between

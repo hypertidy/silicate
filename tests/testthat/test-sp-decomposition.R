@@ -17,7 +17,8 @@ test_that("sp decomposition works", {
 
   ## this table changed order in the pslg branch
   ## but naming properly, will mean that never matters
-  expect_equal(unname(unlist(lapply(pp, dim))), c(2L, 2L, 3L, 7L, 19L, 2L, 14L, 3L))
+  ## add meta 2018-02-27
+  expect_equal(unname(unlist(lapply(pp, dim))), c(2L, 2L, 3L, 7L, 19L, 2L, 14L, 3L, 1L, 2L))
   e <- sc_edge(spobj)
   e %>% expect_named(c(".vertex0", ".vertex1", "edge_"))
   

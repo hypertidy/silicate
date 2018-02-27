@@ -4,7 +4,7 @@
 \alias{SC}
 \alias{SC}
 \alias{plot.SC}
-\title{The universal model, SC}
+\title{The universal model}
 \usage{
 SC(x, ...)
 

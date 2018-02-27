@@ -9,11 +9,11 @@
 \alias{earcut.sfc}
 \title{Ear cut triangulation}
 \usage{
-\method{earcut}{PATH}(x, holes = NULL, ...)
+earcut.PATH(x, holes = NULL, ...)
 
-\method{earcut}{sf}(x, ...)
+earcut.sf(x, ...)
 
-\method{earcut}{sfc}(x, ...)
+earcut.sfc(x, ...)
 }
 \arguments{
 \item{x}{PATH object to triangulate}
@@ -26,8 +26,8 @@
 Ear cutting triangulation for polygons.
 }
 \details{
-This function extends the \code{earcut} generic from the package \code{rearcut}.
+This function builds on \code{earcut} the package \code{decido}.
 }
 \examples{
-earcut(PATH(minimal_mesh))
+earcut.PATH(PATH(minimal_mesh))
 }
