@@ -68,7 +68,7 @@
       <h1>silicate: the fabric of hierarchical structures</h1>
                         <h4 class="author">Michael D. Sumner</h4>
             
-            <h4 class="date">2018-02-14</h4>
+            <h4 class="date">2018-02-27</h4>
           </div>
 
     
@@ -121,23 +121,23 @@ junk &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="k
 ## [4] "vertex"</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>edge</code></pre></div>
 <pre><code>## # A tibble: 15 x 3
-##    .vertex0 .vertex1 edge_   
-##    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   
-##  1 e5deb573 ccc8f2f3 2c469987
-##  2 ccc8f2f3 6786043b 46433a78
-##  3 6786043b 88a36922 c855cb6a
-##  4 88a36922 c9b5e609 ff4291e4
-##  5 c9b5e609 b8fc4a70 a8985176
-##  6 b8fc4a70 881f43fe b6468ce5
-##  7 881f43fe e5deb573 a6053d24
-##  8 5e0b0c84 ee81d51b 9ce02896
-##  9 ee81d51b 5eb42178 a273a5da
-## 10 5eb42178 1cb89a97 99183202
-## 11 1cb89a97 165c3529 5c90ae7b
-## 12 165c3529 5e0b0c84 c6f02900
-## 13 b8fc4a70 fa8b4edc 80080849
-## 14 fa8b4edc 0497cec2 95198603
-## 15 0497cec2 881f43fe 237e13a4</code></pre>
+##    .vertex0   .vertex1   edge_     
+##    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     
+##  1 31ee5b7070 6249946b51 b74f7845ab
+##  2 6249946b51 13bb7e5924 e4c183d814
+##  3 13bb7e5924 c3cb52aee6 5b805eedfc
+##  4 c3cb52aee6 2d9d72cae1 d1dc4883a7
+##  5 2d9d72cae1 16dda3fb60 91c8f6b70e
+##  6 16dda3fb60 c48b93f373 6e6b0f0378
+##  7 c48b93f373 31ee5b7070 5564366e29
+##  8 77fe68e1fa 79cf2e9fd0 6569bce577
+##  9 79cf2e9fd0 479b67e36e 8c3ca9f225
+## 10 479b67e36e 4cf1994961 6891af8f82
+## 11 4cf1994961 064189b4e1 cdac17603d
+## 12 064189b4e1 77fe68e1fa 07bea5f051
+## 13 16dda3fb60 989b8dde8c 20036f2b6d
+## 14 989b8dde8c 5c4b80b530 27a3f2bd0d
+## 15 5c4b80b530 c48b93f373 26898696fd</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(x)
 <span class="kw">text</span>(x<span class="op">$</span>vertex[<span class="kw">c</span>(<span class="st">"x_"</span>, <span class="st">"y_"</span>)], <span class="dt">label =</span> x<span class="op">$</span>vertex<span class="op">$</span>vertex_)</code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/SC-1.png" width="672"></p>
@@ -151,7 +151,7 @@ junk &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="k
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">PATH</span>(minimal_mesh)
 <span class="kw">names</span>(x)</code></pre></div>
 <pre><code>## [1] "object"           "path"             "path_link_vertex"
-## [4] "vertex"</code></pre>
+## [4] "vertex"           "meta"</code></pre>
 <p>At a basic level, the tables in this <code>PATH</code> are essentially the same as the kinds of structures we normally use, but we need to de-normalize them to see this exactly.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/reduce">reduce</a></span>(x[<span class="kw">c</span>(<span class="st">"object"</span>, <span class="st">"path"</span>, <span class="st">"path_link_vertex"</span>, <span class="st">"vertex"</span>)], dplyr<span class="op">::</span>inner_join) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -160,27 +160,27 @@ purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentati
 <pre><code>## Joining, by = "path_"</code></pre>
 <pre><code>## Joining, by = "vertex_"</code></pre>
 <pre><code>## # A tibble: 19 x 5
-##    object subobject path_       x_    y_
-##     &lt;int&gt;     &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;
-##  1      1         1 730986cb 0.    0.   
-##  2      1         1 730986cb 0.    1.00 
-##  3      1         1 730986cb 0.750 1.00 
-##  4      1         1 730986cb 1.00  0.800
-##  5      1         1 730986cb 0.500 0.700
-##  6      1         1 730986cb 0.800 0.600
-##  7      1         1 730986cb 0.690 0.   
-##  8      1         1 730986cb 0.    0.   
-##  9      1         1 2f0b7785 0.200 0.200
-## 10      1         1 2f0b7785 0.500 0.200
-## 11      1         1 2f0b7785 0.500 0.400
-## 12      1         1 2f0b7785 0.300 0.600
-## 13      1         1 2f0b7785 0.200 0.400
-## 14      1         1 2f0b7785 0.200 0.200
-## 15      2         1 5305602b 0.690 0.   
-## 16      2         1 5305602b 0.800 0.600
-## 17      2         1 5305602b 1.10  0.630
-## 18      2         1 5305602b 1.23  0.300
-## 19      2         1 5305602b 0.690 0.</code></pre>
+##    object subobject path_         x_    y_
+##     &lt;int&gt;     &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;
+##  1      1         1 26f8453829 0.    0.   
+##  2      1         1 26f8453829 0.    1.00 
+##  3      1         1 26f8453829 0.750 1.00 
+##  4      1         1 26f8453829 1.00  0.800
+##  5      1         1 26f8453829 0.500 0.700
+##  6      1         1 26f8453829 0.800 0.600
+##  7      1         1 26f8453829 0.690 0.   
+##  8      1         1 26f8453829 0.    0.   
+##  9      1         1 7622465ce8 0.200 0.200
+## 10      1         1 7622465ce8 0.500 0.200
+## 11      1         1 7622465ce8 0.500 0.400
+## 12      1         1 7622465ce8 0.300 0.600
+## 13      1         1 7622465ce8 0.200 0.400
+## 14      1         1 7622465ce8 0.200 0.200
+## 15      2         1 5939d18f86 0.690 0.   
+## 16      2         1 5939d18f86 0.800 0.600
+## 17      2         1 5939d18f86 1.10  0.630
+## 18      2         1 5939d18f86 1.23  0.300
+## 19      2         1 5939d18f86 0.690 0.</code></pre>
 <p>Paths are easily re-expressed as a set of edges, treating each pair of coordinates as a new kind of entity. Some edges are <em>shared</em>, in that two objects might have a particular edge in their own path. If the shared neighbours are two polygons, then it’s likely that each polygon encounters that edge in a different direction, but this is not a stable pattern so it’s best to not assume it to be the case. It’s important here because we need to differentiate between an <em>instance of an edge</em>, which is a particular <em>line segment</em> that is part of one particular polygon. If that polygon segment is a shared edge with a neighbour polygon, then we distinguish the instances as a particular <em>segment</em> of a unique <em>edge</em>. This allows us the opportunity to treat the edge as completely abstract, and also to decide or record what it’s orientation is, which records which vertex is the first one, and which is the second. Not all applications need to care about this distinction, though.</p>
 <p>In this way we have an analogy for edges and segments compared to vertices and coordinates, and I think this terminology makes sense!</p>
 </div>
@@ -204,12 +204,26 @@ nodes &lt;-<span class="st"> </span><span class="kw">sc_node</span>(arc)
 <h2 class="hasAnchor">
 <a href="#tri" class="anchor"></a>TRI</h2>
 <p>Triangulations. Here we strictly want <em>constrained triangulations</em>, where there is no divergence from the planar coverage of input shape and its triangulated decomposition. This is not easy to do, and there are two main methods. One is high-quality <em>mostly-Delaunay</em> triangulations where the Delaunay condition is relaxed in order to always align to input boundaries. Holes in a near-Delaunay triangulation are either removed by flood-fill from a seed-vertex, or by post-filtering the triangles whose centroid does not intersect the input boundaries. The second method is ear-clippping, a relatively inexpensive algorithm that produces low-quality triangle meshes.</p>
-<p>Currently silicate can only provide the second form, the ear-clipping method as used in package <code>rgl</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tri &lt;-<span class="st"> </span><span class="kw">TRI</span>(minimal_mesh)</code></pre></div>
-<pre><code>## MULTIPOLYGON ear clipping doesn't work in some cases:</code></pre>
-<pre><code>## * try `sf::st_cast(x, "POLYGON")` if it fails</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(tri)</code></pre></div>
+<p>Currently silicate can only provide the second form, the ear-clipping method provided by <code>decido</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tri &lt;-<span class="st"> </span><span class="kw">TRI</span>(minimal_mesh)
+<span class="kw">plot</span>(tri)</code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/TRI-1.png" width="672"></p>
+<p>Performance is pretty good for this method of triangulation, despite also being constrained to the input shapes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#system.time(sf::st_triangulate(inlandwaters))</span>
+<span class="co">#   user  system elapsed </span>
+<span class="co">#  4.699   0.125   4.823 </span>
+<span class="co">#system.time(sfdct::ct_triangulate(inlandwaters))</span>
+<span class="co">#  user  system elapsed </span>
+<span class="co"># 15.476   0.225  15.460 </span>
+<span class="kw">system.time</span>(tri &lt;-<span class="st"> </span><span class="kw">TRI</span>(inlandwaters))</code></pre></div>
+<pre><code>##    user  system elapsed 
+##   4.153   0.031   4.185</code></pre>
+<p>The triangles are low-quality (but triangles are very easy to subdivide).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(tri)</code></pre></div>
+<p><img src="silicate_topology_01_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="ot">NA</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">625000</span>, <span class="dv">1060000</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1350000</span>,  <span class="dv">-550000</span>))
+<span class="kw">plot</span>(tri, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="silicate_topology_01_files/figure-html/unnamed-chunk-2-2.png" width="672"></p>
 <p>The <a href="https://CRAN.R-project.org/package=unjoin">CRAN package sfdct</a> will use the first method (package <code>RTriangle</code> wraps the Triangle library) for simple features.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#plot(sfdct::ct_triangulate(minimal_mesh))</span></code></pre></div>
 </div>

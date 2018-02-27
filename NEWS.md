@@ -1,6 +1,10 @@
-# silicate 0.1.0
+# silicate dev
 
 * migrated from JS rearcut to C++ decido for triangulation
+
+* cleaned up the triangulation logic 
+
+# silicate 0.1.0
 
 * added functions compact_indexes and expand_indexes to remove 
  and restore the unique labels on entities - these are purely 

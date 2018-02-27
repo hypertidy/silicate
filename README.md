@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.org/hypertidy/silicate.svg?branch=master)](https://travis-ci.org/hypertidy/silicate) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/hypertidy/silicate?branch=master&svg=true)](https://ci.appveyor.com/project/hypertidy/silicate) [![Coverage Status](https://img.shields.io/codecov/c/github/hypertidy/silicate/master.svg)](https://codecov.io/github/hypertidy/silicate?branch=master)
+[![Travis-CI Build Status](http://badges.herokuapp.com/travis/hypertidy/silicate?branch=master&env=BUILD_NAME=trusty_release&label=linux)](https://travis-ci.org/hypertidy/silicate) [![Build Status](http://badges.herokuapp.com/travis/hypertidy/silicate?branch=master&env=BUILD_NAME=osx_release&label=osx)](https://travis-ci.org/hypertidy/silicate) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/hypertidy/silicate?branch=master&svg=true)](https://ci.appveyor.com/project/mdsumner/silicate) [![Coverage Status](https://img.shields.io/codecov/c/github/hypertidy/silicate/master.svg)](https://codecov.io/github/hypertidy/silicate?branch=master)
 
 Overview
 ========
@@ -62,58 +62,58 @@ Obtain the elements of a known model type.
 ``` r
 sc_vertex(x)
 #> # A tibble: 14 x 3
-#>       x_    y_ vertex_ 
-#>    <dbl> <dbl> <chr>   
-#>  1 0.    0.    33eeb7be
-#>  2 0.    1.00  8c275d95
-#>  3 0.750 1.00  57138764
-#>  4 1.00  0.800 15b55ddd
-#>  5 0.500 0.700 7f8e0d5c
-#>  6 0.800 0.600 d59be90a
-#>  7 0.690 0.    b58d163e
-#>  8 0.200 0.200 8172de78
-#>  9 0.500 0.200 4145e545
-#> 10 0.500 0.400 7b21e115
-#> 11 0.300 0.600 438010d7
-#> 12 0.200 0.400 532184ca
-#> 13 1.10  0.630 a949c6bb
-#> 14 1.23  0.300 7afac12c
+#>       x_    y_ vertex_   
+#>    <dbl> <dbl> <chr>     
+#>  1 0.    0.    ee907f88ae
+#>  2 0.    1.00  7a9513f101
+#>  3 0.750 1.00  2796b5bd58
+#>  4 1.00  0.800 f4fec84ab9
+#>  5 0.500 0.700 124e33d89b
+#>  6 0.800 0.600 b67882940c
+#>  7 0.690 0.    5b1ab9cd41
+#>  8 0.200 0.200 a89fc24da7
+#>  9 0.500 0.200 41e1c69582
+#> 10 0.500 0.400 f1cde42d5c
+#> 11 0.300 0.600 4dc4d79de2
+#> 12 0.200 0.400 bf1b334088
+#> 13 1.10  0.630 380dddd669
+#> 14 1.23  0.300 03b237aced
 
 sc_edge(x)
 #> # A tibble: 15 x 3
-#>    .vertex0 .vertex1 edge_   
-#>    <chr>    <chr>    <chr>   
-#>  1 33eeb7be 8c275d95 21e77789
-#>  2 8c275d95 57138764 d736c62c
-#>  3 57138764 15b55ddd eea2aa01
-#>  4 15b55ddd 7f8e0d5c 0a616f93
-#>  5 7f8e0d5c d59be90a 15b6c270
-#>  6 d59be90a b58d163e 16a1d8a8
-#>  7 b58d163e 33eeb7be 9e1ea6ab
-#>  8 8172de78 4145e545 eb427cfe
-#>  9 4145e545 7b21e115 368ff1e4
-#> 10 7b21e115 438010d7 6d6adcd2
-#> 11 438010d7 532184ca 318dfb3d
-#> 12 532184ca 8172de78 2cf8d5b2
-#> 13 d59be90a a949c6bb 4c8e8a82
-#> 14 a949c6bb 7afac12c 07266d69
-#> 15 7afac12c b58d163e 31bd338d
+#>    .vertex0   .vertex1   edge_     
+#>    <chr>      <chr>      <chr>     
+#>  1 ee907f88ae 7a9513f101 026c7d076c
+#>  2 7a9513f101 2796b5bd58 1ee399b09f
+#>  3 2796b5bd58 f4fec84ab9 a25c5e05fd
+#>  4 f4fec84ab9 124e33d89b 20a5c5fcb4
+#>  5 124e33d89b b67882940c 4322441973
+#>  6 b67882940c 5b1ab9cd41 1a6848c480
+#>  7 5b1ab9cd41 ee907f88ae 13577bcf48
+#>  8 a89fc24da7 41e1c69582 53e9fb0489
+#>  9 41e1c69582 f1cde42d5c 0370b47d85
+#> 10 f1cde42d5c 4dc4d79de2 65e2ee4eae
+#> 11 4dc4d79de2 bf1b334088 a643290445
+#> 12 bf1b334088 a89fc24da7 e1d56c9a2b
+#> 13 b67882940c 380dddd669 453ca767b8
+#> 14 380dddd669 03b237aced b7f9866720
+#> 15 03b237aced 5b1ab9cd41 f66ee7b803
 
 sc_node(y)
 #> # A tibble: 2 x 1
-#>   vertex_ 
-#>   <chr>   
-#> 1 3b82f5d1
-#> 2 02c1ad4f
+#>   vertex_   
+#>   <chr>     
+#> 1 b84d684631
+#> 2 6449d42eeb
 
 sc_arc(y)
 #> # A tibble: 4 x 2
-#>   arc_     ncoords_
-#>   <chr>       <int>
-#> 1 21a6ef38        2
-#> 2 40a1005d        4
-#> 3 4f23682d        6
-#> 4 ed729392        7
+#>   arc_       ncoords_
+#>   <chr>         <int>
+#> 1 1614004bd2        6
+#> 2 3d36192a3c        4
+#> 3 4b4f726fd3        7
+#> 4 5784c80cf0        2
 ```
 
 silicate models

@@ -175,90 +175,90 @@ with each of <em>point</em>, <em>multipoin</em>, <em>linestring</em>, <em>multil
 #&gt; # ... with 14 more rows
 #&gt; </div><div class='input'><span class='fu'>lapply</span>(<span class='no'>sfzoo</span>, <span class='no'>sc_path</span>)</div><div class='output co'>#&gt; $point
 #&gt; # A tibble: 1 x 4
-#&gt;    nrow  ncol type  path_   
-#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   
-#&gt; 1    1.    2. POINT 13e44156
+#&gt;    nrow  ncol type  path_     
+#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     
+#&gt; 1    1.    2. POINT a66e37e902
 #&gt; 
 #&gt; $multipoint
 #&gt; # A tibble: 1 x 4
-#&gt;    nrow  ncol type       path_   
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;   
-#&gt; 1     6     2 MULTIPOINT 998a5ce9
+#&gt;    nrow  ncol type       path_     
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     
+#&gt; 1     6     2 MULTIPOINT 9b6350ffa4
 #&gt; 
 #&gt; $linestring
 #&gt; # A tibble: 1 x 4
-#&gt;    nrow  ncol type       path_   
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;   
-#&gt; 1     4     2 LINESTRING b6dde09d
+#&gt;    nrow  ncol type       path_     
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     
+#&gt; 1     4     2 LINESTRING 93423d3fcb
 #&gt; 
 #&gt; $multilinestring
 #&gt; # A tibble: 3 x 4
-#&gt;    nrow  ncol type            path_   
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;   
-#&gt; 1     4     2 MULTILINESTRING 7f88a21f
-#&gt; 2     4     2 MULTILINESTRING f912878f
-#&gt; 3     2     2 MULTILINESTRING c0e65b1b
+#&gt;    nrow  ncol type            path_     
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;     
+#&gt; 1     4     2 MULTILINESTRING ee21c1f048
+#&gt; 2     4     2 MULTILINESTRING 4d27a425db
+#&gt; 3     2     2 MULTILINESTRING 614f3aa7da
 #&gt; 
 #&gt; $polygon
 #&gt; # A tibble: 2 x 4
-#&gt;    nrow  ncol type    path_   
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;   
-#&gt; 1     6     2 POLYGON b1ba5bf1
-#&gt; 2     4     2 POLYGON fb179323
+#&gt;    nrow  ncol type    path_     
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;     
+#&gt; 1     6     2 POLYGON c897f23a79
+#&gt; 2     4     2 POLYGON f3b3d2df89
 #&gt; 
 #&gt; $multipolygon
 #&gt; # A tibble: 5 x 5
-#&gt;    nrow  ncol type         subobject path_   
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;   
-#&gt; 1     6     2 MULTIPOLYGON         1 31d1c0a2
-#&gt; 2     4     2 MULTIPOLYGON         1 d91d8627
-#&gt; 3     5     2 MULTIPOLYGON         2 8fa219b5
-#&gt; 4     5     2 MULTIPOLYGON         2 c47d2d31
-#&gt; 5     4     2 MULTIPOLYGON         3 e15b0e8e
+#&gt;    nrow  ncol type         subobject path_     
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;     
+#&gt; 1     6     2 MULTIPOLYGON         1 526c2af871
+#&gt; 2     4     2 MULTIPOLYGON         1 e9104d8c0b
+#&gt; 3     5     2 MULTIPOLYGON         2 2d1f40a959
+#&gt; 4     5     2 MULTIPOLYGON         2 2fe6156cec
+#&gt; 5     4     2 MULTIPOLYGON         3 89714a980e
 #&gt; </div><div class='input'>
 <span class='co'>## unsure how usefult this is ...</span>
 <span class='fu'>sc_path</span>(<span class='no'>sfgc</span>)</div><div class='output co'>#&gt; $point
 #&gt; # A tibble: 1 x 4
-#&gt;    nrow  ncol type  path_   
-#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   
-#&gt; 1    1.    2. POINT e7e2432b
+#&gt;    nrow  ncol type  path_     
+#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     
+#&gt; 1    1.    2. POINT 7fb9aa4339
 #&gt; 
 #&gt; $multipoint
 #&gt; # A tibble: 1 x 4
-#&gt;    nrow  ncol type       path_   
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;   
-#&gt; 1     6     2 MULTIPOINT 67d6a1e8
+#&gt;    nrow  ncol type       path_     
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     
+#&gt; 1     6     2 MULTIPOINT 3261cc8491
 #&gt; 
 #&gt; $linestring
 #&gt; # A tibble: 1 x 4
-#&gt;    nrow  ncol type       path_   
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;   
-#&gt; 1     4     2 LINESTRING e3ae6881
+#&gt;    nrow  ncol type       path_     
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     
+#&gt; 1     4     2 LINESTRING 8b3e7bdd64
 #&gt; 
 #&gt; $multilinestring
 #&gt; # A tibble: 3 x 4
-#&gt;    nrow  ncol type            path_   
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;   
-#&gt; 1     4     2 MULTILINESTRING 488e5faf
-#&gt; 2     4     2 MULTILINESTRING 9dd98382
-#&gt; 3     2     2 MULTILINESTRING 44707148
+#&gt;    nrow  ncol type            path_     
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;     
+#&gt; 1     4     2 MULTILINESTRING e32483fb89
+#&gt; 2     4     2 MULTILINESTRING 428e180b46
+#&gt; 3     2     2 MULTILINESTRING 83375c0542
 #&gt; 
 #&gt; $polygon
 #&gt; # A tibble: 2 x 4
-#&gt;    nrow  ncol type    path_   
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;   
-#&gt; 1     6     2 POLYGON 6f927993
-#&gt; 2     4     2 POLYGON 539f0bac
+#&gt;    nrow  ncol type    path_     
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;     
+#&gt; 1     6     2 POLYGON b509eead58
+#&gt; 2     4     2 POLYGON b3b2b9c375
 #&gt; 
 #&gt; $multipolygon
 #&gt; # A tibble: 5 x 5
-#&gt;    nrow  ncol type         subobject path_   
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;   
-#&gt; 1     6     2 MULTIPOLYGON         1 2f8263cc
-#&gt; 2     4     2 MULTIPOLYGON         1 db5547f8
-#&gt; 3     5     2 MULTIPOLYGON         2 161af80d
-#&gt; 4     5     2 MULTIPOLYGON         2 2c189b64
-#&gt; 5     4     2 MULTIPOLYGON         3 0b81d147
+#&gt;    nrow  ncol type         subobject path_     
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;     
+#&gt; 1     6     2 MULTIPOLYGON         1 9f7f970848
+#&gt; 2     4     2 MULTIPOLYGON         1 2603f5eeda
+#&gt; 3     5     2 MULTIPOLYGON         2 0150902e69
+#&gt; 4     5     2 MULTIPOLYGON         2 3051d8f13f
+#&gt; 5     4     2 MULTIPOLYGON         3 05c9af438e
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
