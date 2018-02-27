@@ -1,5 +1,7 @@
 # silicate 0.1.0
 
+* migrated from JS rearcut to C++ decido for triangulation
+
 * added functions compact_indexes and expand_indexes to remove 
  and restore the unique labels on entities - these are purely 
  to explore what the minimal size of a model might be 

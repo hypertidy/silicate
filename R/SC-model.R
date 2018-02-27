@@ -1,4 +1,4 @@
-
+globalVariables("n")
 ##https://github.com/hypertidy/silicate/issues/46
 ring_cycles <- function(aa) {
   ii <- 1
@@ -14,7 +14,7 @@ ring_cycles <- function(aa) {
       }
       set0 <- c(set0, ii)
     }
-    visited <- seq(nrow(aa)) %in% na.omit(set0)
+    visited <- seq(nrow(aa)) %in% stats::na.omit(set0)
     ii <- which(!visited)[1L]
     if (!is.na(ii)) set0 <- c(set0, ii)
   }
@@ -26,9 +26,10 @@ ring_cycles <- function(aa) {
 sc_segment.SC <- function(x, ...) {
   ## expand all instances of edges
   segments <- x$object_link_edge %>% 
-    inner_join(x$edge) %>% 
+    inner_join(x$edge)
+  
     ## and badge them as segments
-    mutate(segment_ = sc_uid(.))
+  segments$segment_ <- sc_uid(nrow(segments))
   segments
 }
 sc_path_link_vertex.SC <- function(x,  ...) {
@@ -40,9 +41,10 @@ sc_path_link_vertex.SC <- function(x,  ...) {
     obj <- objects[[i]]
     rc <- ring_cycles(as.matrix(obj[c(".vertex0", ".vertex1")]))
     obj$path_ <- sc_uid(length(unique(rc$cycle)))[factor(rc$cycle)]
-    out[[i]] <- obj %>% dplyr::group_by(path_) %>% 
-      dplyr::rename(vertex_ = .vertex0) %>%
-      dplyr::select(vertex_, path_) %>% 
+    out[[i]] <- obj %>% dplyr::group_by(.data$path_) %>% 
+      dplyr::rename(vertex_ = .data$.vertex0) %>%
+      dplyr::select(.data$vertex_, .data$path_) %>% 
+      ## n() here relies on globalVariables declaration
       dplyr::slice(c(1:n(), 1)) %>% 
       dplyr::ungroup()
   }

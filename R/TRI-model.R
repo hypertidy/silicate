@@ -1,6 +1,7 @@
 #' TRI model, triangulations
 #'
 #' @inheritParams SC
+#' @param add logical create  new plot (default), or add to existing
 #' @return TRI model
 #' @export
 TRI <- function(x, ...) {
@@ -12,11 +13,11 @@ TRI.default <- function(x, ...) {
 }
 #' @export
 TRI.PATH <- function(x, ...) {
-  #if(any(grepl("MULTIPOLYGON", x$path$type))) {
-  #  message("MULTIPOLYGON ear clipping doesn't work in some cases:")
-  #  message("* try `sf::st_cast(x, \"POLYGON\")` if it fails")
-  #}
-  tri <- triangulate.PATH(x)
+  vertex <- x$vertex
+  if (nrow(vertex) < 3) stop("need at least 3 coordinates")
+  if (anyNA(vertex$x_)) stop("missing values in x_")
+  if (anyNA(vertex$y_)) stop("missing values in y_")
+  tri <- triangulate_PATH(x)
   obj <- sc_object(x)
   #obj <- obj[obj$object_ %in% tri$object_, ]
   structure(list(object = obj, triangle = tri, 
@@ -29,9 +30,9 @@ sc_object.TRI <- function(x, ...) {
 }
 #' @name TRI
 #' @export
-plot.TRI <- function(x, ...) {
+plot.TRI <- function(x, ..., add = FALSE) {
   
-  plot(x$vertex[c("x_", "y_")], type = "n")
+  if (!add) plot(x$vertex[c("x_", "y_")], type = "n")
   cols <- sc_colours(nrow(sc_object(x)))
   for (i in seq_len(nrow(x$object))) { 
     asub <- dplyr::filter(x$triangle, .data$object_ == x$object$object_[i]) %>% 
@@ -76,7 +77,7 @@ na_split <- function(x) {
   if (length(x) == 1) x[[1]] else head(dplyr::bind_rows(lapply(x, function(x) rbind(dplyr::distinct(x), NA))), -1)
 }
 
-triangulate.PATH <- function(x, ...) {
+triangulate_PATH <- function(x, ...) {
   objlist <- split(x$path, x$path$object_)
   objlist <- objlist[unique(x$path$object_)]
   polygon_count <- nrow(dplyr::distinct(x$path[c("object", "subobject")]))
@@ -95,7 +96,7 @@ triangulate.PATH <- function(x, ...) {
       dplyr::inner_join(x$path_link_vertex, "path_") %>% 
       dplyr::inner_join(x$vertex, "vertex_")
     holes <- which(c(0, abs(diff(as.integer(as.factor(verts$path_))))) > 0)
-
+    if (length(holes) < 1) holes <- 0
     trindex <- decido::earcut(verts[["x_"]], verts[["y_"]], holes)
     trimat <- matrix(trindex, ncol = 3L, byrow = TRUE)
     trilist[[itri]] <- tibble::tibble(.vertex0 = verts$vertex_[trimat[,1L]], 

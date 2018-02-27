@@ -139,12 +139,35 @@ planar coverage of input shape and its triangulated decomposition. This is not e
 two main methods. One is high-quality *mostly-Delaunay*  triangulations where the Delaunay condition is 
 relaxed in order to always align to input boundaries. Holes in a near-Delaunay triangulation are either removed by flood-fill from a seed-vertex, or by post-filtering the triangles whose centroid does not intersect the input boundaries. The second method is ear-clippping, a relatively inexpensive algorithm that produces low-quality triangle meshes. 
 
-Currently silicate can only provide the second form, the ear-clipping method as used in package `rgl`. 
+Currently silicate can only provide the second form, the ear-clipping method provided by `decido`. 
 
 
 ```{r TRI}
 tri <- TRI(minimal_mesh)
 plot(tri)
+```
+
+Performance is pretty good for this method of triangulation, despite also 
+being constrained to the input shapes.  
+
+```{r}
+#system.time(sf::st_triangulate(inlandwaters))
+#   user  system elapsed 
+#  4.699   0.125   4.823 
+#system.time(sfdct::ct_triangulate(inlandwaters))
+#  user  system elapsed 
+# 15.476   0.225  15.460 
+system.time(tri <- TRI(inlandwaters))
+```
+
+The triangles are low-quality (but triangles are very easy to subdivide).
+
+
+```{r}
+plot(tri)
+
+plot(NA, xlim = c(625000, 1060000), ylim = c(-1350000,  -550000))
+plot(tri, add = TRUE)
 ```
 
 The [CRAN package sfdct](https://CRAN.R-project.org/package=unjoin) will use the first method (package `RTriangle` wraps the Triangle library) for simple features. 

@@ -8,12 +8,14 @@
 \usage{
 TRI(x, ...)
 
-\method{plot}{TRI}(x, ...)
+\method{plot}{TRI}(x, ..., add = FALSE)
 }
 \arguments{
 \item{x}{input model}
 
 \item{...}{arguments passed to methods}
+
+\item{add}{logical create  new plot (default), or add to existing}
 }
 \value{
 TRI model
