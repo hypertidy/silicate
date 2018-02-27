@@ -6,6 +6,21 @@ cache: packages
 
 dist: trusty
 
+matrix:
+    include:
+        - os: linux
+          r: release
+          dist: trusty # 14.04
+          env:
+           - BUILD_NAME=trusty_release
+           - DETAILS="release build"
+        - os: osx
+          r: release
+          env:
+           - BUILD_NAME=osx_release
+           - DETAILS="release build"
+
+
 before_install:
   - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes
   - sudo apt-get --yes --force-yes update -qq
