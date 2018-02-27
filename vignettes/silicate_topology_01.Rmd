@@ -2,7 +2,10 @@
 title: "silicate: the fabric of hierarchical structures"
 author: "Michael D. Sumner"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    fig_width: 7
+    fig_height: 7
 vignette: >
   %\VignetteIndexEntry{silicate topology}
   %\VignetteEncoding{UTF-8}
