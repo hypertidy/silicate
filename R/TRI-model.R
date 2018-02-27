@@ -95,7 +95,8 @@ triangulate.PATH <- function(x, ...) {
       dplyr::inner_join(x$path_link_vertex, "path_") %>% 
       dplyr::inner_join(x$vertex, "vertex_")
     holes <- which(c(0, abs(diff(as.integer(as.factor(verts$path_))))) > 0)
-    trindex <- decido::earcut(verts[["x"]], verts[["y"]], holes)
+
+    trindex <- decido::earcut(verts[["x_"]], verts[["y_"]], holes)
     trimat <- matrix(trindex, ncol = 3L, byrow = TRUE)
     trilist[[itri]] <- tibble::tibble(.vertex0 = verts$vertex_[trimat[,1L]], 
                                       .vertex1 = verts$vertex_[trimat[,2L]],
