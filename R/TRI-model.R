@@ -20,8 +20,10 @@ TRI.PATH <- function(x, ...) {
   tri <- triangulate_PATH(x)
   obj <- sc_object(x)
   #obj <- obj[obj$object_ %in% tri$object_, ]
+  meta <- tibble(proj = get_projection(x), ctime = Sys.time())
+  
   structure(list(object = obj, triangle = tri, 
-                 vertex = sc_vertex(x)), class = c("TRI", "sc"))
+                 vertex = sc_vertex(x), meta = meta), class = c("TRI", "sc"))
 }
 #' @name sc_object
 #' @export
@@ -97,7 +99,7 @@ triangulate_PATH <- function(x, ...) {
       dplyr::inner_join(x$vertex, "vertex_")
     holes <- which(c(0, abs(diff(as.integer(as.factor(verts$path_))))) > 0)
     if (length(holes) < 1) holes <- 0
-    trindex <- decido::earcut(verts[["x_"]], verts[["y_"]], holes)
+    trindex <- decido::earcut(cbind(verts[["x_"]], verts[["y_"]]), holes)
     trimat <- matrix(trindex, ncol = 3L, byrow = TRUE)
     trilist[[itri]] <- tibble::tibble(.vertex0 = verts$vertex_[trimat[,1L]], 
                                       .vertex1 = verts$vertex_[trimat[,2L]],

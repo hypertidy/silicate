@@ -74,10 +74,16 @@ SC.default <- function(x, ...) {
     dplyr::select(.data$path_, .data$edge_) %>% 
     dplyr::inner_join(dplyr::select(P[["path"]], .data$path_, .data$object_), "path_") %>% 
     dplyr::distinct(.data$edge_, .data$object_) 
+  #join_ramp <-  tabnames <- c("object", "path",  "path_link_vertex", "vertex")
+  meta <- tibble(proj = get_projection(x), ctime = format(Sys.time(), tz = "UTC"))
+  
   structure(list(object = O,
                  object_link_edge = ExO,
                  edge = E, 
-                 vertex = sc_vertex(P)), 
+                 vertex = sc_vertex(P),
+            meta = meta), 
+            ## a special join_ramp, needs edge to split on vertex
+            join_ramp = c("object", "object_link_edge", "edge", "vertex"),
             class = c("SC", "sc"))
 }
 

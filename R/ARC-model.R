@@ -56,13 +56,16 @@ ARC.PATH <- function(x, ...) {
   oXa <- arc_map %>% dplyr::distinct(.data$object_, .data$arc_)
   aXv  <-  arc_map %>% dplyr::select(.data$arc_, .data$vertex_)
   v <- sc_vertex(x)
+  #join_ramp <-  tabnames <- c("object", "path",  "path_link_vertex", "vertex")
+  meta <- tibble(proj = get_projection(x), ctime = format(Sys.time(), tz = "UTC"))
+  
   lst <- list(object = o, 
               object_link_arc = oXa, 
           #    arc = arc, 
               arc_link_vertex = aXv, 
-              vertex = v
+              vertex = v, meta = meta
   )
-  structure(lst, class = c("ARC", "sc"))
+  structure(lst, class = c("ARC", "sc"), join_ramp = c("object", "object_link_arc", "arc_link_vertex", "vertex"))
 }
 PATH.ARC <- function(x, ...) {
   o <- sc_object(x)

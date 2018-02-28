@@ -17,7 +17,7 @@ earcut_PATH <- function(x, holes = NULL, ...) {
     x <- x[!duplicated(x["vertex_"]), ]
     holes <- which(abs(diff(as.integer(factor(x$path_)))) > 0)
     if (length(holes) < 1) holes <- 0
-    idx <- decido::earcut(x[["x_"]], x[["y_"]], holes, ...)
+    idx <- decido::earcut(cbind(x[["x_"]], x[["y_"]]), holes, ...)
     out <- match(x$vertex_[idx], vertex$vertex_)
     out
   }))
