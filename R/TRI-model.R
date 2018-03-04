@@ -11,6 +11,7 @@ TRI <- function(x, ...) {
 TRI.default <- function(x, ...) {
   TRI(PATH(x), ...)
 }
+
 #' @export
 TRI.PATH <- function(x, ...) {
   vertex <- x$vertex
@@ -53,27 +54,6 @@ plot.TRI <- function(x, ..., add = FALSE) {
 
 
 
-# dd <- minimal_mesh
-# #dd <- nc
-# #dd <- rnaturalearth::ne_countries(scale = 50, returnclass = "sf")
-# x <- SC(dd)
-# plot(x)
-# xt <- triangulate.SC(x, D = TRUE)
-# plot(xt)
-triangulate.SC <- function(x, ...) {
-  v <- x$vertex
-  a <- match(x$edge$.vertex0, v$vertex_)
-  b <- match(x$edge$.vertex1, v$vertex_)
-  p <- RTriangle::pslg(as.matrix(dplyr::select(v, .data$x_, .data$y_)), 
-                       S = cbind(a, b))
-  t <- RTriangle::triangulate(p, ...)
-  structure(list(TRI = t$T, V = t$P), class = "TRI")
-}
-# plot.TRI <- function(x, ...) {
-#   plot(x$V, pch = ".")
-#   idx <- t(cbind(x$TRI, NA))
-#   polygon(x$V[idx, ])
-# }
 na_split <- function(x) {
   x <- split(x[c("x_", "y_")], x$path_)[unique(x$path_)]
   if (length(x) == 1) x[[1]] else head(dplyr::bind_rows(lapply(x, function(x) rbind(dplyr::distinct(x), NA))), -1)
