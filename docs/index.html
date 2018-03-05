@@ -8,8 +8,16 @@
 <title>A Common Form for Complex Data • silicate</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="A Common Form for Complex Data">
+<meta property="og:description" content="Generate a generic common form of complex data, suitable for conversions and
+ transmission. Many complex data structures are composed of 'paths' (sequentially-linked records) or 
+ 'primitives' (basic, component types grouped into higher forms). These two kinds of structure are
+ very common, particularly in spatial data, graphics and analytical structures. The universal model 'SC'
+ is provided that can represent any of these. Another more specialist model 'PATH' is included as
+ as well as tools to switch between these forms, and the component functions for conversions. ">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -74,25 +82,26 @@
 <div id="overview" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h1></div>
-<p>The goal of silicate is to provide a general normal-form for complex multi-dimensional data.</p>
-<p>These are the primary motivations for <code>silicate</code>:</p>
+<p>The goal of silicate is to bridge formal data structure definitions with flexible analytical and visualization techniques.</p>
+<p>We</p>
 <ul>
 <li>provide a universal <em>common-form</em> of hierarchical data</li>
 <li>provide a framework for a <em>universal converter</em> between complex data types</li>
 <li>to work with topological primitives for analysis and interaction.</li>
 </ul>
-<p>We have created the general models <code>SC</code>, <code>PATH</code>, <code>ARC</code>, and <code>TRI</code> to cover the broadest range of complex types, with <code>SC</code> being the core, universal representation. The other models exist to cover specific use-cases, intermediate forms or to illustrate the relationships between these model types.</p>
+<p>We have created the general model <code>SC</code> being a core representation. Further models <code>PATH</code>, <code>ARC</code>, and <code>TRI</code> cover a broad range of complex types, and each is fundamental and distinct from the others. <code>SC</code> can be used to represent any model, but other models provide a better match to specific use-cases, intermediate forms and serve to expand the relationships between the model types.</p>
 <ul>
 <li>
-<code>SC</code> the universal model, composed of binary relationships, edges defined by pairs of vertices</li>
+<code>SC</code> is the universal model, composed of binary relationships, edges defined by pairs of vertices (a structural primitive model)</li>
+<li>
+<code>TRI</code> also a structural primitive model, for triangulations</li>
 <li>
 <code>PATH</code> a sequential model, for the standard spatial vector types, shapes defined by <em>paths</em>
 </li>
 <li>
 <code>ARC</code> a sequential model, for <em>arc-node topology</em> a shared-boundary decomposition of path models</li>
-<li>
-<code>TRI</code> a structural primitive model, for triangulations</li>
 </ul>
+<p>An extension of the <code>TRI</code> model <code>DEL</code> is provided in <a href="https://github.com/hypertidy/anglr/">anglr</a> which builds <em>high-quality</em> triangulations, but the structural representation is the same.</p>
 <p>Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context. Our ideal situation would be for external packages to publish methods for these verbs, keeping package-specific code in the original package. We think this provides a very powerful and general mechanism for a family of consistent packages.</p>
 <p>We have the following worker verbs that are used to build the above models, and work between what each model offers.</p>
 <ul>
@@ -137,56 +146,56 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentat
 <span class="co">#&gt; # A tibble: 14 x 3</span>
 <span class="co">#&gt;       x_    y_ vertex_   </span>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     </span>
-<span class="co">#&gt;  1 0.    0.    25d0718d8e</span>
-<span class="co">#&gt;  2 0.    1.00  45950b6ca3</span>
-<span class="co">#&gt;  3 0.750 1.00  8491697ff8</span>
-<span class="co">#&gt;  4 1.00  0.800 f6b5eb00be</span>
-<span class="co">#&gt;  5 0.500 0.700 943c736b3b</span>
-<span class="co">#&gt;  6 0.800 0.600 c280e02fe8</span>
-<span class="co">#&gt;  7 0.690 0.    82db30e9b1</span>
-<span class="co">#&gt;  8 0.200 0.200 85b07217f6</span>
-<span class="co">#&gt;  9 0.500 0.200 7f151965cc</span>
-<span class="co">#&gt; 10 0.500 0.400 19648b1a61</span>
-<span class="co">#&gt; 11 0.300 0.600 177477b250</span>
-<span class="co">#&gt; 12 0.200 0.400 e7615902a7</span>
-<span class="co">#&gt; 13 1.10  0.630 f733e2b3e2</span>
-<span class="co">#&gt; 14 1.23  0.300 1c2da0f6c4</span>
+<span class="co">#&gt;  1 0.    0.    330a753fc2</span>
+<span class="co">#&gt;  2 0.    1.00  ed8b3915f7</span>
+<span class="co">#&gt;  3 0.750 1.00  23df7f4153</span>
+<span class="co">#&gt;  4 1.00  0.800 6b8644972f</span>
+<span class="co">#&gt;  5 0.500 0.700 ec74e59a1e</span>
+<span class="co">#&gt;  6 0.800 0.600 784dca994a</span>
+<span class="co">#&gt;  7 0.690 0.    388ef7f043</span>
+<span class="co">#&gt;  8 0.200 0.200 55e9dee23e</span>
+<span class="co">#&gt;  9 0.500 0.200 73f9dc956b</span>
+<span class="co">#&gt; 10 0.500 0.400 be151c13f6</span>
+<span class="co">#&gt; 11 0.300 0.600 2a16b3f6b1</span>
+<span class="co">#&gt; 12 0.200 0.400 0dc9300e98</span>
+<span class="co">#&gt; 13 1.10  0.630 ee67aaf581</span>
+<span class="co">#&gt; 14 1.23  0.300 b4a254338f</span>
 
 <span class="kw"><a href="http://www.rdocumentation.org/packages/silicate/topics/sc_edge">sc_edge</a></span>(x)
 <span class="co">#&gt; # A tibble: 15 x 3</span>
 <span class="co">#&gt;    .vertex0   .vertex1   edge_     </span>
 <span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     </span>
-<span class="co">#&gt;  1 25d0718d8e 45950b6ca3 933ca1e3d9</span>
-<span class="co">#&gt;  2 45950b6ca3 8491697ff8 709ee57603</span>
-<span class="co">#&gt;  3 8491697ff8 f6b5eb00be c6915457d6</span>
-<span class="co">#&gt;  4 f6b5eb00be 943c736b3b 723e5e9618</span>
-<span class="co">#&gt;  5 943c736b3b c280e02fe8 13f7a48f1b</span>
-<span class="co">#&gt;  6 c280e02fe8 82db30e9b1 379ba8062a</span>
-<span class="co">#&gt;  7 82db30e9b1 25d0718d8e 4c3e69610b</span>
-<span class="co">#&gt;  8 85b07217f6 7f151965cc 2005ea33b6</span>
-<span class="co">#&gt;  9 7f151965cc 19648b1a61 f8920bdf1d</span>
-<span class="co">#&gt; 10 19648b1a61 177477b250 df92500cbc</span>
-<span class="co">#&gt; 11 177477b250 e7615902a7 a7bbc30a72</span>
-<span class="co">#&gt; 12 e7615902a7 85b07217f6 49ecdd91ba</span>
-<span class="co">#&gt; 13 c280e02fe8 f733e2b3e2 5e6110214d</span>
-<span class="co">#&gt; 14 f733e2b3e2 1c2da0f6c4 8379735465</span>
-<span class="co">#&gt; 15 1c2da0f6c4 82db30e9b1 81dd8a8993</span>
+<span class="co">#&gt;  1 330a753fc2 ed8b3915f7 8784713d37</span>
+<span class="co">#&gt;  2 ed8b3915f7 23df7f4153 6629d911c8</span>
+<span class="co">#&gt;  3 23df7f4153 6b8644972f e14eec9d06</span>
+<span class="co">#&gt;  4 6b8644972f ec74e59a1e 87e9ee119a</span>
+<span class="co">#&gt;  5 ec74e59a1e 784dca994a d055269a7d</span>
+<span class="co">#&gt;  6 784dca994a 388ef7f043 53d056a3d4</span>
+<span class="co">#&gt;  7 388ef7f043 330a753fc2 c53ad1356c</span>
+<span class="co">#&gt;  8 55e9dee23e 73f9dc956b ad50454bc7</span>
+<span class="co">#&gt;  9 73f9dc956b be151c13f6 7b7946e526</span>
+<span class="co">#&gt; 10 be151c13f6 2a16b3f6b1 7440039350</span>
+<span class="co">#&gt; 11 2a16b3f6b1 0dc9300e98 054f4eefb9</span>
+<span class="co">#&gt; 12 0dc9300e98 55e9dee23e 750eb07c5e</span>
+<span class="co">#&gt; 13 784dca994a ee67aaf581 6e55bd07a0</span>
+<span class="co">#&gt; 14 ee67aaf581 b4a254338f 3fbc1ddd08</span>
+<span class="co">#&gt; 15 b4a254338f 388ef7f043 3c1c91af81</span>
 
 <span class="kw"><a href="http://www.rdocumentation.org/packages/silicate/topics/sc_node">sc_node</a></span>(y)
 <span class="co">#&gt; # A tibble: 2 x 1</span>
 <span class="co">#&gt;   vertex_   </span>
 <span class="co">#&gt;   &lt;chr&gt;     </span>
-<span class="co">#&gt; 1 a03ad33da0</span>
-<span class="co">#&gt; 2 cd5e2b6a33</span>
+<span class="co">#&gt; 1 4bb849503a</span>
+<span class="co">#&gt; 2 b9219c1c1b</span>
 
 <span class="kw"><a href="http://www.rdocumentation.org/packages/silicate/topics/sc_arc">sc_arc</a></span>(y)
 <span class="co">#&gt; # A tibble: 4 x 2</span>
 <span class="co">#&gt;   arc_       ncoords_</span>
 <span class="co">#&gt;   &lt;chr&gt;         &lt;int&gt;</span>
-<span class="co">#&gt; 1 1975433217        2</span>
-<span class="co">#&gt; 2 22fdc3b3e7        7</span>
-<span class="co">#&gt; 3 6f3f17fdad        6</span>
-<span class="co">#&gt; 4 f7749650f8        4</span></code></pre></div>
+<span class="co">#&gt; 1 0ab19aa970        2</span>
+<span class="co">#&gt; 2 3d1e7dba3e        4</span>
+<span class="co">#&gt; 3 d734845f27        7</span>
+<span class="co">#&gt; 4 e8fbbc439c        6</span></code></pre></div>
 <div id="silicate-models" class="section level2">
 <h2 class="hasAnchor">
 <a href="#silicate-models" class="anchor"></a>silicate models</h2>
@@ -220,8 +229,8 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentat
 <p><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></p>
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Michael D. Sumner <br><small class="roles"> Author, maintainer </small> </li>
-<li>Mark Padgham <br><small class="roles"> Author </small> </li>
+<li>Michael D. Sumner <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Mark Padgham <br><small class="roles"> Author </small>  </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 <h2>Dev status</h2>

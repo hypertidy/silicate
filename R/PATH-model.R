@@ -1,11 +1,4 @@
-#' @export
-plot.PATH <- function(x, ...) {
-  plot(x$vertex[c("x_", "y_")], type = "n")
-  obj <- split(x$path_link_vertex, x$path_link_vertex$path_)
-  cols <- sc_colours(length(obj))
-  lapply(seq_along(obj), function(a) graphics::lines(dplyr::inner_join(obj[[a]], x$vertex, "vertex_")[c("x_", "y_")], col = cols[a]))
-  invisible(NULL)
-}
+
 #' PATH model. 
 #' 
 #' A PATH model is a direct translation of a simple features-alike

@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,10 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Arc-node topology. — sc_arc" />
+
+<meta property="og:description" content="Return a label and vertex count of each arc." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -131,10 +137,10 @@ work with models that don't included labels.</p>
     <pre class="examples"><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;   arc_       ncoords_
 #&gt;   &lt;chr&gt;         &lt;int&gt;
-#&gt; 1 2867672f14        7
-#&gt; 2 2f3a0a3848        6
-#&gt; 3 6cc2c9d265        2
-#&gt; 4 812a29713b        4</div><div class='input'><span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)<span class='kw'>[[</span><span class='st'>"arc"</span>]]</div><div class='output co'>#&gt; NULL</div><div class='input'>
+#&gt; 1 08cefe2c3b        2
+#&gt; 2 287ec126f8        4
+#&gt; 3 45fcbcc9fd        6
+#&gt; 4 76d518aa13        7</div><div class='input'><span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)<span class='kw'>[[</span><span class='st'>"arc"</span>]]</div><div class='output co'>#&gt; NULL</div><div class='input'>
 <span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)
 <span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>arc</span>$<span class='no'>vertex</span>[<span class='fu'>match</span>(<span class='fu'>sc_node</span>(<span class='no'>arc</span>)$<span class='no'>vertex_</span>, <span class='no'>arc</span>$<span class='no'>vertex</span>$<span class='no'>vertex_</span>), <span class='fu'>c</span>(<span class='st'>"x_"</span>, <span class='st'>"y_"</span>)])</div><div class='img'><img src='sc_arc-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'>ARC</span>(<span class='no'>polymesh</span>)

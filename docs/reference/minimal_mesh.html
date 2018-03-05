@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,13 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Minimal mesh. — minimal_mesh" />
+
+<meta property="og:description" content="The simplest pairing of two polygons with one shared edge. One polygon
+contains a hole and a concavity, the other is a simply convex. This is
+composed of four "arcs", one around each polygon, one for the shared edge, and
+one for the isolated hole. There are two nodes, the endpoints of the single shared edge." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -107,14 +116,14 @@ one for the isolated hole. There are two nodes, the endpoints of the single shar
 <span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='img'><img src='minimal_mesh-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;   arc_       ncoords_
 #&gt;   &lt;chr&gt;         &lt;int&gt;
-#&gt; 1 0d0b0bfa13        2
-#&gt; 2 9526bda37c        4
-#&gt; 3 b882c6f080        7
-#&gt; 4 dbea130ce4        6</div><div class='input'><span class='fu'>sc_node</span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
+#&gt; 1 57173ce772        7
+#&gt; 2 84adb3cb2d        4
+#&gt; 3 a3ea930b70        2
+#&gt; 4 cf162b327f        6</div><div class='input'><span class='fu'>sc_node</span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
 #&gt;   vertex_   
 #&gt;   &lt;chr&gt;     
-#&gt; 1 2787bda9e3
-#&gt; 2 f7e8f7ada7</div></pre>
+#&gt; 1 ca7d7e7f8c
+#&gt; 2 f5b6a1df25</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

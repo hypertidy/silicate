@@ -1,23 +1,4 @@
-sc_colours <- function(x, ...) {
-  # https://stackoverflow.com/a/33144808/355270
-  cl <- grDevices::colors()[-1L]
-  sample(cl, x, replace = x > length(cl))
-}
-#' @noRd
-#' 
-#' @param x  
-#' @param ... 
-#' @param lwd 
-#'
-#' @name ARC
-#' @export
-plot.ARC <- function(x, ..., lwd = 2L) {
- 
- plot(x$vertex[c("x_", "y_")], pch = "")
- a1 <- split(x$arc_link_vertex, x$arc_link_vertex$arc_)
- col <- setNames(sc_colours(length(a1)), names(a1))
- a1 %>% purrr::iwalk(~lines(dplyr::inner_join(.x, x$vertex, "vertex_") %>% dplyr::select(x_, y_), col = col[.y], lwd = lwd))
-}
+
   
 #' ARC model
 #'

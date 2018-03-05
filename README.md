@@ -5,20 +5,22 @@
 Overview
 ========
 
-The goal of silicate is to provide a general normal-form for complex multi-dimensional data.
+The goal of silicate is to bridge formal data structure definitions with flexible analytical and visualization techniques.
 
-These are the primary motivations for `silicate`:
+We
 
 -   provide a universal *common-form* of hierarchical data
 -   provide a framework for a *universal converter* between complex data types
 -   to work with topological primitives for analysis and interaction.
 
-We have created the general models `SC`, `PATH`, `ARC`, and `TRI` to cover the broadest range of complex types, with `SC` being the core, universal representation. The other models exist to cover specific use-cases, intermediate forms or to illustrate the relationships between these model types.
+We have created the general model `SC` being a core representation. Further models `PATH`, `ARC`, and `TRI` cover a broad range of complex types, and each is fundamental and distinct from the others. `SC` can be used to represent any model, but other models provide a better match to specific use-cases, intermediate forms and serve to expand the relationships between the model types.
 
--   `SC` the universal model, composed of binary relationships, edges defined by pairs of vertices
+-   `SC` is the universal model, composed of binary relationships, edges defined by pairs of vertices (a structural primitive model)
+-   `TRI` also a structural primitive model, for triangulations
 -   `PATH` a sequential model, for the standard spatial vector types, shapes defined by *paths*
 -   `ARC` a sequential model, for *arc-node topology* a shared-boundary decomposition of path models
--   `TRI` a structural primitive model, for triangulations
+
+An extension of the `TRI` model `DEL` is provided in [anglr](https://github.com/hypertidy/anglr/) which builds *high-quality* triangulations, but the structural representation is the same.
 
 Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context. Our ideal situation would be for external packages to publish methods for these verbs, keeping package-specific code in the original package. We think this provides a very powerful and general mechanism for a family of consistent packages.
 
@@ -64,56 +66,56 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_   
 #>    <dbl> <dbl> <chr>     
-#>  1 0.    0.    ee907f88ae
-#>  2 0.    1.00  7a9513f101
-#>  3 0.750 1.00  2796b5bd58
-#>  4 1.00  0.800 f4fec84ab9
-#>  5 0.500 0.700 124e33d89b
-#>  6 0.800 0.600 b67882940c
-#>  7 0.690 0.    5b1ab9cd41
-#>  8 0.200 0.200 a89fc24da7
-#>  9 0.500 0.200 41e1c69582
-#> 10 0.500 0.400 f1cde42d5c
-#> 11 0.300 0.600 4dc4d79de2
-#> 12 0.200 0.400 bf1b334088
-#> 13 1.10  0.630 380dddd669
-#> 14 1.23  0.300 03b237aced
+#>  1 0.    0.    7203fb3673
+#>  2 0.    1.00  7d393c3139
+#>  3 0.750 1.00  9a434e32bc
+#>  4 1.00  0.800 beb0215369
+#>  5 0.500 0.700 2940a11293
+#>  6 0.800 0.600 70022e3ec8
+#>  7 0.690 0.    e23c783916
+#>  8 0.200 0.200 48c6f11170
+#>  9 0.500 0.200 2bc011de8b
+#> 10 0.500 0.400 efd691ff3a
+#> 11 0.300 0.600 4c3ff6021c
+#> 12 0.200 0.400 6069f2434d
+#> 13 1.10  0.630 61c6736d1b
+#> 14 1.23  0.300 4826209b47
 
 sc_edge(x)
 #> # A tibble: 15 x 3
 #>    .vertex0   .vertex1   edge_     
 #>    <chr>      <chr>      <chr>     
-#>  1 ee907f88ae 7a9513f101 026c7d076c
-#>  2 7a9513f101 2796b5bd58 1ee399b09f
-#>  3 2796b5bd58 f4fec84ab9 a25c5e05fd
-#>  4 f4fec84ab9 124e33d89b 20a5c5fcb4
-#>  5 124e33d89b b67882940c 4322441973
-#>  6 b67882940c 5b1ab9cd41 1a6848c480
-#>  7 5b1ab9cd41 ee907f88ae 13577bcf48
-#>  8 a89fc24da7 41e1c69582 53e9fb0489
-#>  9 41e1c69582 f1cde42d5c 0370b47d85
-#> 10 f1cde42d5c 4dc4d79de2 65e2ee4eae
-#> 11 4dc4d79de2 bf1b334088 a643290445
-#> 12 bf1b334088 a89fc24da7 e1d56c9a2b
-#> 13 b67882940c 380dddd669 453ca767b8
-#> 14 380dddd669 03b237aced b7f9866720
-#> 15 03b237aced 5b1ab9cd41 f66ee7b803
+#>  1 7203fb3673 7d393c3139 0542743c39
+#>  2 7d393c3139 9a434e32bc 6742fa08b4
+#>  3 9a434e32bc beb0215369 0e32301a93
+#>  4 beb0215369 2940a11293 96da374985
+#>  5 2940a11293 70022e3ec8 e341f49fb8
+#>  6 70022e3ec8 e23c783916 b10788044f
+#>  7 e23c783916 7203fb3673 89fa9730e2
+#>  8 48c6f11170 2bc011de8b 5fb44f8204
+#>  9 2bc011de8b efd691ff3a 3df3f049a4
+#> 10 efd691ff3a 4c3ff6021c cf7ec99f01
+#> 11 4c3ff6021c 6069f2434d bc6b110f7f
+#> 12 6069f2434d 48c6f11170 c6c7c17a27
+#> 13 70022e3ec8 61c6736d1b be97779a57
+#> 14 61c6736d1b 4826209b47 9c462669f3
+#> 15 4826209b47 e23c783916 1c7bac91e8
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_   
 #>   <chr>     
-#> 1 b84d684631
-#> 2 6449d42eeb
+#> 1 55dce1094f
+#> 2 c66ff03668
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_       ncoords_
 #>   <chr>         <int>
-#> 1 1614004bd2        6
-#> 2 3d36192a3c        4
-#> 3 4b4f726fd3        7
-#> 4 5784c80cf0        2
+#> 1 1dd8084033        2
+#> 2 2b93b6d419        4
+#> 3 447aa0f0c1        7
+#> 4 9511f88920        6
 ```
 
 silicate models

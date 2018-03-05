@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Path decomposition — sc_path" />
+
+<meta property="og:description" content="Start in the middle, and build the 'path-link-vertex' table.
+Paths." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -174,32 +181,32 @@ the features, and <code>PATH</code> for the full model.</p>
 <span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipolygon</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 5
 #&gt;    nrow  ncol type         subobject path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;     
-#&gt; 1     6     2 MULTIPOLYGON         1 c4ede82589
-#&gt; 2     4     2 MULTIPOLYGON         1 bbde0f092b
-#&gt; 3     5     2 MULTIPOLYGON         2 237eea4c8c
-#&gt; 4     5     2 MULTIPOLYGON         2 8967657fbe
-#&gt; 5     4     2 MULTIPOLYGON         3 c0e520f49b</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>polygon</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt; 1     6     2 MULTIPOLYGON         1 df36f9dc5a
+#&gt; 2     4     2 MULTIPOLYGON         1 65de4054ab
+#&gt; 3     5     2 MULTIPOLYGON         2 59d1b4d531
+#&gt; 4     5     2 MULTIPOLYGON         2 642ca8e02d
+#&gt; 5     4     2 MULTIPOLYGON         3 5914c5edee</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>polygon</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
 #&gt;    nrow  ncol type    path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;     
-#&gt; 1     6     2 POLYGON ba89d8696e
-#&gt; 2     4     2 POLYGON 58d1ea1f8f</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>linestring</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt; 1     6     2 POLYGON e0441a39f2
+#&gt; 2     4     2 POLYGON a7a196358e</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>linestring</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type       path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     
-#&gt; 1     4     2 LINESTRING 43a352be88</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multilinestring</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 4
+#&gt; 1     4     2 LINESTRING 9baa2ccfe0</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multilinestring</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 4
 #&gt;    nrow  ncol type            path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;     
-#&gt; 1     4     2 MULTILINESTRING 508feec2c3
-#&gt; 2     4     2 MULTILINESTRING 3042a78bd8
-#&gt; 3     2     2 MULTILINESTRING adf10a277b</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>point</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt; 1     4     2 MULTILINESTRING e75bac394d
+#&gt; 2     4     2 MULTILINESTRING 258b3db711
+#&gt; 3     2     2 MULTILINESTRING 065a438e99</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>point</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type  path_     
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     
-#&gt; 1    1.    2. POINT 658eb065b8</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt; 1    1.    2. POINT a081fe66b4</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type       path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     
-#&gt; 1     6     2 MULTIPOINT 4556c9ba30</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt; 1     6     2 MULTIPOINT 903f338fbd</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type       path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     
-#&gt; 1     6     2 MULTIPOINT 1a9fe9a251</div></pre>
+#&gt; 1     6     2 MULTIPOINT d304cc8d45</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
