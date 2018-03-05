@@ -19,11 +19,18 @@ TRI.PATH <- function(x, ...) {
   if (anyNA(vertex$x_)) stop("missing values in x_")
   if (anyNA(vertex$y_)) stop("missing values in y_")
   tri <- triangulate_PATH(x)
+  tri$visible <- TRUE
+ 
+  tri$triangle_ <- sc_uid(nrow(tri))
+  oXt <- dplyr::distinct(tri[c("object_", "triangle_")])
+  tri$object_ <- NULL
+  tri$path_ <- NULL
+
   obj <- sc_object(x)
   #obj <- obj[obj$object_ %in% tri$object_, ]
   meta <- tibble(proj = get_projection(x), ctime = Sys.time())
   
-  structure(list(object = obj, triangle = tri, 
+  structure(list(object = obj, object_link_triangle = oXt, triangle = tri, 
                  vertex = sc_vertex(x), meta = meta), class = c("TRI", "sc"))
 }
 #' @name sc_object
@@ -38,7 +45,8 @@ plot.TRI <- function(x, ..., add = FALSE) {
   if (!add) plot(x$vertex[c("x_", "y_")], type = "n")
   cols <- sc_colours(nrow(sc_object(x)))
   for (i in seq_len(nrow(x$object))) { 
-    asub <- dplyr::filter(x$triangle, .data$object_ == x$object$object_[i]) %>% 
+    triangle <- dplyr::inner_join(x$triangle, x$object_link_triangle)
+    asub <- dplyr::filter(triangle, .data$object_ == x$object$object_[i]) %>% 
       dplyr::transmute(.data$.vertex0, .data$.vertex1, .data$.vertex2, fill = NA_character_) %>% 
       t() %>% 
       as.vector() 

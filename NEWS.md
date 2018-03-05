@@ -1,8 +1,13 @@
 # silicate dev
 
-* migrated from JS rearcut to C++ decido for triangulation
+* TRI model now includes object_link_triangle, and drops object_ and path_ from triangle table to
+ be consistent with anglr::DEL. 
+ 
+* The meta table is now always present in models. 
 
-* cleaned up the triangulation logic 
+* Migrated from JS rearcut to C++ decido for triangulation.
+
+* Cleaned up the triangulation logic. 
 
 # silicate 0.1.0
 
