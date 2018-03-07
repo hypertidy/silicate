@@ -1,5 +1,10 @@
 # silicate dev
 
+* TRI now allows linear topologies, they are assumed to be all island paths (see `anglr::DEL` for a possible 
+better approach). 
+
+* SC and PATH now allow degenerate paths and edges, with plot as pixel and point respectively. 
+
 * TRI model now includes object_link_triangle, and drops object_ and path_ from triangle table to
  be consistent with anglr::DEL. 
  
