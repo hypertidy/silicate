@@ -22,6 +22,7 @@ plot.SC <- function(x, ..., vars = NULL) {
   e <- sc_edge(x)
   x0 <- e %>% dplyr::inner_join(v, c(".vertex0" = "vertex_"))
   x1 <- e %>% dplyr::inner_join(v, c(".vertex1" = "vertex_"))
+ if (identical(x0, x1)) warning("all edges are degenerate (i.e. a vertex related to itself)")
   idx <- factor(x$object_link_edge$object_)[seq(1, nrow(e))]
   col <- grDevices::rainbow(nlevels(idx))[idx]
   graphics::plot(v$x_, v$y_, pch = ".")
@@ -37,6 +38,7 @@ plot.PATH <- function(x, ...) {
   gg <- x$path %>% dplyr::group_by(object) %>% dplyr::summarize(nn = sum(ncoords_))
   objcols <- rep(sc_colours(dim(x$object)[1L]), gg$nn)
   if (all(x$path$ncoords_ == 1L)) {
+    warning("all paths are degenerate (i.e. they are points)")
     toplot <- dplyr::inner_join(x$path_link_vertex, x$vertex, "vertex_")[c("x_", "y_")]
     points(toplot, col = objcols)
     return(invisible(NULL))

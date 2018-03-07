@@ -25,6 +25,13 @@ path_to_segment0 <- function(x) faster_as_tibble(list(.vertex0 = utils::head(x, 
 sc_segment_base <- function(path_link_vertex) {
   ## how many vertices on each path?
   frle <- rle(path_link_vertex[["path_"]])
+  if (all(frle$lengths == 1L)) {
+    return(tibble::tibble(.vertex0 = path_link_vertex$vertex_, 
+                          .vertex1 = .vertex0, 
+                          path_ = path_link_vertex$path_, 
+                          segment_ = sc_uid(nrow(path_link_vertex)), 
+                          edge_ = sc_uid(length(unique(.vertex0)))[factor(.vertex0)]))
+  }
   ## push into segments 
   segtab <- path_to_segment0(path_link_vertex[["vertex_"]])
   if (length(frle$values) > 1L) {
