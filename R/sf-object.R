@@ -16,6 +16,11 @@ sc_object.sf <- function(x, ...) {
   faster_as_tibble(.st_set_geometry(x))
 }
 
+#' @name sc_object
+#' @export
+sc_object.sfc <- function(x, ...) {
+  tibble(object_ = sc_uid(length(x)))
+}
 
 
 ## a function sf should have

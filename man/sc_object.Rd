@@ -8,6 +8,8 @@
 \alias{sc_object.TRI}
 \alias{sc_object}
 \alias{sc_object.sf}
+\alias{sc_object}
+\alias{sc_object.sfc}
 \title{Objects, features}
 \usage{
 sc_object(x, ...)
@@ -17,6 +19,8 @@ sc_object(x, ...)
 \method{sc_object}{TRI}(x, ...)
 
 \method{sc_object}{sf}(x, ...)
+
+\method{sc_object}{sfc}(x, ...)
 }
 \arguments{
 \item{x}{input object}

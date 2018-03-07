@@ -1,6 +1,8 @@
 sc_colours <- function(x, ...) {
   # https://stackoverflow.com/a/33144808/355270
-  cl <- grDevices::colors()[-1L]
+  #cl <- grDevices::colors()[-1L]
+
+  cl <- hsv(runif(x), 1, runif(x)) #viridis::viridis(x)
   sample(cl, x, replace = x > length(cl))
 }
 
@@ -30,9 +32,23 @@ plot.SC <- function(x, ..., vars = NULL) {
 #' @export
 plot.PATH <- function(x, ...) {
   plot(x$vertex[c("x_", "y_")], type = "n")
-  obj <- split(x$path_link_vertex, x$path_link_vertex$path_)
-  cols <- sc_colours(length(obj))
-  lapply(seq_along(obj), function(a) graphics::lines(dplyr::inner_join(obj[[a]], x$vertex, "vertex_")[c("x_", "y_")], col = cols[a]))
+  paths <- split(x$path_link_vertex, x$path_link_vertex$path_)[unique(x$path_link_vertex$path_)]
+  #cols <- sc_colours(length(obj))
+  gg <- x$path %>% dplyr::group_by(object) %>% dplyr::summarize(nn = sum(ncoords_))
+  objcols <- rep(sc_colours(dim(x$object)[1L]), gg$nn)
+  if (all(x$path$ncoords_ == 1L)) {
+    toplot <- dplyr::inner_join(x$path_link_vertex, x$vertex, "vertex_")[c("x_", "y_")]
+    points(toplot, col = objcols)
+    return(invisible(NULL))
+  }
+  junk <- lapply(seq_along(paths), function(a) {
+    toplot <- dplyr::inner_join(paths[[a]], x$vertex, "vertex_")[c("x_", "y_")]
+    if (dim(toplot)[1L] > 1L) {
+      graphics::lines(toplot, col = objcols[a])
+    } else {
+      graphics::points(toplot, col = objcols[a])
+    }
+  })
   invisible(NULL)
 }
 

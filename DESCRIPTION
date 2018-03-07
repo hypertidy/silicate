@@ -20,7 +20,7 @@ Encoding: UTF-8
 LazyData: true
 Suggests:
     covr,
-    gibble (> 0.0.2),
+    gibble (>= 0.0.2.9002),
     knitr,
     rmarkdown,
     sf,
