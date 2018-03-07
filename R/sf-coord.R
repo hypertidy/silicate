@@ -6,7 +6,13 @@
     x <- if (is.null(dim(x))) t(x) else x
     x
   }
-geometry_dimension <- function(x) rev(class(x))[3L]
+geometry_dimension <- function(x) {
+  
+  out <- rev(class(x))[3L]
+  ## catch for https://github.com/hypertidy/silicate/issues/59#issuecomment-371023216
+  if (out == "list") out <- "XY" #:|
+  out
+}
 sf_geom_names <- function(x) unlist(strsplit(geometry_dimension(x), ""))
 sc_geom_names <- function(gnames) {
   gnames <- gsub("^X$", "x_", gnames)
