@@ -10,7 +10,7 @@ geometry_dimension <- function(x) {
   
   out <- rev(class(x))[3L]
   ## catch for https://github.com/hypertidy/silicate/issues/59#issuecomment-371023216
-  ## remove this hack when https://github.com/r-spatial/sf/issues/660 fixed
+  ## remove this hack when https://github.com/r-spatial/sf/issues/660 released
   if (out == "list") out <- "XY" #:|
   out
 }
