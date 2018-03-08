@@ -126,21 +126,21 @@ junk &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="k
 <pre><code>## # A tibble: 15 x 3
 ##    .vertex0   .vertex1   edge_     
 ##    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     
-##  1 0469f8a24c 0b67fea321 c4f163d581
-##  2 0b67fea321 1abee5845c 05e71f1aa2
-##  3 1abee5845c 157ed01789 ac38d656ce
-##  4 157ed01789 938fac7862 3c0b6f53f1
-##  5 938fac7862 0b6e6b8a17 0679db3077
-##  6 0b6e6b8a17 dc9fea1975 cc2a63aafc
-##  7 dc9fea1975 0469f8a24c 1d2ca6dad2
-##  8 5886ce4789 a8acc3e1ca 8715cf4689
-##  9 a8acc3e1ca b5104711e2 278b79d2f1
-## 10 b5104711e2 8facd6150d a12aa4b6b8
-## 11 8facd6150d 0568f1ddf2 355e091440
-## 12 0568f1ddf2 5886ce4789 643091a3c4
-## 13 0b6e6b8a17 08f2e9e358 9b2de94517
-## 14 08f2e9e358 725e1e729a ae8b92ba91
-## 15 725e1e729a dc9fea1975 602b799169</code></pre>
+##  1 e5b9168ee5 0c73a53579 da8b6f5b46
+##  2 0c73a53579 f81b8d4010 855db12bde
+##  3 f81b8d4010 c67e06f8f1 0dc692ec57
+##  4 c67e06f8f1 1efc3725ed 3db7d66f7f
+##  5 1efc3725ed c7c0dc83f8 38beb65bc7
+##  6 c7c0dc83f8 f9e91c98f5 31b2e3bec4
+##  7 f9e91c98f5 e5b9168ee5 2d8277ff22
+##  8 ce291caf6d 06f9e78f9a 85671cc6f0
+##  9 06f9e78f9a 67694bd4e0 ea2d5ddb1c
+## 10 67694bd4e0 89766380f5 280c0f8ba0
+## 11 89766380f5 1fb7dd28ca 794dfb034b
+## 12 1fb7dd28ca ce291caf6d f70e2221dc
+## 13 c7c0dc83f8 9dddfc5796 735e0db867
+## 14 9dddfc5796 08d3929ad3 e621f3a214
+## 15 08d3929ad3 f9e91c98f5 14d4de0de2</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(x)
 <span class="kw">text</span>(x<span class="op">$</span>vertex[<span class="kw">c</span>(<span class="st">"x_"</span>, <span class="st">"y_"</span>)], <span class="dt">label =</span> x<span class="op">$</span>vertex<span class="op">$</span>vertex_)</code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/SC-1.png" width="672"></p>
@@ -165,25 +165,25 @@ purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentati
 <pre><code>## # A tibble: 19 x 5
 ##    object subobject path_         x_    y_
 ##     &lt;int&gt;     &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;
-##  1      1         1 a880789ece 0.    0.   
-##  2      1         1 a880789ece 0.    1.00 
-##  3      1         1 a880789ece 0.750 1.00 
-##  4      1         1 a880789ece 1.00  0.800
-##  5      1         1 a880789ece 0.500 0.700
-##  6      1         1 a880789ece 0.800 0.600
-##  7      1         1 a880789ece 0.690 0.   
-##  8      1         1 a880789ece 0.    0.   
-##  9      1         1 e85e35d30a 0.200 0.200
-## 10      1         1 e85e35d30a 0.500 0.200
-## 11      1         1 e85e35d30a 0.500 0.400
-## 12      1         1 e85e35d30a 0.300 0.600
-## 13      1         1 e85e35d30a 0.200 0.400
-## 14      1         1 e85e35d30a 0.200 0.200
-## 15      2         1 18c5ce825d 0.690 0.   
-## 16      2         1 18c5ce825d 0.800 0.600
-## 17      2         1 18c5ce825d 1.10  0.630
-## 18      2         1 18c5ce825d 1.23  0.300
-## 19      2         1 18c5ce825d 0.690 0.</code></pre>
+##  1      1         1 6703151124 0.    0.   
+##  2      1         1 6703151124 0.    1.00 
+##  3      1         1 6703151124 0.750 1.00 
+##  4      1         1 6703151124 1.00  0.800
+##  5      1         1 6703151124 0.500 0.700
+##  6      1         1 6703151124 0.800 0.600
+##  7      1         1 6703151124 0.690 0.   
+##  8      1         1 6703151124 0.    0.   
+##  9      1         1 6d375a08a9 0.200 0.200
+## 10      1         1 6d375a08a9 0.500 0.200
+## 11      1         1 6d375a08a9 0.500 0.400
+## 12      1         1 6d375a08a9 0.300 0.600
+## 13      1         1 6d375a08a9 0.200 0.400
+## 14      1         1 6d375a08a9 0.200 0.200
+## 15      2         1 69938fe639 0.690 0.   
+## 16      2         1 69938fe639 0.800 0.600
+## 17      2         1 69938fe639 1.10  0.630
+## 18      2         1 69938fe639 1.23  0.300
+## 19      2         1 69938fe639 0.690 0.</code></pre>
 <p>Paths are easily re-expressed as a set of edges, treating each pair of coordinates as a new kind of entity. Some edges are <em>shared</em>, in that two objects might have a particular edge in their own path. If the shared neighbours are two polygons, then it’s likely that each polygon encounters that edge in a different direction, but this is not a stable pattern so it’s best to not assume it to be the case. It’s important here because we need to differentiate between an <em>instance of an edge</em>, which is a particular <em>line segment</em> that is part of one particular polygon. If that polygon segment is a shared edge with a neighbour polygon, then we distinguish the instances as a particular <em>segment</em> of a unique <em>edge</em>. This allows us the opportunity to treat the edge as completely abstract, and also to decide or record what it’s orientation is, which records which vertex is the first one, and which is the second. Not all applications need to care about this distinction, though.</p>
 <p>In this way we have an analogy for edges and segments compared to vertices and coordinates, and I think this terminology makes sense!</p>
 </div>
@@ -220,7 +220,7 @@ nodes &lt;-<span class="st"> </span><span class="kw">sc_node</span>(arc)
 <span class="co"># 15.476   0.225  15.460 </span>
 <span class="kw">system.time</span>(tri &lt;-<span class="st"> </span><span class="kw">TRI</span>(inlandwaters))</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   4.269   0.017   4.285</code></pre>
+##   4.534   0.016   4.550</code></pre>
 <p>The triangles are low-quality (but triangles are very easy to subdivide).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(tri)</code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>

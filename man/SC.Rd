@@ -31,9 +31,12 @@ higher level structures recorded as groupings of edges.
 ## see how the TRI edges are maintained (we can't yet filter out holes from DEL)
 tri <- TRI(minimal_mesh)
 plot(tri)
-
-plot(DEL(SC(TRI(minimal_mesh)), max_area = 0.001))
+plot(SC(tri))
+\dontrun{
+# library(anglr)
+#plot(DEL(SC(TRI(minimal_mesh)), max_area = 0.001))
 
 ## Nice small triangles in a conforming Delaunay mesh. 
-plot(SC(DEL(simpleworld[121, ], D = TRUE, max_area = .1)))
+#plot(SC(DEL(simpleworld[121, ], D = TRUE, max_area = .1)))
+}
 }
