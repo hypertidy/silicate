@@ -9,6 +9,16 @@ globalVariables("n")
 #' @param x input model
 #' @param ... arguments passed to methods
 #' @export
+#' @examples 
+#' ## we can produce a high quality triangulation from a low quality one
+#' ## see how the TRI edges are maintained (we can't yet filter out holes from DEL)
+#' tri <- TRI(minimal_mesh)
+#' plot(tri)
+#' 
+#' plot(DEL(SC(TRI(minimal_mesh)), max_area = 0.001))
+#' 
+#' ## Nice small triangles in a conforming Delaunay mesh. 
+#' plot(SC(DEL(simpleworld[121, ], D = TRUE, max_area = .1)))
 SC <- function(x, ...) {
   UseMethod("SC")
 }
@@ -74,26 +84,33 @@ sc_path_link_vertex.SC <- function(x,  ...) {
 ## need to identify segments that were input and are
 ## shared by two triangles, set to invisible
 tri_to_seg <- function(x) {
-  x[c(1, 2, 3, 2, 3, 1)]
+  x[c(1, 2, 2, 3, 3, 1)]
 }
 
 to_tibble <- function(x) {
-  setNames(tibble::as_tibble(matrix(x, ncol = 2)), c(".vertex0", ".vertex1"))
+  setNames(tibble::as_tibble(matrix(x, ncol = 2, byrow = TRUE)), c(".vertex0", ".vertex1"))
 }
 ## triangle classification
+#' @name SC
+#' @export 
 SC.TRI <- function(x, ...) {
   segment <- purrr::map_df(purrr::transpose(x$triangle[c(".vertex0", ".vertex1", ".vertex2")]), 
                            ~to_tibble(tri_to_seg(unlist(.x))), .id = "triangle_")
   segment$triangle_ <- x$triangle$triangle_[as.integer(segment$triangle_)]
-  segment$segment_ <- silicate::sc_uid(nrow(segment))
+  #segment$segment_ <- silicate::sc_uid(nrow(segment))
   edges <- as.integer(factor(apply(cbind(segment$.vertex0, segment$.vertex1), 1, 
                                    function(x) paste(sort(x), collapse = "-"))))
   segment$edge_ <- sc_uid(length(unique(edges)))[edges]
+  object_link_edge <- dplyr::inner_join(x$object_link_triangle, 
+                                        segment[c("edge_", "triangle_")]) %>% 
+    dplyr::distinct(object_, edge_)
+  edge <- dplyr::distinct(segment %>% dplyr::select(.vertex0, .vertex1, edge_), 
+                          edge_, .keep_all = TRUE)
   #object_link_edge <- tibble(object_ = x$object_link_triangle$object_[match(edge$triangle_, x$object_link_triangle$triangle_)],  
   #                           segment_ = segment$segment_)
- # structure(list(object = x$object, object_link_edge = object_link_edge, 
-#                 edge = edge, vertex = x$vertex), class = c("SC", "sc"))
-1  ## unfinished
+  structure(list(object = x$object, object_link_edge = object_link_edge, 
+                 edge = edge, vertex = x$vertex, 
+                 meta = rbind(dplyr::mutate(x$meta, ctime = Sys.time()), x$meta)), class = c("SC", "sc"))
   }
 
 ##https://github.com/hypertidy/silicate/issues/46

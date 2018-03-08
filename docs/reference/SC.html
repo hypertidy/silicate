@@ -109,6 +109,9 @@ higher level structures recorded as groupings of edges.</p>
 
     <pre class="usage"><span class='fu'>SC</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
+<span class='co'># S3 method for TRI</span>
+<span class='fu'>SC</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
 <span class='co'># S3 method for SC</span>
 <span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
@@ -130,12 +133,28 @@ higher level structures recorded as groupings of edges.</p>
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>## we can produce a high quality triangulation from a low quality one
+## see how the TRI edges are maintained (we can't yet filter out holes from DEL)
+tri <- TRI(minimal_mesh)
+plot(tri)
+
+plot(DEL(SC(TRI(minimal_mesh)), max_area = 0.001))
+
+Nice small triangles in a conforming Delaunay mesh. 
+plot(SC(DEL(simpleworld[121, ], D = TRUE, max_area = .1)))
+</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:8:6: unexpected symbol</span>
+#&gt; <span class='error'>7: </span>
+#&gt; <span class='error'>8: Nice small</span>
+#&gt; <span class='error'>        ^</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

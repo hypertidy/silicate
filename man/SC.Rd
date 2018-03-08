@@ -3,10 +3,14 @@
 \name{SC}
 \alias{SC}
 \alias{SC}
+\alias{SC.TRI}
+\alias{SC}
 \alias{plot.SC}
 \title{The universal model}
 \usage{
 SC(x, ...)
+
+\method{SC}{TRI}(x, ...)
 
 \method{plot}{SC}(x, ..., vars = NULL)
 }
@@ -21,4 +25,15 @@ SC(x, ...)
 The universal model \code{SC} is coordinates and binary relations between
 pairs of coordinates. This is purely an edge (or segment) model, with all
 higher level structures recorded as groupings of edges.
+}
+\examples{
+## we can produce a high quality triangulation from a low quality one
+## see how the TRI edges are maintained (we can't yet filter out holes from DEL)
+tri <- TRI(minimal_mesh)
+plot(tri)
+
+plot(DEL(SC(TRI(minimal_mesh)), max_area = 0.001))
+
+Nice small triangles in a conforming Delaunay mesh. 
+plot(SC(DEL(simpleworld[121, ], D = TRUE, max_area = .1)))
 }

@@ -71,7 +71,7 @@
       <h1>silicate: the fabric of hierarchical structures</h1>
                         <h4 class="author">Michael D. Sumner</h4>
             
-            <h4 class="date">2018-03-06</h4>
+            <h4 class="date">2018-03-09</h4>
           </div>
 
     
@@ -126,21 +126,21 @@ junk &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="k
 <pre><code>## # A tibble: 15 x 3
 ##    .vertex0   .vertex1   edge_     
 ##    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     
-##  1 cc9b2258ba 2bca82c4b8 98e756601a
-##  2 2bca82c4b8 546aa7f1a3 8b0df750be
-##  3 546aa7f1a3 9015fe0839 937511c4f9
-##  4 9015fe0839 0975680717 d7e162463c
-##  5 0975680717 e063e7fc39 50e9570906
-##  6 e063e7fc39 169f98d17b d81c97f106
-##  7 169f98d17b cc9b2258ba a5faeba84e
-##  8 83ca775f79 77b5a716f4 6268f3c855
-##  9 77b5a716f4 5164d7b1d8 df790d7b23
-## 10 5164d7b1d8 75ac374cd7 b300644dbd
-## 11 75ac374cd7 485d6c9e6a e83d21d4f8
-## 12 485d6c9e6a 83ca775f79 a06a3b6029
-## 13 e063e7fc39 69a3d46477 fe134c7f7c
-## 14 69a3d46477 8262bb032b 1215c5b874
-## 15 8262bb032b 169f98d17b e0462765d7</code></pre>
+##  1 e3485db105 56573a13f2 524518a707
+##  2 56573a13f2 9abdbabcea 7e24dc0c4b
+##  3 9abdbabcea fc748e9449 28b739fc57
+##  4 fc748e9449 e1f9dc1b24 b93d18fdc1
+##  5 e1f9dc1b24 1b4c1158eb 7c209274bd
+##  6 1b4c1158eb e7442fb3c9 6b18145c41
+##  7 e7442fb3c9 e3485db105 0190b93b37
+##  8 5a4650d86a 7628b7348e 5680a0c369
+##  9 7628b7348e d9d3a737d6 65160258ff
+## 10 d9d3a737d6 21b6dda1bb 0a46739837
+## 11 21b6dda1bb 45d455ee0d d6bec11a75
+## 12 45d455ee0d 5a4650d86a e5b47cebe2
+## 13 1b4c1158eb fcce583753 db47b1323b
+## 14 fcce583753 16b0ef08b9 1475484e89
+## 15 16b0ef08b9 e7442fb3c9 7cc923fd81</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(x)
 <span class="kw">text</span>(x<span class="op">$</span>vertex[<span class="kw">c</span>(<span class="st">"x_"</span>, <span class="st">"y_"</span>)], <span class="dt">label =</span> x<span class="op">$</span>vertex<span class="op">$</span>vertex_)</code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/SC-1.png" width="672"></p>
@@ -165,25 +165,25 @@ purrr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentati
 <pre><code>## # A tibble: 19 x 5
 ##    object subobject path_         x_    y_
 ##     &lt;int&gt;     &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;
-##  1      1         1 27d1b22571 0.    0.   
-##  2      1         1 27d1b22571 0.    1.00 
-##  3      1         1 27d1b22571 0.750 1.00 
-##  4      1         1 27d1b22571 1.00  0.800
-##  5      1         1 27d1b22571 0.500 0.700
-##  6      1         1 27d1b22571 0.800 0.600
-##  7      1         1 27d1b22571 0.690 0.   
-##  8      1         1 27d1b22571 0.    0.   
-##  9      1         1 59eee57ef6 0.200 0.200
-## 10      1         1 59eee57ef6 0.500 0.200
-## 11      1         1 59eee57ef6 0.500 0.400
-## 12      1         1 59eee57ef6 0.300 0.600
-## 13      1         1 59eee57ef6 0.200 0.400
-## 14      1         1 59eee57ef6 0.200 0.200
-## 15      2         1 d52c851007 0.690 0.   
-## 16      2         1 d52c851007 0.800 0.600
-## 17      2         1 d52c851007 1.10  0.630
-## 18      2         1 d52c851007 1.23  0.300
-## 19      2         1 d52c851007 0.690 0.</code></pre>
+##  1      1         1 03a4e110b6 0.    0.   
+##  2      1         1 03a4e110b6 0.    1.00 
+##  3      1         1 03a4e110b6 0.750 1.00 
+##  4      1         1 03a4e110b6 1.00  0.800
+##  5      1         1 03a4e110b6 0.500 0.700
+##  6      1         1 03a4e110b6 0.800 0.600
+##  7      1         1 03a4e110b6 0.690 0.   
+##  8      1         1 03a4e110b6 0.    0.   
+##  9      1         1 efa2e8da5f 0.200 0.200
+## 10      1         1 efa2e8da5f 0.500 0.200
+## 11      1         1 efa2e8da5f 0.500 0.400
+## 12      1         1 efa2e8da5f 0.300 0.600
+## 13      1         1 efa2e8da5f 0.200 0.400
+## 14      1         1 efa2e8da5f 0.200 0.200
+## 15      2         1 a99cbb1c4b 0.690 0.   
+## 16      2         1 a99cbb1c4b 0.800 0.600
+## 17      2         1 a99cbb1c4b 1.10  0.630
+## 18      2         1 a99cbb1c4b 1.23  0.300
+## 19      2         1 a99cbb1c4b 0.690 0.</code></pre>
 <p>Paths are easily re-expressed as a set of edges, treating each pair of coordinates as a new kind of entity. Some edges are <em>shared</em>, in that two objects might have a particular edge in their own path. If the shared neighbours are two polygons, then it’s likely that each polygon encounters that edge in a different direction, but this is not a stable pattern so it’s best to not assume it to be the case. It’s important here because we need to differentiate between an <em>instance of an edge</em>, which is a particular <em>line segment</em> that is part of one particular polygon. If that polygon segment is a shared edge with a neighbour polygon, then we distinguish the instances as a particular <em>segment</em> of a unique <em>edge</em>. This allows us the opportunity to treat the edge as completely abstract, and also to decide or record what it’s orientation is, which records which vertex is the first one, and which is the second. Not all applications need to care about this distinction, though.</p>
 <p>In this way we have an analogy for edges and segments compared to vertices and coordinates, and I think this terminology makes sense!</p>
 </div>
@@ -220,7 +220,7 @@ nodes &lt;-<span class="st"> </span><span class="kw">sc_node</span>(arc)
 <span class="co"># 15.476   0.225  15.460 </span>
 <span class="kw">system.time</span>(tri &lt;-<span class="st"> </span><span class="kw">TRI</span>(inlandwaters))</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   4.234   0.060   4.294</code></pre>
+##   4.207   0.020   4.227</code></pre>
 <p>The triangles are low-quality (but triangles are very easy to subdivide).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(tri)</code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>

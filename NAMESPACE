@@ -3,6 +3,7 @@
 S3method(ARC,PATH)
 S3method(ARC,default)
 S3method(PATH,default)
+S3method(SC,TRI)
 S3method(SC,default)
 S3method(TRI,PATH)
 S3method(TRI,default)
