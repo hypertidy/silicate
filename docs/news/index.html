@@ -98,10 +98,45 @@
     </div>
 
     <div class="contents">
-    <div id="sc-0-0-2" class="section level1">
+    <div id="silicate-0-1-0-9007" class="section level1">
 <h1 class="hasAnchor">
-<a href="#sc-0-0-2" class="anchor"></a>sc 0.0.2</h1>
+<a href="#silicate-0-1-0-9007" class="anchor"></a>silicate 0.1.0.9007</h1>
 <ul>
+<li><p>SC can now read TRI, which allows for very easy DEL re-triangulations and fine control over the quality and details of the mesh</p></li>
+<li><p>TRI now allows linear topologies, they are assumed to be all island paths (see <code><a href="http://www.rdocumentation.org/packages/anglr/topics/DEL">anglr::DEL</a></code> for a possible better approach).</p></li>
+<li><p>SC and PATH now allow degenerate paths and edges, with plot as pixel and point respectively.</p></li>
+<li><p>TRI model now includes object_link_triangle, and drops object_ and path_ from triangle table to be consistent with anglr::DEL.</p></li>
+<li><p>The meta table is now always present in models.</p></li>
+<li><p>Migrated from JS rearcut to C++ decido for triangulation.</p></li>
+<li><p>Cleaned up the triangulation logic.</p></li>
+</ul>
+</div>
+    <div id="silicate-0-1-0" class="section level1">
+<h1 class="hasAnchor">
+<a href="#silicate-0-1-0" class="anchor"></a>silicate 0.1.0</h1>
+<ul>
+<li><p>added functions compact_indexes and expand_indexes to remove and restore the unique labels on entities - these are purely to explore what the minimal size of a model might be</p></li>
+<li><p>more consistency for sc_verbs, sc_coord, sc_vertex, sc_object, sc_node, sc_arc, sc_path, sc_uid</p></li>
+<li><p>established models SC, PATH, ARC, TRI</p></li>
+<li><p>removed PRIMITIVE</p></li>
+<li><p>(breaking) <code>sc_uid</code> now generic, with argument <code>x</code> (not <code>n</code>)</p></li>
+<li><p>various fixes in line with gibble 0.0.1.9002 to properly support sp structures</p></li>
+<li><p>fixed bug where a single-path data set exposed an offset assumption applied by sc_segment, fixes <a href="https://github.com/hypertidy/silicate/issues/40" class="uri">https://github.com/hypertidy/silicate/issues/40</a></p></li>
+<li><p>fixed bug where 0-column dataframe was assumed to be a list of vectors <a href="https://github.com/hypertidy/anglr/issues/55" class="uri">https://github.com/hypertidy/anglr/issues/55</a></p></li>
+<li><p>added <code>polymesh</code> data</p></li>
+<li><p>support for trip</p></li>
+<li><p>install flight_tracks example</p></li>
+<li><p>support for sp!</p></li>
+<li><p>moved sf specific facility from scsf</p></li>
+<li><p>renamed package</p></li>
+<li><p><code>sc_rand</code> is deprecated, to be replaced by <code>sc_uid</code></p></li>
+</ul>
+</div>
+    <div id="silicate-0-0-2" class="section level1">
+<h1 class="hasAnchor">
+<a href="#silicate-0-0-2" class="anchor"></a>silicate 0.0.2</h1>
+<ul>
+<li>(was called sc)</li>
 <li>cleaned up the un-join with a specific function from ‘unjoin’ package</li>
 <li>added internal function <code>sc_edge</code>, and exported <code>sc_node</code> and renamed arc_node to <code>NARC</code>
 </li>
@@ -112,14 +147,14 @@
 <li>PRIMITIVES model added, including bare-nodes arc_node function to return the 3-way nodes</li>
 </ul>
 </div>
-    <div id="sc-0-0-1" class="section level1">
+    <div id="silicate-0-0-1" class="section level1">
 <h1 class="hasAnchor">
-<a href="#sc-0-0-1" class="anchor"></a>sc 0.0.1</h1>
+<a href="#silicate-0-0-1" class="anchor"></a>silicate 0.0.1</h1>
 <ul>
+<li>(was called sc)</li>
 <li>first functions, the BRANCH model for sf</li>
 </ul>
 </div>
-    NA
     </div>
   </div>
 
@@ -127,9 +162,10 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#sc-0-0-2">0.0.2</a></li>
-        <li><a href="#sc-0-0-1">0.0.1</a></li>
-        <li><a href="#NA">NA</a></li>
+        <li><a href="#silicate-0-1-0-9007">0.1.0.9007</a></li>
+        <li><a href="#silicate-0-1-0">0.1.0</a></li>
+        <li><a href="#silicate-0-0-2">0.0.2</a></li>
+        <li><a href="#silicate-0-0-1">0.0.1</a></li>
       </ul>
     </div>
   </div>

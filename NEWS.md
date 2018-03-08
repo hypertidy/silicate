@@ -1,4 +1,4 @@
-# silicate dev
+# silicate 0.1.0.9007
 
 * SC can now read TRI, which allows for very easy DEL re-triangulations and fine
  control over the quality and details of the mesh
@@ -16,6 +16,7 @@ better approach).
 * Migrated from JS rearcut to C++ decido for triangulation.
 
 * Cleaned up the triangulation logic. 
+
 
 # silicate 0.1.0
 
@@ -54,8 +55,9 @@ better approach).
 
 * `sc_rand` is deprecated, to be replaced by `sc_uid`
 
-# sc 0.0.2
+# silicate 0.0.2
 
+* (was called sc)
 * cleaned up the un-join with a specific function from 'unjoin' package
 * added internal function `sc_edge`, and exported `sc_node` and renamed arc_node to `NARC`
 * removed all sf-specific facilities to external package
@@ -65,8 +67,9 @@ better approach).
 * PRIMITIVES model added, including bare-nodes arc_node function to return the 3-way nodes
 
 
-# sc 0.0.1
+# silicate 0.0.1
 
+* (was called sc)
 * first functions, the BRANCH model for sf
 
 
