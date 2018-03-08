@@ -1,6 +1,6 @@
 # silicate 0.1.0.9007
 
-* SC can now read TRI, which allows for very easy DEL re-triangulations and fine
+* SC can now interpret TRI, which allows for very easy DEL re-triangulations and fine
  control over the quality and details of the mesh
  
 * TRI now allows linear topologies, they are assumed to be all island paths (see `anglr::DEL` for a possible 
