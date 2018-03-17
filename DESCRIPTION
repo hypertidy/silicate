@@ -39,4 +39,4 @@ Imports:
     viridis
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-Remotes: mdsumner/gibble, hypertidy/decido
+Remotes: mdsumner/gibble
