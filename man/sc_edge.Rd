@@ -2,10 +2,32 @@
 % Please edit documentation in R/00_edge.R
 \name{sc_edge}
 \alias{sc_edge}
+\alias{sc_start}
+\alias{sc_end}
 \alias{sc_edge}
 \alias{sc_edge.default}
 \alias{sc_edge}
 \alias{sc_edge.PATH}
+\alias{sc_edge}
+\alias{sc_start}
+\alias{sc_edge}
+\alias{sc_start.SC}
+\alias{sc_edge}
+\alias{sc_start.PATH}
+\alias{sc_edge}
+\alias{sc_start.ARC}
+\alias{sc_edge}
+\alias{sc_start.TRI}
+\alias{sc_edge}
+\alias{sc_end}
+\alias{sc_edge}
+\alias{sc_end.SC}
+\alias{sc_edge}
+\alias{sc_end.PATH}
+\alias{sc_edge}
+\alias{sc_end.ARC}
+\alias{sc_edge}
+\alias{sc_end.TRI}
 \title{Edges.}
 \usage{
 sc_edge(x, ...)
@@ -13,6 +35,26 @@ sc_edge(x, ...)
 \method{sc_edge}{default}(x, ...)
 
 \method{sc_edge}{PATH}(x, ...)
+
+sc_start(x, ...)
+
+\method{sc_start}{SC}(x, ...)
+
+\method{sc_start}{PATH}(x, ...)
+
+\method{sc_start}{ARC}(x, ...)
+
+\method{sc_start}{TRI}(x, ...)
+
+sc_end(x, ...)
+
+\method{sc_end}{SC}(x, ...)
+
+\method{sc_end}{PATH}(x, ...)
+
+\method{sc_end}{ARC}(x, ...)
+
+\method{sc_end}{TRI}(x, ...)
 }
 \arguments{
 \item{x}{input object}
@@ -25,4 +67,9 @@ Simple binary relationships, a primitive composed of two vertices.
 \details{
 Edges are unique, undirected line segments. Compare to \code{sc_segment} which refers to all
 instances of edges.
+
+\code{sc_start} and \code{sc_end} are convenience functions that provide the obvious
+start and end coordinates by joining on the appropriate edge vertex label, \code{.vertex0}
+or \code{.vertex1}. Currently this returns the ordered segments, along with their unique (unordered) \code{edge_}, as
+well as unique \code{segment}, and \code{object_} labels.
 }
