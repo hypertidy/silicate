@@ -5,6 +5,8 @@
 \alias{sc_coord}
 \alias{sc_coord.PATH}
 \alias{sc_coord}
+\alias{sc_coord.default}
+\alias{sc_coord}
 \alias{sc_coord.sf}
 \alias{sc_coord}
 \alias{sc_coord.sfc}
@@ -26,13 +28,13 @@
 \alias{sc_coord.Polygons}
 \alias{sc_coord}
 \alias{sc_coord.Lines}
-\alias{sc_coord}
-\alias{sc_coord.default}
 \title{Coordinate decomposition}
 \usage{
 sc_coord(x, ...)
 
 \method{sc_coord}{PATH}(x, ...)
+
+\method{sc_coord}{default}(x, ...)
 
 \method{sc_coord}{sf}(x, ...)
 
@@ -55,8 +57,6 @@ sc_coord(x, ...)
 \method{sc_coord}{Polygons}(x, ...)
 
 \method{sc_coord}{Lines}(x, ...)
-
-\method{sc_coord}{default}(x, ...)
 }
 \arguments{
 \item{x}{input model}

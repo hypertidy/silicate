@@ -8,3 +8,4 @@
 ^appveyor\.yml$
 ^inst/examples
 ^R/old
+^silicate\.Rproj$
