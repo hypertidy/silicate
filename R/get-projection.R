@@ -1,3 +1,4 @@
+## this all belongs in a core shared package
 get_projection <- function(x, ...) UseMethod("get_projection")
 get_projection.default <- function(x, ...) {
   NA_character_

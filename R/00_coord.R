@@ -14,6 +14,12 @@ sc_coord <- function(x, ...) UseMethod("sc_coord")
 
 #' @name sc_coord
 #' @export
+sc_coord.default <- function(x, ...){
+  x[["coord"]]  %||% stop("no coord present", call. = FALSE)
+}
+
+#' @name sc_coord
+#' @export
 #' @importFrom rlang .data
 #' @importFrom dplyr inner_join transmute_ select_
 sc_coord.PATH <- function(x, ...) {
@@ -22,8 +28,182 @@ sc_coord.PATH <- function(x, ...) {
     dplyr::select(-.data$vertex_)
 }
 
+
+
+#' Coordinate decomposition
+#'
+#' Collect all coordinates in one table, the path_link_vertex table
+#' has the information about the original grouping.
+#'
+#' @seealso `sc_path` for the central part of the model, `sc_object` for
+#' the features, and `PATH` for the full model.
 #' @name sc_coord
 #' @export
-sc_coord.default <- function(x, ...){
-   x[["coord"]]  %||% stop("no coord present", call. = FALSE)
+#' @examples
+#' data("sfzoo")
+#' #sc_coord(sf::st_sfc(sfzoo))
+#'# lapply(sfzoo, sc_coord)
+sc_coord.sf <- function(x, ...) {
+  sc_coord(.st_get_geometry(x), ...)
 }
+#' @importFrom dplyr bind_rows
+#' @name sc_coord
+#' @export
+#' @examples
+#' #sc_coord(sf::st_sfc(sfzoo))
+sc_coord.sfc <- function(x,  ...) {
+  x <- lapply(x, sc_coord)
+  dplyr::bind_rows(x)
+
+}
+
+
+## --------------------------------------------------------
+## sf
+## --------------------------------------------------------
+
+m_v <- function(x) {
+  x <- unclass(x)
+  x <- if (is.null(dim(x))) t(x) else x
+  x
+}
+geometry_dimension <- function(x) {
+
+  out <- rev(class(x))[3L]
+  ## catch for https://github.com/hypertidy/silicate/issues/59#issuecomment-371023216
+  ## remove this hack when https://github.com/r-spatial/sf/issues/660 released
+  if (out == "list") out <- "XY" #:|
+  out
+}
+sf_geom_names <- function(x) unlist(strsplit(geometry_dimension(x), ""))
+sc_geom_names <- function(gnames) {
+  gnames <- gsub("^X$", "x_", gnames)
+  gnames <- gsub("^Y$", "y_", gnames)
+  gnames <- gsub("^Z$", "z_", gnames)
+  gnames <- gsub("^M$", "m_", gnames)
+  gnames <- gsub("^type$", "type_", gnames)
+  gnames
+}
+sfcoords <- function(x, ...) faster_as_tibble(m_v(x))
+
+
+# these are short-cut methods for single-type sets
+#' @export
+sc_coord.sfc_MULTIPOLYGON <- function(x, ...) {
+  colnames <- sc_geom_names(sf_geom_names(x[[1]]))
+  out <- tibble::as_tibble(do.call(rbind, lapply(x, function(y) do.call(rbind, lapply(unclass(y), function(a) do.call(rbind, a))))))
+  setNames(out, colnames)
+
+}
+#' @export
+sc_coord.sfc_MULTILINESTRING <- sc_coord.sfc_POLYGON <- function(x, ...) {
+  colnames <- sc_geom_names(sf_geom_names(x[[1]]))
+  out <- tibble::as_tibble(do.call(rbind, lapply(x, function(y) do.call(rbind, unclass(y)))))
+  setNames(out, colnames)
+
+}
+#' @export
+sc_coord.sfc_LINESTRING <- sc_coord.sfc_MULTIPOINT <- function(x, ...) {
+  colnames <- sc_geom_names(sf_geom_names(x[[1]]))
+  out <- tibble::as_tibble(do.call(rbind, unclass(x)))
+  setNames(out, colnames)
+}
+#' @export
+sc_coord.sfc_POINT <- function(x, ...) {
+  colnames <- sc_geom_names(sf_geom_names(x[[1]]))
+  out <- tibble::as_tibble(do.call(rbind, unclass(x)))
+  setNames(out, colnames)
+}
+
+#' @name sc_coord
+#' @export
+#' @importFrom  stats setNames
+sc_coord.MULTIPOLYGON <- function(x, ...) {
+  colnames <- sc_geom_names(sf_geom_names(x))
+  setNames(dplyr::bind_rows(lapply(x, function(y) dplyr::bind_rows(lapply(y, sfcoords)))), colnames)
+  #setNames(purrr::map_df(x, function(y) purrr::map_df(y, sfcoords)), colnames)
+}
+#' @name sc_coord
+#' @export
+sc_coord.POLYGON <- function(x, ...) {
+  colnames <- sc_geom_names(sf_geom_names(x))
+  setNames(dplyr::bind_rows(lapply(x, sfcoords)), colnames)
+  # setNames(purrr:map_df(x, sfcoords), colnames)
+}
+#' @name sc_coord
+#' @export
+sc_coord.MULTILINESTRING <- sc_coord.POLYGON
+#' @name sc_coord
+#' @export
+sc_coord.LINESTRING <- function(x, ...) {
+  colnames <- sc_geom_names(sf_geom_names(x))
+  setNames(sfcoords(x), colnames)
+}
+#' @name sc_coord
+#' @export
+sc_coord.MULTIPOINT <- sc_coord.LINESTRING
+#' @name sc_coord
+#' @export
+sc_coord.POINT <- sc_coord.LINESTRING
+
+## --------------------------------------------------------
+## sp
+## --------------------------------------------------------
+
+#' @importFrom methods slotNames
+.sp_get_geometry <- function(x) {
+  slt <- slotNames(x)
+  if ("polygons" %in% slt) {
+    return(slot(x, "polygons"))
+  }
+  if ("lines" %in% slt) {
+    return(slot(x, "lines"))
+  }
+  out <- slot(x, "coords")
+  if (!is.recursive(out)) out <- list(out)
+  out
+}
+#' @name sc_coord
+#' @importFrom stats setNames
+sc_coord.Spatial <- function(x, ...) {
+  stats::setNames(tibble::as_tibble(do.call(rbind, lapply(.sp_get_geometry(x), sc_coord))), c("x_", "y_"))
+}
+#' @name sc_coord
+#' @export
+sc_coord.Polygons <- function(x, ...){
+  do.call(rbind, lapply(x@Polygons, function(xa) xa@coords))
+}
+#' @name sc_coord
+#' @export
+sc_coord.Lines<- function(x, ...){
+  do.call(rbind, lapply(x@Lines, function(xa) xa@coords))
+}
+
+
+## --------------------------------------------------------
+## trip
+## --------------------------------------------------------
+
+#' @export
+sc_coord.trip <- function(x, ...) {
+  tor <- slot(x, "TOR.columns")
+  dt <- x[[tor[1L]]]
+  data <- slot(x, "data")
+  data <- data[setdiff(names(data), tor)]
+  x <- tibble::as_tibble(slot(x, "coords"))
+  x <- stats::setNames(x, c("x_", "y_"))
+  x[["t_"]] <- dt
+  dplyr::bind_cols(x, data)
+
+}
+
+## --------------------------------------------------------
+## ade
+## --------------------------------------------------------
+
+#' @export
+sc_coord.ltraj <- function(x, ...) {
+  tibble::as_tibble(cbind(do.call("rbind", lapply(x, function(a) a[c("x", "y", "date")])),
+                          do.call("rbind", lapply(x, function(a) attr(a, "infolocs")))))
+}
+
