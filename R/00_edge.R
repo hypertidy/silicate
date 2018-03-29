@@ -8,7 +8,7 @@
 #' `sc_start` and `sc_end` are convenience functions that provide the obvious
 #' start and end coordinates by joining on the appropriate edge vertex label, `.vertex0` 
 #' or `.vertex1`. Currently this returns the ordered segments, along with their unique (unordered) `edge_`, as
-#' well as unique `segment`, and `object_` labels. 
+#' well as unique `segment`, a `object_` labels. 
 #' @param x input object
 #' @param ... arguments for methods
 #' @name sc_edge

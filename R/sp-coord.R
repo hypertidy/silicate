@@ -13,7 +13,6 @@
 }
 #' @name sc_coord
 #' @importFrom stats setNames
-#' @export
 sc_coord.Spatial <- function(x, ...) {
   stats::setNames(tibble::as_tibble(do.call(rbind, lapply(.sp_get_geometry(x), sc_coord))), c("x_", "y_"))
 }

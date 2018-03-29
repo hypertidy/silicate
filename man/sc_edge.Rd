@@ -71,5 +71,5 @@ instances of edges.
 \code{sc_start} and \code{sc_end} are convenience functions that provide the obvious
 start and end coordinates by joining on the appropriate edge vertex label, \code{.vertex0}
 or \code{.vertex1}. Currently this returns the ordered segments, along with their unique (unordered) \code{edge_}, as
-well as unique \code{segment}, and \code{object_} labels.
+well as unique \code{segment}, a \code{object_} labels.
 }
