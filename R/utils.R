@@ -1,9 +1,14 @@
+# Defaults for NULL values
+`%||%` <- function(a, b) if (is.null(a)) b else a
+
+
+
 #' @importFrom utils head
 #' @importFrom tibble as_tibble
 #' @importFrom stats setNames
 path_to_segment <- function(x, id = NULL) {
   ## this is a trick of array logic to generate paired indexes from a sequence
-  x <- stats::setNames(tibble::as_tibble(utils::head(suppressWarnings(matrix(x, nrow = length(x) + 1, ncol = 2, byrow = FALSE)), -2L)), 
+  x <- stats::setNames(tibble::as_tibble(utils::head(suppressWarnings(matrix(x, nrow = length(x) + 1, ncol = 2, byrow = FALSE)), -2L)),
                        c(".vertex0", ".vertex1"))
   if (!is.null(id)) x[["path"]] <- id
   x
