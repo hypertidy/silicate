@@ -34,7 +34,9 @@ sc_path.SC <- function(x, ...) {
   stop("sc_path not yet supported for SC")
 }
 
-
+sc_path.default <- function(x, ...) {
+  if (is_xycoords(x)) tibble::tibble(nrow = xypaths(x))
+}
 
 
 

@@ -20,6 +20,10 @@ xycoords <- function(x) {
   nas <- is.na(x[[1]])
   tibble::as_tibble(x)[!nas, ]
 }
+xypaths <- function(x) {
+  g <- cumsum(c(0, abs(diff(is.na(x[[1]])))))[!is.na(x[[1]])]
+  as.integer(table(g))
+}
 #' @name sc_coord
 #' @export
 sc_coord.default <- function(x, ...){
