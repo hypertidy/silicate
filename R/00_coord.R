@@ -12,10 +12,26 @@
 #' the features, and `PATH` for the full model.
 sc_coord <- function(x, ...) UseMethod("sc_coord")
 
+is_xycoords <- function(x) {
+  if (anyNA(x[[1]]) && all(is.na(x[[1]]) == is.na(x[[2]]))) return(TRUE)
+  FALSE
+}
+xycoords <- function(x) {
+  nas <- is.na(x[[1]])
+  tibble::as_tibble(x)[!nas, ]
+}
 #' @name sc_coord
 #' @export
 sc_coord.default <- function(x, ...){
-  x[["coord"]]  %||% stop("no coord present", call. = FALSE)
+  if (is.null(x[["coord"]])) {
+    if (is.list(x) || is.matrix(x)) x <- tibble::as_tibble(x)
+    ## we might xy.coords
+    if (is_xycoords(x)) x <- xycoords(x)
+  } else {
+    x <- x[["coord"]]
+  }
+
+  x
 }
 
 #' @name sc_coord
