@@ -45,8 +45,11 @@ sc_path.default <- function(x, ...) {
   }
   tibble::tibble(nrow = length(x[[1L]]))
 }
-
-
+#' @name sc_path
+#' @export
+sc_path.matrix <- function(x, ...) {
+  sc_path(tibble::as.tibble(x))
+}
 
 ## --------------------------------------------------------
 ## sf

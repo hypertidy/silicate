@@ -7,7 +7,9 @@ poly <- list(x = x, y = y)
 napos <- c(5, 15, 23, 80)
 l <- setNames(lapply(1:5, function(ignore) {x <- rnorm(100); x[napos] <- NA; x}), c("x", "y", "z", "a", "b"))
 
+m <- cbind(x, y)
 d <- data.frame(a = x[1:4], y = y[1:4])
+d1 <- data.frame(x = x, y = y)
 test_that("generic forms are understood", {
   expect_equal(sc_coord(poly), na.omit(tibble::tibble(x = x, y = y)))
   expect_equal(sc_path(poly), tibble::tibble(nrow = c(4L, 4L)))

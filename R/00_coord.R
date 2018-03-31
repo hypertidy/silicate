@@ -12,7 +12,19 @@
 #' the features, and `PATH` for the full model.
 sc_coord <- function(x, ...) UseMethod("sc_coord")
 
+## --------------------------------------------------------
+## generic data - lists and data frames, xy.coords, xyz.coords and other
+## --------------------------------------------------------
+
+## a list
+## a matrix
+## a data frame
 is_r_coords <- function(x) {
+  if (!inherits(x, "data.frame")) {
+    l <- lengths(x)
+    ## short-circuit, we aren't equal lengths
+    if (length(unique(l)) > 1L) return(FALSE)
+  }
   if (anyNA(x[[1]])) {
     nas <- lapply(x, function(a) which(is.na(a)))
     return(all(unique(unlist(nas)) ==  nas[[1]]))
@@ -26,7 +38,7 @@ r_coords <- function(x) {
 
 #' @name sc_coord
 #' @export
-sc_coord.list <- function(x, ...){
+sc_coord.default <- function(x, ...){
   if (is.null(x[["coord"]]) || !inherits(x[["coord"]], "data.frame")) {
     if (is.list(x)) x <- tibble::as_tibble(x)
     ## we might xy.coords
@@ -40,9 +52,11 @@ sc_coord.list <- function(x, ...){
 
 #' @name sc_coord
 #' @export
-sc_coord.data.frame <- function(x, ...){
-  tibble::as_tibble(x)
+sc_coord.matrix <- function(x, ...){
+  sc_coord(tibble::as_tibble(x))
 }
+
+
 
 #' @name sc_coord
 #' @export

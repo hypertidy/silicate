@@ -3,9 +3,9 @@
 \name{sc_coord}
 \alias{sc_coord}
 \alias{sc_coord}
-\alias{sc_coord.list}
+\alias{sc_coord.default}
 \alias{sc_coord}
-\alias{sc_coord.data.frame}
+\alias{sc_coord.matrix}
 \alias{sc_coord}
 \alias{sc_coord.PATH}
 \alias{sc_coord}
@@ -34,9 +34,9 @@
 \usage{
 sc_coord(x, ...)
 
-\method{sc_coord}{list}(x, ...)
+\method{sc_coord}{default}(x, ...)
 
-\method{sc_coord}{data.frame}(x, ...)
+\method{sc_coord}{matrix}(x, ...)
 
 \method{sc_coord}{PATH}(x, ...)
 
