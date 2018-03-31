@@ -7,6 +7,7 @@ poly <- list(x = x, y = y)
 napos <- c(5, 15, 23, 80)
 l <- setNames(lapply(1:5, function(ignore) {x <- rnorm(100); x[napos] <- NA; x}), c("x", "y", "z", "a", "b"))
 
+d <- data.frame(a = x[1:4], y = y[1:4])
 test_that("generic forms are understood", {
   expect_equal(sc_coord(poly), na.omit(tibble::tibble(x = x, y = y)))
   expect_equal(sc_path(poly), tibble::tibble(nrow = c(4L, 4L)))
@@ -14,6 +15,10 @@ test_that("generic forms are understood", {
   sc_coord(l) %>%  expect_s3_class("tbl_df") %>% expect_length(5L)
   sc_path(l) %>%  expect_s3_class("tbl_df") %>% expect_length(1L)
 
+  ## no separators
+  sc_coord(d) %>%  expect_s3_class("tbl_df") %>% expect_length(2L)
+  p <- sc_path(d) %>%  expect_s3_class("tbl_df") %>% expect_length(1L)
+  expect_equal(p, tibble::tibble(nrow = 4L))
 })
 
 

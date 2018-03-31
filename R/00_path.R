@@ -40,7 +40,10 @@ xypaths <- function(x) {
 #' @name sc_path
 #' @export
 sc_path.default <- function(x, ...) {
-  if (is_r_coords(x)) tibble::tibble(nrow = xypaths(x))
+  if (is_r_coords(x)) {
+    return(tibble::tibble(nrow = xypaths(x)))
+  }
+  tibble::tibble(nrow = length(x[[1L]]))
 }
 
 
