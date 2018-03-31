@@ -12,30 +12,36 @@
 #' the features, and `PATH` for the full model.
 sc_coord <- function(x, ...) UseMethod("sc_coord")
 
-is_xycoords <- function(x) {
-  if (anyNA(x[[1]]) && all(is.na(x[[1]]) == is.na(x[[2]]))) return(TRUE)
+is_r_coords <- function(x) {
+  if (anyNA(x[[1]])) {
+    nas <- lapply(x, function(a) which(is.na(a)))
+    return(all(unique(unlist(nas)) ==  nas[[1]]))
+  }
   FALSE
 }
-xycoords <- function(x) {
+r_coords <- function(x) {
   nas <- is.na(x[[1]])
   tibble::as_tibble(x)[!nas, ]
 }
-xypaths <- function(x) {
-  g <- cumsum(c(0, abs(diff(is.na(x[[1]])))))[!is.na(x[[1]])]
-  as.integer(table(g))
-}
+
 #' @name sc_coord
 #' @export
-sc_coord.default <- function(x, ...){
-  if (is.null(x[["coord"]])) {
-    if (is.list(x) || is.matrix(x)) x <- tibble::as_tibble(x)
+sc_coord.list <- function(x, ...){
+  if (is.null(x[["coord"]]) || !inherits(x[["coord"]], "data.frame")) {
+    if (is.list(x)) x <- tibble::as_tibble(x)
     ## we might xy.coords
-    if (is_xycoords(x)) x <- xycoords(x)
+    if (is_r_coords(x)) x <- r_coords(x)
   } else {
     x <- x[["coord"]]
   }
 
   x
+}
+
+#' @name sc_coord
+#' @export
+sc_coord.data.frame <- function(x, ...){
+  tibble::as_tibble(x)
 }
 
 #' @name sc_coord

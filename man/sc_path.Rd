@@ -11,6 +11,8 @@
 \alias{sc_path}
 \alias{sc_path.SC}
 \alias{sc_path}
+\alias{sc_path.default}
+\alias{sc_path}
 \alias{sc_path.sf}
 \alias{sc_path}
 \alias{sc_path.sfc}
@@ -41,6 +43,8 @@ sc_path(x, ...)
 \method{sc_path}{ARC}(x, ...)
 
 \method{sc_path}{SC}(x, ...)
+
+\method{sc_path}{default}(x, ...)
 
 \method{sc_path}{sf}(x, ids = NULL, ...)
 

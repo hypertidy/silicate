@@ -33,9 +33,14 @@ sc_path.ARC <- function(x, ...) {
 sc_path.SC <- function(x, ...) {
   stop("sc_path not yet supported for SC")
 }
-
+xypaths <- function(x) {
+  g <- cumsum(c(0, abs(diff(is.na(x[[1]])))))[!is.na(x[[1]])]
+  as.integer(table(g))
+}
+#' @name sc_path
+#' @export
 sc_path.default <- function(x, ...) {
-  if (is_xycoords(x)) tibble::tibble(nrow = xypaths(x))
+  if (is_r_coords(x)) tibble::tibble(nrow = xypaths(x))
 }
 
 
