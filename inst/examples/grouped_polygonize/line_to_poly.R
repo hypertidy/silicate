@@ -37,6 +37,10 @@ library(dplyr)
 gpolygon <- lapply(g, function(x) st_polygon(x))
 gatomic <- unlist(gpolygon, recursive = FALSE)
 
+## ALL THIS WORK is pointless, we have inferred the policy
+## of the GC returned from GEOS, it should just be explicit
+## so we have some clarity from that lib
+
 ## make a map of where we are going
 gmap <- gibble::gibble(gpolygon)   %>%
   group_by(object) %>%

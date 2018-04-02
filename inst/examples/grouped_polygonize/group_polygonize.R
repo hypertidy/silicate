@@ -46,6 +46,7 @@ polygonize_grouped <- function(r) {
       purrr::map(~st_linestring(V[unlist(.x), ])) %>% st_sfc()
 
 #browser()
+  if (FALSE) {  ## TODO dump all this, it's a straightforward pattern to fill every hole
     ## process the holes out, given assumptions re GEOS return logic
     g <- st_polygonize(st_union(l))
     gpolygon <- unlist(g, recursive = FALSE) ## lapply(g, function(x) st_polygon(unclass(x)))
@@ -65,7 +66,7 @@ polygonize_grouped <- function(r) {
     ## gmap where not-hole, but duplicate is to be removed
     bad <- (!gmap$hole) & duplicated(gmap$id)
     if (any(bad)) gpolygon <- gpolygon[-which(bad[!gmap$hole])]
-
+}
   list_sf[[igroup]] <- st_multipolygon(gpolygon)
     #print(igroup)
   }
