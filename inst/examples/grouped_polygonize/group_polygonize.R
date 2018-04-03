@@ -45,37 +45,30 @@ polygonize_grouped <- function(r) {
     l <- purrr::transpose(edges[c(".vx0", ".vx1")]) %>%
       purrr::map(~st_linestring(V[unlist(.x), ])) %>% st_sfc()
 
-#browser()
-  if (FALSE) {  ## TODO dump all this, it's a straightforward pattern to fill every hole
-    ## process the holes out, given assumptions re GEOS return logic
     g <- st_polygonize(st_union(l))
     gpolygon <- unlist(g, recursive = FALSE) ## lapply(g, function(x) st_polygon(unclass(x)))
-    gatomic <- unlist(gpolygon, recursive = FALSE)
+    #gatomic <- unlist(gpolygon, recursive = FALSE)
     ## make a map of where we are going
     gmap <- gibble::gibble(gpolygon)   %>%
       group_by(object) %>%
       mutate(hole = cumsum(subobject) > 1) %>% ungroup() %>%
       mutate(id = "")
-    ## loop over paths, digest in assumed clockwise order
-    for (i in seq_len(nrow(gmap))) {
-      mat <- gatomic[[i]]
-      ## pretty sure GEOS will reliably return holes reversed compared to islands
-      if (gmap$hole[i]) mat <- mat[rev(seq_len(nrow(mat))), ]
-      gmap$id[[i]] <- digest::digest(mat)
+    idcount <- unlist(lapply(split(gmap$hole, gmap$object), sum))
+    removeidx <- logical(length(gpolygon))
+
+    for  (i in which(idcount > 0)) {
+      removeidx[seq(i+1, length = idcount[i])] <- TRUE
     }
-    ## gmap where not-hole, but duplicate is to be removed
-    bad <- (!gmap$hole) & duplicated(gmap$id)
-    if (any(bad)) gpolygon <- gpolygon[-which(bad[!gmap$hole])]
-}
-  list_sf[[igroup]] <- st_multipolygon(gpolygon)
-    #print(igroup)
+    keepidx <- !removeidx
+    if (sum(tail(keepidx, 2)) == 0L) keepidx[length(keepidx)] <- TRUE
+    list_sf[[igroup]] <- st_multipolygon(gpolygon[keepidx])
+
   }
-#browser()
   sf::st_sf(value = uvalues, geometry = do.call(st_sfc, list_sf)) %>% group_by(value) %>% summarize() %>% st_cast("MULTIPOLYGON")
 }
 
 x <- polygonize_grouped(r)
-
+plot(x)
 y <- st_as_sf(raster::rasterToPolygons(r, dissolve = TRUE)) %>%
   dplyr::rename(value = layer)
 plot(x); plot(y)
