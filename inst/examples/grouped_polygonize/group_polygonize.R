@@ -12,7 +12,7 @@ fa_st_sfc <- function(x, crs = NA_crs_, bbox) {
 #m <- matrix(1:12, 3, 4) %/% 4
 m <- volcano %/% 20
 r <- setExtent(raster(m), extent(0, nrow(m), 0, ncol(m)))
-
+r <- aggregate(anglr::gebco1, fact = 4) %/% 500
 
 ## this is a fair stab, but holes won't work (end up with overlapping polygons)
 polygonize_grouped <- function(r) {
@@ -56,8 +56,15 @@ polygonize_grouped <- function(r) {
     idcount <- unlist(lapply(split(gmap$hole, gmap$object), sum))
     removeidx <- logical(length(gpolygon))
 
-    for  (i in which(idcount > 0)) {
-      removeidx[seq(i+1, length = idcount[i])] <- TRUE
+    ## apply even odd
+    if (any(gmap$hole)) {
+      odd <- 0
+      for  (i in which(idcount > 0)) {
+        odd <- odd + 1
+        if ((odd - 1) %% 2 == 0) {
+          removeidx[seq(i+1, length = idcount[i])] <- TRUE
+        }
+      }
     }
     keepidx <- !removeidx
     if (sum(tail(keepidx, 2)) == 0L) keepidx[length(keepidx)] <- TRUE

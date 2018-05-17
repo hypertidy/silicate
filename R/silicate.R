@@ -38,9 +38,14 @@ silicate <- function(vertex = NULL, edge = NULL, path = NULL, object = NULL, mod
 TRI.sc <- function(x, ...) {
   if (has_vertex(x)) {
     if (has_edge(x)) {
+      ## do we build SC/PATH, or do we allow those to existing without edges or paths?
       stop("constrained triangulation not supported, use anglr::DEL or remove edges")
+      ##SC(x)  ## build the object for edge-triangulation
     } else {
-      d <- x[["vertex"]]
+      if (has_path(x)) {
+        ## PATH(x) ## build the object for path-triangulation
+      }
+      d <- x[["vertex"]]  ## pure coordinates
     }
   } else {
     stop("no vertices to triangulate")
