@@ -14,13 +14,12 @@ Description: Generate a generic common form of complex data, suitable for conver
  is provided that can represent any of these. Another more specialist model 'PATH' is included as
  as well as tools to switch between these forms, and the component functions for conversions. 
 Depends:
-    R (>= 3.3.2)
+    R (>= 3.4.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Suggests:
     covr,
-    gibble (>= 0.0.2.9003),
     knitr,
     rmarkdown,
     sf,
@@ -29,6 +28,7 @@ Suggests:
 RoxygenNote: 6.0.1
 Imports: 
     dplyr,
+    gibble (>= 0.0.2.9003),
     ids,
     methods,
     purrr,
