@@ -29,7 +29,7 @@ SF has the following limitations:
 
 These limitations mean that SF cannot represent in-full every-day objects from GPS, 3D models, statistical graphics, topological spatial maps, TopoJSON, CAD drawings, meshes or triangulations. Translations between geospatial forms and the graphics and data grammars can be disjointed and sometimes awkward, relying on localized implementations that are lossy or inefficient, require 3rd party workflows, or involve unnecessary tasks. It doesn't seem to be widely commented on but of the major GIS applications there is no one that restricts itself to the SF standard fully, and where they diverge from it they all do it in different ways. 
 
-SF is not a "normal form" model, there is no standard way to normalize the data by detecting and removing redundancy (topology),  or densifying data that might be present but is not (common in transport), and there's no standard way to extend the types. Because the coordinates are not stored as such in a single set there's no way to identify them individually by label so that extra data can be stored agains them or about them. 
+SF is not a "normal form" model, there is no standard way to normalize the data by detecting and removing redundancy (topology),  or densifying data that might be present but is not (common in transport), and there's no standard way to extend the types. Coordinates are not stored together in a single set and so cannot be identified by label to store further data either with or linked to them. 
 
 ## Nested Lists
 
