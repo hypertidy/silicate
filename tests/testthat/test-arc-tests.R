@@ -21,6 +21,8 @@ sc_to_dodgr.SC <- function(x, ...) {
   graph_contracted <- dodgr:::rcpp_contract_graph(graph, NULL)
   graph_contracted
 }
-test_that("graph contraction works", {
-  expect_equal(nrow(sc_arc(a)), 4L)
-})
+## not yet
+# test_that("graph contraction works", {
+#   expect_equal(nrow(sc_arc(a)), 4L)
+# })
+
