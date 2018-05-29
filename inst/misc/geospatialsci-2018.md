@@ -12,7 +12,7 @@ accordance with the Simple Features (SF) standard of the Open Geospatial
 Consortium, or in `geojson` format. Most commonly used geometric libraries are
 based on these two standards. We argue here the two distinct points that (1) the
 inherent restrictions of SF effectively translate into restrictions in the
-ondoing development of GIS as a whole, and (2) representation as nested lists is
+ongoing development of GIS as a whole, and (2) representation as nested lists is
 inefficient.
 
 ## Simple Features
@@ -27,12 +27,12 @@ inefficiency with very little standardization for workers to align with.
 SF has the following limitations:
 
 * shapes are represented as paths so only planar polygonal shapes are possible.
-* the standard allows for XY[Z[M]] geometry,but this is not extensible - there is no capacity to store data against component geometry elements, and there is no persisentent naming of features or their components.
+* the standard allows for XY[Z[M]] geometry,but this is not extensible - there is no capacity to store data against component geometry elements, and there is no persistent naming of features or their components.
 * there is no capacity for internal topology (no vertex-, edge-, or path-sharing).
 
 These limitations mean that SF cannot represent in-full every-day objects from GPS, 3D models, statistical graphics, topological spatial maps, TopoJSON, CAD drawings, triangulations. Translations between geo-spatial forms and the graphics and data grammars can be disjointed and sometimes awkward, relying on localized implementations that are lossy or inefficient, require 3rd party workflows, or involve unnecessary tasks. It doesn't seem to be widely commented on but of the major GIS applications there is no one that restricts itself to the SF standard fully, and where they diverge from it they all do it in different ways. 
 
-SF is not a "normal form" model, there is no standard way to normalize the data by detecting and removing redundancy (topology),  or densifying data that might be present but is not (common in transport), and there's no standard way to extend the types. Because the coordinates are not stored as such in a single set there's no way to identify them individually by label so that extra data can be stored agains them or about them. 
+SF is not a "normal form" model, there is no standard way to normalize the data by detecting and removing redundancy (topology),  or densifying data that might be present but is not (common in transport), and there's no standard way to extend the types. Because the coordinates are not stored as such in a single set there's no way to identify them individually by label so that extra data can be stored against them or about them. 
 
 ## Nested Lists
 
