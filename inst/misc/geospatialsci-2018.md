@@ -1,5 +1,5 @@
 ---
-title: "Arbitrarily re-composable hierarchies: modern geospatial needs normal-form data structures"
+title: "Arbitrarily re-composable hierarchies: modern geospatial science needs normal-form data structures"
 author: "Michael D. Sumner, Mark Padgham and Angela Li"
 ---
 
