@@ -3,7 +3,6 @@ title: "Arbitrarily re-composable hierarchies: modern geospatial needs normal-fo
 author: "Michael D. Sumner, Mark Padgham and Angela Li"
 ---
 
-
 Modern GIS standards generally represent spatial data as nested lists, whether
 in accordance with the Simple Features (SF) standard of the Open Geospatial
 Consortium, or in `geojson` format. Most commonly used geometric libraries are
@@ -28,19 +27,18 @@ SF and nested-list representations are limited because:
 * Shapes have no persistent naming of features or their components.
 * There is no capacity for internal topology of shapes or within collections (no vertex-, edge-, or path-sharing).
 
-These limitations mean that SF cannot represent in-full every-day objects from
-tracked objects, transport, Lidar, 3D models, statistical graphics, topological
-spatial maps, TopoJSON, CAD drawings, meshes or triangulations. Translations
-between geospatial forms and the grammars of data science can be disjointed,
-relying on localized implementations that are lossy or inefficient, require
-third party workflows, or involve unnecessary tasks. 
+These limitations mean that SF cannot represent in-full every-day data forms
+from tracked objects, transport, Lidar, 3D models, statistical graphics,
+topological spatial maps, TopoJSON, CAD drawings, meshes or triangulations.
+Translations between geospatial forms and the grammars of data science can be
+disjointed, relying on localized implementations that are lossy or inefficient,
+require third party workflows, or involve unnecessary tasks.
 
-GIS applications generally diverge from common standards in different
-ways but none currently provide a normal-form model. There is no standard way to
+GIS applications generally diverge from common standards in different ways but
+none currently provide a normal-form model. There is no standard way to
 normalize data by detecting and removing redundancy (topology), or to densify
-data (a common necessity in planning domains). There is no standard
-way to extend the types although complex forms are well established in other
-domains.  
+data (a common necessity in planning domains). There is no standard way to
+extend the types although complex forms are well established in other domains.
 
 ## Arbitrarily re-composable hierarchies
 
@@ -55,16 +53,17 @@ allows for maximally-efficient on-demand re-aggregation (arbitrarily
 re-composable hierarchies), and that covers the complexity of geometric and
 topological types widely used in data science and modelling. We provide tools in
 R for more general representations of spatial primitives and the intermediate
-forms required for translation and analytical tasks that are readily implemented
-with standard tabular data structures. 
+forms required for translation and analytical tasks. These forms are
+conceptually independent of R itself and are readily implemented with standard
+tabular data structures.
 
 There is not one single normal form that should always be used. There is one
-universal form that every other model may be expressed in, but there are also
-other forms that are better suited or more efficient for certain domains. We
-show that conversion between these forms is more straightforward and extensible
-than from SF or related types, but is also readily translated to and from
-standard types.  The forms we've identified are "universal" (edges and nodes),
-"2D primitives" (triangles), "arcs" (shared boundaries), and "paths" (normalized
-forms of SF types). 
+universal form that every other model may be expressed in, but also other forms
+that are better suited or more efficient for certain domains. We show that
+conversion between these forms is more straightforward and extensible than from
+SF or related types, but is also readily translated to and from standard types.
+The most important forms we've identified are "universal" (edges and nodes), "2D
+primitives" (triangles), "arcs" (shared boundaries), and "paths" (normalized
+forms of SF types).
 
-Further details are available at \url{https://github.com/hypertidy/silicate}
+Further details are available at \url{https://github.com/hypertidy/silicate}. 
