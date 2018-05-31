@@ -13,7 +13,7 @@ lists as a central form is inefficient.
 
 ## Simple Features
 
-SF does not address what "non-simple" features are or might be yet clearly these
+SF does not address what "non-simple" features are or might be, yet clearly these
 include important application domains such as GPS data, transport networks,
 point clouds, computer aided design, virtual and/or augmented reality, and 3D
 games. Each of these significant arenas have their own standards which are
@@ -27,7 +27,7 @@ SF and nested-list representations are limited because:
 * Shapes have no persistent naming of features or their components.
 * There is no capacity for internal topology of shapes or within collections (no vertex-, edge-, or path-sharing).
 
-These limitations mean that SF cannot represent in-full every-day data forms
+These limitations mean that SF cannot fully represent every-day data forms
 from tracked objects, transport, Lidar, 3D models, statistical graphics,
 topological spatial maps, TopoJSON, CAD drawings, meshes or triangulations.
 Translations between geospatial forms and the grammars of data science can be
@@ -62,7 +62,7 @@ universal form that every other model may be expressed in, but also other forms
 that are better suited or more efficient for certain domains. We show that
 conversion between these forms is more straightforward and extensible than from
 SF or related types, but is also readily translated to and from standard types.
-The most important forms we've identified are "universal" (edges and nodes), "2D
+The most important forms we have identified are "universal" (edges and nodes), "2D
 primitives" (triangles), "arcs" (shared boundaries), and "paths" (normalized
 forms of SF types).
 
