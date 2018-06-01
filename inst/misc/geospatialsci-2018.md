@@ -1,6 +1,6 @@
 ---
 title: "Arbitrarily re-composable hierarchies: modern geospatial science needs normal-form data structures"
-author: "Michael D. Sumner, Mark Padgham and Angela Li"
+author: "Mark Padgham, Michael Sumner and Angela Li"
 ---
 
 Modern GIS standards generally represent spatial data as nested lists, whether
