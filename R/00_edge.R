@@ -1,14 +1,14 @@
-#' Edges. 
-#' 
-#' Simple binary relationships, a primitive composed of two vertices. 
-#' 
+#' Edges.
+#'
+#' Simple binary relationships, a primitive composed of two vertices.
+#'
 #' Edges are unique, undirected line segments. Compare to `sc_segment` which refers to all
-#' instances of edges. 
-#' 
+#' instances of edges.
+#'
 #' `sc_start` and `sc_end` are convenience functions that provide the obvious
-#' start and end coordinates by joining on the appropriate edge vertex label, `.vertex0` 
+#' start and end coordinates by joining on the appropriate edge vertex label, `.vertex0`
 #' or `.vertex1`. Currently this returns the ordered segments, along with their unique (unordered) `edge_`, as
-#' well as unique `segment`, a `object_` labels. 
+#' well as unique `segment`, a `object_` labels.
 #' @param x input object
 #' @param ... arguments for methods
 #' @name sc_edge
@@ -30,7 +30,7 @@ sc_edge.SC <- function(x, ...) {
 #' @name sc_edge
 #' @export
 sc_edge.PATH <- function(x, ...) {
-  sc_segment(x, ...) %>% dplyr::distinct(.data$edge_, .keep_all = TRUE) %>% 
+  sc_segment(x, ...) %>% dplyr::distinct(.data$edge_, .keep_all = TRUE) %>%
     dplyr::select(.data$.vertex0, .data$.vertex1, .data$edge_)
 }
 
@@ -42,8 +42,8 @@ sc_start <- function(x, ...) {
 #' @name sc_edge
 #' @export
 sc_start.SC <- function(x, ...) {
-  sc_segment(x, ...) %>% dplyr::inner_join(sc_vertex(x), c(".vertex0" = "vertex_")) %>% 
-    dplyr::select(.data$x_, y_, .data$segment_, .data$edge_, .data$object_)
+  sc_segment(x, ...) %>% dplyr::inner_join(sc_vertex(x), c(".vertex0" = "vertex_")) %>%
+    dplyr::select(.data$x_, .data$y_, .data$segment_, .data$edge_, .data$object_)
 }
 #' @name sc_edge
 #' @export
@@ -69,8 +69,8 @@ sc_end <- function(x, ...) {
 #' @name sc_edge
 #' @export
 sc_end.SC <- function(x, ...) {
-  sc_segment(x, ...) %>% dplyr::inner_join(sc_vertex(x), c(".vertex1" = "vertex_")) %>% 
-  dplyr::select(.data$x_, y_, .data$segment_, .data$edge_, .data$object_)
+  sc_segment(x, ...) %>% dplyr::inner_join(sc_vertex(x), c(".vertex1" = "vertex_")) %>%
+  dplyr::select(.data$x_, .data$y_, .data$segment_, .data$edge_, .data$object_)
 }
 #' @name sc_edge
 #' @export

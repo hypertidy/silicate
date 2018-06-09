@@ -36,7 +36,12 @@ Imports:
     decido,
     tibble,
     unjoin (>= 0.0.3),
-    viridis
+    viridis,
+    geometry,
+    tidyr,
+    grDevices,
+    graphics,
+    stats
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 Remotes: mdsumner/gibble

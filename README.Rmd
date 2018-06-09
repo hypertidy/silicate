@@ -187,6 +187,9 @@ maintaining them. Random IDs are created as needed, but any operation that works
  
 ## Context, and some related projects
 
+The [spacebucket](https://github.com/mdsumner/spacebucket) (arbitrary multi-layer polygonal overlays) and [sphier](https:://github.com/hypertidy/sphier/) (generic hierarchies from atomic forms) show two different
+approaches to the problem of hierarchical data and flexible representations. 
+
 The key difference between the silicate approach and simple features is the separation of geometry and topology. This allows for normalization (de-duplication) of the entities that are present or that can be identitied. Simple features has no capacity to de-duplicate or otherwise identify vertices, edges, paths or arcs, though tools that work with simple features do construct these schemes routinely in order to perform operations. When these richer, topological structures are built they are usually then discarded and the vertices are again de-normalized and again expressed explicitly without recording any of the relationships. 
 In this sense, simple features can be described as an *explicitly-stored PATH analogue*, and is no different
 from the model used by shapefiles, binary blobs in databases, and many other spatial vector formats. There are a number of notable exceptions to this including TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, Mapbox, WebGL, Threejs, D3, AFrame, Lavavu but unfortunately there's no overall scheme that can unify these richer structures. 

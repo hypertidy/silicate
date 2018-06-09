@@ -22,5 +22,5 @@ SC0
 See https://github.com/hypertidy/silicore for now.
 }
 \examples{
-SC0(silicate::minimal_mesh)
+SC0(minimal_mesh)
 }

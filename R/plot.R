@@ -2,7 +2,7 @@ sc_colours <- function(x, ...) {
   # https://stackoverflow.com/a/33144808/355270
   #cl <- grDevices::colors()[-1L]
 
-  cl <- hsv(runif(x), 1, runif(x)) #viridis::viridis(x)
+  cl <- grDevices::hsv(stats::runif(x), 1, stats::runif(x)) #viridis::viridis(x)
   sample(cl, x, replace = x > length(cl))
 }
 
@@ -12,11 +12,11 @@ sc_colours <- function(x, ...) {
 #' @export
 #' @importFrom graphics plot
 plot.SC <- function(x, ..., vars = NULL) {
-  
+
   v <- sc_vertex(x)
   if (!is.null(vars)) {
     vars <- c(vars, "vertex_")
-    v <- dplyr::select(v, vars) %>% 
+    v <- dplyr::select(v, vars) %>%
       setNames(c("x_", "y_", "vertex_"))
   }
   e <- sc_edge(x)
@@ -35,12 +35,12 @@ plot.PATH <- function(x, ...) {
   plot(x$vertex[c("x_", "y_")], type = "n")
   paths <- split(x$path_link_vertex, x$path_link_vertex$path_)[unique(x$path_link_vertex$path_)]
   #cols <- sc_colours(length(obj))
-  gg <- x$path %>% dplyr::group_by(object) %>% dplyr::summarize(nn = sum(ncoords_))
+  gg <- x$path %>% dplyr::group_by(.data$object) %>% dplyr::summarize(nn = sum(.data$ncoords_))
   objcols <- rep(sc_colours(dim(x$object)[1L]), gg$nn)
   if (all(x$path$ncoords_ == 1L)) {
     warning("all paths are degenerate (i.e. they are points)")
     toplot <- dplyr::inner_join(x$path_link_vertex, x$vertex, "vertex_")[c("x_", "y_")]
-    points(toplot, col = objcols)
+    graphics::points(toplot, col = objcols)
     return(invisible(NULL))
   }
   junk <- lapply(seq_along(paths), function(a) {
@@ -55,15 +55,15 @@ plot.PATH <- function(x, ...) {
 }
 
 #' @noRd
-#' 
-#' @param x  
-#' @param ... 
-#' @param lwd 
+#'
+#' @param x silicate ARC
+#' @param ... ignored
+#' @param lwd line width
 #'
 #' @name ARC
 #' @export
 plot.ARC <- function(x, ..., lwd = 2L) {
-  
+
   plot(x$vertex[c("x_", "y_")], pch = "")
   a1 <- split(x$arc_link_vertex, x$arc_link_vertex$arc_)
   col <- setNames(sc_colours(length(a1)), names(a1))
@@ -73,20 +73,20 @@ plot.ARC <- function(x, ..., lwd = 2L) {
 #' @name TRI
 #' @export
 plot.TRI <- function(x, ..., add = FALSE) {
-  
+
   if (!add) plot(x$vertex[c("x_", "y_")], type = "n")
   cols <- sc_colours(nrow(sc_object(x)))
-  for (i in seq_len(nrow(x$object))) { 
+  for (i in seq_len(nrow(x$object))) {
     triangle <- dplyr::inner_join(x$triangle, x$object_link_triangle, "triangle_")
-    asub <- dplyr::filter(triangle, .data$object_ == x$object$object_[i]) %>% 
-      dplyr::transmute(.data$.vertex0, .data$.vertex1, .data$.vertex2, fill = NA_character_) %>% 
-      t() %>% 
-      as.vector() 
+    asub <- dplyr::filter(triangle, .data$object_ == x$object$object_[i]) %>%
+      dplyr::transmute(.data$.vertex0, .data$.vertex1, .data$.vertex2, fill = NA_character_) %>%
+      t() %>%
+      as.vector()
     asub <-   tibble::tibble(vertex_ = asub)
     asub <- head(asub, -1L)
-    graphics::polypath(dplyr::left_join(asub,x$vertex,  "vertex_") %>% dplyr::select(.data$x_, .data$y_), 
+    graphics::polypath(dplyr::left_join(asub,x$vertex,  "vertex_") %>% dplyr::select(.data$x_, .data$y_),
                        col = cols[i], ...)
-    
+
   }
 }
 
