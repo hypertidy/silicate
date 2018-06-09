@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Flight tracks — flight_tracks" />
 
 <meta property="og:description" content="A data set flight tracks in XYZM form, a form of 4D tracks. Primarily to
@@ -36,6 +39,9 @@ Provided by  Kent Johnson (kent37) in a
 github discusion
 where the data was attached in a zip file." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -58,8 +64,12 @@ where the data was attached in a zip file." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">silicate</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">silicate</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9007</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -84,13 +94,14 @@ where the data was attached in a zip file." />
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -98,12 +109,15 @@ where the data was attached in a zip file." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Flight tracks</h1>
+    
+    <div class="hidden name"><code>flight_tracks.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>A data set flight tracks in XYZM form, a form of 4D tracks. Primarily to
 explore the use of <code>silicate</code> as able to represent this topologically,  and to experiment with
@@ -112,6 +126,7 @@ auto-time-based plotting in <code>anglr</code>.</p>
 <a href='https://github.com/r-spatial/mapview/issues/99#issuecomment-328711275'>github discusion</a>
 where the data was attached in a zip file.</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -147,5 +162,8 @@ lat, lon, altitude in feet and time in North American Eastern Standard Time
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

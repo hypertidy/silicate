@@ -21,18 +21,24 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Simple features zoo. — sfzoo" />
 
 <meta property="og:description" content="Basic examples of each type of simple feature geometry. sfzoo is a list
 with each of point, multipoin, linestring, multilinestring, polygon and
 multipolygon. sfgc is a GEOMETRYCOLLECTION of all the types in sfzoo." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +61,12 @@ multipolygon. sfgc is a GEOMETRYCOLLECTION of all the types in sfzoo." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">silicate</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">silicate</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9007</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -81,13 +91,14 @@ multipolygon. sfgc is a GEOMETRYCOLLECTION of all the types in sfzoo." />
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -95,17 +106,21 @@ multipolygon. sfgc is a GEOMETRYCOLLECTION of all the types in sfzoo." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Simple features zoo.</h1>
+    
+    <div class="hidden name"><code>sfzoo.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Basic examples of each type of simple feature geometry. <code>sfzoo</code> is a list
 with each of <em>point</em>, <em>multipoin</em>, <em>linestring</em>, <em>multilinestring</em>, <em>polygon</em> and
 <em>multipolygon</em>. <code>sfgc</code> is a <em>GEOMETRYCOLLECTION</em> of all the types in <code>sfzoo</code>.</p>
     
+    </div>
 
         
 
@@ -113,160 +128,160 @@ with each of <em>point</em>, <em>multipoin</em>, <em>linestring</em>, <em>multil
     <pre class="examples"><div class='input'><span class='fu'>lapply</span>(<span class='no'>sfzoo</span>, <span class='no'>sc_coord</span>)</div><div class='output co'>#&gt; $point
 #&gt; # A tibble: 1 x 2
 #&gt;      x_    y_
-#&gt; * &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1    1.    2.
+#&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1     1     2
 #&gt; 
 #&gt; $multipoint
 #&gt; # A tibble: 6 x 2
 #&gt;      x_    y_
-#&gt; * &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1  3.20  4.00
-#&gt; 2  3.00  4.60
-#&gt; 3  3.80  4.40
-#&gt; 4  3.50  3.80
-#&gt; 5  3.40  3.60
-#&gt; 6  3.90  4.50
+#&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1   3.2   4  
+#&gt; 2   3     4.6
+#&gt; 3   3.8   4.4
+#&gt; 4   3.5   3.8
+#&gt; 5   3.4   3.6
+#&gt; 6   3.9   4.5
 #&gt; 
 #&gt; $linestring
 #&gt; # A tibble: 4 x 2
 #&gt;      x_    y_
-#&gt; * &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1    0.    3.
-#&gt; 2    0.    4.
-#&gt; 3    1.    5.
-#&gt; 4    2.    5.
+#&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1     0     3
+#&gt; 2     0     4
+#&gt; 3     1     5
+#&gt; 4     2     5
 #&gt; 
 #&gt; $multilinestring
 #&gt; # A tibble: 10 x 2
 #&gt;       x_    y_
 #&gt;    &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1 0.     3.00
-#&gt;  2 0.     4.00
-#&gt;  3 1.00   5.00
-#&gt;  4 2.00   5.00
-#&gt;  5 0.200  3.00
-#&gt;  6 0.200  4.00
-#&gt;  7 1.00   4.80
-#&gt;  8 2.00   4.80
-#&gt;  9 0.     4.40
-#&gt; 10 0.600  5.00
+#&gt;  1   0     3  
+#&gt;  2   0     4  
+#&gt;  3   1     5  
+#&gt;  4   2     5  
+#&gt;  5   0.2   3  
+#&gt;  6   0.2   4  
+#&gt;  7   1     4.8
+#&gt;  8   2     4.8
+#&gt;  9   0     4.4
+#&gt; 10   0.6   5  
 #&gt; 
 #&gt; $polygon
 #&gt; # A tibble: 10 x 2
 #&gt;       x_    y_
 #&gt;    &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1    0.    0.
-#&gt;  2    1.    0.
-#&gt;  3    3.    2.
-#&gt;  4    2.    4.
-#&gt;  5    1.    4.
-#&gt;  6    0.    0.
-#&gt;  7    1.    1.
-#&gt;  8    1.    2.
-#&gt;  9    2.    2.
-#&gt; 10    1.    1.
+#&gt;  1     0     0
+#&gt;  2     1     0
+#&gt;  3     3     2
+#&gt;  4     2     4
+#&gt;  5     1     4
+#&gt;  6     0     0
+#&gt;  7     1     1
+#&gt;  8     1     2
+#&gt;  9     2     2
+#&gt; 10     1     1
 #&gt; 
 #&gt; $multipolygon
 #&gt; # A tibble: 24 x 2
 #&gt;       x_    y_
 #&gt;    &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1    0.    0.
-#&gt;  2    1.    0.
-#&gt;  3    3.    2.
-#&gt;  4    2.    4.
-#&gt;  5    1.    4.
-#&gt;  6    0.    0.
-#&gt;  7    1.    1.
-#&gt;  8    1.    2.
-#&gt;  9    2.    2.
-#&gt; 10    1.    1.
+#&gt;  1     0     0
+#&gt;  2     1     0
+#&gt;  3     3     2
+#&gt;  4     2     4
+#&gt;  5     1     4
+#&gt;  6     0     0
+#&gt;  7     1     1
+#&gt;  8     1     2
+#&gt;  9     2     2
+#&gt; 10     1     1
 #&gt; # ... with 14 more rows
 #&gt; </div><div class='input'><span class='fu'>lapply</span>(<span class='no'>sfzoo</span>, <span class='no'>sc_path</span>)</div><div class='output co'>#&gt; $point
 #&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type  path_     
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     
-#&gt; 1    1.    2. POINT 26cfe20885
+#&gt; 1     1     2 POINT 0dab2f0ea8
 #&gt; 
 #&gt; $multipoint
 #&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type       path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     
-#&gt; 1     6     2 MULTIPOINT 8ec13702c8
+#&gt; 1     6     2 MULTIPOINT ed9b31ca1e
 #&gt; 
 #&gt; $linestring
 #&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type       path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     
-#&gt; 1     4     2 LINESTRING e197b96a37
+#&gt; 1     4     2 LINESTRING 7dc1dd4a17
 #&gt; 
 #&gt; $multilinestring
 #&gt; # A tibble: 3 x 4
 #&gt;    nrow  ncol type            path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;     
-#&gt; 1     4     2 MULTILINESTRING ba5295dfca
-#&gt; 2     4     2 MULTILINESTRING 5b49932283
-#&gt; 3     2     2 MULTILINESTRING 5aad06fe2f
+#&gt; 1     4     2 MULTILINESTRING 7d36d587c2
+#&gt; 2     4     2 MULTILINESTRING 746f299967
+#&gt; 3     2     2 MULTILINESTRING 300f076ed8
 #&gt; 
 #&gt; $polygon
 #&gt; # A tibble: 2 x 4
 #&gt;    nrow  ncol type    path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;     
-#&gt; 1     6     2 POLYGON c9dd4c1c58
-#&gt; 2     4     2 POLYGON 2231490b5f
+#&gt; 1     6     2 POLYGON fec17d0db3
+#&gt; 2     4     2 POLYGON fca57d1d3f
 #&gt; 
 #&gt; $multipolygon
 #&gt; # A tibble: 5 x 5
 #&gt;    nrow  ncol type         subobject path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;     
-#&gt; 1     6     2 MULTIPOLYGON         1 94b4e7ad09
-#&gt; 2     4     2 MULTIPOLYGON         1 22b9ce8d3c
-#&gt; 3     5     2 MULTIPOLYGON         2 51a0b57dc4
-#&gt; 4     5     2 MULTIPOLYGON         2 fb0e0f1096
-#&gt; 5     4     2 MULTIPOLYGON         3 6f9728aa02
+#&gt; 1     6     2 MULTIPOLYGON         1 4d458cd31e
+#&gt; 2     4     2 MULTIPOLYGON         1 b344d2957c
+#&gt; 3     5     2 MULTIPOLYGON         2 2814751e4a
+#&gt; 4     5     2 MULTIPOLYGON         2 ee04179084
+#&gt; 5     4     2 MULTIPOLYGON         3 d5ccf3177d
 #&gt; </div><div class='input'>
 <span class='co'>## unsure how usefult this is ...</span>
 <span class='fu'>sc_path</span>(<span class='no'>sfgc</span>)</div><div class='output co'>#&gt; $point
 #&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type  path_     
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     
-#&gt; 1    1.    2. POINT b808c7197d
+#&gt; 1     1     2 POINT bbf98b7707
 #&gt; 
 #&gt; $multipoint
 #&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type       path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     
-#&gt; 1     6     2 MULTIPOINT e48326ead1
+#&gt; 1     6     2 MULTIPOINT 0e1dbdbdcb
 #&gt; 
 #&gt; $linestring
 #&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type       path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     
-#&gt; 1     4     2 LINESTRING 143fa04b90
+#&gt; 1     4     2 LINESTRING 303eaaec19
 #&gt; 
 #&gt; $multilinestring
 #&gt; # A tibble: 3 x 4
 #&gt;    nrow  ncol type            path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;     
-#&gt; 1     4     2 MULTILINESTRING ef29ca1686
-#&gt; 2     4     2 MULTILINESTRING a9b9a87d35
-#&gt; 3     2     2 MULTILINESTRING 45a424a143
+#&gt; 1     4     2 MULTILINESTRING 9cae28d8b4
+#&gt; 2     4     2 MULTILINESTRING 44c371e81c
+#&gt; 3     2     2 MULTILINESTRING e2e1cc5482
 #&gt; 
 #&gt; $polygon
 #&gt; # A tibble: 2 x 4
 #&gt;    nrow  ncol type    path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;     
-#&gt; 1     6     2 POLYGON bffc9d6e51
-#&gt; 2     4     2 POLYGON dad9a940b0
+#&gt; 1     6     2 POLYGON d18cbd42fb
+#&gt; 2     4     2 POLYGON 5e684e595a
 #&gt; 
 #&gt; $multipolygon
 #&gt; # A tibble: 5 x 5
 #&gt;    nrow  ncol type         subobject path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;     
-#&gt; 1     6     2 MULTIPOLYGON         1 cf30e53637
-#&gt; 2     4     2 MULTIPOLYGON         1 248fee814e
-#&gt; 3     5     2 MULTIPOLYGON         2 357d53e9e9
-#&gt; 4     5     2 MULTIPOLYGON         2 376b98f9b6
-#&gt; 5     4     2 MULTIPOLYGON         3 63b54e41fe
+#&gt; 1     6     2 MULTIPOLYGON         1 e4169c6c44
+#&gt; 2     4     2 MULTIPOLYGON         1 7e6b48d816
+#&gt; 3     5     2 MULTIPOLYGON         2 f3942b1fab
+#&gt; 4     5     2 MULTIPOLYGON         2 9bfc7bacf9
+#&gt; 5     4     2 MULTIPOLYGON         3 5b99e07b2a
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -291,5 +306,8 @@ with each of <em>point</em>, <em>multipoin</em>, <em>linestring</em>, <em>multil
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

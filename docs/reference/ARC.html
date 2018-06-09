@@ -21,16 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="ARC model — ARC" />
 
 <meta property="og:description" content="Arcs are paths within the line segment graph between nodes." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">silicate</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">silicate</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9007</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -79,13 +89,14 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -93,15 +104,19 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>ARC model</h1>
+    
+    <div class="hidden name"><code>ARC.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Arcs are paths within the line segment graph between nodes.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>ARC</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
@@ -111,7 +126,7 @@
 <span class='co'># S3 method for PATH</span>
 <span class='fu'>ARC</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -143,16 +158,16 @@ objects by tracing <code>arc_link_vertex</code> start and end point identity.</p
 <span class='fu'>sc_arc</span>(<span class='no'>a</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;   arc_       ncoords_
 #&gt;   &lt;chr&gt;         &lt;int&gt;
-#&gt; 1 2a8727a771        7
-#&gt; 2 3ddb73fc82        2
-#&gt; 3 8c5889edc8        6
-#&gt; 4 92bf46b315        4</div><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
+#&gt; 1 1699a62ac9        6
+#&gt; 2 8f63f68cb8        4
+#&gt; 3 9d335f10c3        2
+#&gt; 4 ff76c41778        7</div><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;   arc_       ncoords_
 #&gt;   &lt;chr&gt;         &lt;int&gt;
-#&gt; 1 022d50f59a        7
-#&gt; 2 1e3e015783        2
-#&gt; 3 697a226f2a        6
-#&gt; 4 ae0d09ee03        4</div></pre>
+#&gt; 1 05ee669c30        2
+#&gt; 2 0a1c9bfb66        6
+#&gt; 3 493e867db7        4
+#&gt; 4 66c6f24a4b        7</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -181,5 +196,8 @@ objects by tracing <code>arc_link_vertex</code> start and end point identity.</p
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

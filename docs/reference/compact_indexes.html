@@ -21,16 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Compact form, structural indexing — compact_indexes" />
 
 <meta property="og:description" content="Compact form, structural indexing" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">silicate</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">silicate</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9007</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -79,13 +89,14 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -93,15 +104,19 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Compact form, structural indexing</h1>
+    
+    <div class="hidden name"><code>compact_indexes.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Compact form, structural indexing</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>compact_indexes</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
@@ -111,7 +126,7 @@
 <span class='co'># S3 method for PATH</span>
 <span class='fu'>compact_indexes</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -182,26 +197,26 @@
 #&gt; # A tibble: 14 x 2
 #&gt;       x_    y_
 #&gt;    &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1 0.    0.   
-#&gt;  2 0.    1.00 
-#&gt;  3 0.750 1.00 
-#&gt;  4 1.00  0.800
-#&gt;  5 0.500 0.700
-#&gt;  6 0.800 0.600
-#&gt;  7 0.690 0.   
-#&gt;  8 0.200 0.200
-#&gt;  9 0.500 0.200
-#&gt; 10 0.500 0.400
-#&gt; 11 0.300 0.600
-#&gt; 12 0.200 0.400
-#&gt; 13 1.10  0.630
-#&gt; 14 1.23  0.300
+#&gt;  1  0     0   
+#&gt;  2  0     1   
+#&gt;  3  0.75  1   
+#&gt;  4  1     0.8 
+#&gt;  5  0.5   0.7 
+#&gt;  6  0.8   0.6 
+#&gt;  7  0.69  0   
+#&gt;  8  0.2   0.2 
+#&gt;  9  0.5   0.2 
+#&gt; 10  0.5   0.4 
+#&gt; 11  0.3   0.6 
+#&gt; 12  0.2   0.4 
+#&gt; 13  1.1   0.63
+#&gt; 14  1.23  0.3 
 #&gt; 
 #&gt; $meta
 #&gt; # A tibble: 1 x 2
 #&gt;   proj  ctime              
 #&gt;   &lt;chr&gt; &lt;chr&gt;              
-#&gt; 1 &lt;NA&gt;  2018-03-08 13:19:50
+#&gt; 1 &lt;NA&gt;  2018-06-09 23:41:30
 #&gt; 
 #&gt; attr(,"join_ramp")
 #&gt; [1] "object"           "object_link_edge" "edge"             "vertex"          
@@ -233,5 +248,8 @@
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Path decomposition — sc_path" />
 
 <meta property="og:description" content="Start in the middle, and build the 'path-link-vertex' table.
 Paths." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ Paths." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">silicate</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">silicate</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9007</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -80,13 +90,14 @@ Paths." />
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -94,16 +105,20 @@ Paths." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Path decomposition</h1>
+    
+    <div class="hidden name"><code>sc_path.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Start in the middle, and build the 'path-link-vertex' table.</p>
 <p>Paths.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
@@ -117,6 +132,12 @@ Paths." />
 <span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for SC</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for matrix</span>
 <span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for sf</span>
@@ -149,7 +170,7 @@ Paths." />
 <span class='co'># S3 method for Spatial</span>
 <span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='kw'>ids</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -168,8 +189,8 @@ Paths." />
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code>sc_coord</code> for the coordinates part of the model, <code>sc_object</code> for
-the features, and <code>PATH</code> for the full model.</p>
+    <div class='dont-index'><p><code>sc_coord</code> for the coordinates part of the model, <code>sc_object</code> for
+the features, and <code>PATH</code> for the full model.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -181,32 +202,32 @@ the features, and <code>PATH</code> for the full model.</p>
 <span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipolygon</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 5
 #&gt;    nrow  ncol type         subobject path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;     
-#&gt; 1     6     2 MULTIPOLYGON         1 fec885b691
-#&gt; 2     4     2 MULTIPOLYGON         1 a1b7c00965
-#&gt; 3     5     2 MULTIPOLYGON         2 e746891deb
-#&gt; 4     5     2 MULTIPOLYGON         2 fd80329253
-#&gt; 5     4     2 MULTIPOLYGON         3 713f24a423</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>polygon</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt; 1     6     2 MULTIPOLYGON         1 cfc487407a
+#&gt; 2     4     2 MULTIPOLYGON         1 b2386c71a6
+#&gt; 3     5     2 MULTIPOLYGON         2 fb04386037
+#&gt; 4     5     2 MULTIPOLYGON         2 7a442c4787
+#&gt; 5     4     2 MULTIPOLYGON         3 28879d9251</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>polygon</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
 #&gt;    nrow  ncol type    path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;     
-#&gt; 1     6     2 POLYGON 19fa66e151
-#&gt; 2     4     2 POLYGON b6482d4880</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>linestring</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt; 1     6     2 POLYGON 5adc5f77c3
+#&gt; 2     4     2 POLYGON 2666ce434b</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>linestring</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type       path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     
-#&gt; 1     4     2 LINESTRING b341b3b8c5</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multilinestring</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 4
+#&gt; 1     4     2 LINESTRING ae14a3c1a3</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multilinestring</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 4
 #&gt;    nrow  ncol type            path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;     
-#&gt; 1     4     2 MULTILINESTRING 625c033093
-#&gt; 2     4     2 MULTILINESTRING 7f0398f9ec
-#&gt; 3     2     2 MULTILINESTRING c50f8c5a4d</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>point</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt; 1     4     2 MULTILINESTRING 705d89c8bc
+#&gt; 2     4     2 MULTILINESTRING 1a21d2b748
+#&gt; 3     2     2 MULTILINESTRING 6c9914ee93</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>point</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type  path_     
 #&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     
-#&gt; 1    1.    2. POINT 4e53c8858e</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt; 1     1     2 POINT 0d77c969ff</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type       path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     
-#&gt; 1     6     2 MULTIPOINT 33443d14bd</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt; 1     6     2 MULTIPOINT 11c5d53b6b</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;    nrow  ncol type       path_     
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     
-#&gt; 1     6     2 MULTIPOINT d2f8a3bbd7</div></pre>
+#&gt; 1     6     2 MULTIPOINT d71eb3e9e3</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -233,5 +254,8 @@ the features, and <code>PATH</code> for the full model.</p>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -21,13 +21,19 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Function reference" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -50,8 +56,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">silicate</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">silicate</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9007</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -76,13 +86,14 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -90,172 +101,174 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.1.0.9007</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ARC.html">ARC</a></code> </p>
-          </td>
-          <td><p>ARC model</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="compact_indexes.html">compact_indexes</a></code> </p>
-          </td>
-          <td><p>Compact form, structural indexing</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="expand_indexes.html">expand_indexes</a></code> </p>
-          </td>
-          <td><p>Expand indexes from structural compaction</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="flight_tracks.html">flight_tracks</a></code> </p>
-          </td>
-          <td><p>Flight tracks</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="inlandwaters.html">inlandwaters</a></code> </p>
-          </td>
-          <td><p>Inland waters, for parts of Australia, and New Caledonia.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="minimal_mesh.html">minimal_mesh</a></code> </p>
-          </td>
-          <td><p>Minimal mesh.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="mmesh.html">mmesh</a></code> </p>
-          </td>
-          <td><p>Deprecated data set.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="PATH.html">PATH</a></code> </p>
-          </td>
-          <td><p>PATH model.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="polymesh.html">polymesh</a></code> </p>
-          </td>
-          <td><p>Polygonal mesh</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sc_arc.html">sc_arc</a></code> </p>
-          </td>
-          <td><p>Arc-node topology.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sc_coord.html">sc_coord</a></code> </p>
-          </td>
-          <td><p>Coordinate decomposition</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sc_edge.html">sc_edge</a></code> </p>
-          </td>
-          <td><p>Edges.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sc_node.html">sc_node</a></code> </p>
-          </td>
-          <td><p>Nodes for arc-node topology.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sc_object.html">sc_object</a></code> </p>
-          </td>
-          <td><p>Objects, features</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sc_path.html">sc_path</a></code> </p>
-          </td>
-          <td><p>Path decomposition</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sc_segment.html">sc_segment</a></code> </p>
-          </td>
-          <td><p>Given a `PATH`` model decompose to 1-dimensional primitives (or 0-dimensional).</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sc_uid.html">sc_uid</a></code> </p>
-          </td>
-          <td><p>Unique labels</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sc_vertex.html">sc_vertex</a></code> </p>
-          </td>
-          <td><p>Extract unique vertices</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sc-deprecated.html">PRIMITIVE</a></code> </p>
-          </td>
-          <td><p>Deprecated functions from silicate.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="SC.html">SC</a></code> <code><a href="SC.html">plot</a></code> </p>
-          </td>
-          <td><p>The universal model</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sfzoo.html">sfzoo</a></code> </p>
-          </td>
-          <td><p>Simple features zoo.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="silicate.html">silicate</a></code> </p>
-          </td>
-          <td><p>silicate.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="TRI.html">TRI</a></code> <code><a href="TRI.html">plot</a></code> </p>
-          </td>
-          <td><p>TRI model, triangulations</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="ARC.html">ARC()</a></code> </p>
+        </td>
+        <td><p>ARC model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="PATH.html">PATH()</a></code> </p>
+        </td>
+        <td><p>PATH model.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="SC.html">SC()</a></code> <code><a href="SC.html">plot(<i>&lt;SC&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>The universal model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="SC0.html">SC0()</a></code> </p>
+        </td>
+        <td><p>core silicate</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="TRI.html">TRI()</a></code> <code><a href="TRI.html">plot(<i>&lt;TRI&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>TRI model, triangulations</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="compact_indexes.html">compact_indexes()</a></code> </p>
+        </td>
+        <td><p>Compact form, structural indexing</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="expand_indexes.html">expand_indexes()</a></code> </p>
+        </td>
+        <td><p>Expand indexes from structural compaction</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="flight_tracks.html">flight_tracks</a></code> </p>
+        </td>
+        <td><p>Flight tracks</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="inlandwaters.html">inlandwaters</a></code> </p>
+        </td>
+        <td><p>Inland waters, for parts of Australia, and New Caledonia.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="minimal_mesh.html">minimal_mesh</a></code> </p>
+        </td>
+        <td><p>Minimal mesh.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mmesh.html">mmesh</a></code> </p>
+        </td>
+        <td><p>Deprecated data set.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="polymesh.html">polymesh</a></code> </p>
+        </td>
+        <td><p>Polygonal mesh</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sc-deprecated.html">PRIMITIVE()</a></code> </p>
+        </td>
+        <td><p>Deprecated functions from silicate.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sc_arc.html">sc_arc()</a></code> </p>
+        </td>
+        <td><p>Arc-node topology.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sc_coord.html">sc_coord()</a></code> </p>
+        </td>
+        <td><p>Coordinate decomposition</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sc_edge.html">sc_edge()</a></code> <code><a href="sc_edge.html">sc_start()</a></code> <code><a href="sc_edge.html">sc_end()</a></code> </p>
+        </td>
+        <td><p>Edges.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sc_node.html">sc_node()</a></code> </p>
+        </td>
+        <td><p>Nodes for arc-node topology.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sc_object.html">sc_object()</a></code> </p>
+        </td>
+        <td><p>Objects, features</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sc_path.html">sc_path()</a></code> </p>
+        </td>
+        <td><p>Path decomposition</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sc_segment.html">sc_segment()</a></code> </p>
+        </td>
+        <td><p>Given a `PATH`` model decompose to 1-dimensional primitives (or 0-dimensional).</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sc_uid.html">sc_uid()</a></code> </p>
+        </td>
+        <td><p>Unique labels</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sc_vertex.html">sc_vertex()</a></code> </p>
+        </td>
+        <td><p>Extract unique vertices</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sfzoo.html">sfzoo</a></code> </p>
+        </td>
+        <td><p>Simple features zoo.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="silicate.html">silicate</a></code> </p>
+        </td>
+        <td><p>silicate.</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -278,5 +291,8 @@
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

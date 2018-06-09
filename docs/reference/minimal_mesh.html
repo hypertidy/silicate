@@ -21,19 +21,25 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Minimal mesh. — minimal_mesh" />
 
 <meta property="og:description" content="The simplest pairing of two polygons with one shared edge. One polygon
 contains a hole and a concavity, the other is a simply convex. This is
-composed of four "arcs", one around each polygon, one for the shared edge, and
+composed of four &quot;arcs&quot;, one around each polygon, one for the shared edge, and
 one for the isolated hole. There are two nodes, the endpoints of the single shared edge." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -56,8 +62,12 @@ one for the isolated hole. There are two nodes, the endpoints of the single shar
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">silicate</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">silicate</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9007</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -82,13 +92,14 @@ one for the isolated hole. There are two nodes, the endpoints of the single shar
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -96,34 +107,38 @@ one for the isolated hole. There are two nodes, the endpoints of the single shar
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Minimal mesh.</h1>
+    
+    <div class="hidden name"><code>minimal_mesh.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The simplest pairing of two polygons with one shared edge. One polygon
 contains a hole and a concavity, the other is a simply convex. This is
 composed of four "arcs", one around each polygon, one for the shared edge, and
 one for the isolated hole. There are two nodes, the endpoints of the single shared edge.</p>
     
+    </div>
 
         
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)
-<span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='img'><img src='minimal_mesh-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
+<span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='img'><img src='minimal_mesh-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;   arc_       ncoords_
 #&gt;   &lt;chr&gt;         &lt;int&gt;
-#&gt; 1 163ddc639b        2
-#&gt; 2 63115ca138        4
-#&gt; 3 9f609cc21c        6
-#&gt; 4 face0f6319        7</div><div class='input'><span class='fu'>sc_node</span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
+#&gt; 1 30f23456ee        4
+#&gt; 2 35ffa025dd        7
+#&gt; 3 52390e55f1        2
+#&gt; 4 7aad24303d        6</div><div class='input'><span class='fu'>sc_node</span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
 #&gt;   vertex_   
 #&gt;   &lt;chr&gt;     
-#&gt; 1 401a162862
-#&gt; 2 48fa11d287</div></pre>
+#&gt; 1 d05a5752a6
+#&gt; 2 76e399d2e4</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -147,5 +162,8 @@ one for the isolated hole. There are two nodes, the endpoints of the single shar
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
