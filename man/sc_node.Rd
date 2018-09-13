@@ -2,11 +2,8 @@
 % Please edit documentation in R/00_node.R
 \name{sc_node}
 \alias{sc_node}
-\alias{sc_node}
 \alias{sc_node.default}
-\alias{sc_node}
 \alias{sc_node.PATH}
-\alias{sc_node}
 \alias{sc_node.ARC}
 \title{Nodes for arc-node topology.}
 \usage{

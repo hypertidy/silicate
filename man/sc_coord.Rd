@@ -2,33 +2,19 @@
 % Please edit documentation in R/00_coord.R
 \name{sc_coord}
 \alias{sc_coord}
-\alias{sc_coord}
 \alias{sc_coord.default}
-\alias{sc_coord}
 \alias{sc_coord.matrix}
-\alias{sc_coord}
 \alias{sc_coord.PATH}
-\alias{sc_coord}
 \alias{sc_coord.sf}
-\alias{sc_coord}
 \alias{sc_coord.sfc}
-\alias{sc_coord}
 \alias{sc_coord.MULTIPOLYGON}
-\alias{sc_coord}
 \alias{sc_coord.POLYGON}
-\alias{sc_coord}
 \alias{sc_coord.MULTILINESTRING}
-\alias{sc_coord}
 \alias{sc_coord.LINESTRING}
-\alias{sc_coord}
 \alias{sc_coord.MULTIPOINT}
-\alias{sc_coord}
 \alias{sc_coord.POINT}
-\alias{sc_coord}
 \alias{sc_coord.Spatial}
-\alias{sc_coord}
 \alias{sc_coord.Polygons}
-\alias{sc_coord}
 \alias{sc_coord.Lines}
 \title{Coordinate decomposition}
 \usage{

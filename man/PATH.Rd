@@ -2,7 +2,6 @@
 % Please edit documentation in R/PATH-model.R
 \name{PATH}
 \alias{PATH}
-\alias{PATH}
 \alias{PATH.default}
 \title{PATH model.}
 \usage{

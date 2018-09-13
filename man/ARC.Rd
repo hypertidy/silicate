@@ -2,9 +2,7 @@
 % Please edit documentation in R/ARC-model.R
 \name{ARC}
 \alias{ARC}
-\alias{ARC}
 \alias{ARC.default}
-\alias{ARC}
 \alias{ARC.PATH}
 \title{ARC model}
 \usage{

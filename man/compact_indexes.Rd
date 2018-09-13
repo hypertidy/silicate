@@ -2,9 +2,7 @@
 % Please edit documentation in R/compact-indexes.R
 \name{compact_indexes}
 \alias{compact_indexes}
-\alias{compact_indexes}
 \alias{compact_indexes.SC}
-\alias{compact_indexes}
 \alias{compact_indexes.PATH}
 \title{Compact form, structural indexing}
 \usage{

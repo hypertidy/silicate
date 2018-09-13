@@ -2,9 +2,7 @@
 % Please edit documentation in R/00_arc.R
 \name{sc_arc}
 \alias{sc_arc}
-\alias{sc_arc}
 \alias{sc_arc.default}
-\alias{sc_arc}
 \alias{sc_arc.ARC}
 \title{Arc-node topology.}
 \usage{

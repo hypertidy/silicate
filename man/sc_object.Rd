@@ -2,13 +2,9 @@
 % Please edit documentation in R/00_object.R, R/TRI-model.R
 \name{sc_object}
 \alias{sc_object}
-\alias{sc_object}
 \alias{sc_object.default}
-\alias{sc_object}
 \alias{sc_object.sf}
-\alias{sc_object}
 \alias{sc_object.sfc}
-\alias{sc_object}
 \alias{sc_object.TRI}
 \title{Objects, features}
 \usage{

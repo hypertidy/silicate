@@ -2,9 +2,7 @@
 % Please edit documentation in R/SC-model.R, R/plot.R
 \name{SC}
 \alias{SC}
-\alias{SC}
 \alias{SC.TRI}
-\alias{SC}
 \alias{plot.SC}
 \title{The universal model}
 \usage{

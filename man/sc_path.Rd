@@ -2,37 +2,20 @@
 % Please edit documentation in R/00_path.R
 \name{sc_path}
 \alias{sc_path}
-\alias{sc_path}
 \alias{sc_path.default}
-\alias{sc_path}
 \alias{sc_path.PATH}
-\alias{sc_path}
 \alias{sc_path.ARC}
-\alias{sc_path}
 \alias{sc_path.SC}
-\alias{sc_path}
-\alias{sc_path.default}
-\alias{sc_path}
 \alias{sc_path.matrix}
-\alias{sc_path}
 \alias{sc_path.sf}
-\alias{sc_path}
 \alias{sc_path.sfc}
-\alias{sc_path}
 \alias{sc_path.MULTIPOLYGON}
-\alias{sc_path}
 \alias{sc_path.POLYGON}
-\alias{sc_path}
 \alias{sc_path.LINESTRING}
-\alias{sc_path}
 \alias{sc_path.MULTILINESTRING}
-\alias{sc_path}
 \alias{sc_path.POINT}
-\alias{sc_path}
 \alias{sc_path.MULTIPOINT}
-\alias{sc_path}
 \alias{sc_path.GEOMETRYCOLLECTION}
-\alias{sc_path}
 \alias{sc_path.Spatial}
 \title{Path decomposition}
 \usage{

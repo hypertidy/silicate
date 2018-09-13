@@ -2,9 +2,7 @@
 % Please edit documentation in R/compact-indexes.R
 \name{expand_indexes}
 \alias{expand_indexes}
-\alias{expand_indexes}
 \alias{expand_indexes.compact_SC}
-\alias{expand_indexes}
 \alias{expand_indexes.compact_PATH}
 \title{Expand indexes from structural compaction}
 \usage{

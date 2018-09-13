@@ -2,7 +2,6 @@
 % Please edit documentation in R/SC0-model.R
 \name{SC0}
 \alias{SC0}
-\alias{SC0}
 \alias{SC0.default}
 \title{core silicate}
 \usage{

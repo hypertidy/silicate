@@ -2,7 +2,6 @@
 % Please edit documentation in R/silicate-package.R
 \name{sc-deprecated}
 \alias{sc-deprecated}
-\alias{sc-deprecated}
 \alias{PRIMITIVE}
 \title{Deprecated functions from silicate.}
 \usage{

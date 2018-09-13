@@ -2,15 +2,10 @@
 % Please edit documentation in R/00_vertex.R
 \name{sc_vertex}
 \alias{sc_vertex}
-\alias{sc_vertex}
 \alias{sc_vertex.default}
-\alias{sc_vertex}
 \alias{sc_vertex.SC}
-\alias{sc_vertex}
 \alias{sc_vertex.ARC}
-\alias{sc_vertex}
 \alias{sc_vertex.TRI}
-\alias{sc_vertex}
 \alias{sc_vertex.PATH}
 \title{Extract unique vertices}
 \usage{

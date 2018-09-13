@@ -2,7 +2,6 @@
 % Please edit documentation in R/TRI-model.R, R/plot.R
 \name{TRI}
 \alias{TRI}
-\alias{TRI}
 \alias{plot.TRI}
 \title{TRI model, triangulations}
 \usage{
