@@ -144,7 +144,7 @@
     <p>Arcs are unbranched paths within the line segment graph. Nodes are the vertices where three or more arcs meet.</p>
 <p>As with the <code>PATH</code> and <code>SC</code> models the arc id values will only be relevant when
 those entities are identified and labelled. Running <code>sc_arc</code> on a simple features model (for example) will
-identify them and return a summary, but without having any record of what they refer to. Use <code>ARC(x)</code> first to
+identify them and return a summary, but without having any record of what they refer to. Use <code><a href='ARC.html'>ARC(x)</a></code> first to
 work with models that don't included labels.</p>
     
 
@@ -152,14 +152,14 @@ work with models that don't included labels.</p>
     <pre class="examples"><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;   arc_       ncoords_
 #&gt;   &lt;chr&gt;         &lt;int&gt;
-#&gt; 1 2aada300e7        2
-#&gt; 2 5838f9fe54        7
-#&gt; 3 76b289b064        4
-#&gt; 4 c50cef9c24        6</div><div class='input'><span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)<span class='kw'>[[</span><span class='st'>"arc"</span>]]</div><div class='output co'>#&gt; NULL</div><div class='input'>
-<span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)
-<span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>arc</span>$<span class='no'>vertex</span>[<span class='fu'>match</span>(<span class='fu'>sc_node</span>(<span class='no'>arc</span>)$<span class='no'>vertex_</span>, <span class='no'>arc</span>$<span class='no'>vertex</span>$<span class='no'>vertex_</span>), <span class='fu'>c</span>(<span class='st'>"x_"</span>, <span class='st'>"y_"</span>)])</div><div class='img'><img src='sc_arc-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'>ARC</span>(<span class='no'>polymesh</span>)
-<span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='input'><span class='fu'>title</span>(<span class='st'>"arcs and nodes"</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>arc</span>$<span class='no'>vertex</span>[<span class='fu'>match</span>(<span class='fu'>sc_node</span>(<span class='no'>arc</span>)$<span class='no'>vertex_</span>, <span class='no'>arc</span>$<span class='no'>vertex</span>$<span class='no'>vertex_</span>), <span class='fu'>c</span>(<span class='st'>"x_"</span>, <span class='st'>"y_"</span>)])</div><div class='img'><img src='sc_arc-2.png' alt='' width='700' height='433' /></div></pre>
+#&gt; 1 08ed5a765a        2
+#&gt; 2 1de46d23c5        4
+#&gt; 3 3c407d73a7        7
+#&gt; 4 5c01172dfe        6</div><div class='input'><span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>minimal_mesh</span>)<span class='kw'>[[</span><span class='st'>"arc"</span>]]</div><div class='output co'>#&gt; NULL</div><div class='input'>
+<span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>minimal_mesh</span>)
+<span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>arc</span>$<span class='no'>vertex</span>[<span class='fu'>match</span>(<span class='fu'><a href='sc_node.html'>sc_node</a></span>(<span class='no'>arc</span>)$<span class='no'>vertex_</span>, <span class='no'>arc</span>$<span class='no'>vertex</span>$<span class='no'>vertex_</span>), <span class='fu'>c</span>(<span class='st'>"x_"</span>, <span class='st'>"y_"</span>)])</div><div class='img'><img src='sc_arc-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>polymesh</span>)
+<span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='input'><span class='fu'>title</span>(<span class='st'>"arcs and nodes"</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>arc</span>$<span class='no'>vertex</span>[<span class='fu'>match</span>(<span class='fu'><a href='sc_node.html'>sc_node</a></span>(<span class='no'>arc</span>)$<span class='no'>vertex_</span>, <span class='no'>arc</span>$<span class='no'>vertex</span>$<span class='no'>vertex_</span>), <span class='fu'>c</span>(<span class='st'>"x_"</span>, <span class='st'>"y_"</span>)])</div><div class='img'><img src='sc_arc-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
