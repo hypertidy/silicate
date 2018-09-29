@@ -4,17 +4,17 @@
 
 # library(silicate)
 # sc <- silicate::TRI(minimal_mesh)
-# x1 <- c_MESH(lapply(split(tibble::as_tibble(matrix(match(as.matrix(sc$triangle[1:3]), sc$vertex$vertex_), ncol  = 3)), 1:nrow(sc$triangle)), sc_triangle), vertex_pool = sc$vertex[1:2])
-# x2 <- c_MESH(sc_triangle(tibble::tibble(V1 = 6, V2 = 7, V3 = 14)),
-#        sc_triangle(tibble::tibble(V1 = 14, V2 = 13, V3 = 6)), vertex_pool = sc$vertex[1:2])
+# x1 <- c_MESH(lapply(split(tibble::as_tibble(matrix(match(as.matrix(sc$triangle[1:3]), sc$vertex$vertex_), ncol  = 3)), 1:nrow(sc$triangle)), si_triangle), vertex_pool = sc$vertex[1:2])
+# x2 <- c_MESH(si_triangle(tibble::tibble(V1 = 6, V2 = 7, V3 = 14)),
+#        si_triangle(tibble::tibble(V1 = 14, V2 = 13, V3 = 6)), vertex_pool = sc$vertex[1:2])
 #
 # plot(x1)
 # plot(x2, add = TRUE, border = "blue")
-#
+
 
 
 ## atomic index element
-sc_triangle <- function(x) {
+si_triangle <- function(x) {
   structure(tibble::as_tibble(x), class = c("MESH", "tbl_df", "data.frame"))
 }
 
