@@ -22,16 +22,13 @@ library(dplyr)
 ```
 # silicate
 
-The `silicate` package provides a flexible basis for working with hierarchical data structures, 
-including spatial data. The key  strategy is to provide a clean separation betweeen topology and 
-geometry, to allow *naming* (or *labelling*) of component entities, and to support *intermediate* 
-and *universal* forms, patterns that exist within otherwise specific and bespoke types. Silicate is 
+The `silicate` package provides a flexible basis for working with hierarchical data structures.  This includes a clean separation of topology and 
+geometry, allows *naming* of component entities, and supports *intermediate*forms. Silicate is 
 a response to a fragmented landscape where many workarounds and re-implementations of similar 
 patterns are often repeated. 
 
-Silicate is composed of *normal-form models* and worker verbs for extracting (or otherwise 
-identifying) underlying entities.  By normal-form, we mean de-duplication, normalization in the database
-*removal of redundancy* sense. 
+Silicate is composed of *normal-form models* and worker verbs for extracting underlying entities.  By normal-form, we mean the tidy, [3NF](https://en.wikipedia.org/wiki/Third_normal_form), de-duplicated, *removal of redundancy* sense. 
+
 
 The entities that we identify correspond to the names of the worker verbs. Whether a given model has all or
 any of these entities explicitly depends on the circumstances, but implicitly these are usually always present and depend only on interpretation. 
@@ -170,7 +167,7 @@ plot(NA, xlim = c(625000, 1060000), ylim = c(-1350000,  -550000))
 plot(tri, add = TRUE)
 ```
 
-The [CRAN package sfdct](https://CRAN.R-project.org/package=unjoin) will use the first method (package `RTriangle` wraps the Triangle library) for simple features. 
+The [CRAN package sfdct](https://CRAN.R-project.org/package=sfdct) will use the first method (package `RTriangle` wraps the Triangle library) for simple features. 
 
 ```{r sfdct,eval=FALSE}
 #plot(sfdct::ct_triangulate(minimal_mesh))
