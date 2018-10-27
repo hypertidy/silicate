@@ -11,12 +11,12 @@
 #' @export
 #'
 #' @examples
-#' plot(binary(minimal_mesh))
+#' plot(BINARY(minimal_mesh))
 #' #library(trip)
-#' #plot(binary(walrus818))
+#' #plot(BINARY(walrus818))
 #'
-#' #plot(binary(rnaturalearth::ne_coastline(returnclass = "sp")))
-binary <- function(x, ...) {
+#' #plot(BINARY(rnaturalearth::ne_coastline(returnclass = "sp")))
+BINARY <- function(x, ...) {
 
   ## get coordinates
   ## map instances (unique v, expanded v-index)
