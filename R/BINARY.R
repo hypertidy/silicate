@@ -15,7 +15,12 @@
 #' #library(trip)
 #' #plot(BINARY(walrus818))
 #'
-#' #plot(BINARY(rnaturalearth::ne_coastline(returnclass = "sp")))
+#' #b <- BINARY(rnaturalearth::ne_countries(returnclass = "sp"))
+#' #plot(b)
+#' # we can subset object trivially, with no need to relabel
+#' # because we aren't changing the vertex pool
+#' # b$object <- dplyr::filter(b$object, nchar(sovereignt) > 13)
+#' # plot(b)
 BINARY <- function(x, ...) {
 
   ## get coordinates
