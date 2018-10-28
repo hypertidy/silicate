@@ -191,57 +191,57 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_   
 #>    <dbl> <dbl> <chr>     
-#>  1  0     0    b64f54316c
-#>  2  0     1    d14131d6ab
-#>  3  0.2   0.2  4534e7e2a4
-#>  4  0.2   0.4  6f1e3426a0
-#>  5  0.3   0.6  e1e84fb068
-#>  6  0.5   0.2  4f6abe8a51
-#>  7  0.5   0.4  0958e1e327
-#>  8  0.5   0.7  11423a9a24
-#>  9  0.69  0    e6688b2dd1
-#> 10  0.75  1    e62409a34f
-#> 11  0.8   0.6  10f61ead1b
-#> 12  1     0.8  bda57e6245
-#> 13  1.1   0.63 34f1108ee9
-#> 14  1.23  0.3  0c038a4ade
+#>  1  0     0    4b45cae52b
+#>  2  0     1    45bcf2ca44
+#>  3  0.2   0.2  f64ccda622
+#>  4  0.2   0.4  deb6e8d31e
+#>  5  0.3   0.6  8922e5a84d
+#>  6  0.5   0.2  f9dd4828b9
+#>  7  0.5   0.4  0226d4c928
+#>  8  0.5   0.7  c3f731b65c
+#>  9  0.69  0    297c5ac8e2
+#> 10  0.75  1    35d8146cba
+#> 11  0.8   0.6  147b0d93b8
+#> 12  1     0.8  213823c4cf
+#> 13  1.1   0.63 eb0f856d87
+#> 14  1.23  0.3  07327cf53f
 
 sc_edge(x)
 #> # A tibble: 16 x 3
 #>    object_    .vx0       .vx1      
 #>    <chr>      <chr>      <chr>     
-#>  1 7cd393dd0e b64f54316c d14131d6ab
-#>  2 7cd393dd0e d14131d6ab e62409a34f
-#>  3 7cd393dd0e e62409a34f bda57e6245
-#>  4 7cd393dd0e bda57e6245 11423a9a24
-#>  5 7cd393dd0e 11423a9a24 10f61ead1b
-#>  6 7cd393dd0e 10f61ead1b e6688b2dd1
-#>  7 7cd393dd0e e6688b2dd1 b64f54316c
-#>  8 7cd393dd0e 4534e7e2a4 4f6abe8a51
-#>  9 7cd393dd0e 4f6abe8a51 0958e1e327
-#> 10 7cd393dd0e 0958e1e327 e1e84fb068
-#> 11 7cd393dd0e e1e84fb068 6f1e3426a0
-#> 12 7cd393dd0e 6f1e3426a0 4534e7e2a4
-#> 13 95b55e7fdb e6688b2dd1 10f61ead1b
-#> 14 95b55e7fdb 10f61ead1b 34f1108ee9
-#> 15 95b55e7fdb 34f1108ee9 0c038a4ade
-#> 16 95b55e7fdb 0c038a4ade e6688b2dd1
+#>  1 f710f4906b 4b45cae52b 45bcf2ca44
+#>  2 f710f4906b 45bcf2ca44 35d8146cba
+#>  3 f710f4906b 35d8146cba 213823c4cf
+#>  4 f710f4906b 213823c4cf c3f731b65c
+#>  5 f710f4906b c3f731b65c 147b0d93b8
+#>  6 f710f4906b 147b0d93b8 297c5ac8e2
+#>  7 f710f4906b 297c5ac8e2 4b45cae52b
+#>  8 f710f4906b f64ccda622 f9dd4828b9
+#>  9 f710f4906b f9dd4828b9 0226d4c928
+#> 10 f710f4906b 0226d4c928 8922e5a84d
+#> 11 f710f4906b 8922e5a84d deb6e8d31e
+#> 12 f710f4906b deb6e8d31e f64ccda622
+#> 13 fdeb566462 297c5ac8e2 147b0d93b8
+#> 14 fdeb566462 147b0d93b8 eb0f856d87
+#> 15 fdeb566462 eb0f856d87 07327cf53f
+#> 16 fdeb566462 07327cf53f 297c5ac8e2
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_   
 #>   <chr>     
-#> 1 a86a7f4a8b
-#> 2 ad0c6f8878
+#> 1 a2b38a18be
+#> 2 f565f7df96
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_       ncoords_
 #>   <chr>         <int>
-#> 1 7070f9efa5        2
-#> 2 91c4207431        4
-#> 3 dcb8db8736        6
-#> 4 f049ef047f        7
+#> 1 1b35cdb149        6
+#> 2 49ad9ae889        2
+#> 3 b74f302e55        7
+#> 4 dbd84756aa        4
 ```
 
 ## silicate models
@@ -316,4 +316,4 @@ dependencies.
   - [scgraph](https://github.com/hypertidy/scgraph)
   - [scspatstat](https://github.com/hypertidy/scspatstat)
 
-scdb, sctrip, scrgl, scraster, scicosa,
+Looking for a music reference? Child’s Play, by Carcass.
