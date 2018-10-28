@@ -2,14 +2,14 @@ sc_compact <- function(x, ...) {
   .Defunct("compact_indexes")
   #UseMethod("sc_compact")
 }
-#' Compact form, structural indexing
+## Compact form, structural indexing
 #'
-#' @inheritParams SC
+## @inheritParams SC
 #'
-#' @return a special "compact_*" form, of e.g.  SC, or PATH
-#' @noRd
-#' @examples
-#' compact_indexes(SC(minimal_mesh))
+## @return a special "compact_*" form, of e.g.  SC, or PATH
+## @noRd
+## @examples
+## compact_indexes(SC(minimal_mesh))
 compact_indexes <- function(x, ...) {
   .Defunct()
   return(NULL)
@@ -38,7 +38,7 @@ compact_indexes.SC <- function(x, ...) {
   x$vertex$vertex_ <- NULL
   structure(x, class = c("compact_SC", "sc"))
 }
-#' @name compact_indexes
+## @name compact_indexes
 compact_indexes.PATH <- function(x, ...) {
   path <- x[["path"]]
   path$object_ <- match_int(path$object_, x$object$object_)
@@ -59,21 +59,21 @@ sc_expand <- function(x, ...) {
 }
 
 
-#' Expand indexes from structural compaction
+## Expand indexes from structural compaction
 #'
-#' @inheritParams SC
+## @inheritParams SC
 #'
-#' @return non-compact form, i.e. SC or PATH
-#' @noRd
-#' @examples
-#' small <- compact_indexes(PATH(minimal_mesh))
-#' large <- expand_indexes(small)
+## @return non-compact form, i.e. SC or PATH
+## @noRd
+## @examples
+## small <- compact_indexes(PATH(minimal_mesh))
+## large <- expand_indexes(small)
 expand_indexes <- function(x, ...) {
   .Defunct()
   return(NULL)
   UseMethod("expand_indexes")
 }
-#' @name expand_indexes
+## @name expand_indexes
 expand_indexes.compact_SC <- function(x, ...)  {
   x$object$object_ <- sc_uid(x$object)
   oXe <- x[["object_link_edge"]]
@@ -91,7 +91,7 @@ expand_indexes.compact_SC <- function(x, ...)  {
   x[["vertex"]] <- vertex
   structure(x, class = c("SC", "sc"))
 }
-#' @name expand_indexes
+## @name expand_indexes
 expand_indexes.compact_PATH <- function(x, ...) {
   x$object$object_ <- sc_uid(x$object)
   path <- x[["path"]]
