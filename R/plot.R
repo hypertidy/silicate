@@ -20,11 +20,12 @@ plot.SC <- function(x, ..., vars = NULL) {
       setNames(c("x_", "y_", "vertex_"))
   }
   e <- sc_edge(x)
-  x0 <- e %>% dplyr::inner_join(v, c(".vertex0" = "vertex_"))
-  x1 <- e %>% dplyr::inner_join(v, c(".vertex1" = "vertex_"))
+  x0 <- e %>% dplyr::inner_join(v, c(".vx0" = "vertex_"))
+  x1 <- e %>% dplyr::inner_join(v, c(".vx1" = "vertex_"))
  if (identical(x0, x1)) warning("all edges are degenerate (i.e. a vertex related to itself)")
-  idx <- factor(x$object_link_edge$object_)[seq(1, nrow(e))]
-  col <- grDevices::rainbow(nlevels(idx))[idx]
+#  idx <- factor(x$object_link_edge$object_)[seq(1, nrow(e))]
+#  col <- grDevices::rainbow(nlevels(idx))[idx]
+  col <- colourvalues::colour_values(x0$object_)
   graphics::plot(v$x_, v$y_, pch = ".")
   graphics::segments(x0$x_, x0$y_, x1$x_, x1$y_, ..., col = col)
 }

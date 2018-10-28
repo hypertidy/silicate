@@ -7,33 +7,33 @@ sc_compact <- function(x, ...) {
 #' @inheritParams SC
 #'
 #' @return a special "compact_*" form, of e.g.  SC, or PATH
-#' @export
 #'
 #' @examples
 #' compact_indexes(SC(minimal_mesh))
 compact_indexes <- function(x, ...) {
-  UseMethod("compact_indexes")
+  .Defunct()
+  return(NULL)
+#  UseMethod("compact_indexes")
 }
 
 match_int <- function(x, y, ...) {
   match(x, y)
 }
-#' @name compact_indexes
-#' @export
 compact_indexes.SC <- function(x, ...) {
+
   oXe <- x[["object_link_edge"]]
   oXe$object_ <- match_int(oXe$object_, x$object$object_)
   oXe$edge_ <- match_int(oXe$edge_, x$edge$edge_)
 
-  
+
   x$object$object_ <- NULL
   x[["object_link_edge"]] <- oXe
-  
+
   edge <- x[["edge"]]
   edge$.vertex0 <- match_int(edge$.vertex0, x$vertex$vertex_)
   edge$.vertex1 <- match_int(edge$.vertex1, x$vertex$vertex_)
   edge$edge_ <- NULL
-  
+
   x[["edge"]] <- edge
   x$vertex$vertex_ <- NULL
   structure(x, class = c("compact_SC", "sc"))
@@ -44,7 +44,7 @@ compact_indexes.PATH <- function(x, ...) {
   path <- x[["path"]]
   path$object_ <- match_int(path$object_, x$object$object_)
   x$object$object_ <- NULL
-  
+
   pXv <- x[["path_link_vertex"]]
   pXv$path_ <- match_int(pXv$path_, path$path_)
   path$path_ <- NULL
@@ -65,12 +65,13 @@ sc_expand <- function(x, ...) {
 #' @inheritParams SC
 #'
 #' @return non-compact form, i.e. SC or PATH
-#' @export
 #'
 #' @examples
 #' small <- compact_indexes(PATH(minimal_mesh))
 #' large <- expand_indexes(small)
 expand_indexes <- function(x, ...) {
+  .Defunct()
+  return(NULL)
   UseMethod("expand_indexes")
 }
 #' @name expand_indexes
@@ -82,7 +83,7 @@ expand_indexes.compact_SC <- function(x, ...)  {
   vertex <- x[["vertex"]]
   edge$edge_ <- sc_uid(edge)
   vertex$vertex_ <- sc_uid(vertex)
-  
+
   oXe$object_ <- x$object$object_[oXe$object_]
   oXe$edge_ <- edge$edge_[oXe$edge_]
   edge$.vertex0 <- vertex$vertex_[edge$.vertex0]
@@ -101,7 +102,7 @@ expand_indexes.compact_PATH <- function(x, ...) {
   vertex <- x[["vertex"]]
   path$path_ <- sc_uid(path)
   path$object_ <- x$object$object_[path$object_]
-  
+
   pXv$path_ <- path$path_[pXv$path_]
   vertex$vertex_ <- sc_uid(vertex)
   pXv$vertex_ <- vertex$vertex_[pXv$vertex_]

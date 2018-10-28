@@ -53,7 +53,7 @@ BINARY <- function(x, ...) {
   ## but udata$.idx0 has the vertices, with .idx0 as the mapping
   object <- sc_object(x)
   object$edge_ <- split(segs[c(".vx0", ".vx1")], segs$object)
-  structure(list(object = object, vertex = udata$vertex_ %>% arrange(vertex_) %>% select(x_, y_)),
+  structure(list(object = object, vertex = udata$vertex_ %>% dplyr::arrange(vertex_) %>% select(x_, y_)),
             class = c("sc", "binary"))
 }
 # sc_path.binary <- function(x, ...) {
@@ -82,7 +82,12 @@ sc_coord.binary <- function(x, ...) {
   ## segment pairs, only .vx1 final one missing from .vx0
   x$vertex[c(unn$.vx0, tail(unn$.vx1, 1)), ]
 }
-#' @name binary
+#' Plot BINARY
+#'
+#' Plot a BINARY model, segments coloured by object.
+#'
+#' @param x BINARY object
+#' @param ... arguments  passed to `graphics::segments` (col is ignored)
 #' @export
 plot.binary <- function(x, ...) {
   plot(x$vertex[c("x_", "y_")], type = "n")

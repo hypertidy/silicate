@@ -25,31 +25,32 @@ globalVariables("n")
 SC <- function(x, ...) {
   UseMethod("SC")
 }
+
+
 #' @export
 SC.default <- function(x, ...) {
-  P <- PATH(x, ...)
-  O <- sc_object(P)
-  S <- sc_segment(P)
-  E <- dplyr::select(S, .data$.vertex0, .data$.vertex1, .data$edge_) %>%
-    dplyr::distinct(.data$edge_, .keep_all = TRUE)
-  ExO <- S %>%
-    dplyr::select(.data$path_, .data$edge_) %>%
-    dplyr::inner_join(dplyr::select(P[["path"]], .data$path_, .data$object_), "path_") %>%
-    dplyr::distinct(.data$edge_, .data$object_)
-  #join_ramp <-  tabnames <- c("object", "path",  "path_link_vertex", "vertex")
+  ## default method has no labels (sf, sp, trip, rgl) and uses BINARY to build mesh
+  ##P <- PATH(x, ...)
+  B <- BINARY(x, ...)
+  O <- sc_object(B)
+  if (!"object_" %in% names(O)) O[["object_"]] <- sc_uid(O)
+  O1 <- O["object_"]
+  O1[["edge_"]] <- B$object[["edge_"]]
   meta <- tibble(proj = get_projection(x), ctime = format(Sys.time(), tz = "UTC"))
+  edge <- tidyr::unnest(O1)
+  V <- sc_vertex(B)
+  V[["vertex_"]] <- sc_uid(V)
+  edge[[".vx0"]] <- V[["vertex_"]][edge[[".vx0"]]]
+  edge[[".vx1"]] <- V[["vertex_"]][edge[[".vx1"]]]
 
   structure(list(object = O,
-                 object_link_edge = ExO,
-                 edge = E,
-                 vertex = sc_vertex(P),
+                 edge = edge,
+                 vertex = V,
                  meta = meta),
             ## a special join_ramp, needs edge to split on vertex
-            join_ramp = c("object", "object_link_edge", "edge", "vertex"),
+            join_ramp = c("object", "edge", "vertex"),
             class = c("SC", "sc"))
 }
-
-
 
 
 sc_segment.SC <- function(x, ...) {

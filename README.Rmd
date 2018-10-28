@@ -28,7 +28,9 @@ We
 * provide a framework for a *universal converter* between complex data types
 * to work with topological primitives for analysis and interaction. 
 
-We have created the general model `SC` being a core representation. Further models `PATH`, `ARC`, and `TRI` cover a broad range of complex types, and each is fundamental and distinct from the others. `SC` can be used to represent any model, but other models provide a better match to specific use-cases, intermediate forms and serve to expand the relationships between the model types. 
+The core of silicate is the general model `SC`, composed of three tables `vertices`, `relations` and `objects` and all entities are explicitly labelled. Indexes between are unique and persistent and arbitrary, they can be arbitrarily accessed. This is closely related to the more bare-bones `BINARY` model, composed of only two tables `vertices`, and `objects`. These are *structurally* by nesting the relations within the object table. Here the relations are not persistent, so we can subset the objects but we cannot change the vertex table with updating these indexes. 
+
+Further models `PATH`, `ARC`, and `TRI` cover a broad range of complex types, and each is fundamental and distinct from the others. `SC` can be used to represent any model, but other models provide a better match to specific use-cases, intermediate forms and serve to expand the relationships between the model types. 
 
 * `SC` is the universal model, composed of binary relationships, edges defined by pairs of vertices (a structural primitive model)
 * `TRI` also a structural primitive model, for triangulations
@@ -46,7 +48,7 @@ We have the following worker verbs that are used to build the above models, and 
 * `sc_coord` - all instances of coordinates, labelled by vertex if the source model includes them
 * `sc_vertex` - only unique coordinates (in some geometric space)
 * `sc_path` - individual paths, sequential traces
-* `sc_edge` - unique binary relations, unordered segments
+* `sc_edge` - unique binary relations, unordered segments (segments and edges are currently under review, and may change)
 * `sc_segment` - all instances of edges
 * `sc_arc` - unique topological paths, arcs either meet two other arcs at a node, or include no nodes
 * `sc_node` - unique nodes
