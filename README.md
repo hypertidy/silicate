@@ -22,7 +22,16 @@ We
     types
   - to work with topological primitives for analysis and interaction.
 
-We have created the general model `SC` being a core representation.
+The core of silicate is the general model `SC`, composed of three tables
+`vertices`, `relations` and `objects` and all entities are explicitly
+labelled. Indexes between are unique and persistent and arbitrary, they
+can be arbitrarily accessed. This is closely related to the more
+bare-bones `BINARY` model, composed of only two tables `vertices`, and
+`objects`. These are *structurally* by nesting the relations within the
+object table. Here the relations are not persistent, so we can subset
+the objects but we cannot change the vertex table with updating these
+indexes.
+
 Further models `PATH`, `ARC`, and `TRI` cover a broad range of complex
 types, and each is fundamental and distinct from the others. `SC` can be
 used to represent any model, but other models provide a better match to
@@ -57,7 +66,8 @@ models, and work between what each model offers.
     source model includes them
   - `sc_vertex` - only unique coordinates (in some geometric space)
   - `sc_path` - individual paths, sequential traces
-  - `sc_edge` - unique binary relations, unordered segments
+  - `sc_edge` - unique binary relations, unordered segments (segments
+    and edges are currently under review, and may change)
   - `sc_segment` - all instances of edges
   - `sc_arc` - unique topological paths, arcs either meet two other arcs
     at a node, or include no nodes
@@ -181,56 +191,57 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_   
 #>    <dbl> <dbl> <chr>     
-#>  1  0     0    ab0d64bc83
-#>  2  0     1    19304c129f
-#>  3  0.75  1    68c2dc8cd6
-#>  4  1     0.8  71dd704270
-#>  5  0.5   0.7  123cbe352d
-#>  6  0.8   0.6  2ddd659150
-#>  7  0.69  0    225572a438
-#>  8  0.2   0.2  32325c4d4c
-#>  9  0.5   0.2  eb850c7c85
-#> 10  0.5   0.4  863350b542
-#> 11  0.3   0.6  db8d5dc1d4
-#> 12  0.2   0.4  fb55ac0135
-#> 13  1.1   0.63 bde8bb08e6
-#> 14  1.23  0.3  dafb42f39c
+#>  1  0     0    b64f54316c
+#>  2  0     1    d14131d6ab
+#>  3  0.2   0.2  4534e7e2a4
+#>  4  0.2   0.4  6f1e3426a0
+#>  5  0.3   0.6  e1e84fb068
+#>  6  0.5   0.2  4f6abe8a51
+#>  7  0.5   0.4  0958e1e327
+#>  8  0.5   0.7  11423a9a24
+#>  9  0.69  0    e6688b2dd1
+#> 10  0.75  1    e62409a34f
+#> 11  0.8   0.6  10f61ead1b
+#> 12  1     0.8  bda57e6245
+#> 13  1.1   0.63 34f1108ee9
+#> 14  1.23  0.3  0c038a4ade
 
 sc_edge(x)
-#> # A tibble: 15 x 3
-#>    .vertex0   .vertex1   edge_     
+#> # A tibble: 16 x 3
+#>    object_    .vx0       .vx1      
 #>    <chr>      <chr>      <chr>     
-#>  1 ab0d64bc83 19304c129f b935b27d82
-#>  2 19304c129f 68c2dc8cd6 68854f40cb
-#>  3 68c2dc8cd6 71dd704270 c809ca980d
-#>  4 71dd704270 123cbe352d a747ab2449
-#>  5 123cbe352d 2ddd659150 87e0fe4377
-#>  6 2ddd659150 225572a438 42daf1d2ed
-#>  7 225572a438 ab0d64bc83 2598895e48
-#>  8 32325c4d4c eb850c7c85 63ebb8db5b
-#>  9 eb850c7c85 863350b542 bf1ee54413
-#> 10 863350b542 db8d5dc1d4 f641dc9500
-#> 11 db8d5dc1d4 fb55ac0135 c7c561b818
-#> 12 fb55ac0135 32325c4d4c 40b5c55a49
-#> 13 2ddd659150 bde8bb08e6 1270fdc094
-#> 14 bde8bb08e6 dafb42f39c 7344ffc60f
-#> 15 dafb42f39c 225572a438 b6ee2dad83
+#>  1 7cd393dd0e b64f54316c d14131d6ab
+#>  2 7cd393dd0e d14131d6ab e62409a34f
+#>  3 7cd393dd0e e62409a34f bda57e6245
+#>  4 7cd393dd0e bda57e6245 11423a9a24
+#>  5 7cd393dd0e 11423a9a24 10f61ead1b
+#>  6 7cd393dd0e 10f61ead1b e6688b2dd1
+#>  7 7cd393dd0e e6688b2dd1 b64f54316c
+#>  8 7cd393dd0e 4534e7e2a4 4f6abe8a51
+#>  9 7cd393dd0e 4f6abe8a51 0958e1e327
+#> 10 7cd393dd0e 0958e1e327 e1e84fb068
+#> 11 7cd393dd0e e1e84fb068 6f1e3426a0
+#> 12 7cd393dd0e 6f1e3426a0 4534e7e2a4
+#> 13 95b55e7fdb e6688b2dd1 10f61ead1b
+#> 14 95b55e7fdb 10f61ead1b 34f1108ee9
+#> 15 95b55e7fdb 34f1108ee9 0c038a4ade
+#> 16 95b55e7fdb 0c038a4ade e6688b2dd1
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_   
 #>   <chr>     
-#> 1 f97910fab9
-#> 2 d132fbf162
+#> 1 a86a7f4a8b
+#> 2 ad0c6f8878
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_       ncoords_
 #>   <chr>         <int>
-#> 1 1817a3ddc2        4
-#> 2 950be20ff0        2
-#> 3 ab7fd1b607        6
-#> 4 f06cffcc17        7
+#> 1 7070f9efa5        2
+#> 2 91c4207431        4
+#> 3 dcb8db8736        6
+#> 4 f049ef047f        7
 ```
 
 ## silicate models
