@@ -7,7 +7,7 @@ sc_compact <- function(x, ...) {
 #' @inheritParams SC
 #'
 #' @return a special "compact_*" form, of e.g.  SC, or PATH
-#'
+#' @noRd
 #' @examples
 #' compact_indexes(SC(minimal_mesh))
 compact_indexes <- function(x, ...) {
@@ -39,7 +39,6 @@ compact_indexes.SC <- function(x, ...) {
   structure(x, class = c("compact_SC", "sc"))
 }
 #' @name compact_indexes
-#' @export
 compact_indexes.PATH <- function(x, ...) {
   path <- x[["path"]]
   path$object_ <- match_int(path$object_, x$object$object_)
@@ -65,7 +64,7 @@ sc_expand <- function(x, ...) {
 #' @inheritParams SC
 #'
 #' @return non-compact form, i.e. SC or PATH
-#'
+#' @noRd
 #' @examples
 #' small <- compact_indexes(PATH(minimal_mesh))
 #' large <- expand_indexes(small)
@@ -75,7 +74,6 @@ expand_indexes <- function(x, ...) {
   UseMethod("expand_indexes")
 }
 #' @name expand_indexes
-#' @export
 expand_indexes.compact_SC <- function(x, ...)  {
   x$object$object_ <- sc_uid(x$object)
   oXe <- x[["object_link_edge"]]
@@ -94,7 +92,6 @@ expand_indexes.compact_SC <- function(x, ...)  {
   structure(x, class = c("SC", "sc"))
 }
 #' @name expand_indexes
-#' @export
 expand_indexes.compact_PATH <- function(x, ...) {
   x$object$object_ <- sc_uid(x$object)
   path <- x[["path"]]

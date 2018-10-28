@@ -11,6 +11,7 @@ sc_colours <- function(x, ...) {
 #' @param vars variables to plot
 #' @export
 #' @importFrom graphics plot
+#' @importFrom colourvalues colour_values
 plot.SC <- function(x, ..., vars = NULL) {
 
   v <- sc_vertex(x)

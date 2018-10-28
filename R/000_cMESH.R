@@ -39,11 +39,12 @@ print.cMESH <- function(x, ...) {
 remove_inner_borders <- function(x, ...) {
 
 }
+#' @importFrom graphics polygon
 plot.cMESH <- function(x, ..., add = FALSE, inner_borders = TRUE) {
   pool <- vpool(x)
   if (!add) plot(pool, type = "n")
   if (inner_borders) {
-  polygon(pool[do.call(rbind, lapply(x, function(a) t(cbind(as.matrix(a)[, c(1, 2, 3, 1), drop = FALSE], NA)))), ], ...)
+  graphics::polygon(pool[do.call(rbind, lapply(x, function(a) t(cbind(as.matrix(a)[, c(1, 2, 3, 1), drop = FALSE], NA)))), ], ...)
   } else {
     x <- remove_inner_borders(x)
   }
