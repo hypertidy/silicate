@@ -201,4 +201,4 @@ The silicate family is composed of a small number of packages that apply the pri
 * [scgraph](https://github.com/hypertidy/scgraph)
 * [scspatstat](https://github.com/hypertidy/scspatstat)
 
-scdb, sctrip, scrgl, scraster, scicosa, 
+Looking for a music reference? Child's Play, by Carcass.
