@@ -47,7 +47,7 @@ BINARY <- function(x, ...) {
                   .cx1 = .data$coord + 1L) %>%
     dplyr::group_by(.data$path) %>% dplyr::slice(-n()) %>% dplyr::ungroup() %>%
     dplyr::transmute(.data$.cx0, .data$.cx1, .data$path, .data$object)
-
+  if (nrow(segs) < 1) stop(sprintf("no segments/edges found in object of class %s", class(x)))
   segs[[".vx0"]] <- instances$vertex_[match(segs$.cx0, instances$coord)]
   segs[[".vx1"]] <- instances$vertex_[match(segs$.cx1, instances$coord)]
 
