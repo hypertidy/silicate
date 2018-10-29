@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The universal model — SC • silicate</title>
+<title>Binary form — BINARY • silicate</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,11 +30,9 @@
 
 
 
-<meta property="og:title" content="The universal model — SC" />
+<meta property="og:title" content="Binary form — BINARY" />
 
-<meta property="og:description" content="The universal model SC is coordinates and binary relations between
-pairs of coordinates. This is purely an edge (or segment) model, with all
-higher level structures recorded as groupings of edges." />
+<meta property="og:description" content="Build a purely edge-based form from path-based data." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,63 +107,63 @@ higher level structures recorded as groupings of edges." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>The universal model</h1>
+    <h1>Binary form</h1>
     
-    <div class="hidden name"><code>SC.Rd</code></div>
+    <div class="hidden name"><code>BINARY.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>The universal model <code>SC</code> is coordinates and binary relations between
-pairs of coordinates. This is purely an edge (or segment) model, with all
-higher level structures recorded as groupings of edges.</p>
+    <p>Build a purely edge-based form from path-based data.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>SC</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for TRI</span>
-<span class='fu'>SC</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for SC</span>
-<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>BINARY</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>input model</p></td>
+      <td><p>object (sf, sp, anything undertood by silicate/gibble)</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to methods</p></td>
-    </tr>
-    <tr>
-      <th>vars</th>
-      <td><p>variables to plot</p></td>
+      <td><p>ignored</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>binary form</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Binary is a two-table form of <code>object</code> and <code>vertex</code>. On object the <code>vertex_</code> is a list column,
+with <code>.vx0</code> and <code>.vx1</code>. These are the row numbers of <code>vertex</code>.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## we can produce a high quality triangulation from a low quality one</span>
-<span class='co'>## see how the TRI edges are maintained (we can't yet filter out holes from DEL)</span>
-<span class='no'>tri</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='TRI.html'>TRI</a></span>(<span class='no'>minimal_mesh</span>)
-<span class='fu'>plot</span>(<span class='no'>tri</span>)</div><div class='img'><img src='SC-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='fu'>SC</span>(<span class='no'>tri</span>))</div><div class='output co'>#&gt; <span class='error'>Error: Columns `.vertex0`, `.vertex1`, `.vertex2` not found</span></div># NOT RUN {
-# library(anglr)
-#plot(DEL(SC(TRI(minimal_mesh)), max_area = 0.001))
+    <pre class="examples"><div class='input'><span class='fu'>plot</span>(<span class='fu'>BINARY</span>(<span class='no'>minimal_mesh</span>))</div><div class='img'><img src='BINARY-1.png' alt='' width='700' height='433' /></div><div class='input'>#library(trip)
+#plot(BINARY(walrus818))
 
-## Nice small triangles in a conforming Delaunay mesh.
-#plot(SC(DEL(simpleworld[121, ], D = TRUE, max_area = .1)))
-# }
-</pre>
+#b <- BINARY(rnaturalearth::ne_countries(returnclass = "sp"))
+#plot(b)
+# we can subset object trivially, with no need to relabel
+# because we aren't changing the vertex pool
+# b$object <- dplyr::filter(b$object, nchar(sovereignt) > 13)
+# plot(b)
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -92,7 +92,8 @@
 <li>provide a framework for a <em>universal converter</em> between complex data types</li>
 <li>to work with topological primitives for analysis and interaction.</li>
 </ul>
-<p>We have created the general model <code>SC</code> being a core representation. Further models <code>PATH</code>, <code>ARC</code>, and <code>TRI</code> cover a broad range of complex types, and each is fundamental and distinct from the others. <code>SC</code> can be used to represent any model, but other models provide a better match to specific use-cases, intermediate forms and serve to expand the relationships between the model types.</p>
+<p>The core of silicate is the general model <code>SC</code>, composed of three tables <code>vertices</code>, <code>relations</code> and <code>objects</code> and all entities are explicitly labelled. Indexes between are unique and persistent and arbitrary, they can be arbitrarily accessed. This is closely related to the more bare-bones <code>BINARY</code> model, composed of only two tables <code>vertices</code>, and <code>objects</code>. These are <em>structurally</em> by nesting the relations within the object table. Here the relations are not persistent, so we can subset the objects but we cannot change the vertex table with updating these indexes.</p>
+<p>Further models <code>PATH</code>, <code>ARC</code>, and <code>TRI</code> cover a broad range of complex types, and each is fundamental and distinct from the others. <code>SC</code> can be used to represent any model, but other models provide a better match to specific use-cases, intermediate forms and serve to expand the relationships between the model types.</p>
 <ul>
 <li>
 <code>SC</code> is the universal model, composed of binary relationships, edges defined by pairs of vertices (a structural primitive model)</li>
@@ -103,6 +104,10 @@
 </li>
 <li>
 <code>ARC</code> a sequential model, for <em>arc-node topology</em> a shared-boundary decomposition of path models</li>
+<li>
+<code>BINARY</code> is a stripped down structural model analogous to <code>SC</code>, there are only implicit relations of object to vertices, with a nested list of edge indexes</li>
+<li>
+<code>SC0</code> is an experimental model, it stores all coordinates and the path encoding as well as structurally indexed edges</li>
 </ul>
 <p>An extension of the <code>TRI</code> model <code>DEL</code> is provided in <a href="https://github.com/hypertidy/anglr/">anglr</a> which builds <em>high-quality</em> triangulations, but the structural representation is the same.</p>
 <p>Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context. Our ideal situation would be for external packages to publish methods for these verbs, keeping package-specific code in the original package. We think this provides a very powerful and general mechanism for a family of consistent packages.</p>
@@ -117,7 +122,7 @@
 <li>
 <code>sc_path</code> - individual paths, sequential traces</li>
 <li>
-<code>sc_edge</code> - unique binary relations, unordered segments</li>
+<code>sc_edge</code> - unique binary relations, unordered segments (segments and edges are currently under review, and may change)</li>
 <li>
 <code>sc_segment</code> - all instances of edges</li>
 <li>
@@ -178,56 +183,57 @@
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; # A tibble: 14 x 3</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;       x_    y_ vertex_   </span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     </span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;  1  0     0    a50c93e648</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;  2  0     1    ebe9e21665</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;  3  0.75  1    303c5166c7</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;  4  1     0.8  be2ca64c22</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;  5  0.5   0.7  bcd82d9ab1</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;  6  0.8   0.6  82c3c0707d</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;  7  0.69  0    52b253c1b8</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;  8  0.2   0.2  44f8cd10cb</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;  9  0.5   0.2  7aaa9149f5</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 10  0.5   0.4  b0899fc345</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; 11  0.3   0.6  41e7c3e88d</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; 12  0.2   0.4  ecacf06eb6</span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; 13  1.1   0.63 d2ae059def</span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; 14  1.23  0.3  fc29071f05</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;  1  0     0    dfee36269e</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;  2  0     1    ad1e04bdd0</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;  3  0.2   0.2  8966732b07</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;  4  0.2   0.4  fe77feed8a</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;  5  0.3   0.6  1b878159ae</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;  6  0.5   0.2  8f7d8326a9</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;  7  0.5   0.4  d5a73816d8</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;  8  0.5   0.7  58c0956dd5</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;  9  0.69  0    257a3d0d39</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 10  0.75  1    1401a50479</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; 11  0.8   0.6  4da0fef3f9</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; 12  1     0.8  49daafbb63</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; 13  1.1   0.63 7d6e9f0726</span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; 14  1.23  0.3  1d14a2f297</span></a>
 <a class="sourceLine" id="cb3-19" data-line-number="19"></a>
 <a class="sourceLine" id="cb3-20" data-line-number="20"><span class="kw"><a href="reference/sc_edge.html">sc_edge</a></span>(x)</a>
-<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt; # A tibble: 15 x 3</span></a>
-<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt;    .vertex0   .vertex1   edge_     </span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt; # A tibble: 16 x 3</span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt;    object_    .vx0       .vx1      </span></a>
 <a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     </span></a>
-<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">#&gt;  1 a50c93e648 ebe9e21665 84f5ae89a4</span></a>
-<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt;  2 ebe9e21665 303c5166c7 8b6d1b810c</span></a>
-<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt;  3 303c5166c7 be2ca64c22 bc6bb7d126</span></a>
-<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt;  4 be2ca64c22 bcd82d9ab1 629302671f</span></a>
-<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt;  5 bcd82d9ab1 82c3c0707d dd965cf5b4</span></a>
-<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt;  6 82c3c0707d 52b253c1b8 dc546f53cc</span></a>
-<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt;  7 52b253c1b8 a50c93e648 68f2a7cffa</span></a>
-<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt;  8 44f8cd10cb 7aaa9149f5 a94602cc05</span></a>
-<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt;  9 7aaa9149f5 b0899fc345 1129dbea67</span></a>
-<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt; 10 b0899fc345 41e7c3e88d f23d485210</span></a>
-<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; 11 41e7c3e88d ecacf06eb6 df4de7a26e</span></a>
-<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="co">#&gt; 12 ecacf06eb6 44f8cd10cb e88ae53be8</span></a>
-<a class="sourceLine" id="cb3-36" data-line-number="36"><span class="co">#&gt; 13 82c3c0707d d2ae059def aa23dac566</span></a>
-<a class="sourceLine" id="cb3-37" data-line-number="37"><span class="co">#&gt; 14 d2ae059def fc29071f05 69666feab2</span></a>
-<a class="sourceLine" id="cb3-38" data-line-number="38"><span class="co">#&gt; 15 fc29071f05 52b253c1b8 c7f507bcd3</span></a>
-<a class="sourceLine" id="cb3-39" data-line-number="39"></a>
-<a class="sourceLine" id="cb3-40" data-line-number="40"><span class="kw"><a href="reference/sc_node.html">sc_node</a></span>(y)</a>
-<a class="sourceLine" id="cb3-41" data-line-number="41"><span class="co">#&gt; # A tibble: 2 x 1</span></a>
-<a class="sourceLine" id="cb3-42" data-line-number="42"><span class="co">#&gt;   vertex_   </span></a>
-<a class="sourceLine" id="cb3-43" data-line-number="43"><span class="co">#&gt;   &lt;chr&gt;     </span></a>
-<a class="sourceLine" id="cb3-44" data-line-number="44"><span class="co">#&gt; 1 d23e55635b</span></a>
-<a class="sourceLine" id="cb3-45" data-line-number="45"><span class="co">#&gt; 2 f65c0adab9</span></a>
-<a class="sourceLine" id="cb3-46" data-line-number="46"></a>
-<a class="sourceLine" id="cb3-47" data-line-number="47"><span class="kw"><a href="reference/sc_arc.html">sc_arc</a></span>(y)</a>
-<a class="sourceLine" id="cb3-48" data-line-number="48"><span class="co">#&gt; # A tibble: 4 x 2</span></a>
-<a class="sourceLine" id="cb3-49" data-line-number="49"><span class="co">#&gt;   arc_       ncoords_</span></a>
-<a class="sourceLine" id="cb3-50" data-line-number="50"><span class="co">#&gt;   &lt;chr&gt;         &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb3-51" data-line-number="51"><span class="co">#&gt; 1 2ea8afcc74        2</span></a>
-<a class="sourceLine" id="cb3-52" data-line-number="52"><span class="co">#&gt; 2 4fcf9352b8        6</span></a>
-<a class="sourceLine" id="cb3-53" data-line-number="53"><span class="co">#&gt; 3 7b3525af62        4</span></a>
-<a class="sourceLine" id="cb3-54" data-line-number="54"><span class="co">#&gt; 4 ffd0cb6386        7</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">#&gt;  1 018999a523 dfee36269e ad1e04bdd0</span></a>
+<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt;  2 018999a523 ad1e04bdd0 1401a50479</span></a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt;  3 018999a523 1401a50479 49daafbb63</span></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt;  4 018999a523 49daafbb63 58c0956dd5</span></a>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt;  5 018999a523 58c0956dd5 4da0fef3f9</span></a>
+<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt;  6 018999a523 4da0fef3f9 257a3d0d39</span></a>
+<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt;  7 018999a523 257a3d0d39 dfee36269e</span></a>
+<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt;  8 018999a523 8966732b07 8f7d8326a9</span></a>
+<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt;  9 018999a523 8f7d8326a9 d5a73816d8</span></a>
+<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt; 10 018999a523 d5a73816d8 1b878159ae</span></a>
+<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; 11 018999a523 1b878159ae fe77feed8a</span></a>
+<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="co">#&gt; 12 018999a523 fe77feed8a 8966732b07</span></a>
+<a class="sourceLine" id="cb3-36" data-line-number="36"><span class="co">#&gt; 13 8ec1bdce07 257a3d0d39 4da0fef3f9</span></a>
+<a class="sourceLine" id="cb3-37" data-line-number="37"><span class="co">#&gt; 14 8ec1bdce07 4da0fef3f9 7d6e9f0726</span></a>
+<a class="sourceLine" id="cb3-38" data-line-number="38"><span class="co">#&gt; 15 8ec1bdce07 7d6e9f0726 1d14a2f297</span></a>
+<a class="sourceLine" id="cb3-39" data-line-number="39"><span class="co">#&gt; 16 8ec1bdce07 1d14a2f297 257a3d0d39</span></a>
+<a class="sourceLine" id="cb3-40" data-line-number="40"></a>
+<a class="sourceLine" id="cb3-41" data-line-number="41"><span class="kw"><a href="reference/sc_node.html">sc_node</a></span>(y)</a>
+<a class="sourceLine" id="cb3-42" data-line-number="42"><span class="co">#&gt; # A tibble: 2 x 1</span></a>
+<a class="sourceLine" id="cb3-43" data-line-number="43"><span class="co">#&gt;   vertex_   </span></a>
+<a class="sourceLine" id="cb3-44" data-line-number="44"><span class="co">#&gt;   &lt;chr&gt;     </span></a>
+<a class="sourceLine" id="cb3-45" data-line-number="45"><span class="co">#&gt; 1 d4e26286e6</span></a>
+<a class="sourceLine" id="cb3-46" data-line-number="46"><span class="co">#&gt; 2 a324babef9</span></a>
+<a class="sourceLine" id="cb3-47" data-line-number="47"></a>
+<a class="sourceLine" id="cb3-48" data-line-number="48"><span class="kw"><a href="reference/sc_arc.html">sc_arc</a></span>(y)</a>
+<a class="sourceLine" id="cb3-49" data-line-number="49"><span class="co">#&gt; # A tibble: 4 x 2</span></a>
+<a class="sourceLine" id="cb3-50" data-line-number="50"><span class="co">#&gt;   arc_       ncoords_</span></a>
+<a class="sourceLine" id="cb3-51" data-line-number="51"><span class="co">#&gt;   &lt;chr&gt;         &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb3-52" data-line-number="52"><span class="co">#&gt; 1 3ae0b32684        6</span></a>
+<a class="sourceLine" id="cb3-53" data-line-number="53"><span class="co">#&gt; 2 4054ee8f44        7</span></a>
+<a class="sourceLine" id="cb3-54" data-line-number="54"><span class="co">#&gt; 3 42c36601e5        4</span></a>
+<a class="sourceLine" id="cb3-55" data-line-number="55"><span class="co">#&gt; 4 87e4578328        2</span></a></code></pre></div>
 <div id="silicate-models" class="section level2">
 <h2 class="hasAnchor">
 <a href="#silicate-models" class="anchor"></a>silicate models</h2>
@@ -250,7 +256,7 @@
 <li><a href="https://github.com/hypertidy/scgraph">scgraph</a></li>
 <li><a href="https://github.com/hypertidy/scspatstat">scspatstat</a></li>
 </ul>
-<p>scdb, sctrip, scrgl, scraster, scicosa,</p>
+<p>Looking for a music reference? Child’s Play, by Carcass.</p>
 </div>
 </div>
   </div>

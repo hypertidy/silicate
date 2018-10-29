@@ -6,6 +6,11 @@
 \usage{
 \method{print}{sc}(x, ...)
 }
+\arguments{
+\item{x}{object inheriting from 'sc' class}
+
+\item{...}{ignore currently}
+}
 \description{
 Print a silicate model.
 }
@@ -14,4 +19,8 @@ Simple summary of type and content of a silicate model.
 }
 \examples{
 print(TRI(minimal_mesh))
+print(BINARY(minimal_mesh))
+print(PATH(minimal_mesh))
+
+print(BINARY(inlandwaters))
 }
