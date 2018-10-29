@@ -56,31 +56,31 @@ BINARY <- function(x, ...) {
   object$edge_ <- split(segs[c(".vx0", ".vx1")], segs$object)
   structure(list(object = object, vertex = udata$vertex_ %>%
                    dplyr::arrange(.data$vertex_) %>% dplyr::select(.data$x_, .data$y_)),
-            class = c("sc", "binary"))
+            class = c("BINARY", "sc"))
 }
-# sc_path.binary <- function(x, ...) {
+# sc_path.BINARY <- function(x, ...) {
 #   ## needs path winding
 # }
-# sc_arc.binary <- function(x, ...) {
+# sc_arc.BINARY <- function(x, ...) {
 #   ## needs path winding
 # }
-sc_segment.binary <- function(x, ...) {
+sc_segment.BINARY <- function(x, ...) {
   unnest(x$object["edge_"])
 }
-# sc_edge.binary <- function(x, ...) {
+# sc_edge.BINARY <- function(x, ...) {
 #   sc_segment(x)  ## but made unique by sort c(.vx0, .vx1)
 # }
 
-sc_object.binary <- function(x, ...) {
+sc_object.BINARY <- function(x, ...) {
   o <- x[["object"]]
   o$edge_ <- NULL
   o
 }
-sc_vertex.binary <- function(x, ...) {
+sc_vertex.BINARY <- function(x, ...) {
   x[["vertex"]]
 }
 #' @importFrom tidyr unnest
-sc_coord.binary <- function(x, ...) {
+sc_coord.BINARY <- function(x, ...) {
   unn <- tidyr::unnest(x$object)
   ## segment pairs, only .vx1 final one missing from .vx0
   x$vertex[c(unn$.vx0, tail(unn$.vx1, 1)), ]
@@ -93,7 +93,7 @@ sc_coord.binary <- function(x, ...) {
 #' @param ... arguments  passed to `graphics::segments` (col is ignored)
 #' @export
 #' @importFrom graphics segments
-plot.binary <- function(x, ...) {
+plot.BINARY <- function(x, ...) {
   plot(x$vertex[c("x_", "y_")], type = "n")
   unn <- tidyr::unnest(x$object)
   s1 <- x$vertex[unn[[".vx0"]], ]
