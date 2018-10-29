@@ -36,6 +36,9 @@ Further models `PATH`, `ARC`, and `TRI` cover a broad range of complex types, an
 * `TRI` also a structural primitive model, for triangulations
 * `PATH` a sequential model, for the standard spatial vector types, shapes defined by *paths*
 * `ARC` a sequential model, for *arc-node topology* a shared-boundary decomposition of path models
+* `BINARY` is a stripped down structural model analogous to `SC`, there are only implicit relations of object to vertices, with a nested list of edge indexes
+* `SC0` is an experimental model, it stores all coordinates and the path encoding as well as structurally indexed edges
+
 
 An extension of the `TRI` model `DEL` is provided in [anglr](https://github.com/hypertidy/anglr/) which builds *high-quality* triangulations, but the structural representation is the same. 
 

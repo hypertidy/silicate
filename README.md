@@ -45,6 +45,11 @@ relationships between the model types.
     shapes defined by *paths*
   - `ARC` a sequential model, for *arc-node topology* a shared-boundary
     decomposition of path models
+  - `BINARY` is a stripped down structural model analogous to `SC`,
+    there are only implicit relations of object to vertices, with a
+    nested list of edge indexes
+  - `SC0` is an experimental model, it stores all coordinates and the
+    path encoding as well as structurally indexed edges
 
 An extension of the `TRI` model `DEL` is provided in
 [anglr](https://github.com/hypertidy/anglr/) which builds *high-quality*
@@ -191,57 +196,57 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_   
 #>    <dbl> <dbl> <chr>     
-#>  1  0     0    4b45cae52b
-#>  2  0     1    45bcf2ca44
-#>  3  0.2   0.2  f64ccda622
-#>  4  0.2   0.4  deb6e8d31e
-#>  5  0.3   0.6  8922e5a84d
-#>  6  0.5   0.2  f9dd4828b9
-#>  7  0.5   0.4  0226d4c928
-#>  8  0.5   0.7  c3f731b65c
-#>  9  0.69  0    297c5ac8e2
-#> 10  0.75  1    35d8146cba
-#> 11  0.8   0.6  147b0d93b8
-#> 12  1     0.8  213823c4cf
-#> 13  1.1   0.63 eb0f856d87
-#> 14  1.23  0.3  07327cf53f
+#>  1  0     0    a4c7e68750
+#>  2  0     1    27a3813e3f
+#>  3  0.2   0.2  6b32e2c5e8
+#>  4  0.2   0.4  0e70bfd203
+#>  5  0.3   0.6  322f7eb781
+#>  6  0.5   0.2  b77dae86c2
+#>  7  0.5   0.4  ed0ffd6a00
+#>  8  0.5   0.7  2e2c26c2c6
+#>  9  0.69  0    77e80a74d0
+#> 10  0.75  1    ca17b7e54e
+#> 11  0.8   0.6  126b405872
+#> 12  1     0.8  1a29975616
+#> 13  1.1   0.63 044f25c951
+#> 14  1.23  0.3  cb6e89dd6a
 
 sc_edge(x)
 #> # A tibble: 16 x 3
 #>    object_    .vx0       .vx1      
 #>    <chr>      <chr>      <chr>     
-#>  1 f710f4906b 4b45cae52b 45bcf2ca44
-#>  2 f710f4906b 45bcf2ca44 35d8146cba
-#>  3 f710f4906b 35d8146cba 213823c4cf
-#>  4 f710f4906b 213823c4cf c3f731b65c
-#>  5 f710f4906b c3f731b65c 147b0d93b8
-#>  6 f710f4906b 147b0d93b8 297c5ac8e2
-#>  7 f710f4906b 297c5ac8e2 4b45cae52b
-#>  8 f710f4906b f64ccda622 f9dd4828b9
-#>  9 f710f4906b f9dd4828b9 0226d4c928
-#> 10 f710f4906b 0226d4c928 8922e5a84d
-#> 11 f710f4906b 8922e5a84d deb6e8d31e
-#> 12 f710f4906b deb6e8d31e f64ccda622
-#> 13 fdeb566462 297c5ac8e2 147b0d93b8
-#> 14 fdeb566462 147b0d93b8 eb0f856d87
-#> 15 fdeb566462 eb0f856d87 07327cf53f
-#> 16 fdeb566462 07327cf53f 297c5ac8e2
+#>  1 2f4ccae147 a4c7e68750 27a3813e3f
+#>  2 2f4ccae147 27a3813e3f ca17b7e54e
+#>  3 2f4ccae147 ca17b7e54e 1a29975616
+#>  4 2f4ccae147 1a29975616 2e2c26c2c6
+#>  5 2f4ccae147 2e2c26c2c6 126b405872
+#>  6 2f4ccae147 126b405872 77e80a74d0
+#>  7 2f4ccae147 77e80a74d0 a4c7e68750
+#>  8 2f4ccae147 6b32e2c5e8 b77dae86c2
+#>  9 2f4ccae147 b77dae86c2 ed0ffd6a00
+#> 10 2f4ccae147 ed0ffd6a00 322f7eb781
+#> 11 2f4ccae147 322f7eb781 0e70bfd203
+#> 12 2f4ccae147 0e70bfd203 6b32e2c5e8
+#> 13 01d3507b64 77e80a74d0 126b405872
+#> 14 01d3507b64 126b405872 044f25c951
+#> 15 01d3507b64 044f25c951 cb6e89dd6a
+#> 16 01d3507b64 cb6e89dd6a 77e80a74d0
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_   
 #>   <chr>     
-#> 1 a2b38a18be
-#> 2 f565f7df96
+#> 1 57c9d1c6e3
+#> 2 d034776552
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_       ncoords_
 #>   <chr>         <int>
-#> 1 1b35cdb149        6
-#> 2 49ad9ae889        2
-#> 3 b74f302e55        7
-#> 4 dbd84756aa        4
+#> 1 58cf65652c        6
+#> 2 62e0d4fbca        4
+#> 3 6d8c1cb306        7
+#> 4 7708555b68        2
 ```
 
 ## silicate models
