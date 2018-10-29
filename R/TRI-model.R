@@ -36,17 +36,19 @@ TRI.PATH <- function(x, ...) {
   tri <- triangulate_PATH(x)
   tri$visible <- TRUE
 
-  tri$triangle_ <- sc_uid(nrow(tri))
-  oXt <- dplyr::distinct(tri[c("object_", "triangle_")])
-  tri$object_ <- NULL
+  #tri$triangle_ <- sc_uid(nrow(tri))
+  #oXt <- dplyr::distinct(tri[c("object_", "triangle_")])
+  #tri$object_ <- NULL
   tri$path_ <- NULL
 
   obj <- sc_object(x)
   #obj <- obj[obj$object_ %in% tri$object_, ]
   meta <- tibble(proj = get_projection(x), ctime = Sys.time())
 
-  structure(list(object = obj, object_link_triangle = oXt, triangle = tri,
-                 vertex = sc_vertex(x), meta = meta), class = c("TRI", "sc"))
+  structure(list(object = obj, #object_link_triangle = oXt,
+                 triangle = tri,
+                 vertex = sc_vertex(x),
+                 meta = meta), class = c("TRI", "sc"))
 }
 #' @name sc_object
 #' @export
@@ -84,9 +86,9 @@ triangulate_PATH <- function(x, ...) {
     if (length(holes) < 1) holes <- 0
     trindex <- decido::earcut(cbind(verts[["x_"]], verts[["y_"]]), holes)
     trimat <- matrix(trindex, ncol = 3L, byrow = TRUE)
-    trilist[[itri]] <- tibble::tibble(.vertex0 = verts$vertex_[trimat[,1L]],
-                                      .vertex1 = verts$vertex_[trimat[,2L]],
-                                      .vertex2 = verts$vertex_[trimat[,3L]],
+    trilist[[itri]] <- tibble::tibble(.vx0 = verts$vertex_[trimat[,1L]],
+                                      .vx1 = verts$vertex_[trimat[,2L]],
+                                      .vx2 = verts$vertex_[trimat[,3L]],
                                       path_ = verts$path_[1L],
                                       object_ = obj$object_[1L])
 

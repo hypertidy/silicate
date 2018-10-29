@@ -79,9 +79,10 @@ plot.TRI <- function(x, ..., add = FALSE) {
   if (!add) plot(x$vertex[c("x_", "y_")], type = "n")
   cols <- sc_colours(nrow(sc_object(x)))
   for (i in seq_len(nrow(x$object))) {
-    triangle <- dplyr::inner_join(x$triangle, x$object_link_triangle, "triangle_")
+   # triangle <- dplyr::inner_join(x$triangle, x$object_link_triangle, "triangle_")
+    triangle <- x$triangle
     asub <- dplyr::filter(triangle, .data$object_ == x$object$object_[i]) %>%
-      dplyr::transmute(.data$.vertex0, .data$.vertex1, .data$.vertex2, fill = NA_character_) %>%
+      dplyr::transmute(.data$.vx0, .data$.vx1, .data$.vx2, fill = NA_character_) %>%
       t() %>%
       as.vector()
     asub <-   tibble::tibble(vertex_ = asub)
