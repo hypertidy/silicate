@@ -15,6 +15,6 @@ get_projection.sf <- function(x, ...) {
 get_projection.sfc <- function(x, ...) {
   attr(x, "crs")[["proj4string"]]
 }
-get_projection.PATH <- function(x, ...) {
+get_projection.sc <- function(x, ...) {
   x$meta$proj
 }

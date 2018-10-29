@@ -9,6 +9,9 @@
 \description{
 Print a silicate model.
 }
+\details{
+Simple summary of type and content of a silicate model.
+}
 \examples{
 print(TRI(minimal_mesh))
 }

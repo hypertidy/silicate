@@ -54,8 +54,11 @@ BINARY <- function(x, ...) {
   ## but udata$.idx0 has the vertices, with .idx0 as the mapping
   object <- sc_object(x)
   object$edge_ <- split(segs[c(".vx0", ".vx1")], segs$object)
+  meta <- tibble(proj = get_projection(x), ctime = Sys.time())
+
   structure(list(object = object, vertex = udata$vertex_ %>%
-                   dplyr::arrange(.data$vertex_) %>% dplyr::select(.data$x_, .data$y_)),
+                   dplyr::arrange(.data$vertex_) %>% dplyr::select(.data$x_, .data$y_),
+                 meta = meta),
             class = c("BINARY", "sc"))
 }
 # sc_path.BINARY <- function(x, ...) {
