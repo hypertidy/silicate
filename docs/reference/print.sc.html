@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9007</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.1.9000</span>
       </span>
     </div>
 
@@ -120,7 +120,20 @@
 
     <pre class="usage"><span class='co'># S3 method for sc</span>
 <span class='fu'>print</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
-        
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>object inheriting from 'sc' class</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>ignore currently</p></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Simple summary of type and content of a silicate model.</p>
@@ -131,11 +144,26 @@
 #&gt; type        : Primitive
 #&gt; vertices    : 14
 #&gt; primitives  : 14 (triangles)
-#&gt; crs         : NA</div></pre>
+#&gt; crs         : NA</div><div class='input'><span class='fu'>print</span>(<span class='fu'><a href='BINARY.html'>BINARY</a></span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; class       : BINARY
+#&gt; type        : Primitive
+#&gt; vertices    : 14
+#&gt; primitives  : 16 (segments)
+#&gt; crs         : NA</div><div class='input'><span class='fu'>print</span>(<span class='fu'><a href='PATH.html'>PATH</a></span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; class       : PATH
+#&gt; type        : Sequential
+#&gt; vertices    : 14
+#&gt; paths       : 3 (path)
+#&gt; coordinates : 19
+#&gt; crs         : NA</div><div class='input'>
+<span class='fu'>print</span>(<span class='fu'><a href='BINARY.html'>BINARY</a></span>(<span class='no'>inlandwaters</span>))</div><div class='output co'>#&gt; class       : BINARY
+#&gt; type        : Primitive
+#&gt; vertices    : 30835
+#&gt; primitives  : 33455 (segments)
+#&gt; crs         : +proj=lcc +lat_1=-47 +lat_2=-17 +lat_0=-32 +lon_0=136 +x_0=0 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#details">Details</a></li>
       

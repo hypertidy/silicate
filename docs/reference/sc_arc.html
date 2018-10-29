@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.9007</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.1.9000</span>
       </span>
     </div>
 
@@ -152,10 +152,10 @@ work with models that don't included labels.</p>
     <pre class="examples"><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;   arc_       ncoords_
 #&gt;   &lt;chr&gt;         &lt;int&gt;
-#&gt; 1 15434cbd6e        6
-#&gt; 2 317b5ac4b6        7
-#&gt; 3 365d4cda07        2
-#&gt; 4 4b92e1715f        4</div><div class='input'><span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>minimal_mesh</span>)<span class='kw'>[[</span><span class='st'>"arc"</span>]]</div><div class='output co'>#&gt; NULL</div><div class='input'>
+#&gt; 1 45c3928704        7
+#&gt; 2 79b951b0f9        2
+#&gt; 3 b7c812ae4e        4
+#&gt; 4 fedb89601f        6</div><div class='input'><span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>minimal_mesh</span>)<span class='kw'>[[</span><span class='st'>"arc"</span>]]</div><div class='output co'>#&gt; NULL</div><div class='input'>
 <span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>minimal_mesh</span>)
 <span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>arc</span>$<span class='no'>vertex</span>[<span class='fu'>match</span>(<span class='fu'><a href='sc_node.html'>sc_node</a></span>(<span class='no'>arc</span>)$<span class='no'>vertex_</span>, <span class='no'>arc</span>$<span class='no'>vertex</span>$<span class='no'>vertex_</span>), <span class='fu'>c</span>(<span class='st'>"x_"</span>, <span class='st'>"y_"</span>)])</div><div class='img'><img src='sc_arc-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>polymesh</span>)

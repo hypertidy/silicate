@@ -1,4 +1,7 @@
-# silicate 0.1.0.9007
+# silicate 0.1.1.9000
+
+
+* Incorporate new `BINARY` model, a better starting point for decomposing objects. 
 
 * SC can now interpret TRI, which allows for very easy DEL re-triangulations and fine
  control over the quality and details of the mesh
