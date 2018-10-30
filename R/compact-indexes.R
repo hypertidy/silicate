@@ -3,9 +3,9 @@ sc_compact <- function(x, ...) {
   #UseMethod("sc_compact")
 }
 ## Compact form, structural indexing
-#'
+#
 ## @inheritParams SC
-#'
+#
 ## @return a special "compact_*" form, of e.g.  SC, or PATH
 ## @noRd
 ## @examples
@@ -60,9 +60,9 @@ sc_expand <- function(x, ...) {
 
 
 ## Expand indexes from structural compaction
-#'
+#
 ## @inheritParams SC
-#'
+#
 ## @return non-compact form, i.e. SC or PATH
 ## @noRd
 ## @examples
