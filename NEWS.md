@@ -1,5 +1,6 @@
-# silicate 0.1.1.9000
+# silicate 0.1.1.9001
 
+* The  `filter` method for SC is now exported. 
 
 * Incorporate new `BINARY` model, a better starting point for decomposing objects. 
 

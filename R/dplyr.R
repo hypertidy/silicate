@@ -1,5 +1,23 @@
 
-
+#' Dplyr methods for silicate objects
+#'
+#' dplyr methods for silicate objects, currently only `dplyr::filter` for `SC` is available.
+#'
+#' Apply expressions as if used on the `object` table. See `sc_object(x)` for that form.
+#'
+#' Currently all the vertices are still kept, so the model (and any plots) include the filtered edges as well
+#' as undifferentiaed points. This is likely to change ...
+#' @param .data data object of class \link{silicate-models}
+#' @param .dots see corresponding function in package \code{dplyr}
+#' @param ... other arguments
+#' @name dplyr-methods
+#' @export
+#' @examples
+#' library(dplyr)
+#' sc <- SC(inlandwaters)
+#' plot(filter(sc, Province == "Tasmania"))
+#'
+#' plot(filter(SC(minimal_mesh), a == 2))
 filter.SC <- function(x, ...) {
   x[["object"]] <- dplyr::filter(x[["object"]], ...)
   tabs <- c("object", "object_link_edge", "edge")
