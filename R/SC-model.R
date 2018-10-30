@@ -34,6 +34,7 @@ SC.default <- function(x, ...) {
   ##P <- PATH(x, ...)
   B <- SC0(x, ...)
   O <- sc_object(B)
+  O$topology_ <- NULL
   if (!"object_" %in% names(O)) O[["object_"]] <- sc_uid(O)
   O1 <- O["object_"]
   O1[["edge_"]] <- B$object[["topology_"]]
