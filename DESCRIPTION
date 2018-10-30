@@ -28,7 +28,7 @@ Suggests:
 RoxygenNote: 6.1.0
 Imports: 
     dplyr,
-    gibble (>= 0.0.2.9003),
+    gibble (>= 0.1.1.9001),
     ids,
     methods,
     purrr,
