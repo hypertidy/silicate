@@ -40,7 +40,11 @@ SC.default <- function(x, ...) {
   O1[["edge_"]] <- B$object[["topology_"]]
   meta <- tibble::tibble(proj = get_projection(x), ctime = format(Sys.time(), tz = "UTC"))
   edge <- tidyr::unnest(O1)
-
+  tst <- c(".vx0", ".vx1") %in% names(edge)
+  if (!all(tst)) {
+    if (sum(tst) == 1) stop("model has only 0-space vertices (is it point-topology? Try '?SC0'. )")
+    stop("unable to produce edge form of this data")
+  }
   V <- sc_vertex(B)
   V[["vertex_"]] <- sc_uid(V)
   ## these are now the edges, but we need to classify which changed direction
