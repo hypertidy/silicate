@@ -72,10 +72,12 @@ model presents a number of optimizations, and all structures can be expressed in
 abandon any record of *sequential paths* in these models because they can be re-derived by tracing through
 the labels at a later time. 
 
-```{r SC}
+
+```{r sc}
 x <- SC(minimal_mesh)
 names(x)
 x$edge
+print(x)
 plot(x)
 text(x$vertex[c("x_", "y_")], label = x$vertex$vertex_)
 ```

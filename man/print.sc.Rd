@@ -19,8 +19,9 @@ Simple summary of type and content of a silicate model.
 }
 \examples{
 print(TRI(minimal_mesh))
-print(BINARY(minimal_mesh))
+print(SC(minimal_mesh))
 print(PATH(minimal_mesh))
-
-print(BINARY(inlandwaters))
+print(SC(TRI(minimal_mesh)))
+print(ARC(minimal_mesh))
+print(SC0(minimal_mesh))
 }

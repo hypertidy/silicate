@@ -23,14 +23,17 @@ We
   - to work with topological primitives for analysis and interaction.
 
 The core of silicate is the general model `SC`, composed of three tables
-`vertices`, `relations` and `objects` and all entities are explicitly
-labelled. Indexes between are unique and persistent and arbitrary, they
-can be arbitrarily accessed. This is closely related to the more
-bare-bones `BINARY` model, composed of only two tables `vertices`, and
-`objects`. These are *structurally* by nesting the relations within the
+`vertex`, `edge` and `object` and all entities are explicitly labelled.
+Indexes between tables are unique and persistent and arbitrary, they can
+be arbitrarily accessed. This is closely related to the more bare-bones
+`SC0` model, composed of only two tables `vertices`, and `objects`.
+These are related *structurally* by nesting the relations within the
 object table. Here the relations are not persistent, so we can subset
 the objects but we cannot change the vertex table with updating these
 indexes.
+
+`SC0` can deal with 0-dimensional topology types (points) as well as
+1-dimensional types (edges), but `SC` is strictly for edges.
 
 Further models `PATH`, `ARC`, and `TRI` cover a broad range of complex
 types, and each is fundamental and distinct from the others. `SC` can be
@@ -45,11 +48,12 @@ relationships between the model types.
     shapes defined by *paths*
   - `ARC` a sequential model, for *arc-node topology* a shared-boundary
     decomposition of path models
-  - `BINARY` is a stripped down structural model analogous to `SC`,
-    there are only implicit relations of object to vertices, with a
-    nested list of edge indexes
-  - `SC0` is an experimental model, it stores all coordinates and the
-    path encoding as well as structurally indexed edges
+  - `SC0` is a stripped down structural model analogous to `SC`, there
+    are only implicit relations of object to vertices, with a nested
+    list of edge indexes
+
+Earlier versions included a mix of these models, and the definitions
+have changed many times. Still a work-in-progress.
 
 An extension of the `TRI` model `DEL` is provided in
 [anglr](https://github.com/hypertidy/anglr/) which builds *high-quality*
@@ -196,57 +200,56 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_   
 #>    <dbl> <dbl> <chr>     
-#>  1  0     0    664d15aff6
-#>  2  0     1    eaf80d2b20
-#>  3  0.2   0.2  415d9b654d
-#>  4  0.2   0.4  edd6d6d7be
-#>  5  0.3   0.6  ea92c8dbc4
-#>  6  0.5   0.2  71e9a30551
-#>  7  0.5   0.4  b787b23e97
-#>  8  0.5   0.7  45d451c9f7
-#>  9  0.69  0    f2bcbb2b4e
-#> 10  0.75  1    f4c68858dd
-#> 11  0.8   0.6  c3770f660b
-#> 12  1     0.8  beeed73b25
-#> 13  1.1   0.63 291cd8a920
-#> 14  1.23  0.3  ef96ba0242
+#>  1  0     0    4914133d96
+#>  2  0     1    e57a579a40
+#>  3  0.2   0.2  f1236f57c2
+#>  4  0.2   0.4  599495a4fd
+#>  5  0.3   0.6  dbc1dafbf9
+#>  6  0.5   0.2  3bd094eafa
+#>  7  0.5   0.4  b44c7ce253
+#>  8  0.5   0.7  bf74873f5b
+#>  9  0.69  0    1e33b9a137
+#> 10  0.75  1    b9f99ee039
+#> 11  0.8   0.6  624537be26
+#> 12  1     0.8  f42282695a
+#> 13  1.1   0.63 bbf16dce75
+#> 14  1.23  0.3  7456596cdc
 
 sc_edge(x)
-#> # A tibble: 16 x 3
-#>    object_    .vx0       .vx1      
+#> # A tibble: 15 x 3
+#>    .vx0       .vx1       edge_     
 #>    <chr>      <chr>      <chr>     
-#>  1 7cf2eb6f05 664d15aff6 eaf80d2b20
-#>  2 7cf2eb6f05 eaf80d2b20 f4c68858dd
-#>  3 7cf2eb6f05 f4c68858dd beeed73b25
-#>  4 7cf2eb6f05 beeed73b25 45d451c9f7
-#>  5 7cf2eb6f05 45d451c9f7 c3770f660b
-#>  6 7cf2eb6f05 c3770f660b f2bcbb2b4e
-#>  7 7cf2eb6f05 f2bcbb2b4e 664d15aff6
-#>  8 7cf2eb6f05 415d9b654d 71e9a30551
-#>  9 7cf2eb6f05 71e9a30551 b787b23e97
-#> 10 7cf2eb6f05 b787b23e97 ea92c8dbc4
-#> 11 7cf2eb6f05 ea92c8dbc4 edd6d6d7be
-#> 12 7cf2eb6f05 edd6d6d7be 415d9b654d
-#> 13 0773a79a15 f2bcbb2b4e c3770f660b
-#> 14 0773a79a15 c3770f660b 291cd8a920
-#> 15 0773a79a15 291cd8a920 ef96ba0242
-#> 16 0773a79a15 ef96ba0242 f2bcbb2b4e
+#>  1 4914133d96 e57a579a40 571381b46e
+#>  2 e57a579a40 b9f99ee039 5f365e6bf2
+#>  3 b9f99ee039 f42282695a 36f51f60c2
+#>  4 bf74873f5b f42282695a 43ad6991ee
+#>  5 bf74873f5b 624537be26 7be4efaa31
+#>  6 1e33b9a137 624537be26 21416563fb
+#>  7 4914133d96 1e33b9a137 607cfa9b6c
+#>  8 f1236f57c2 3bd094eafa 8fa1cc027f
+#>  9 3bd094eafa b44c7ce253 6284988a8f
+#> 10 dbc1dafbf9 b44c7ce253 e6edaa9847
+#> 11 599495a4fd dbc1dafbf9 c7c8e72b15
+#> 12 f1236f57c2 599495a4fd c74655d9e6
+#> 13 624537be26 bbf16dce75 6fc90a49c1
+#> 14 bbf16dce75 7456596cdc 0ba5e1a667
+#> 15 1e33b9a137 7456596cdc 53d3cf3cf7
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_   
 #>   <chr>     
-#> 1 0527fb4dc7
-#> 2 1aa18c1615
+#> 1 921c2eba8a
+#> 2 2de335d9f7
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_       ncoords_
 #>   <chr>         <int>
-#> 1 0e4f4963a5        4
-#> 2 625553b4fb        6
-#> 3 64d6fbec82        2
-#> 4 9cf559fe0b        7
+#> 1 11f1c1e5c1        2
+#> 2 38471fa6c0        7
+#> 3 42d3d16350        4
+#> 4 df9f74e640        6
 ```
 
 ## silicate models

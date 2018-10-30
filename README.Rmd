@@ -28,7 +28,9 @@ We
 * provide a framework for a *universal converter* between complex data types
 * to work with topological primitives for analysis and interaction. 
 
-The core of silicate is the general model `SC`, composed of three tables `vertices`, `relations` and `objects` and all entities are explicitly labelled. Indexes between are unique and persistent and arbitrary, they can be arbitrarily accessed. This is closely related to the more bare-bones `BINARY` model, composed of only two tables `vertices`, and `objects`. These are *structurally* by nesting the relations within the object table. Here the relations are not persistent, so we can subset the objects but we cannot change the vertex table with updating these indexes. 
+The core of silicate is the general model `SC`, composed of three tables `vertex`, `edge` and `object` and all entities are explicitly labelled. Indexes between tables are unique and persistent and arbitrary, they can be arbitrarily accessed. This is closely related to the more bare-bones `SC0` model, composed of only two tables `vertices`, and `objects`. These are related *structurally* by nesting the relations within the object table. Here the relations are not persistent, so we can subset the objects but we cannot change the vertex table with updating these indexes. 
+
+`SC0` can deal with 0-dimensional topology types (points) as well as 1-dimensional types (edges), but `SC` is strictly for edges. 
 
 Further models `PATH`, `ARC`, and `TRI` cover a broad range of complex types, and each is fundamental and distinct from the others. `SC` can be used to represent any model, but other models provide a better match to specific use-cases, intermediate forms and serve to expand the relationships between the model types. 
 
@@ -36,9 +38,9 @@ Further models `PATH`, `ARC`, and `TRI` cover a broad range of complex types, an
 * `TRI` also a structural primitive model, for triangulations
 * `PATH` a sequential model, for the standard spatial vector types, shapes defined by *paths*
 * `ARC` a sequential model, for *arc-node topology* a shared-boundary decomposition of path models
-* `BINARY` is a stripped down structural model analogous to `SC`, there are only implicit relations of object to vertices, with a nested list of edge indexes
-* `SC0` is an experimental model, it stores all coordinates and the path encoding as well as structurally indexed edges
+* `SC0` is a stripped down structural model analogous to `SC`, there are only implicit relations of object to vertices, with a nested list of edge indexes
 
+Earlier versions included a mix of these models, and the definitions have changed many times. Still a work-in-progress. 
 
 An extension of the `TRI` model `DEL` is provided in [anglr](https://github.com/hypertidy/anglr/) which builds *high-quality* triangulations, but the structural representation is the same. 
 
