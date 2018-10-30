@@ -3,25 +3,24 @@
 \name{dplyr-methods}
 \alias{dplyr-methods}
 \alias{filter.SC}
+\alias{filter}
 \title{Dplyr methods for silicate objects}
 \usage{
-filter.SC(x, ...)
+\method{filter}{SC}(.data, ...)
 }
 \arguments{
-\item{...}{other arguments}
+\item{.data}{data object of class SC}
 
-\item{.data}{data object of class \link{silicate-models}}
-
-\item{.dots}{see corresponding function in package \code{dplyr}}
+\item{...}{passed to \code{dplyr::filter}}
 }
 \description{
-dplyr methods for silicate objects, currently only \code{dplyr::filter} for \code{SC} is available.
+Filter an SC model, currently only \code{dplyr::filter} for \code{SC} is available.
 }
 \details{
 Apply expressions as if used on the \code{object} table. See \code{sc_object(x)} for that form.
 
 Currently all the vertices are still kept, so the model (and any plots) include the filtered edges as well
-as undifferentiaed points. This is likely to change ...
+as undifferentiated points. This is likely to change ...
 }
 \examples{
 library(dplyr)
