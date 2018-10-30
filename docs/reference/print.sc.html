@@ -143,22 +143,30 @@
     <pre class="examples"><div class='input'><span class='fu'>print</span>(<span class='fu'><a href='TRI.html'>TRI</a></span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; class       : TRI
 #&gt; type        : Primitive
 #&gt; vertices    : 14
-#&gt; primitives  : 14 (triangles)
-#&gt; crs         : NA</div><div class='input'><span class='fu'>print</span>(<span class='fu'><a href='BINARY.html'>BINARY</a></span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; class       : BINARY
+#&gt; primitives  : 14 (2-space)
+#&gt; crs         : NA</div><div class='input'><span class='fu'>print</span>(<span class='fu'><a href='SC.html'>SC</a></span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; class       : SC
 #&gt; type        : Primitive
 #&gt; vertices    : 14
-#&gt; primitives  : 16 (segments)
+#&gt; primitives  : 15 (1-space)
 #&gt; crs         : NA</div><div class='input'><span class='fu'>print</span>(<span class='fu'><a href='PATH.html'>PATH</a></span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; class       : PATH
 #&gt; type        : Sequential
 #&gt; vertices    : 14
 #&gt; paths       : 3 (path)
 #&gt; coordinates : 19
-#&gt; crs         : NA</div><div class='input'>
-<span class='fu'>print</span>(<span class='fu'><a href='BINARY.html'>BINARY</a></span>(<span class='no'>inlandwaters</span>))</div><div class='output co'>#&gt; class       : BINARY
+#&gt; crs         : NA</div><div class='input'><span class='fu'>print</span>(<span class='fu'><a href='SC.html'>SC</a></span>(<span class='fu'><a href='TRI.html'>TRI</a></span>(<span class='no'>minimal_mesh</span>)))</div><div class='output co'>#&gt; class       : SC
 #&gt; type        : Primitive
-#&gt; vertices    : 30835
-#&gt; primitives  : 33455 (segments)
-#&gt; crs         : +proj=lcc +lat_1=-47 +lat_2=-17 +lat_0=-32 +lon_0=136 +x_0=0 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</div></pre>
+#&gt; vertices    : 14
+#&gt; primitives  : 44 (1-space)
+#&gt; crs         : NA
+#&gt;  crs         : NA</div><div class='input'><span class='fu'>print</span>(<span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; class       : ARC
+#&gt; type        : Sequential
+#&gt; vertices    : 14
+#&gt; paths       : 4 (arc)
+#&gt; coordinates : 19
+#&gt; crs         : NA</div><div class='input'><span class='fu'>print</span>(<span class='fu'><a href='SC0.html'>SC0</a></span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; class       : SC0
+#&gt; type        : Structural
+#&gt; vertices    : 14
+#&gt; crs         : NA</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
