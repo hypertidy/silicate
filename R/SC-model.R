@@ -32,69 +32,43 @@ SC <- function(x, ...) {
 SC.default <- function(x, ...) {
   ## default method has no labels (sf, sp, trip, rgl) and uses BINARY to build mesh
   ##P <- PATH(x, ...)
-  B <- BINARY(x, ...)
+  B <- SC0(x, ...)
   O <- sc_object(B)
   if (!"object_" %in% names(O)) O[["object_"]] <- sc_uid(O)
   O1 <- O["object_"]
-  O1[["edge_"]] <- B$object[["edge_"]]
-  meta <- tibble(proj = get_projection(x), ctime = format(Sys.time(), tz = "UTC"))
+  O1[["edge_"]] <- B$object[["topology_"]]
+  meta <- tibble::tibble(proj = get_projection(x), ctime = format(Sys.time(), tz = "UTC"))
   edge <- tidyr::unnest(O1)
+
   V <- sc_vertex(B)
   V[["vertex_"]] <- sc_uid(V)
-  edge[[".vx0"]] <- V[["vertex_"]][edge[[".vx0"]]]
-  edge[[".vx1"]] <- V[["vertex_"]][edge[[".vx1"]]]
+  ## these are now the edges, but we need to classify which changed direction
+  v_0 <- pmin(edge$.vx0, edge$.vx1)
+  v_1 <- pmax(edge$.vx0, edge$.vx1)
+  edge$native_ <- v_0 == edge$.vx0  ## if TRUE the orientation is how it came in
 
+  ## we now have ordered edges
+  edge[[".vx0"]] <- V[["vertex_"]][v_0]
+  edge[[".vx1"]] <- V[["vertex_"]][v_1]
+
+  edge[["u_edge"]] <- dplyr::group_indices(edge, .vx0, .vx1)
+
+  edge[["edge_"]] <- sc_uid(length(unique(edge$u_edge)))[edge$u_edge]
+  oXe <- edge[c("object_", "edge_", "native_")]
+  edge$native_ <- edge$object_ <- NULL
+  edge <- edge[!duplicated(edge$u_edge), ]
+  edge$object_ <- edge$u_edge <- NULL
   structure(list(object = O,
+                 object_link_edge = oXe,
                  edge = edge,
                  vertex = V,
                  meta = meta),
             ## a special join_ramp, needs edge to split on vertex
-            join_ramp = c("object", "edge", "vertex"),
+            join_ramp = c("object", "object_link_edge", "edge", "vertex"),
             class = c("SC", "sc"))
 }
 
 
-sc_segment.SC <- function(x, ...) {
-  ## expand all instances of edges
-  segments <- x$object_link_edge %>%
-    inner_join(x$edge)
-
-    ## and badge them as segments
-  segments$segment_ <- sc_uid(nrow(segments))
-  segments
-}
-sc_path_link_vertex.SC <- function(x,  ...) {
-  segments <- sc_segment(x)
-  ## iterate all objects and find all paths
-  objects <- split(segments, segments$object_)[unique(segments$object_)]
-  out <- vector("list", length(objects))
-  for (i in seq_along(objects)) {
-    obj <- objects[[i]]
-    rc <- ring_cycles(as.matrix(obj[c(".vertex0", ".vertex1")]))
-    obj$path_ <- sc_uid(length(unique(rc$cycle)))[factor(rc$cycle)]
-    out[[i]] <- obj %>% dplyr::group_by(.data$path_) %>%
-      dplyr::rename(vertex_ = .data$.vertex0) %>%
-      dplyr::select(.data$vertex_, .data$path_) %>%
-      ## n() here relies on globalVariables declaration
-      dplyr::slice(c(1:n(), 1)) %>%
-      dplyr::ungroup()
-  }
-  object <- bind_rows(out)
-  ## and split out object grouping from path grouping
-  object
-}
-
-
-
-## need to identify segments that were input and are
-## shared by two triangles, set to invisible
-tri_to_seg <- function(x) {
-  x[c(1, 2, 2, 3, 3, 1)]
-}
-
-to_tibble <- function(x) {
-  setNames(tibble::as_tibble(matrix(x, ncol = 2, byrow = TRUE)), c(".vertex0", ".vertex1"))
-}
 ## triangle classification
 #' @name SC
 #' @export
@@ -118,7 +92,20 @@ SC.TRI <- function(x, ...) {
   structure(list(object = x$object, #object_link_edge = object_link_edge,
                  edge = segment, vertex = x$vertex,
                  meta = rbind(dplyr::mutate(x$meta, ctime = Sys.time()), x$meta)), class = c("SC", "sc"))
-  }
+}
+
+
+
+
+## need to identify segments that were input and are
+## shared by two triangles, set to invisible
+tri_to_seg <- function(x) {
+  x[c(1, 2, 2, 3, 3, 1)]
+}
+
+to_tibble <- function(x) {
+  setNames(tibble::as_tibble(matrix(x, ncol = 2, byrow = TRUE)), c(".vertex0", ".vertex1"))
+}
 
 ##https://github.com/hypertidy/silicate/issues/46
 ring_cycles <- function(aa) {
@@ -145,32 +132,3 @@ ring_cycles <- function(aa) {
 }
 
 
-## experimental
-filter.SC <- function(x, ...) {
-  x[["object"]] <- dplyr::filter(x[["object"]], ...)
-  tabs <- c("object", "object_link_edge", "edge")
-  x[tabs] <- semi_cascade0(x[tabs], tables = tabs)
-  x
-}
-
-semi_cascade0 <- function (x, ..., tables = c("o", "b", "bXv", "v")) {
-  itab <- tables[1L]
-  first <- dplyr::filter(x[[itab]], ...)
-  x[[itab]] <- last <- first
-  tables <- tables[-1]
-  for (itab in tables) {
-    x[[itab]] <- last <- semi_join_1(x[[itab]],
-                                     last)
-  }
-  x
-}
-
-semi_join_1 <-
-  function (x, y, by = NULL, copy = FALSE, ...)
-  {
-    comm <- base::intersect(names(x), names(y))
-    if (length(comm) == 1L) {
-      by <- comm
-    }
-    dplyr::semi_join(x, y, by = by, copy = copy, ...)
-  }

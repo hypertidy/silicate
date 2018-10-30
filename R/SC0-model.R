@@ -24,31 +24,70 @@ SC0 <- function(x, ...) {
 #' @importFrom gibble gibble
 #' @export
 SC0.default <- function(x, ...) {
-  coord0 <- sc_coord(x)
-  ## anything path-based has a gibble (sp, sf, trip at least)
-  ## which is just a row-per path with nrow, and object, subobject, path classifiers
+coord0 <- sc_coord(x)
+  udata <- unjoin::unjoin(coord0, .data$x_, .data$y_, key_col = "vertex_")
+  udata[["vertex_"]]$row <- seq_len(nrow(udata[["vertex_"]]))
   gmap <- gibble::gibble(x) %>% dplyr::mutate(path = dplyr::row_number())
-  coord <- coord0 %>% dplyr::mutate(path = as.integer(factor(rep(path_paste(gmap), gmap$nrow))),
-                                    vertex = dplyr::row_number()) # %>%  dplyr::group_by(.data$path)
+  instances <- udata$data %>% dplyr::mutate(path = as.integer(factor(rep(path_paste(gmap), gmap$nrow))),
+                                            object = rep(gmap$object, gmap$nrow),
+                                            coord = row_number())
 
-  segs <- coord %>% dplyr::select(.data$path, .data$vertex)  %>%
-    dplyr::mutate(.vx0 = .data$vertex,   ## specify in segment terms
-                  .vx1 = .data$vertex + 1L) %>%
-    dplyr::group_by(.data$path)
-  segs <- dplyr::slice(segs, -n())
-  segs <- segs %>% dplyr::ungroup() %>%
-    dplyr::transmute(.data$.vx0, .data$.vx1)
+  object <- sc_object(x)
 
+  if (length(unique(instances$path)) == nrow(instances)) {
+    ## we are only points
+    #   stop(sprintf("no segments/edges found in object of class %s", class(x)))
+    instances[".vx0"] <- instances["vertex_"]
+    object$topology_ <- split(instances[c(".vx0")], instances$object)
 
-  meta <- tibble::tibble(proj = get_projection(x), ctime = format(Sys.time(), tz = "UTC"))
+  } else {
+    ## cx0 and cx1 are the segment vertices, they map the coordinate instances, not the vertices
+    segs <- instances %>% dplyr::select(.data$path, .data$coord, .data$object)  %>%
+      dplyr::mutate(.cx0 = .data$coord,   ## specify in segment terms
+                    .cx1 = .data$coord + 1L) %>%
+      dplyr::group_by(.data$path) %>% dplyr::slice(-n()) %>% dplyr::ungroup() %>%
+      dplyr::transmute(.data$.cx0, .data$.cx1, .data$path, .data$object)
 
-  structure(list(data = sc_object(x),
-                 geometry = gmap,
-                 segment = segs,
-                 coord = coord0,
+    segs[[".vx0"]] <- instances$vertex_[match(segs$.cx0, instances$coord)]
+    segs[[".vx1"]] <- instances$vertex_[match(segs$.cx1, instances$coord)]
+    ## but udata$.idx0 has the vertices, with .idx0 as the mapping
+    object$topology_ <- split(segs[c(".vx0", ".vx1")], segs$object)
+
+  }
+  meta <- tibble(proj = get_projection(x), ctime = Sys.time())
+
+  structure(list(object = object, vertex = udata$vertex_ %>%
+                   dplyr::arrange(.data$vertex_) %>% dplyr::select(.data$x_, .data$y_),
                  meta = meta),
             class = c("SC0", "sc"))
-
 }
 
+sc_vertex.SC0 <- function(x, ...) {
+  x[["vertex"]]
+}
 
+#' Plot silicate
+#'
+#' Plot a SC0 model, primitives coloured by object.
+#'
+#' @param x SC0 object
+#' @param ... arguments  passed to `graphics::segments` (col is ignored)
+#' @export
+#' @importFrom graphics segments
+plot.SC0 <- function(x, ...) {
+  plot(x$vertex[c("x_", "y_")], type = "n")
+  unn <- tidyr::unnest(x$object)
+  topology_dim <- dim(x$object$topology_[[1]])[2L]
+  ## properties are organized by object
+  col <- colourvalues::colour_values(rep(seq_len(nrow(x$object)), purrr::map_int(x$object$topology_, nrow)))
+  if (topology_dim == 2) {
+    s1 <- x$vertex[unn[[".vx0"]], ]
+    s2 <- x$vertex[unn[[".vx1"]], ]
+    graphics::segments(s1$x_, s1$y_, s2$x_, s2$y_, col = col, ...)
+
+  } else {
+    s1 <- x$vertex[unn[[".vx0"]], ]
+    graphics::points(s1$x_, s1$y_, col = col, ...)
+  }
+invisible(NULL)
+}

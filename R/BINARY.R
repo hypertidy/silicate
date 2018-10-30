@@ -8,7 +8,7 @@
 #' @param ... ignored
 #'
 #' @return binary form
-#' @export
+#' @noRd
 #'
 #' @examples
 #' plot(BINARY(minimal_mesh))
@@ -47,13 +47,21 @@ BINARY <- function(x, ...) {
                   .cx1 = .data$coord + 1L) %>%
     dplyr::group_by(.data$path) %>% dplyr::slice(-n()) %>% dplyr::ungroup() %>%
     dplyr::transmute(.data$.cx0, .data$.cx1, .data$path, .data$object)
-  if (nrow(segs) < 1) stop(sprintf("no segments/edges found in object of class %s", class(x)))
+
+  object <- sc_object(x)
+
+  if (nrow(segs) < 1) {
+ #   stop(sprintf("no segments/edges found in object of class %s", class(x)))
+    instances[".vx0"] <- instances["vertex_"]
+    object$topology_ <- split(instances[c(".vx0")], instances$object)
+
+  } else {
   segs[[".vx0"]] <- instances$vertex_[match(segs$.cx0, instances$coord)]
   segs[[".vx1"]] <- instances$vertex_[match(segs$.cx1, instances$coord)]
-
   ## but udata$.idx0 has the vertices, with .idx0 as the mapping
-  object <- sc_object(x)
-  object$edge_ <- split(segs[c(".vx0", ".vx1")], segs$object)
+  object$topology_ <- split(segs[c(".vx0", ".vx1")], segs$object)
+
+}
   meta <- tibble(proj = get_projection(x), ctime = Sys.time())
 
   structure(list(object = object, vertex = udata$vertex_ %>%
@@ -94,7 +102,7 @@ sc_coord.BINARY <- function(x, ...) {
 #'
 #' @param x BINARY object
 #' @param ... arguments  passed to `graphics::segments` (col is ignored)
-#' @export
+#' @noRd
 #' @importFrom graphics segments
 plot.BINARY <- function(x, ...) {
   plot(x$vertex[c("x_", "y_")], type = "n")

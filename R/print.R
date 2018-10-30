@@ -48,10 +48,10 @@ model_type <- function(x) {
 
 topology_type <- function(x) {
   switch(tail(class(x), 2)[1],
-         BINARY = "segment",
-         TRI = "triangle",
-         DEL = "triangle",
-         SC = "segment",
+         BINARY = sprintf("%i-space", ncol(x$object$topology_[[1]])),
+         TRI = "2-space",
+         DEL = "2-space",
+         SC = "1-space",
          SC0 = "implicit",
          ARC = "arc",
          PATH = "path",
@@ -60,7 +60,7 @@ topology_type <- function(x) {
 
 n_primitives <- function(x) {
   switch(tail(class(x), 2)[1],
-         BINARY = sum(unlist(lapply(x$object$edge_, nrow))),
+         BINARY = sum(unlist(lapply(x$object$topology_, nrow))),
          TRI = nrow(x$triangle),
          DEL = nrow(x$triangle),
          SC = nrow(x$edge),

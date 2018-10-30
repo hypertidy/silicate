@@ -31,6 +31,7 @@ sc_path.ARC <- function(x, ...) {
 #' @name sc_path
 #' @export
 sc_path.SC <- function(x, ...) {
+  x <- sc_path(PATH(x))
   stop("sc_path not yet supported for SC")
 }
 xypaths <- function(x) {

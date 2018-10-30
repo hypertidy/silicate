@@ -23,10 +23,8 @@ plot.SC <- function(x, ..., vars = NULL) {
   e <- sc_edge(x)
   x0 <- e %>% dplyr::inner_join(v, c(".vx0" = "vertex_"))
   x1 <- e %>% dplyr::inner_join(v, c(".vx1" = "vertex_"))
- if (identical(x0, x1)) warning("all edges are degenerate (i.e. a vertex related to itself)")
-#  idx <- factor(x$object_link_edge$object_)[seq(1, nrow(e))]
-#  col <- grDevices::rainbow(nlevels(idx))[idx]
-  col <- colourvalues::colour_values(x0$object_)
+  if (identical(x0, x1)) warning("all edges are degenerate (i.e. a vertex related to itself)")
+  col <- colourvalues::colour_values(x$object_link_edge$object_[match(x$edge$edge_, x$object_link_edge$edge_)])
   graphics::plot(v$x_, v$y_, pch = ".")
   graphics::segments(x0$x_, x0$y_, x1$x_, x1$y_, ..., col = col)
 }
@@ -38,7 +36,8 @@ plot.PATH <- function(x, ...) {
   paths <- split(x$path_link_vertex, x$path_link_vertex$path_)[unique(x$path_link_vertex$path_)]
   #cols <- sc_colours(length(obj))
   gg <- x$path %>% dplyr::group_by(.data$object) %>% dplyr::summarize(nn = sum(.data$ncoords_))
-  objcols <- rep(sc_colours(dim(x$object)[1L]), gg$nn)
+  #objcols <- rep(sc_colours(dim(x$object)[1L]), gg$nn)
+  objcols <- sc_colours(dim(x$object)[1L])
   if (all(x$path$ncoords_ == 1L)) {
     warning("all paths are degenerate (i.e. they are points)")
     toplot <- dplyr::inner_join(x$path_link_vertex, x$vertex, "vertex_")[c("x_", "y_")]

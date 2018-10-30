@@ -12,6 +12,15 @@ sc_segment.default <- function(x, ...) {
   x <- PATH(x)
   sc_segment(x, ...)
 }
+sc_segment.SC <- function(x, ...) {
+  ## expand all instances of edges
+  segments <- x$object_link_edge %>%
+    inner_join(x$edge)
+
+  ## and badge them as segments
+  segments$segment_ <- sc_uid(nrow(segments))
+  segments
+}
 #' @name sc_segment
 #' @export
 sc_segment.PATH <- function(x, ...) {

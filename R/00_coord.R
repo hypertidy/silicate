@@ -67,8 +67,20 @@ sc_coord.PATH <- function(x, ...) {
                     x[["vertex"]], "vertex_") %>%
     dplyr::select(-.data$vertex_)
 }
-
-
+#' @name sc_coord
+#' @export
+#' @importFrom dplyr inner_join
+sc_coord.SC <- function(x, ...) {
+  ## FIXME this is pretty crass
+  v <- sc_vertex(x)
+  e <- sc_edge(x)
+  e$edge_ <- NULL
+  #oXe <- x$object_link_edge
+  s1 <- dplyr::inner_join(e, v, c(".vx0" = "vertex_"))
+  s2 <- dplyr::inner_join(e, v, c(".vx1" = "vertex_"))
+  tibble(x_ = as.vector(t(cbind(s1$x_, s2$x_))),
+         y = as.vector(t(cbind(s1$y_, s2$y_))))
+}
 
 #' Coordinate decomposition
 #'

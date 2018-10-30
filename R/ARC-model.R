@@ -28,7 +28,9 @@ ARC <- function(x, ...) {
 ARC.default <- function(x, ...) {
   ARC(PATH(x), ...)
 }
-
+ARC.SC <- function(x, ...) {
+  stop("ARC not yet implemented for SC")
+}
 #' @name ARC
 #' @export
 ARC.PATH <- function(x, ...) {

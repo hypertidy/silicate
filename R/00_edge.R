@@ -43,7 +43,7 @@ sc_start <- function(x, ...) {
 #' @export
 sc_start.SC <- function(x, ...) {
   sc_edge(x, ...) %>% dplyr::inner_join(sc_vertex(x), c(".vx0" = "vertex_")) %>%
-    dplyr::select(.data$x_, .data$y_,  .data$object_)
+    dplyr::select(.data$x_, .data$y_)
 }
 #' @name sc_edge
 #' @export
@@ -69,8 +69,9 @@ sc_end <- function(x, ...) {
 #' @name sc_edge
 #' @export
 sc_end.SC <- function(x, ...) {
+  ## FIXME: we aren't giving out edges per object (see also sc_coord.SC)
   sc_edge(x, ...) %>% dplyr::inner_join(sc_vertex(x), c(".vx1" = "vertex_")) %>%
-  dplyr::select(.data$x_, .data$y_, .data$object_)
+  dplyr::select(.data$x_, .data$y_)
 }
 #' @name sc_edge
 #' @export
