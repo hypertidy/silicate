@@ -73,23 +73,17 @@ SC.default <- function(x, ...) {
 #' @name SC
 #' @export
 SC.TRI <- function(x, ...) {
-  segment <- purrr::map_df(purrr::transpose(x$triangle[c(".vertex0", ".vertex1", ".vertex2")]),
+  segment <- purrr::map_df(purrr::transpose(x$triangle[c(".vx0", ".vx1", ".vx2")]),
                            ~to_tibble(tri_to_seg(unlist(.x))), .id = "triangle_")
-  segment$triangle_ <- x$triangle$triangle_[as.integer(segment$triangle_)]
-  #segment$segment_ <- silicate::sc_uid(nrow(segment))
-  edges <- as.integer(factor(apply(cbind(segment$.vertex0, segment$.vertex1), 1,
+ edges <- as.integer(factor(apply(cbind(segment$.vx0, segment$.vx1), 1,
                                    function(x) paste(sort(x), collapse = "-"))))
   segment$edge_ <- sc_uid(length(unique(edges)))[edges]
-  object_link_edge <- dplyr::inner_join(x$object_link_triangle,
-                                        segment[c("edge_", "triangle_")], "triangle_") %>%
-    dplyr::distinct(.data$object_, .data$edge_)
-  #edge <- dplyr::distinct(segment %>% dplyr::select(.data$.vertex0, .data$.vertex1, .data$edge_),
-  #                        .data$edge_, .keep_all = TRUE)
-  segment <- segment[c(".vertex0", ".vertex1", "edge_")] %>% inner_join(object_link_edge, "edge_") %>%
-    dplyr::transmute(.vx0 = .data$.vertex0, .vx1 = .data$.vertex1, object_ = .data$object_)
-  #object_link_edge <- tibble(object_ = x$object_link_triangle$object_[match(edge$triangle_, x$object_link_triangle$triangle_)],
-  #                           segment_ = segment$segment_)
-  structure(list(object = x$object, #object_link_edge = object_link_edge,
+  segment$object_ <- x$triangle$object_[as.numeric(segment$triangle_)]
+  object_link_edge <- dplyr::distinct(segment, .data$object_, .data$edge_)
+  segment <- segment[c(".vx0", ".vx1", "edge_")] %>% inner_join(object_link_edge, "edge_") %>%
+    dplyr::transmute(.vx0 = .data$.vx0, .vx1 = .data$.vx1, edge_ = .data$edge_)
+
+  structure(list(object = x$object, object_link_edge = object_link_edge,
                  edge = segment, vertex = x$vertex,
                  meta = rbind(dplyr::mutate(x$meta, ctime = Sys.time()), x$meta)), class = c("SC", "sc"))
 }
@@ -104,7 +98,7 @@ tri_to_seg <- function(x) {
 }
 
 to_tibble <- function(x) {
-  setNames(tibble::as_tibble(matrix(x, ncol = 2, byrow = TRUE)), c(".vertex0", ".vertex1"))
+  setNames(tibble::as_tibble(matrix(x, ncol = 2, byrow = TRUE)), c(".vx0", ".vx1"))
 }
 
 ##https://github.com/hypertidy/silicate/issues/46
