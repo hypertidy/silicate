@@ -10,9 +10,10 @@ Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsu
 Description: Generate a generic common form of complex data, suitable for conversions and
  transmission. Many complex data structures are composed of 'paths' (sequentially-linked records) or 
  'primitives' (basic, component types grouped into higher forms). These two kinds of structure are
- very common, particularly in spatial data, graphics and analytical structures. The universal model 'SC'
- is provided that can represent any of these. Another more specialist model 'PATH' is included as
- as well as tools to switch between these forms, and the component functions for conversions. 
+ very common, particularly in spatial data, graphics and analytical structures. The universal model 'SC0'
+ is provided that can represent any of these forms, with a fully labelled model 'SC' that is specifically 
+ edge-based. Specialist models 'PATH', 'ARC' and 'TRI' are included as as well as tools to switch between 
+ these forms. 
 Depends:
     R (>= 3.4.0)
 License: GPL-3
