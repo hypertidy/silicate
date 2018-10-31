@@ -59,7 +59,7 @@ sc_path.matrix <- function(x, ...) {
 
 
 #' @importFrom purrr map_df
-sc_atom <- function(x, ...) faster_as_tibble(list(ncoords_= nrow(x),
+sc_atom <- function(x, ...) tibble::as_tibble(list(ncoords_= nrow(x),
                                                   path_ = sc_uid(1L)))
 sc_list <- function(x) {
   dplyr::bind_rows(lapply(x, sc_atom))

@@ -52,7 +52,7 @@ sc_object.default <- function(x, ...) {
 #' #nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 #' #sc_object(nc)
 sc_object.sf <- function(x, ...) {
-  faster_as_tibble(.st_set_geometry(x))
+  tibble::as_tibble(.st_set_geometry(x))
 }
 
 #' @name sc_object

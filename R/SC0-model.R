@@ -24,7 +24,7 @@ SC0 <- function(x, ...) {
 #' @importFrom gibble gibble
 #' @export
 SC0.default <- function(x, ...) {
-coord0 <- sc_coord(x)
+  coord0 <- sc_coord(x)
   udata <- unjoin::unjoin(coord0, .data$x_, .data$y_, key_col = "vertex_")
   udata[["vertex_"]]$row <- seq_len(nrow(udata[["vertex_"]]))
   gmap <- gibble::gibble(x) %>% dplyr::mutate(path = dplyr::row_number())

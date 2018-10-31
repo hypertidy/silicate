@@ -28,7 +28,7 @@ sc_segment.PATH <- function(x, ...) {
 }
 
 #' @importFrom utils tail
-path_to_segment0 <- function(x) faster_as_tibble(list(.vertex0 = utils::head(x, -1L),
+path_to_segment0 <- function(x) tibble::as_tibble(list(.vertex0 = utils::head(x, -1L),
                                                       .vertex1 = utils::tail(x, -1)))
 
 sc_segment_base <- function(path_link_vertex) {

@@ -136,7 +136,7 @@ sc_geom_names <- function(gnames) {
   gnames <- gsub("^type$", "type_", gnames)
   gnames
 }
-sfcoords <- function(x, ...) faster_as_tibble(m_v(x))
+sfcoords <- function(x, ...) tibble::as_tibble(m_v(x))
 
 
 # these are short-cut methods for single-type sets
