@@ -188,6 +188,11 @@ Convert a known external model to a silicate model.
 
 ``` r
 library(silicate)
+#> 
+#> Attaching package: 'silicate'
+#> The following object is masked from 'package:stats':
+#> 
+#>     filter
 x <- SC(minimal_mesh) ## convert simple features to universal form
 
 y <- ARC(minimal_mesh) ## convert simple features to "arc-node" form
@@ -200,56 +205,56 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_   
 #>    <dbl> <dbl> <chr>     
-#>  1  0     0    4914133d96
-#>  2  0     1    e57a579a40
-#>  3  0.2   0.2  f1236f57c2
-#>  4  0.2   0.4  599495a4fd
-#>  5  0.3   0.6  dbc1dafbf9
-#>  6  0.5   0.2  3bd094eafa
-#>  7  0.5   0.4  b44c7ce253
-#>  8  0.5   0.7  bf74873f5b
-#>  9  0.69  0    1e33b9a137
-#> 10  0.75  1    b9f99ee039
-#> 11  0.8   0.6  624537be26
-#> 12  1     0.8  f42282695a
-#> 13  1.1   0.63 bbf16dce75
-#> 14  1.23  0.3  7456596cdc
+#>  1  0     0    d3747d448b
+#>  2  0     1    af9fd9c50e
+#>  3  0.2   0.2  7edbe972a2
+#>  4  0.2   0.4  933455047d
+#>  5  0.3   0.6  689e8fa5f6
+#>  6  0.5   0.2  bf3df8e3da
+#>  7  0.5   0.4  3ade89e22e
+#>  8  0.5   0.7  bcb5e51776
+#>  9  0.69  0    9533bf1278
+#> 10  0.75  1    645e6225d6
+#> 11  0.8   0.6  1704943e02
+#> 12  1     0.8  76623c02f6
+#> 13  1.1   0.63 0042fe03cc
+#> 14  1.23  0.3  5a6ff43692
 
 sc_edge(x)
 #> # A tibble: 15 x 3
 #>    .vx0       .vx1       edge_     
 #>    <chr>      <chr>      <chr>     
-#>  1 4914133d96 e57a579a40 571381b46e
-#>  2 e57a579a40 b9f99ee039 5f365e6bf2
-#>  3 b9f99ee039 f42282695a 36f51f60c2
-#>  4 bf74873f5b f42282695a 43ad6991ee
-#>  5 bf74873f5b 624537be26 7be4efaa31
-#>  6 1e33b9a137 624537be26 21416563fb
-#>  7 4914133d96 1e33b9a137 607cfa9b6c
-#>  8 f1236f57c2 3bd094eafa 8fa1cc027f
-#>  9 3bd094eafa b44c7ce253 6284988a8f
-#> 10 dbc1dafbf9 b44c7ce253 e6edaa9847
-#> 11 599495a4fd dbc1dafbf9 c7c8e72b15
-#> 12 f1236f57c2 599495a4fd c74655d9e6
-#> 13 624537be26 bbf16dce75 6fc90a49c1
-#> 14 bbf16dce75 7456596cdc 0ba5e1a667
-#> 15 1e33b9a137 7456596cdc 53d3cf3cf7
+#>  1 d3747d448b af9fd9c50e 4f978e4366
+#>  2 af9fd9c50e 645e6225d6 638c0d8bc0
+#>  3 645e6225d6 76623c02f6 8910429d73
+#>  4 bcb5e51776 76623c02f6 c1e0abc392
+#>  5 bcb5e51776 1704943e02 609dcf18c1
+#>  6 9533bf1278 1704943e02 7d24507a0e
+#>  7 d3747d448b 9533bf1278 4dcd767e6f
+#>  8 7edbe972a2 bf3df8e3da 87f279538f
+#>  9 bf3df8e3da 3ade89e22e 6aca5a7276
+#> 10 689e8fa5f6 3ade89e22e 40cff17040
+#> 11 933455047d 689e8fa5f6 9250ee3a1c
+#> 12 7edbe972a2 933455047d 17a6ced216
+#> 13 1704943e02 0042fe03cc 6a969471a3
+#> 14 0042fe03cc 5a6ff43692 fd5cab846c
+#> 15 9533bf1278 5a6ff43692 5509b12f1a
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_   
 #>   <chr>     
-#> 1 921c2eba8a
-#> 2 2de335d9f7
+#> 1 b578a91b03
+#> 2 aed01df38c
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_       ncoords_
 #>   <chr>         <int>
-#> 1 11f1c1e5c1        2
-#> 2 38471fa6c0        7
-#> 3 42d3d16350        4
-#> 4 df9f74e640        6
+#> 1 364fd99c28        2
+#> 2 407e5068af        4
+#> 3 76ec031580        7
+#> 4 cf9bb7dcc5        6
 ```
 
 ## silicate models

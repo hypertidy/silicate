@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Minimal mesh. — minimal_mesh • silicate</title>
+<title>Dplyr methods for silicate objects — dplyr-methods • silicate</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,12 +30,9 @@
 
 
 
-<meta property="og:title" content="Minimal mesh. — minimal_mesh" />
+<meta property="og:title" content="Dplyr methods for silicate objects — dplyr-methods" />
 
-<meta property="og:description" content="The simplest pairing of two polygons with one shared edge. One polygon
-contains a hole and a concavity, the other is a simply convex. This is
-composed of four &quot;arcs&quot;, one around each polygon, one for the shared edge, and
-one for the isolated hole. There are two nodes, the endpoints of the single shared edge." />
+<meta property="og:description" content="Filter an SC model, currently only dplyr::filter for SC is available." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -110,40 +107,59 @@ one for the isolated hole. There are two nodes, the endpoints of the single shar
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Minimal mesh.</h1>
+    <h1>Dplyr methods for silicate objects</h1>
     
-    <div class="hidden name"><code>minimal_mesh.Rd</code></div>
+    <div class="hidden name"><code>dplyr-methods.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>The simplest pairing of two polygons with one shared edge. One polygon
-contains a hole and a concavity, the other is a simply convex. This is
-composed of four "arcs", one around each polygon, one for the shared edge, and
-one for the isolated hole. There are two nodes, the endpoints of the single shared edge.</p>
+    <p>Filter an SC model, currently only <code><a href='http://dplyr.tidyverse.org/reference/filter.html'>dplyr::filter</a></code> for <code>SC</code> is available.</p>
     
     </div>
 
-        
+    <pre class="usage"><span class='co'># S3 method for SC</span>
+<span class='fu'>filter</span>(<span class='no'>.data</span>, <span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>.data</th>
+      <td><p>data object of class SC</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>passed to <code><a href='http://dplyr.tidyverse.org/reference/filter.html'>dplyr::filter</a></code></p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Apply expressions as if used on the <code>object</code> table. See <code><a href='sc_object.html'>sc_object(x)</a></code> for that form.</p>
+<p>Currently all the vertices are still kept, so the model (and any plots) include the filtered edges as well
+as undifferentiated points. This is likely to change ...</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>minimal_mesh</span>)
-<span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='img'><img src='minimal_mesh-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='sc_arc.html'>sc_arc</a></span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
-#&gt;   arc_       ncoords_
-#&gt;   &lt;chr&gt;         &lt;int&gt;
-#&gt; 1 29ee8c70d6        2
-#&gt; 2 5b823ab511        4
-#&gt; 3 a68753d0d8        7
-#&gt; 4 d7702b6000        6</div><div class='input'><span class='fu'><a href='sc_node.html'>sc_node</a></span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
-#&gt;   vertex_   
-#&gt;   &lt;chr&gt;     
-#&gt; 1 d51d6c1902
-#&gt; 2 9fc251b7e1</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: 'dplyr'</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:testthat':</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:stats':</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:base':</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='no'>sc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='SC.html'>SC</a></span>(<span class='no'>inlandwaters</span>)
+<span class='fu'>plot</span>(<span class='fu'>filter</span>(<span class='no'>sc</span>, <span class='no'>Province</span> <span class='kw'>==</span> <span class='st'>"Tasmania"</span>))</div><div class='img'><img src='dplyr-methods-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot</span>(<span class='fu'>filter</span>(<span class='fu'><a href='SC.html'>SC</a></span>(<span class='no'>minimal_mesh</span>), <span class='no'>a</span> <span class='kw'>==</span> <span class='fl'>2</span>))</div><div class='img'><img src='dplyr-methods-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-            
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#details">Details</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
