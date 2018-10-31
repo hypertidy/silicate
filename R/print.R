@@ -18,8 +18,9 @@ print.sc <- function(x, ...) {
   topology <- topology_type(mt)
    cat(sprintf("class       : %s\n", class(x)[1]))
    cat(sprintf("type        : %s\n", mt))
-   cat(sprintf("vertices    : %s\n", nrow(x$vertex)))
+   cat(sprintf("vertices    : %s (%i-space)\n", nrow(x$vertex), n_geometry(x)))
    if (mt == "Primitive" || mt == "Structural") {
+
    cat(sprintf("primitives  : %s (%s)\n", n_primitives(x), topology_type(x)))
    }
    if (mt == "Sequential" || mt == "Structural") {
@@ -37,7 +38,7 @@ print.sc <- function(x, ...) {
 model_type <- function(x) {
 
   switch(tail(class(x), 2)[1],
-         BINARY = "Primitive",
+
          SC0 = "Structural",
          TRI = "Primitive",
          DEL = "Primitive",
@@ -49,26 +50,26 @@ model_type <- function(x) {
 
 topology_type <- function(x) {
   switch(tail(class(x), 2)[1],
-         BINARY = sprintf("%i-space", ncol(x$object$topology_[[1]])),
          TRI = "2-space",
          DEL = "2-space",
          SC = "1-space",
-         SC0 = "implicit",
-         ARC = "arc",
-         PATH = "path",
+         SC0 = sprintf("%i-space", ncol(x$object$topology_[[1]]) - 1),
+         ARC = "1-space",
+         PATH = "1-space",
          "[unknown]")
 }
 
 n_primitives <- function(x) {
   switch(tail(class(x), 2)[1],
-         BINARY = sum(unlist(lapply(x$object$topology_, nrow))),
+         SC0 = sum(unlist(lapply(x$object$topology_, nrow))),
          TRI = nrow(x$triangle),
          DEL = nrow(x$triangle),
          SC = nrow(x$edge),
-         SC0 = nrow(x$segment),
          "[unknown]")
 }
-
+n_geometry <- function(x) {
+   length(intersect(c("x_", "y_", "z_"), names(x$vertex)))
+}
 n_paths <- function(x) {
   switch(tail(class(x), 2)[1],
   ARC = length(unique(x$object_link_arc$arc_)),
