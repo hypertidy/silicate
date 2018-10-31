@@ -10,14 +10,16 @@ SC(x, ...)
 
 \method{SC}{TRI}(x, ...)
 
-\method{plot}{SC}(x, ..., vars = NULL)
+\method{plot}{SC}(x, ..., vars = NULL, use_edge_colour = TRUE)
 }
 \arguments{
 \item{x}{input model}
 
 \item{...}{arguments passed to methods}
 
-\item{vars}{variables to plot}
+\item{vars}{variables to plot (experimental)}
+
+\item{use_edge_colour}{if \code{TRUE} edges are differentiated by object and whether they share two objects}
 }
 \description{
 The universal model \code{SC} is coordinates and binary relations between

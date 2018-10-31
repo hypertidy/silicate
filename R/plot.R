@@ -6,14 +6,22 @@ sc_colours <- function(x, ...) {
   sample(cl, x, replace = x > length(cl))
 }
 
-
+#' Plot silicate
+#'
+#'
 #' @name SC
-#' @param vars variables to plot
+#' @param use_edge_colour if `TRUE` edges are differentiated by object and whether they share two objects
+#' @param vars variables to plot (experimental)
 #' @export
 #' @importFrom graphics plot
+#' @importFrom dplyr inner_join anti_join group_by summarize tally filter
 #' @importFrom colourvalues colour_values
-plot.SC <- function(x, ..., vars = NULL) {
-
+plot.SC <- function(x, ..., vars = NULL, use_edge_colour = TRUE) {
+  if (!"color_" %in% names(x$object)) {
+    x$object$color_ <- colourvalues::colour_values(x$object$object_)
+  } else {
+    if (use_edge_colour) warning("'color_' property on object table ignored, set 'use_edge_colour = FALSE' to use them")
+  }
   v <- sc_vertex(x)
   if (!is.null(vars)) {
     vars <- c(vars, "vertex_")
@@ -24,7 +32,20 @@ plot.SC <- function(x, ..., vars = NULL) {
   x0 <- e %>% dplyr::inner_join(v, c(".vx0" = "vertex_"))
   x1 <- e %>% dplyr::inner_join(v, c(".vx1" = "vertex_"))
   if (identical(x0, x1)) warning("all edges are degenerate (i.e. a vertex related to itself)")
-  col <- colourvalues::colour_values(x$object_link_edge$object_[match(x$edge$edge_, x$object_link_edge$edge_)])
+  if (!use_edge_colour) {
+    #col <- colourvalues::colour_values(x$object_link_edge$object_[match(x$edge$edge_, x$object_link_edge$edge_)])
+    col <-  x$object$color_[match(x$object_link_edge$object_, x$object$object_)]
+  } else {
+    ## colours is object, UNLESS the edge is repeated
+    uedge <- x$object_link_edge
+    twoedge <- uedge %>% group_by(.data$edge_) %>% dplyr::tally() %>% dplyr::filter(n > 1)
+    twoedge <- twoedge %>% inner_join(uedge, "edge_") %>% group_by(.data$edge_) %>% summarize(id = paste(.data$object_, collapse = "-"))
+    uedge <- anti_join(uedge, twoedge, "edge_")
+    keepedges <- c(uedge$edge_, twoedge$edge_)
+    props <- c(uedge$object_, twoedge$id)
+    col <- colourvalues::colour_values(props)[match(x0$edge_, keepedges)]
+  }
+
   graphics::plot(v$x_, v$y_, pch = ".")
   graphics::segments(x0$x_, x0$y_, x1$x_, x1$y_, ..., col = col)
 }
