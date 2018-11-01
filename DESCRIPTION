@@ -29,7 +29,7 @@ Suggests:
 RoxygenNote: 6.1.0
 Imports: 
     dplyr,
-    gibble (>= 0.1.1.9001),
+    gibble (>= 0.1.2),
     ids,
     methods,
     purrr,
@@ -37,7 +37,6 @@ Imports:
     decido,
     tibble,
     unjoin (>= 0.0.3),
-    viridis,
     geometry,
     tidyr,
     grDevices,
@@ -46,4 +45,4 @@ Imports:
     colourvalues
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-Remotes: mdsumner/gibble
+
