@@ -205,56 +205,56 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_   
 #>    <dbl> <dbl> <chr>     
-#>  1  0     0    d3747d448b
-#>  2  0     1    af9fd9c50e
-#>  3  0.2   0.2  7edbe972a2
-#>  4  0.2   0.4  933455047d
-#>  5  0.3   0.6  689e8fa5f6
-#>  6  0.5   0.2  bf3df8e3da
-#>  7  0.5   0.4  3ade89e22e
-#>  8  0.5   0.7  bcb5e51776
-#>  9  0.69  0    9533bf1278
-#> 10  0.75  1    645e6225d6
-#> 11  0.8   0.6  1704943e02
-#> 12  1     0.8  76623c02f6
-#> 13  1.1   0.63 0042fe03cc
-#> 14  1.23  0.3  5a6ff43692
+#>  1  0     0    03882f84a0
+#>  2  0     1    3108f600d5
+#>  3  0.2   0.2  f91a733f07
+#>  4  0.2   0.4  607d47db82
+#>  5  0.3   0.6  378d9c308a
+#>  6  0.5   0.2  8a9a82b633
+#>  7  0.5   0.4  72a72d7f8d
+#>  8  0.5   0.7  5e3828947d
+#>  9  0.69  0    dcd1b03ee7
+#> 10  0.75  1    3cd6e18f3e
+#> 11  0.8   0.6  c431c9f1ef
+#> 12  1     0.8  f184f4a073
+#> 13  1.1   0.63 8a0b356ef0
+#> 14  1.23  0.3  4ee71ea0a6
 
 sc_edge(x)
 #> # A tibble: 15 x 3
 #>    .vx0       .vx1       edge_     
 #>    <chr>      <chr>      <chr>     
-#>  1 d3747d448b af9fd9c50e 4f978e4366
-#>  2 af9fd9c50e 645e6225d6 638c0d8bc0
-#>  3 645e6225d6 76623c02f6 8910429d73
-#>  4 bcb5e51776 76623c02f6 c1e0abc392
-#>  5 bcb5e51776 1704943e02 609dcf18c1
-#>  6 9533bf1278 1704943e02 7d24507a0e
-#>  7 d3747d448b 9533bf1278 4dcd767e6f
-#>  8 7edbe972a2 bf3df8e3da 87f279538f
-#>  9 bf3df8e3da 3ade89e22e 6aca5a7276
-#> 10 689e8fa5f6 3ade89e22e 40cff17040
-#> 11 933455047d 689e8fa5f6 9250ee3a1c
-#> 12 7edbe972a2 933455047d 17a6ced216
-#> 13 1704943e02 0042fe03cc 6a969471a3
-#> 14 0042fe03cc 5a6ff43692 fd5cab846c
-#> 15 9533bf1278 5a6ff43692 5509b12f1a
+#>  1 03882f84a0 3108f600d5 5d206059ff
+#>  2 3108f600d5 3cd6e18f3e 5fccef91ee
+#>  3 3cd6e18f3e f184f4a073 13a5833357
+#>  4 5e3828947d f184f4a073 6e4724aefc
+#>  5 5e3828947d c431c9f1ef 23e887ddb1
+#>  6 dcd1b03ee7 c431c9f1ef 1eb6e3e943
+#>  7 03882f84a0 dcd1b03ee7 1daf3e7053
+#>  8 f91a733f07 8a9a82b633 e7f4a37c28
+#>  9 8a9a82b633 72a72d7f8d bb2582f8cf
+#> 10 378d9c308a 72a72d7f8d 1d690a708e
+#> 11 607d47db82 378d9c308a 5e7d48a641
+#> 12 f91a733f07 607d47db82 61fb629923
+#> 13 c431c9f1ef 8a0b356ef0 73d313d900
+#> 14 8a0b356ef0 4ee71ea0a6 f3fcff12c7
+#> 15 dcd1b03ee7 4ee71ea0a6 1d7cffb956
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_   
 #>   <chr>     
-#> 1 b578a91b03
-#> 2 aed01df38c
+#> 1 6172514346
+#> 2 1ec3ab7cd4
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_       ncoords_
 #>   <chr>         <int>
-#> 1 364fd99c28        2
-#> 2 407e5068af        4
-#> 3 76ec031580        7
-#> 4 cf9bb7dcc5        6
+#> 1 959d8cb9c3        7
+#> 2 a8d782bfd0        4
+#> 3 e787de56d3        2
+#> 4 f6c2815208        6
 ```
 
 ## silicate models
@@ -299,8 +299,8 @@ be stable with them.
 
 The [spacebucket](https://github.com/mdsumner/spacebucket) (arbitrary
 multi-layer polygonal overlays) and
-[sphier](https:://github.com/hypertidy/sphier/) (generic hierarchies
-from atomic forms) show two different approaches to the problem of
+[sphier](https://github.com/hypertidy/sphier/) (generic hierarchies from
+atomic forms) show two different approaches to the problem of
 hierarchical data and flexible representations.
 
 The key difference between the silicate approach and simple features is

@@ -37,7 +37,6 @@ Imports:
     decido,
     tibble,
     unjoin (>= 0.0.3),
-    viridis,
     geometry,
     tidyr,
     grDevices,
