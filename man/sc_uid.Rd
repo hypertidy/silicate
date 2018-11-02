@@ -4,17 +4,25 @@
 \alias{sc_uid}
 \title{Unique labels}
 \usage{
-sc_uid(x, ...)
+sc_uid(x, ..., bytes = 5L)
 }
 \arguments{
 \item{x}{number of unique IDs to generate}
 
 \item{...}{reserved for future use}
+
+\item{bytes}{number of bytes passe to 'ids' package}
 }
 \description{
 Find unique labels for entities, or create them
 if not present.
 }
 \details{
-See \code{ids} package for \code{random_id} when they are created.
+By default we generate sequential integers, it's assumed that all IDs are created
+at one time, we are not adding to an existing set. Code that adds IDs should find
+the largest existing ID and offset these by that value.
+
+Using 'silicate.uid.type="uuid"' is considered experimental.
+
+See \code{ids} package for \code{random_id} used if option 'silicate.uid.type="uuid"'.
 }

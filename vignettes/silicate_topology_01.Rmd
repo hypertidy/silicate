@@ -57,7 +57,7 @@ library(silicate)
 
 plot(matrix(attr(minimal_mesh$geom, "bbox"), 2, byrow = TRUE), type = "n", xlab = "", ylab = "")
 rbind_na <- function(x) head(do.call(rbind, unlist(lapply(x, function(a) rbind(a, NA)), recursive = F)), -1)
-cols <- viridis::viridis(nrow(minimal_mesh))
+cols <- colourvalues::colour_values(nrow(minimal_mesh))
 junk <- lapply(seq_along(minimal_mesh$geom), function(y) polypath(rbind_na(minimal_mesh$geom[[y]]), col = cols[y] ))
 
 

@@ -45,4 +45,3 @@ Imports:
     colourvalues
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-
