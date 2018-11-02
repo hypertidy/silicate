@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#' sc_colors(10)
+#' sc_colours(10)
 sc_colours <- function(x = 16, ..., viridis = FALSE) {
   # https://stackoverflow.com/a/33144808/355270
   #cl <- grDevices::colors()[-1L]

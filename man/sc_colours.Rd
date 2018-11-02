@@ -20,5 +20,5 @@ colours
 Simple set of colours for discrete palette.
 }
 \examples{
-sc_colors(10)
+sc_colours(10)
 }
