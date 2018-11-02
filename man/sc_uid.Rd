@@ -11,7 +11,7 @@ sc_uid(x, ..., bytes = 5L)
 
 \item{...}{reserved for future use}
 
-\item{bytes}{number of bytes passe to 'ids' package}
+\item{bytes}{number of bytes passed to 'ids' package (only if silicate.uid.type is "uuid", see Details)}
 }
 \description{
 Find unique labels for entities, or create them

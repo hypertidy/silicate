@@ -41,7 +41,6 @@ Imports:
     tidyr,
     grDevices,
     graphics,
-    stats,
-    colourvalues
+    stats
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)

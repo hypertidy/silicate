@@ -13,7 +13,7 @@
 #' See `ids` package for `random_id` used if option 'silicate.uid.type="uuid"'.
 #' @param x number of unique IDs to generate
 #' @param ... reserved for future use
-#' @param bytes number of bytes passe to 'ids' package
+#' @param bytes number of bytes passed to 'ids' package (only if silicate.uid.type is "uuid", see Details)
 #' @export
 sc_uid <- function(x, ..., bytes = 5L) {
   UseMethod("sc_uid")

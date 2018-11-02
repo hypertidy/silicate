@@ -1,11 +1,33 @@
-sc_colours <- function(x, ...) {
+#' Silicate colours
+#'
+#' Simple set of colours for discrete palette.
+#'
+#' @param x number of colours to generate
+#' @param ... currently ignored
+#' @param viridis use viridis, TRUE or FALSE
+#'
+#' @return colours
+#' @export
+#'
+#' @examples
+#' sc_colors(10)
+sc_colours <- function(x = 16, ..., viridis = FALSE) {
   # https://stackoverflow.com/a/33144808/355270
   #cl <- grDevices::colors()[-1L]
-
+ if (viridis) {
+   return(grDevices::colorRampPalette(viridis_cols)(x))
+ }
   cl <- grDevices::hsv(stats::runif(x), 1, stats::runif(x))
   sample(cl, x, replace = x > length(cl))
 }
 
+sc_colour_values <- function(x, ..., viridis = FALSE) {
+  if (!is.numeric(x)) x <- as.integer(factor(x))
+  cols <- sc_colours(256, viridis = viridis)
+  if (length(x) == 1L) return(sample(cols, 1))  ## a fun easter egg
+  scl <- function(x) (x - min(x, na.rm = TRUE))/diff(range(x, na.rm = TRUE))
+  cols[scl(x) * (length(cols)-1) + 1]
+}
 #' Plot silicate
 #'
 #'
@@ -15,10 +37,9 @@ sc_colours <- function(x, ...) {
 #' @export
 #' @importFrom graphics plot
 #' @importFrom dplyr inner_join anti_join group_by summarize tally filter
-#' @importFrom colourvalues colour_values
 plot.SC <- function(x, ..., vars = NULL, use_edge_colour = TRUE) {
   if (!"color_" %in% names(x$object)) {
-    x$object$color_ <- colourvalues::colour_values(x$object$object_)
+    x$object$color_ <- sc_colour_values(x$object$object_, viridis = TRUE)
   } else {
     if (use_edge_colour) warning("'color_' property on object table ignored, set 'use_edge_colour = FALSE' to use them")
   }
@@ -43,7 +64,8 @@ plot.SC <- function(x, ..., vars = NULL, use_edge_colour = TRUE) {
     uedge <- anti_join(uedge, twoedge, "edge_")
     keepedges <- c(uedge$edge_, twoedge$edge_)
     props <- c(uedge$object_, twoedge$id)
-    col <- colourvalues::colour_values(props)[match(x0$edge_, keepedges)]
+   # browser()
+    col <- sc_colour_values(props, viridis = TRUE)[match(x0$edge_, keepedges)]
   }
 
   graphics::plot(v$x_, v$y_, pch = ".")

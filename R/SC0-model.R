@@ -79,7 +79,8 @@ plot.SC0 <- function(x, ...) {
   unn <- tidyr::unnest(x$object)
   topology_dim <- dim(x$object$topology_[[1]])[2L]
   ## properties are organized by object
-  col <- colourvalues::colour_values(rep(seq_len(nrow(x$object)), purrr::map_int(x$object$topology_, nrow)))
+  col <- sc_colour_values(rep(seq_len(nrow(x$object)), purrr::map_int(x$object$topology_, nrow)),
+                                     viridis = TRUE)
   if (topology_dim == 2) {
     s1 <- x$vertex[unn[[".vx0"]], ]
     s2 <- x$vertex[unn[[".vx1"]], ]

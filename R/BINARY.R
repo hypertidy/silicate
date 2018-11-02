@@ -110,6 +110,7 @@ plot.BINARY <- function(x, ...) {
   s1 <- x$vertex[unn[[".vx0"]], ]
   s2 <- x$vertex[unn[[".vx1"]], ]
   ## properties are organized by object
-  col <- colourvalues::colour_values(rep(seq_len(nrow(x$object)), purrr::map_int(x$object$edge_, nrow)))
+  col <- sc_colour_values(rep(seq_len(nrow(x$object)), purrr::map_int(x$object$edge_, nrow)),
+                          viridis = TRUE)
   graphics::segments(s1$x_, s1$y_, s2$x_, s2$y_, col = col, ...)
 }

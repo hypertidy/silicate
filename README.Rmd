@@ -22,11 +22,11 @@ knitr::opts_chunk$set(
 
 The goal of silicate is to bridge formal data structure definitions with flexible analytical and visualization techniques.
 
-We 
+We aim to
 
 * provide a universal *common-form* of hierarchical data
 * provide a framework for a *universal converter* between complex data types
-* to work with topological primitives for analysis and interaction. 
+* enable working with topological primitives for analysis and interaction. 
 
 The core of silicate is the general model `SC`, composed of three tables `vertex`, `edge` and `object` and all entities are explicitly labelled. Indexes between tables are unique and persistent and arbitrary, they can be arbitrarily accessed. This is closely related to the more bare-bones `SC0` model, composed of only two tables `vertices`, and `objects`. These are related *structurally* by nesting the relations within the object table. Here the relations are not persistent, so we can subset the objects but we cannot change the vertex table with updating these indexes. 
 
