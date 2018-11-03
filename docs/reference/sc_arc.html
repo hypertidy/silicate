@@ -149,13 +149,11 @@ work with models that don't included labels.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
-#&gt;   arc_       ncoords_
-#&gt;   &lt;chr&gt;         &lt;int&gt;
-#&gt; 1 5fee21e20c        2
-#&gt; 2 61861bc307        4
-#&gt; 3 a193b819b4        7
-#&gt; 4 aa405f98d5        6</div><div class='input'><span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>minimal_mesh</span>)<span class='kw'>[[</span><span class='st'>"arc"</span>]]</div><div class='output co'>#&gt; NULL</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>sc_arc</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
+#&gt;    arc_ ncoords_
+#&gt;   &lt;int&gt;    &lt;int&gt;
+#&gt; 1     1       10
+#&gt; 2     2       11</div><div class='input'><span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>minimal_mesh</span>)<span class='kw'>[[</span><span class='st'>"arc"</span>]]</div><div class='output co'>#&gt; NULL</div><div class='input'>
 <span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>minimal_mesh</span>)
 <span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>arc</span>$<span class='no'>vertex</span>[<span class='fu'>match</span>(<span class='fu'><a href='sc_node.html'>sc_node</a></span>(<span class='no'>arc</span>)$<span class='no'>vertex_</span>, <span class='no'>arc</span>$<span class='no'>vertex</span>$<span class='no'>vertex_</span>), <span class='fu'>c</span>(<span class='st'>"x_"</span>, <span class='st'>"y_"</span>)])</div><div class='img'><img src='sc_arc-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>polymesh</span>)

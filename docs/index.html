@@ -87,11 +87,11 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h1></div>
 <p>The goal of silicate is to bridge formal data structure definitions with flexible analytical and visualization techniques.</p>
-<p>We</p>
+<p>We aim to</p>
 <ul>
 <li>provide a universal <em>common-form</em> of hierarchical data</li>
 <li>provide a framework for a <em>universal converter</em> between complex data types</li>
-<li>to work with topological primitives for analysis and interaction.</li>
+<li>enable working with topological primitives for analysis and interaction.</li>
 </ul>
 <p>The core of silicate is the general model <code>SC</code>, composed of three tables <code>vertex</code>, <code>edge</code> and <code>object</code> and all entities are explicitly labelled. Indexes between tables are unique and persistent and arbitrary, they can be arbitrarily accessed. This is closely related to the more bare-bones <code>SC0</code> model, composed of only two tables <code>vertices</code>, and <code>objects</code>. These are related <em>structurally</em> by nesting the relations within the object table. Here the relations are not persistent, so we can subset the objects but we cannot change the vertex table with updating these indexes.</p>
 <p><code>SC0</code> can deal with 0-dimensional topology types (points) as well as 1-dimensional types (edges), but <code>SC</code> is strictly for edges.</p>
@@ -181,64 +181,62 @@
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; The following object is masked from 'package:stats':</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt;     filter</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">x &lt;-<span class="st"> </span><span class="kw"><a href="reference/SC.html">SC</a></span>(minimal_mesh) <span class="co">## convert simple features to universal form</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">x &lt;-<span class="st"> </span><span class="kw"><a href="reference/SC.html">SC</a></span>(minimal_mesh) ## convert simple features to universal form</a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">y &lt;-<span class="st"> </span><span class="kw"><a href="reference/ARC.html">ARC</a></span>(minimal_mesh) <span class="co">## convert simple features to "arc-node" form</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-9" data-line-number="9">y &lt;-<span class="st"> </span><span class="kw"><a href="reference/ARC.html">ARC</a></span>(minimal_mesh) ## convert simple features to "arc-node" form</a></code></pre></div>
 <p>Obtain the elements of a known model type.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="reference/sc_vertex.html">sc_vertex</a></span>(x)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; # A tibble: 14 x 3</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;       x_    y_ vertex_   </span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     </span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;  1  0     0    4a9587c2a9</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;  2  0     1    4a1edf4ecf</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;  3  0.2   0.2  184a223203</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;  4  0.2   0.4  21a64b416e</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;  5  0.3   0.6  d39e0d56ff</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;  6  0.5   0.2  86cd1bad8a</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;  7  0.5   0.4  27ee13eba6</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;  8  0.5   0.7  bfba456bd2</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;  9  0.69  0    c8bb17e530</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 10  0.75  1    b70288021a</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; 11  0.8   0.6  655f28a32f</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; 12  1     0.8  dac920e5c2</span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; 13  1.1   0.63 ffd0f96f83</span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; 14  1.23  0.3  cde1c44618</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;       x_    y_ vertex_</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;  1  0     0          1</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;  2  0     1          2</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;  3  0.2   0.2        3</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;  4  0.2   0.4        4</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;  5  0.3   0.6        5</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;  6  0.5   0.2        6</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;  7  0.5   0.4        7</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;  8  0.5   0.7        8</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;  9  0.69  0          9</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 10  0.75  1         10</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; 11  0.8   0.6       11</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; 12  1     0.8       12</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; 13  1.1   0.63      13</span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; 14  1.23  0.3       14</span></a>
 <a class="sourceLine" id="cb3-19" data-line-number="19"></a>
 <a class="sourceLine" id="cb3-20" data-line-number="20"><span class="kw"><a href="reference/sc_edge.html">sc_edge</a></span>(x)</a>
 <a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt; # A tibble: 15 x 3</span></a>
-<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt;    .vx0       .vx1       edge_     </span></a>
-<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     </span></a>
-<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">#&gt;  1 4a9587c2a9 4a1edf4ecf 62256a5074</span></a>
-<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt;  2 4a1edf4ecf b70288021a 630dfd2394</span></a>
-<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt;  3 b70288021a dac920e5c2 9bfa59aab3</span></a>
-<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt;  4 bfba456bd2 dac920e5c2 3bd89c80d0</span></a>
-<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt;  5 bfba456bd2 655f28a32f eaa72e00e8</span></a>
-<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt;  6 c8bb17e530 655f28a32f 257db4d7b8</span></a>
-<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt;  7 4a9587c2a9 c8bb17e530 3d14f1e0f5</span></a>
-<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt;  8 184a223203 86cd1bad8a ab6462d07d</span></a>
-<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt;  9 86cd1bad8a 27ee13eba6 eea7bccf13</span></a>
-<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt; 10 d39e0d56ff 27ee13eba6 2c9faea622</span></a>
-<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; 11 21a64b416e d39e0d56ff f3a45c7935</span></a>
-<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="co">#&gt; 12 184a223203 21a64b416e 67b21a76d3</span></a>
-<a class="sourceLine" id="cb3-36" data-line-number="36"><span class="co">#&gt; 13 655f28a32f ffd0f96f83 71552dc52d</span></a>
-<a class="sourceLine" id="cb3-37" data-line-number="37"><span class="co">#&gt; 14 ffd0f96f83 cde1c44618 1eb48970c6</span></a>
-<a class="sourceLine" id="cb3-38" data-line-number="38"><span class="co">#&gt; 15 c8bb17e530 cde1c44618 1ee63a03d2</span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt;     .vx0  .vx1 edge_</span></a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">#&gt;  1     1     2     1</span></a>
+<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt;  2     2    10     3</span></a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt;  3    10    12    13</span></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt;  4     8    12    10</span></a>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt;  5     8    11     9</span></a>
+<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt;  6     9    11    11</span></a>
+<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt;  7     1     9     2</span></a>
+<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt;  8     3     6     5</span></a>
+<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt;  9     6     7     8</span></a>
+<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt; 10     5     7     7</span></a>
+<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; 11     4     5     6</span></a>
+<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="co">#&gt; 12     3     4     4</span></a>
+<a class="sourceLine" id="cb3-36" data-line-number="36"><span class="co">#&gt; 13    11    13    14</span></a>
+<a class="sourceLine" id="cb3-37" data-line-number="37"><span class="co">#&gt; 14    13    14    15</span></a>
+<a class="sourceLine" id="cb3-38" data-line-number="38"><span class="co">#&gt; 15     9    14    12</span></a>
 <a class="sourceLine" id="cb3-39" data-line-number="39"></a>
 <a class="sourceLine" id="cb3-40" data-line-number="40"><span class="kw"><a href="reference/sc_node.html">sc_node</a></span>(y)</a>
 <a class="sourceLine" id="cb3-41" data-line-number="41"><span class="co">#&gt; # A tibble: 2 x 1</span></a>
-<a class="sourceLine" id="cb3-42" data-line-number="42"><span class="co">#&gt;   vertex_   </span></a>
-<a class="sourceLine" id="cb3-43" data-line-number="43"><span class="co">#&gt;   &lt;chr&gt;     </span></a>
-<a class="sourceLine" id="cb3-44" data-line-number="44"><span class="co">#&gt; 1 0a343bd406</span></a>
-<a class="sourceLine" id="cb3-45" data-line-number="45"><span class="co">#&gt; 2 aba4d4144b</span></a>
+<a class="sourceLine" id="cb3-42" data-line-number="42"><span class="co">#&gt;   vertex_</span></a>
+<a class="sourceLine" id="cb3-43" data-line-number="43"><span class="co">#&gt;     &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb3-44" data-line-number="44"><span class="co">#&gt; 1      11</span></a>
+<a class="sourceLine" id="cb3-45" data-line-number="45"><span class="co">#&gt; 2       9</span></a>
 <a class="sourceLine" id="cb3-46" data-line-number="46"></a>
 <a class="sourceLine" id="cb3-47" data-line-number="47"><span class="kw"><a href="reference/sc_arc.html">sc_arc</a></span>(y)</a>
-<a class="sourceLine" id="cb3-48" data-line-number="48"><span class="co">#&gt; # A tibble: 4 x 2</span></a>
-<a class="sourceLine" id="cb3-49" data-line-number="49"><span class="co">#&gt;   arc_       ncoords_</span></a>
-<a class="sourceLine" id="cb3-50" data-line-number="50"><span class="co">#&gt;   &lt;chr&gt;         &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb3-51" data-line-number="51"><span class="co">#&gt; 1 1916ba9986        2</span></a>
-<a class="sourceLine" id="cb3-52" data-line-number="52"><span class="co">#&gt; 2 3459bcc32f        4</span></a>
-<a class="sourceLine" id="cb3-53" data-line-number="53"><span class="co">#&gt; 3 c2ed7c899b        7</span></a>
-<a class="sourceLine" id="cb3-54" data-line-number="54"><span class="co">#&gt; 4 d4c03660b4        6</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-48" data-line-number="48"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
+<a class="sourceLine" id="cb3-49" data-line-number="49"><span class="co">#&gt;    arc_ ncoords_</span></a>
+<a class="sourceLine" id="cb3-50" data-line-number="50"><span class="co">#&gt;   &lt;int&gt;    &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb3-51" data-line-number="51"><span class="co">#&gt; 1     1       10</span></a>
+<a class="sourceLine" id="cb3-52" data-line-number="52"><span class="co">#&gt; 2     2       11</span></a></code></pre></div>
 <div id="silicate-models" class="section level2">
 <h2 class="hasAnchor">
 <a href="#silicate-models" class="anchor"></a>silicate models</h2>
@@ -254,7 +252,7 @@
 <div id="context-and-some-related-projects" class="section level2">
 <h2 class="hasAnchor">
 <a href="#context-and-some-related-projects" class="anchor"></a>Context, and some related projects</h2>
-<p>The <a href="https://github.com/mdsumner/spacebucket">spacebucket</a> (arbitrary multi-layer polygonal overlays) and <a href="https:://github.com/hypertidy/sphier/">sphier</a> (generic hierarchies from atomic forms) show two different approaches to the problem of hierarchical data and flexible representations.</p>
+<p>The <a href="https://github.com/mdsumner/spacebucket">spacebucket</a> (arbitrary multi-layer polygonal overlays) and <a href="https://github.com/hypertidy/sphier/">sphier</a> (generic hierarchies from atomic forms) show two different approaches to the problem of hierarchical data and flexible representations.</p>
 <p>The key difference between the silicate approach and simple features is the separation of geometry and topology. This allows for normalization (de-duplication) of the entities that are present or that can be identitied. Simple features has no capacity to de-duplicate or otherwise identify vertices, edges, paths or arcs, though tools that work with simple features do construct these schemes routinely in order to perform operations. When these richer, topological structures are built they are usually then discarded and the vertices are again de-normalized and again expressed explicitly without recording any of the relationships. In this sense, simple features can be described as an <em>explicitly-stored PATH analogue</em>, and is no different from the model used by shapefiles, binary blobs in databases, and many other spatial vector formats. There are a number of notable exceptions to this including TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, Mapbox, WebGL, Threejs, D3, AFrame, Lavavu but unfortunately there’s no overall scheme that can unify these richer structures.</p>
 <p>The silicate family is composed of a small number of packages that apply the principles here, either to read from path forms or primitive forms. As work continues some of these will be incorporated into the silicate core, when that is possible without requiring heavy external dependencies.</p>
 <ul>

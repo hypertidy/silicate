@@ -15,12 +15,13 @@ Status](https://img.shields.io/codecov/c/github/hypertidy/silicate/master.svg)](
 The goal of silicate is to bridge formal data structure definitions with
 flexible analytical and visualization techniques.
 
-We
+We aim to
 
   - provide a universal *common-form* of hierarchical data
   - provide a framework for a *universal converter* between complex data
     types
-  - to work with topological primitives for analysis and interaction.
+  - enable working with topological primitives for analysis and
+    interaction.
 
 The core of silicate is the general model `SC`, composed of three tables
 `vertex`, `edge` and `object` and all entities are explicitly labelled.
@@ -203,58 +204,56 @@ Obtain the elements of a known model type.
 ``` r
 sc_vertex(x)
 #> # A tibble: 14 x 3
-#>       x_    y_ vertex_   
-#>    <dbl> <dbl> <chr>     
-#>  1  0     0    03882f84a0
-#>  2  0     1    3108f600d5
-#>  3  0.2   0.2  f91a733f07
-#>  4  0.2   0.4  607d47db82
-#>  5  0.3   0.6  378d9c308a
-#>  6  0.5   0.2  8a9a82b633
-#>  7  0.5   0.4  72a72d7f8d
-#>  8  0.5   0.7  5e3828947d
-#>  9  0.69  0    dcd1b03ee7
-#> 10  0.75  1    3cd6e18f3e
-#> 11  0.8   0.6  c431c9f1ef
-#> 12  1     0.8  f184f4a073
-#> 13  1.1   0.63 8a0b356ef0
-#> 14  1.23  0.3  4ee71ea0a6
+#>       x_    y_ vertex_
+#>    <dbl> <dbl>   <int>
+#>  1  0     0          1
+#>  2  0     1          2
+#>  3  0.2   0.2        3
+#>  4  0.2   0.4        4
+#>  5  0.3   0.6        5
+#>  6  0.5   0.2        6
+#>  7  0.5   0.4        7
+#>  8  0.5   0.7        8
+#>  9  0.69  0          9
+#> 10  0.75  1         10
+#> 11  0.8   0.6       11
+#> 12  1     0.8       12
+#> 13  1.1   0.63      13
+#> 14  1.23  0.3       14
 
 sc_edge(x)
 #> # A tibble: 15 x 3
-#>    .vx0       .vx1       edge_     
-#>    <chr>      <chr>      <chr>     
-#>  1 03882f84a0 3108f600d5 5d206059ff
-#>  2 3108f600d5 3cd6e18f3e 5fccef91ee
-#>  3 3cd6e18f3e f184f4a073 13a5833357
-#>  4 5e3828947d f184f4a073 6e4724aefc
-#>  5 5e3828947d c431c9f1ef 23e887ddb1
-#>  6 dcd1b03ee7 c431c9f1ef 1eb6e3e943
-#>  7 03882f84a0 dcd1b03ee7 1daf3e7053
-#>  8 f91a733f07 8a9a82b633 e7f4a37c28
-#>  9 8a9a82b633 72a72d7f8d bb2582f8cf
-#> 10 378d9c308a 72a72d7f8d 1d690a708e
-#> 11 607d47db82 378d9c308a 5e7d48a641
-#> 12 f91a733f07 607d47db82 61fb629923
-#> 13 c431c9f1ef 8a0b356ef0 73d313d900
-#> 14 8a0b356ef0 4ee71ea0a6 f3fcff12c7
-#> 15 dcd1b03ee7 4ee71ea0a6 1d7cffb956
+#>     .vx0  .vx1 edge_
+#>    <int> <int> <int>
+#>  1     1     2     1
+#>  2     2    10     3
+#>  3    10    12    13
+#>  4     8    12    10
+#>  5     8    11     9
+#>  6     9    11    11
+#>  7     1     9     2
+#>  8     3     6     5
+#>  9     6     7     8
+#> 10     5     7     7
+#> 11     4     5     6
+#> 12     3     4     4
+#> 13    11    13    14
+#> 14    13    14    15
+#> 15     9    14    12
 
 sc_node(y)
 #> # A tibble: 2 x 1
-#>   vertex_   
-#>   <chr>     
-#> 1 6172514346
-#> 2 1ec3ab7cd4
+#>   vertex_
+#>     <int>
+#> 1      11
+#> 2       9
 
 sc_arc(y)
-#> # A tibble: 4 x 2
-#>   arc_       ncoords_
-#>   <chr>         <int>
-#> 1 959d8cb9c3        7
-#> 2 a8d782bfd0        4
-#> 3 e787de56d3        2
-#> 4 f6c2815208        6
+#> # A tibble: 2 x 2
+#>    arc_ ncoords_
+#>   <int>    <int>
+#> 1     1       10
+#> 2     2       11
 ```
 
 ## silicate models

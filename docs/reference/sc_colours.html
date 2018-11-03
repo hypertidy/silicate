@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ARC model — ARC • silicate</title>
+<title>Silicate colours — sc_colours • silicate</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="ARC model — ARC" />
+<meta property="og:title" content="Silicate colours — sc_colours" />
 
-<meta property="og:description" content="Arcs are paths within the line segment graph between nodes." />
+<meta property="og:description" content="Simple set of colours for discrete palette." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,63 +107,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ARC model</h1>
+    <h1>Silicate colours</h1>
     
-    <div class="hidden name"><code>ARC.Rd</code></div>
+    <div class="hidden name"><code>sc_colours.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Arcs are paths within the line segment graph between nodes.</p>
+    <p>Simple set of colours for discrete palette.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ARC</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>ARC</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for PATH</span>
-<span class='fu'>ARC</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>sc_colours</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>16</span>, <span class='no'>...</span>, <span class='kw'>viridis</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>input model</p></td>
+      <td><p>number of colours to generate</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to methods</p></td>
+      <td><p>currently ignored</p></td>
+    </tr>
+    <tr>
+      <th>viridis</th>
+      <td><p>use viridis, TRUE or FALSE</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ARC model</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Nodes are the vertices where three or more arcs meet.
-An arc can exist without including any nodes, a path that has no neighbouring relationship with another path.</p>
-<p>This is <em>not</em> the same terminology as used by other systems. The <code>arc_link_vertex</code> mapping is inherently ordered,
-but we don't consider order of arcs. Duplicated arcs (i.e. complementary turns around neighbouring polygons) are
-not kept. The <code>object_link_arc</code> mapping records which arc belongs to the objects, so can be reconstructed within
-objects by tracing <code>arc_link_vertex</code> start and end point identity.</p>
+    <p>colours</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)
-<span class='fu'><a href='sc_arc.html'>sc_arc</a></span>(<span class='no'>a</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
-#&gt;    arc_ ncoords_
-#&gt;   &lt;int&gt;    &lt;int&gt;
-#&gt; 1     1       10
-#&gt; 2     2       11</div><div class='input'><span class='fu'><a href='sc_arc.html'>sc_arc</a></span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
-#&gt;    arc_ ncoords_
-#&gt;   &lt;int&gt;    &lt;int&gt;
-#&gt; 1     1       10
-#&gt; 2     2       11</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>sc_colours</span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] "#007A2A" "#00A0DB" "#EB1C00" "#206200" "#009923" "#430B00" "#00875C"
+#&gt;  [8] "#00661B" "#002336" "#004A3B"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -171,8 +152,6 @@ objects by tracing <code>arc_link_vertex</code> start and end point identity.</p
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
