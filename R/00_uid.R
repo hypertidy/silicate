@@ -13,23 +13,22 @@
 #' See `ids` package for `random_id` used if option 'silicate.uid.type="uuid"'.
 #' @param x number of unique IDs to generate
 #' @param ... reserved for future use
-#' @param bytes number of bytes passed to 'ids' package (only if silicate.uid.type is "uuid", see Details)
+#' @param nchar number of raw characters to paste as a uuid, default is 10 (only if silicate.uid.type is "uuid", see Details)
 #' @export
-sc_uid <- function(x, ..., bytes = 5L) {
+sc_uid <- function(x, ..., nchar = 10L) {
   UseMethod("sc_uid")
 }
 #' @export
-#' @importFrom ids random_id
-sc_uid.numeric <- function(x, ..., bytes = 5L) {
+sc_uid.numeric <- function(x, ..., nchar = 10L) {
   op <- getOption("silicate.uid.type")
   if (op == "uuid") {
-    uuid_id(x[1], bytes = bytes)
+    uuid_id(x[1], nchar = nchar)
   } else {
     seq.int(1, x[1])
   }
 }
 #' @export
-sc_uid.data.frame <- function(x, ..., bytes = 5L) {
+sc_uid.data.frame <- function(x, ..., nchar = 10L) {
   op <- getOption("silicate.uid.type")
   if (op == "uuid") {
     row.names(x)
@@ -38,14 +37,16 @@ sc_uid.data.frame <- function(x, ..., bytes = 5L) {
   }
 }
 #' @export
-sc_uid.Spatial <- function(x, ..., bytes = 5L) {
+sc_uid.Spatial <- function(x, ..., nchar = 10L) {
   nr <- if (methods::.hasSlot(x, "data")(x)) dim(x)[1L] else length(x)
-  sc_uid(nr, bytes = bytes)
+  sc_uid(nr, nchar = nchar)
 }
 
+uuid_id <- function(x, ..., nchar = 10) {
+  #ids::random_id(x, bytes = bytes)
+  unlist(lapply(split(sample(raw_chars, x * nchar, replace = TRUE),
+                      rep(seq.int(x), each = nchar)), paste, collapse = ""))
 
-uuid_id <- function(x, ..., bytes = 5L) {
-  ids::random_id(x, bytes = bytes)
 }
 
 valid_uid_type <- function(x) {

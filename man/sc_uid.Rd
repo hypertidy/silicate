@@ -4,14 +4,14 @@
 \alias{sc_uid}
 \title{Unique labels}
 \usage{
-sc_uid(x, ..., bytes = 5L)
+sc_uid(x, ..., nchar = 10L)
 }
 \arguments{
 \item{x}{number of unique IDs to generate}
 
 \item{...}{reserved for future use}
 
-\item{bytes}{number of bytes passed to 'ids' package (only if silicate.uid.type is "uuid", see Details)}
+\item{nchar}{number of raw characters to paste as a uuid, default is 10 (only if silicate.uid.type is "uuid", see Details)}
 }
 \description{
 Find unique labels for entities, or create them

@@ -30,7 +30,6 @@ RoxygenNote: 6.1.0
 Imports: 
     dplyr,
     gibble (>= 0.1.2),
-    ids,
     methods,
     purrr,
     rlang,
