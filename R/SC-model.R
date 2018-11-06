@@ -56,7 +56,6 @@ SC.default <- function(x, ...) {
   edge[[".vx1"]] <- V[["vertex_"]][v_1]
 
   edge[["u_edge"]] <- dplyr::group_indices(edge, .data$.vx0, .data$.vx1)
-
   edge[["edge_"]] <- sc_uid(length(unique(edge$u_edge)))[edge$u_edge]
   oXe <- edge[c("object_", "edge_", "native_")]
   edge$native_ <- edge$object_ <- NULL

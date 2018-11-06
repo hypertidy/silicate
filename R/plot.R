@@ -37,7 +37,7 @@ sc_colour_values <- function(x, ..., viridis = FALSE) {
 #' @export
 #' @importFrom graphics plot
 #' @importFrom dplyr inner_join anti_join group_by summarize tally filter
-plot.SC <- function(x, ..., vars = NULL, use_edge_colour = TRUE) {
+plot.SC <- function(x, add = FALSE, ..., vars = NULL, use_edge_colour = TRUE) {
   if (!"color_" %in% names(x$object)) {
     x$object$color_ <- sc_colour_values(x$object$object_, viridis = TRUE)
   } else {
@@ -68,7 +68,7 @@ plot.SC <- function(x, ..., vars = NULL, use_edge_colour = TRUE) {
     col <- sc_colour_values(props, viridis = TRUE)[match(x0$edge_, keepedges)]
   }
 
-  graphics::plot(v$x_, v$y_, pch = ".")
+  if (!add) graphics::plot(v$x_, v$y_, pch = ".")
   graphics::segments(x0$x_, x0$y_, x1$x_, x1$y_, ..., col = col)
 }
 
