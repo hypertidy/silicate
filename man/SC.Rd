@@ -10,7 +10,8 @@ SC(x, ...)
 
 \method{SC}{TRI}(x, ...)
 
-\method{plot}{SC}(x, ..., vars = NULL, use_edge_colour = TRUE)
+\method{plot}{SC}(x, add = FALSE, ..., vars = NULL,
+  use_edge_colour = TRUE)
 }
 \arguments{
 \item{x}{input model}

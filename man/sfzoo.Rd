@@ -13,7 +13,7 @@ with each of \emph{point}, \emph{multipoin}, \emph{linestring}, \emph{multilines
 \examples{
 lapply(sfzoo, sc_coord)
 lapply(sfzoo, sc_path)
- 
+
 ## unsure how usefult this is ...
 sc_path(sfgc)
 }

@@ -8,12 +8,12 @@
 A data set flight tracks in XYZM form, a form of 4D tracks. Primarily to
 explore the use of \code{silicate} as able to represent this topologically,  and to experiment with
 auto-time-based plotting in \code{anglr}.
-
+}
+\details{
 Provided by  Kent Johnson (kent37) in a
 \href{https://github.com/r-spatial/mapview/issues/99#issuecomment-328711275}{github discusion}
 where the data was attached in a zip file.
-}
-\details{
+
 Original form (in extdata/flight_tracks) is a XYZM LINESTRING shapefile
 containing 144 flight tracks of aircraft departing runway 33L at Boston Logan
 airport on January 27, 2017. Data is from an ADS-B recorder. Each point includes

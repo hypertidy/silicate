@@ -30,7 +30,7 @@
    #register_s3_method("dplyr", "filter", "SC")
    op <- getOption("silicate.uid.type")
    if (is.null(op) || is.na(op) || length(op) < 1) {
-     op <- "integer"  ## or "uuid"
+     op <- "uuid"  ## or "integer"
      options(silicate.uid.type = op)
    }
    invisible()

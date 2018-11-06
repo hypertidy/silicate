@@ -34,7 +34,7 @@ funplot <- function(ob, vert, col) {
 vx <- c("x_", "y_")
   plot(dplyr::inner_join(ob, vert, "vertex_")[vx], col = col, type = "l", axes = FALSE)
   }
-junk <- lapply(seq_along(obj), 
+junk <- lapply(seq_along(obj),
 function(a) {
   funplot(obj[[a]], path$vertex, cols[a])
   invisible(NULL)

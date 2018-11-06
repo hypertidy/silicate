@@ -12,8 +12,8 @@ composed of four "arcs", one around each polygon, one for the shared edge, and
 one for the isolated hole. There are two nodes, the endpoints of the single shared edge.
 }
 \examples{
-arc <- ARC(minimal_mesh) 
-plot(arc) 
+arc <- ARC(minimal_mesh)
+plot(arc)
 sc_arc(arc)
 sc_node(arc)
 }
