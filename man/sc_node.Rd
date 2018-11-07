@@ -28,5 +28,6 @@ Nodes are the vertices in the graph that are shared by "arcs".
 }
 \examples{
 sc <- SC(routes)
+library(dplyr)
 sc_node(sc) \%>\% inner_join(sc$vertex) \%>\% select(x_, y_) \%>\% points()
 }

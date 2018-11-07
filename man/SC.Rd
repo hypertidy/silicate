@@ -18,6 +18,8 @@ SC(x, ...)
 
 \item{...}{arguments passed to methods}
 
+\item{add}{if \code{TRUE} add to current plot}
+
 \item{vars}{variables to plot (experimental)}
 
 \item{use_edge_colour}{if \code{TRUE} edges are differentiated by object and whether they share two objects}

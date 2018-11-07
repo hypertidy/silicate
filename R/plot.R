@@ -33,6 +33,7 @@ sc_colour_values <- function(x, ..., viridis = FALSE) {
 #'
 #' @name SC
 #' @param use_edge_colour if `TRUE` edges are differentiated by object and whether they share two objects
+#' @param add if `TRUE` add to current plot
 #' @param vars variables to plot (experimental)
 #' @export
 #' @importFrom graphics plot

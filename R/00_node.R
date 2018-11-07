@@ -12,11 +12,12 @@ sc_node <- function(x, ...) {
 #' @export
 #' @examples
 #' sc <- SC(routes)
+#' library(dplyr)
 #' sc_node(sc) %>% inner_join(sc$vertex) %>% select(x_, y_) %>% points()
 sc_node.SC <- function(x, ...) {
   alledge <- tibble::tibble(v = c(x$edge$.vx0, x$edge$.vx1),
                             e = c(x$edge$edge_, x$edge$edge_))
-  v0 <- alledge %>% group_by(v) %>% tally() %>% filter(!n == 2)
+  v0 <- alledge %>% group_by(.data$v) %>% tally() %>% filter(!n == 2)
   tibble::tibble(vertex_ = sort(unique(v0$v)))
 }
 #' @name sc_node
