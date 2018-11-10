@@ -40,6 +40,7 @@ model_type <- function(x) {
   switch(tail(class(x), 2)[1],
 
          SC0 = "Structural",
+         PATH0 = "Sequential",
          TRI = "Primitive",
          DEL = "Primitive",
          SC = "Primitive",
@@ -54,6 +55,7 @@ topology_type <- function(x) {
          DEL = "2-space",
          SC = "1-space",
          SC0 = sprintf("%i-space", ncol(x$object$topology_[[1]]) - 1),
+         PATH0 = "1-space",
          ARC = "1-space",
          PATH = "1-space",
          "[unknown]")
@@ -75,12 +77,14 @@ n_paths <- function(x) {
   ARC = length(unique(x$object_link_arc$arc_)),
   PATH = nrow(x$path),
   SC0 = nrow(x$geometry),
+  PATH0 = sum(unlist(lapply(x$path, function(a) length(unique(a$path))))),
   "[unknown")
 }
 n_coordinates <- function(x) {
   switch(tail(class(x), 2)[1],
          ARC = nrow(x$arc_link_vertex),  ## FIXME: arc may become "arc" table, remove object_link_arc
          PATH = sum(x$path$ncoords_),
+         PATH0 = nrow(x$vertex),
          SC0 = nrow(x$coord),
          "[unknown")
 }
