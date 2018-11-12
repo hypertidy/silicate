@@ -4,14 +4,14 @@
 \alias{sc_uid}
 \title{Unique labels}
 \usage{
-sc_uid(x, ..., nchar = 6L)
+sc_uid(x, ..., uid_nchar = NULL)
 }
 \arguments{
 \item{x}{number of unique IDs to generate}
 
 \item{...}{reserved for future use}
 
-\item{nchar}{number of raw characters to paste as a uuid, default is 6 (only if silicate.uid.type is "uuid", see Details)}
+\item{uid_nchar}{number of raw characters to paste as a uuid, default is 6 (only if silicate.uid.type is "uuid", see Details)}
 }
 \description{
 Find unique labels for entities, or create them
@@ -22,7 +22,8 @@ If 'integers' default we generate sequential integers, it's assumed that all IDs
 at one time, we are not adding to an existing set. Code that adds IDs should find
 the largest existing ID and offset these by that value.
 
-Using 'silicate.uid.type="uuid"' is considered experimental.
+Using 'silicate.uid.type="uuid"' is the default. Using 'silicate.uid.type="integer"' is considered experimental.
+By default UIDs are a mix of letters, LETTERS and digits of length \code{getOption("silicate.uid.size")} which defaults to 6.
 
 See \code{ids} package for \code{random_id} used if option 'silicate.uid.type="uuid"'.
 }

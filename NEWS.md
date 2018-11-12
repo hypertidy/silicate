@@ -1,5 +1,8 @@
 # silicate 0.1.1.9001
 
+* `sc_uid` is now 6L characters by default, controlled by `uid_nchar` argument, and settable in option
+`silicate.uid.size`. If `option(silicate.uid.type = "integer")` this is ignored, but that is considered experimental for now. 
+
 * Models now have print methods. 
 
 * The  `filter` method for SC is now exported. 

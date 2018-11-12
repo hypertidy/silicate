@@ -53,6 +53,12 @@ relationships between the model types.
     are only implicit relations of object to vertices, with a nested
     list of edge indexes
 
+The models `PATH0` and `ARC0` are in-development. By analogy to `SC0`
+they will be composed of two tables, `object` and `vertex` with nested
+structural-index tables on `object` holding the path and arc indexes
+that are row numbers of `vertex`. It’s not clear yet if this vertex
+table should be de-duplicated.
+
 Earlier versions included a mix of these models, and the definitions
 have changed many times. Still a work-in-progress.
 
@@ -205,55 +211,57 @@ Obtain the elements of a known model type.
 sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_
-#>    <dbl> <dbl>   <int>
-#>  1  0     0          1
-#>  2  0     1          2
-#>  3  0.2   0.2        3
-#>  4  0.2   0.4        4
-#>  5  0.3   0.6        5
-#>  6  0.5   0.2        6
-#>  7  0.5   0.4        7
-#>  8  0.5   0.7        8
-#>  9  0.69  0          9
-#> 10  0.75  1         10
-#> 11  0.8   0.6       11
-#> 12  1     0.8       12
-#> 13  1.1   0.63      13
-#> 14  1.23  0.3       14
+#>    <dbl> <dbl> <chr>  
+#>  1  0     0    4K4gH2 
+#>  2  0     1    tNPAJX 
+#>  3  0.2   0.2  Hk4taB 
+#>  4  0.2   0.4  SRMerp 
+#>  5  0.3   0.6  ZlXTaV 
+#>  6  0.5   0.2  IeAPXb 
+#>  7  0.5   0.4  oLXlfF 
+#>  8  0.5   0.7  43Pvlx 
+#>  9  0.69  0    ulCCPk 
+#> 10  0.75  1    pGERvt 
+#> 11  0.8   0.6  YyYQpm 
+#> 12  1     0.8  jNgUGT 
+#> 13  1.1   0.63 YnDF9T 
+#> 14  1.23  0.3  PJujNL
 
 sc_edge(x)
 #> # A tibble: 15 x 3
-#>     .vx0  .vx1 edge_
-#>    <int> <int> <int>
-#>  1     1     2     1
-#>  2     2    10     3
-#>  3    10    12    13
-#>  4     8    12    10
-#>  5     8    11     9
-#>  6     9    11    11
-#>  7     1     9     2
-#>  8     3     6     5
-#>  9     6     7     8
-#> 10     5     7     7
-#> 11     4     5     6
-#> 12     3     4     4
-#> 13    11    13    14
-#> 14    13    14    15
-#> 15     9    14    12
+#>    .vx0   .vx1   edge_ 
+#>    <chr>  <chr>  <chr> 
+#>  1 4K4gH2 tNPAJX 8P6xUr
+#>  2 tNPAJX pGERvt wIQAI7
+#>  3 pGERvt jNgUGT UtEIgw
+#>  4 43Pvlx jNgUGT 5ln4sL
+#>  5 43Pvlx YyYQpm v34PuB
+#>  6 ulCCPk YyYQpm smGNxO
+#>  7 4K4gH2 ulCCPk 1zRD8f
+#>  8 Hk4taB IeAPXb pKnI0R
+#>  9 IeAPXb oLXlfF VsLieL
+#> 10 ZlXTaV oLXlfF aEKCwI
+#> 11 SRMerp ZlXTaV TgCutV
+#> 12 Hk4taB SRMerp bxZFpZ
+#> 13 YyYQpm YnDF9T BRA8ll
+#> 14 YnDF9T PJujNL 7u1YY1
+#> 15 ulCCPk PJujNL hMTb5C
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_
-#>     <int>
-#> 1      11
-#> 2       9
+#>   <chr>  
+#> 1 T9Uena 
+#> 2 2cGi56
 
 sc_arc(y)
-#> # A tibble: 2 x 2
-#>    arc_ ncoords_
-#>   <int>    <int>
-#> 1     1       10
-#> 2     2       11
+#> # A tibble: 4 x 2
+#>   arc_   ncoords_
+#>   <chr>     <int>
+#> 1 C5HJgH        6
+#> 2 cW03HP        2
+#> 3 ftfU48        7
+#> 4 WQbdf0        4
 ```
 
 ## silicate models

@@ -10,9 +10,9 @@ TRI(x, ...)
 \method{plot}{TRI}(x, ..., add = FALSE)
 }
 \arguments{
-\item{x}{input model}
+\item{x}{object understood by silicate (sf, sp, a silicate model, etc.)}
 
-\item{...}{arguments passed to methods}
+\item{...}{current unused}
 
 \item{add}{logical create  new plot (default), or add to existing}
 }

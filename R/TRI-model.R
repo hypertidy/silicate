@@ -1,6 +1,7 @@
 #' TRI model, triangulations
 #'
-#' @inheritParams SC
+#' @param x object understood by silicate (sf, sp, a silicate model, etc.)
+#' @param ... current unused
 #' @param add logical create  new plot (default), or add to existing
 #' @return TRI model
 #' @export

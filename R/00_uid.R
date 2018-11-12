@@ -8,52 +8,52 @@
 #' at one time, we are not adding to an existing set. Code that adds IDs should find
 #' the largest existing ID and offset these by that value.
 #'
-#' Using 'silicate.uid.type="uuid"' is considered experimental.
+#' Using 'silicate.uid.type="uuid"' is the default. Using 'silicate.uid.type="integer"' is considered experimental.
+#' By default UIDs are a mix of letters, LETTERS and digits of length `getOption("silicate.uid.size")` which defaults to 6.
 #'
 #' See `ids` package for `random_id` used if option 'silicate.uid.type="uuid"'.
 #' @param x number of unique IDs to generate
 #' @param ... reserved for future use
-#' @param nchar number of raw characters to paste as a uuid, default is 6 (only if silicate.uid.type is "uuid", see Details)
+#' @param uid_nchar number of raw characters to paste as a uuid, default is 6 (only if silicate.uid.type is "uuid", see Details)
 #' @export
-sc_uid <- function(x, ..., nchar = 6L) {
+sc_uid <- function(x, ..., uid_nchar = NULL) {
   UseMethod("sc_uid")
 }
 #' @export
-sc_uid.numeric <- function(x, ..., nchar = 6L) {
+sc_uid.numeric <- function(x, ..., uid_nchar = NULL) {
   op <- getOption("silicate.uid.type")
+  tst <- valid_uid_type(op)
   if (op == "uuid") {
-    uuid_id(x[1], nchar = nchar)
-  } else {
-    seq.int(1, x[1])
+    if (is.null(uid_nchar)) {
+      uid_nchar <- getOption("silicate.uid.size")
+    }
+    out <- uuid_id(x[1], uid_nchar = uid_nchar)
   }
+  if (op == "integer") {
+    out <- seq.int(1, x[1])
+  }
+  out
 }
 #' @export
-sc_uid.data.frame <- function(x, ..., nchar = 6L) {
-#  op <- getOption("silicate.uid.type")
-#   if (op == "uuid") {
-# #    row.names(x)
-#     sc_uid(nrow(x))
-#   } else {
-#     sc_uid(nrow(x))
-#   }
-  sc_uid(nrow(x))
+sc_uid.data.frame <- function(x, ..., uid_nchar = NULL) {
+  sc_uid(nrow(x), uid_nchar = uid_nchar)
 }
 #' @export
-sc_uid.Spatial <- function(x, ..., nchar = 6L) {
+sc_uid.Spatial <- function(x, ..., uid_nchar = NULL) {
   nr <- if (methods::.hasSlot(x, "data")(x)) dim(x)[1L] else length(x)
-  sc_uid(nr, nchar = nchar)
+  sc_uid(nr, uid_nchar = uid_nchar)
 }
 
-uuid_id <- function(x, ..., nchar = 6) {
+uuid_id <- function(x, ..., uid_nchar = NULL) {
   #ids::random_id(x, bytes = bytes)
-  unlist(lapply(split(sample(raw_chars, x * nchar, replace = TRUE),
+  unlist(lapply(split(sample(raw_chars, x * uid_nchar, replace = TRUE),
                       rep(seq.int(x), each = nchar)), paste, collapse = ""), use.names = FALSE)
 
 }
 
 valid_uid_type <- function(x) {
   if (!x %in% c("integer", "uuid")) {
-    warning(sprintf("option 'silicate.uid.type = \"%s\"' not known (use 'integer' or 'uuid')", x))
+    stop(sprintf("option 'silicate.uid.type = \"%s\"' not known (use 'integer' or 'uuid')", x))
   }
   x
 }

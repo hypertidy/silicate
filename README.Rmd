@@ -40,6 +40,9 @@ Further models `PATH`, `ARC`, and `TRI` cover a broad range of complex types, an
 * `ARC` a sequential model, for *arc-node topology* a shared-boundary decomposition of path models
 * `SC0` is a stripped down structural model analogous to `SC`, there are only implicit relations of object to vertices, with a nested list of edge indexes
 
+The models `PATH0` and `ARC0` are in-development. By analogy to `SC0` they will be composed of two tables, `object` and `vertex` with 
+nested structural-index tables on `object` holding the path and arc indexes that are row numbers of `vertex`. It's not clear yet if this vertex table should be de-duplicated.
+
 Earlier versions included a mix of these models, and the definitions have changed many times. Still a work-in-progress. 
 
 An extension of the `TRI` model `DEL` is provided in [anglr](https://github.com/hypertidy/anglr/) which builds *high-quality* triangulations, but the structural representation is the same. 

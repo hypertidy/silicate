@@ -5,6 +5,7 @@
 #' @param x input object
 #' @param ... arguments for methods
 #' @export
+#' @importFrom rlang .data
 sc_node <- function(x, ...) {
   UseMethod("sc_node")
 }
@@ -13,6 +14,7 @@ sc_node <- function(x, ...) {
 #' @examples
 #' sc <- SC(routes)
 #' library(dplyr)
+#' plot(sc)
 #' sc_node(sc) %>% inner_join(sc$vertex) %>% select(x_, y_) %>% points()
 sc_node.SC <- function(x, ...) {
   alledge <- tibble::tibble(v = c(x$edge$.vx0, x$edge$.vx1),
@@ -40,7 +42,7 @@ sc_node.ARC <- function(x, ...) {
     dplyr::filter(.data$n > 2) %>%
     dplyr::distinct(.data$vertex_)
 }
-#' @importFrom rlang .data
+
 sc_node_base <- function(unique_edges, vertex, ...) {
   nodes <- dplyr::bind_rows(vertex %>% dplyr::select(.data$vertex_) %>%
                               dplyr::inner_join(unique_edges, c("vertex_" = ".vertex0")),

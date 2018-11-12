@@ -29,9 +29,15 @@
  .onLoad <- function(...) {
    #register_s3_method("dplyr", "filter", "SC")
    op <- getOption("silicate.uid.type")
+
    if (is.null(op) || is.na(op) || length(op) < 1) {
      op <- "uuid"  ## or "integer"
      options(silicate.uid.type = op)
+   }
+   op.size <- getOption("silicate.uid.size")
+   if (is.null(op.size) || is.na(op.size) || length(op.size) < 1) {
+
+      options(silicate.uid.size = 6L)
    }
    invisible()
  }
