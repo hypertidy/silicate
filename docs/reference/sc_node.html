@@ -120,6 +120,9 @@
 
     <pre class="usage"><span class='fu'>sc_node</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
+<span class='co'># S3 method for SC</span>
+<span class='fu'>sc_node</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
 <span class='co'># S3 method for default</span>
 <span class='fu'>sc_node</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
@@ -143,12 +146,18 @@
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>sc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='SC.html'>SC</a></span>(<span class='no'>routes</span>)
+<span class='fu'>library</span>(<span class='no'>dplyr</span>)
+<span class='fu'>sc_node</span>(<span class='no'>sc</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>inner_join</a></span>(<span class='no'>sc</span>$<span class='no'>vertex</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='no'>x_</span>, <span class='no'>y_</span>) <span class='kw'>%&gt;%</span> <span class='fu'>points</span>()</div><div class='output co'>#&gt; <span class='message'>Joining, by = "vertex_"</span></div><div class='output co'>#&gt; <span class='error'>Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

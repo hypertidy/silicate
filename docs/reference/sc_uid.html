@@ -120,7 +120,7 @@ if not present.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sc_uid</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>nchar</span> <span class='kw'>=</span> <span class='fl'>10L</span>)</pre>
+    <pre class="usage"><span class='fu'>sc_uid</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>uid_nchar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,17 +134,18 @@ if not present.</p>
       <td><p>reserved for future use</p></td>
     </tr>
     <tr>
-      <th>nchar</th>
-      <td><p>number of raw characters to paste as a uuid, default is 10 (only if silicate.uid.type is "uuid", see Details)</p></td>
+      <th>uid_nchar</th>
+      <td><p>number of raw characters to paste as a uuid, default is 6 (only if silicate.uid.type is "uuid", see Details)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>By default we generate sequential integers, it's assumed that all IDs are created
+    <p>If 'integers' default we generate sequential integers, it's assumed that all IDs are created
 at one time, we are not adding to an existing set. Code that adds IDs should find
 the largest existing ID and offset these by that value.</p>
-<p>Using 'silicate.uid.type="uuid"' is considered experimental.</p>
+<p>Using 'silicate.uid.type="uuid"' is the default. Using 'silicate.uid.type="integer"' is considered experimental.
+By default UIDs are a mix of letters, LETTERS and digits of length <code>getOption("silicate.uid.size")</code> which defaults to 6.</p>
 <p>See <code>ids</code> package for <code>random_id</code> used if option 'silicate.uid.type="uuid"'.</p>
     
 

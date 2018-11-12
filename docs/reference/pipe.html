@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Minimal mesh. — minimal_mesh • silicate</title>
+<title>Pipe operator — %&gt;% • silicate</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,12 +30,9 @@
 
 
 
-<meta property="og:title" content="Minimal mesh. — minimal_mesh" />
+<meta property="og:title" content="Pipe operator — %&gt;%" />
 
-<meta property="og:description" content="The simplest pairing of two polygons with one shared edge. One polygon
-contains a hole and a concavity, the other is a simply convex. This is
-composed of four &quot;arcs&quot;, one around each polygon, one for the shared edge, and
-one for the isolated hole. There are two nodes, the endpoints of the single shared edge." />
+<meta property="og:description" content="See magrittr::%&amp;gt;% for details." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -110,42 +107,25 @@ one for the isolated hole. There are two nodes, the endpoints of the single shar
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Minimal mesh.</h1>
+    <h1>Pipe operator</h1>
     
-    <div class="hidden name"><code>minimal_mesh.Rd</code></div>
+    <div class="hidden name"><code>pipe.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>The simplest pairing of two polygons with one shared edge. One polygon
-contains a hole and a concavity, the other is a simply convex. This is
-composed of four "arcs", one around each polygon, one for the shared edge, and
-one for the isolated hole. There are two nodes, the endpoints of the single shared edge.</p>
+    <p>See <code>magrittr::%&gt;%</code> for details.</p>
     
     </div>
 
+    <pre class="usage"><span class='no'>lhs</span> <span class='kw'>%&gt;%</span> <span class='no'>rhs</span></pre>
         
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>arc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>minimal_mesh</span>)
-<span class='fu'>plot</span>(<span class='no'>arc</span>)</div><div class='img'><img src='minimal_mesh-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='sc_arc.html'>sc_arc</a></span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
-#&gt;   arc_   ncoords_
-#&gt;   &lt;chr&gt;     &lt;int&gt;
-#&gt; 1 18D2td        6
-#&gt; 2 bz9hgx        4
-#&gt; 3 I0QVEb        7
-#&gt; 4 JUqB7D        2</div><div class='input'><span class='fu'><a href='sc_node.html'>sc_node</a></span>(<span class='no'>arc</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
-#&gt;   vertex_
-#&gt;   &lt;chr&gt;  
-#&gt; 1 w0OLSD 
-#&gt; 2 xxXtFa </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>
