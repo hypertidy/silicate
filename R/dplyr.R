@@ -18,12 +18,18 @@
 #' library(dplyr)
 #' sc <- SC(inlandwaters)
 #' plot(filter(sc, Province == "Tasmania"))
+#' plot(filter(sc, Province %in% c("Victoria", "South Australia")))
 #'
-#' plot(filter(SC(minimal_mesh), a == 2))
+#' plot(filter(SC(minimal_mesh), a == 1))
 filter.SC <- function(.data, ...) {
   .data[["object"]] <- dplyr::filter(.data[["object"]], ...)
-  tabs <- c("object", "object_link_edge", "edge")
-  .data[tabs] <- semi_cascade0(.data[tabs], tables = tabs)
+  .data[["object_link_edge"]] <- dplyr::semi_join(.data[["object_link_edge"]],
+                                                  .data[["object"]], "object_")
+  .data[["edge"]] <- dplyr::semi_join(.data[["edge"]],
+                                                  .data[["object_link_edge"]], "edge_")
+  .data[["vertex"]] <- .data[["vertex"]][.data$vertex$vertex_ %in% as.vector(as.matrix(.data$edge[c(".vx0", ".vx1")])), ]
+#  tabs <- c("object", "object_link_edge", "edge")
+#  .data[tabs] <- semi_cascade0(.data[tabs], tables = tabs)
   .data
 }
 

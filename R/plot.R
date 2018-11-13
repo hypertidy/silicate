@@ -32,13 +32,13 @@ sc_colour_values <- function(x, ..., viridis = FALSE) {
 #'
 #'
 #' @name plot.SC
-#' @param use_edge_colour if `TRUE` edges are differentiated by object and whether they share two objects
+#' @param use_edge_colour if `TRUE` edges are differentiated by object and whether they share two objects (experimental)
 #' @param add if `TRUE` add to current plot
 #' @param vars variables to plot (experimental)
 #' @export
 #' @importFrom graphics plot
 #' @importFrom dplyr inner_join anti_join group_by summarize tally filter
-plot.SC <- function(x, add = FALSE, ..., vars = NULL, use_edge_colour = TRUE) {
+plot.SC <- function(x, add = FALSE, ..., vars = NULL, use_edge_colour = FALSE) {
   if (!"color_" %in% names(x$object)) {
     x$object$color_ <- sc_colour_values(x$object$object_, viridis = TRUE)
   } else {

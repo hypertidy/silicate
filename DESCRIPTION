@@ -26,7 +26,7 @@ Suggests:
     sf,
     sp,
     testthat
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Imports: 
     dplyr,
     gibble (>= 0.1.2),
