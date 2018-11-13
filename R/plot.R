@@ -53,10 +53,11 @@ plot.SC <- function(x, add = FALSE, ..., vars = NULL, use_edge_colour = FALSE) {
   e <- sc_edge(x)
   x0 <- e %>% dplyr::inner_join(v, c(".vx0" = "vertex_"))
   x1 <- e %>% dplyr::inner_join(v, c(".vx1" = "vertex_"))
+ # browser()
   if (identical(x0, x1)) warning("all edges are degenerate (i.e. a vertex related to itself)")
   if (!use_edge_colour) {
     #col <- colourvalues::colour_values(x$object_link_edge$object_[match(x$edge$edge_, x$object_link_edge$edge_)])
-    col <-  x$object$color_[match(x$object_link_edge$object_, x$object$object_)]
+    col <-  x$object$color_[match(x$object_link_edge$object_, x$object$object_)[match(x0$edge_, x$object_link_edge$edge_)]]
   } else {
     ## colours is object, UNLESS the edge is repeated
     uedge <- x$object_link_edge

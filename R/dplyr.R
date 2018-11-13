@@ -18,7 +18,7 @@
 #' library(dplyr)
 #' sc <- SC(inlandwaters)
 #' plot(filter(sc, Province == "Tasmania"))
-#' plot(filter(sc, Province %in% c("Victoria", "South Australia")))
+#' plot(filter(sc, Province %in% c("Victoria", "South Australia", "New South Wales")))
 #'
 #' plot(filter(SC(minimal_mesh), a == 1))
 filter.SC <- function(.data, ...) {
