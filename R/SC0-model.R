@@ -64,7 +64,10 @@ SC0.default <- function(x, ...) {
                  meta = meta),
             class = c("SC0", "sc"))
 }
-
+#' @export
+SC0.SC0 <- function(x, ...) {
+  x
+}
 #' @export
 SC0.SC <- function(x, ...) {
   object <- sc_object(x)

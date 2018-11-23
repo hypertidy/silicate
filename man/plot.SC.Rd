@@ -10,5 +10,12 @@
 \item{add}{if \code{TRUE} add to current plot}
 }
 \description{
-Plot silicate
+Basic edge plot, all the standard base graphics facilities for line segments are available.
+}
+\details{
+The 'col' argument is passed directly to \code{segments} if present, in the usual one-to-one or
+recycling way. The \code{...} args are passed to \code{segments}.  If \code{color_} present on the object table
+it is mapped to the edges of each object.
+
+\code{asp} and so on are not able to be passed to the initial plot setup.
 }

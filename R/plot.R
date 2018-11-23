@@ -30,7 +30,13 @@ sc_colour_values <- function(x, ..., viridis = FALSE) {
 }
 #' Plot silicate
 #'
+#' Basic edge plot, all the standard base graphics facilities for line segments are available.
 #'
+#' The 'col' argument is passed directly to `segments` if present, in the usual one-to-one or
+#' recycling way. The `...` args are passed to `segments`.  If `color_` present on the object table
+#' it is mapped to the edges of each object.
+#'
+#' `asp` and so on are not able to be passed to the initial plot setup.
 #' @name plot.SC
 #' @param add if `TRUE` add to current plot
 #' @export
@@ -42,10 +48,11 @@ plot.SC <- function(x, ..., add = FALSE ) {
 #' @export
 plot.SC0 <- function(x, ... , add = FALSE) {
   args <- list(...)
-  if (!"col" %in% names(args)) {
-    edge_per_object <- unlist(lapply(x$object$topology_, nrow))
-    col <-  rep(sc_colour_values(seq_len(nrow(x$object)), viridis = TRUE), edge_per_object)
-    args$col <- col
+  ## no colours for free, you get what you get
+  if ("color_" %in% names(x$object)) {
+      edge_per_object <- unlist(lapply(x$object$topology_, nrow))
+      args$col <- rep(sc_colour_values(seq_len(nrow(x$object)), viridis = TRUE), edge_per_object)
+
   }
   v <- sc_vertex(x) %>% add_rownum("vertex_")
   e <- sc_edge(x)
@@ -67,7 +74,7 @@ plot.PATH <- function(x, ...) {
   #cols <- sc_colours(length(obj))
   gg <- x$path %>% dplyr::group_by(.data$object) %>% dplyr::summarize(nn = sum(.data$ncoords_))
   #objcols <- rep(sc_colours(dim(x$object)[1L]), gg$nn)
-  objcols <- sc_colours(dim(x$object)[1L])
+  pathcols <- sc_colours(dim(x$object)[1L])[x$path$object]
   if (all(x$path$ncoords_ == 1L)) {
     warning("all paths are degenerate (i.e. they are points)")
     toplot <- dplyr::inner_join(x$path_link_vertex, x$vertex, "vertex_")[c("x_", "y_")]
@@ -77,9 +84,9 @@ plot.PATH <- function(x, ...) {
   junk <- lapply(seq_along(paths), function(a) {
     toplot <- dplyr::inner_join(paths[[a]], x$vertex, "vertex_")[c("x_", "y_")]
     if (dim(toplot)[1L] > 1L) {
-      graphics::lines(toplot, col = objcols[a])
+      graphics::lines(toplot, col = pathcols[a])
     } else {
-      graphics::points(toplot, col = objcols[a])
+      graphics::points(toplot, col = pathcols[a])
     }
   })
   invisible(NULL)
