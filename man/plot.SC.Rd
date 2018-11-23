@@ -4,15 +4,10 @@
 \alias{plot.SC}
 \title{Plot silicate}
 \usage{
-\method{plot}{SC}(x, add = FALSE, ..., vars = NULL,
-  use_edge_colour = FALSE)
+\method{plot}{SC}(x, ..., add = FALSE)
 }
 \arguments{
 \item{add}{if \code{TRUE} add to current plot}
-
-\item{vars}{variables to plot (experimental)}
-
-\item{use_edge_colour}{if \code{TRUE} edges are differentiated by object and whether they share two objects (experimental)}
 }
 \description{
 Plot silicate
