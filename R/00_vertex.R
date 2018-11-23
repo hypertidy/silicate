@@ -17,6 +17,9 @@ sc_vertex.default <- function(x, ...) {
 sc_vertex.SC <- function(x, ...) {
   x[["vertex"]]
 }
+# sc_vertex.SC0 <- function(x, ...) {
+#   x[["vertex"]] %>% dplyr::mutate(vertex_ = dplyr::row_number())
+# }
 #' @name sc_vertex
 #' @export
 sc_vertex.ARC <- function(x, ...) {

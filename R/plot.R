@@ -73,8 +73,23 @@ plot.SC <- function(x, add = FALSE, ..., vars = NULL, use_edge_colour = FALSE) {
   if (!add) graphics::plot(v$x_, v$y_, pch = ".")
   graphics::segments(x0$x_, x0$y_, x1$x_, x1$y_, ..., col = col)
 }
+#' @export
+plot.SC0 <- function(x, ... ,add = FALSE) {
+  if (!"color_" %in% names(x$object)) {
+    x$object$color_ <- sc_colour_values(seq_len(nrow(x$object)), viridis = TRUE)
+  } else {
+    if (use_edge_colour) warning("'color_' property on object table ignored, set 'use_edge_colour = FALSE' to use them")
+  }
+  v <- sc_vertex(x) %>% add_rownum("vertex_")
 
+  e <- sc_edge(x)
+  x0 <- e %>% dplyr::inner_join(v, c(".vx0" = "vertex_"))
+  x1 <- e %>% dplyr::inner_join(v, c(".vx1" = "vertex_"))
 
+  if (!add) graphics::plot(v$x_, v$y_, pch = ".")
+  graphics::segments(x0$x_, x0$y_, x1$x_, x1$y_, ...)
+
+}
 #' @export
 plot.PATH <- function(x, ...) {
   plot(x$vertex[c("x_", "y_")], type = "n")
@@ -100,6 +115,30 @@ plot.PATH <- function(x, ...) {
   invisible(NULL)
 }
 
+#' @export
+plot.PATH0 <- function(x, ...) {
+  plot(x$vertex[c("x_", "y_")], type = "n")
+  paths <- split(x$path_link_vertex, x$path_link_vertex$path_)[unique(x$path_link_vertex$path_)]
+  #cols <- sc_colours(length(obj))
+  gg <- x$path %>% dplyr::group_by(.data$object) %>% dplyr::summarize(nn = sum(.data$ncoords_))
+  #objcols <- rep(sc_colours(dim(x$object)[1L]), gg$nn)
+  objcols <- sc_colours(dim(x$object)[1L])
+  if (all(x$path$ncoords_ == 1L)) {
+    warning("all paths are degenerate (i.e. they are points)")
+    toplot <- dplyr::inner_join(x$path_link_vertex, x$vertex, "vertex_")[c("x_", "y_")]
+    graphics::points(toplot, col = objcols)
+    return(invisible(NULL))
+  }
+  junk <- lapply(seq_along(paths), function(a) {
+    toplot <- dplyr::inner_join(paths[[a]], x$vertex, "vertex_")[c("x_", "y_")]
+    if (dim(toplot)[1L] > 1L) {
+      graphics::lines(toplot, col = objcols[a])
+    } else {
+      graphics::points(toplot, col = objcols[a])
+    }
+  })
+  invisible(NULL)
+}
 #' @noRd
 #'
 #' @param x silicate ARC

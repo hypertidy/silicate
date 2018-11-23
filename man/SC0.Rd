@@ -3,14 +3,14 @@
 \name{SC0}
 \alias{SC0}
 \alias{SC0.default}
-\title{core silicate}
+\title{Pure edge model, structural form}
 \usage{
 SC0(x, ...)
 
 \method{SC0}{default}(x, ...)
 }
 \arguments{
-\item{x}{an object}
+\item{x}{an object understood by silicate}
 
 \item{...}{reserved for methods}
 }
@@ -18,8 +18,10 @@ SC0(x, ...)
 SC0
 }
 \description{
-See https://github.com/hypertidy/silicore for now.
+\code{SC0} is the simplest and most general of all silicate models. Composed of
+an \code{object} and and \code{vertex} table linked by nested vertex-index pairs.
 }
 \examples{
+SC0(minimal_mesh)
 SC0(minimal_mesh)
 }

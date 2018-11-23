@@ -7,10 +7,12 @@
 \alias{sc_edge.default}
 \alias{sc_edge.PATH}
 \alias{sc_start.SC}
+\alias{sc_start.SC0}
 \alias{sc_start.PATH}
 \alias{sc_start.ARC}
 \alias{sc_start.TRI}
 \alias{sc_end.SC}
+\alias{sc_end.SC0}
 \alias{sc_end.PATH}
 \alias{sc_end.ARC}
 \alias{sc_end.TRI}
@@ -26,6 +28,8 @@ sc_start(x, ...)
 
 \method{sc_start}{SC}(x, ...)
 
+\method{sc_start}{SC0}(x, ...)
+
 \method{sc_start}{PATH}(x, ...)
 
 \method{sc_start}{ARC}(x, ...)
@@ -35,6 +39,8 @@ sc_start(x, ...)
 sc_end(x, ...)
 
 \method{sc_end}{SC}(x, ...)
+
+\method{sc_end}{SC0}(x, ...)
 
 \method{sc_end}{PATH}(x, ...)
 

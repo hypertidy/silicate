@@ -4,17 +4,20 @@ path_paste <- function(x, paster = function(...) paste(..., sep = "-")) {
 }
 
 
-#' core silicate
+#' Pure edge model, structural form
 #'
-#' See https://github.com/hypertidy/silicore for now.
+#' `SC0` is the simplest and most general of all silicate models. Composed of
+#' an `object` and and `vertex` table linked by nested vertex-index pairs.
 #'
-#' @param x an object
+#'
+#' @param x an object understood by silicate
 #' @param ... reserved for methods
 #'
 #' @return SC0
 #' @export
 #'
 #' @examples
+#' SC0(minimal_mesh)
 #' SC0(minimal_mesh)
 SC0 <- function(x, ...) {
   UseMethod("SC0")
@@ -62,6 +65,21 @@ SC0.default <- function(x, ...) {
             class = c("SC0", "sc"))
 }
 
+#' @export
+SC0.SC <- function(x, ...) {
+  object <- sc_object(x)
+  oXe <- x$object_link_edge %>%
+    dplyr::inner_join(sc_edge(x), "edge_")
+  .vx  <- cbind(match(oXe[[".vx0"]], x$vertex[["vertex_"]]),
+                match(oXe[[".vx1"]], x$vertex[["vertex_"]]))
+  ## swap order if not native instance
+  swap <- !oXe[["native_"]]
+  ## doing my head in atm ... could be better
+  if (length(swap) > 0) .vx  <- cbind(.vx0 = .vx[cbind(1:nrow(.vx), swap + 1)],
+                                      .vx1 = .vx[cbind(1:nrow(.vx), (!swap) + 1)])
+  object[["topology_"]] <- split(tibble::as_tibble(.vx), as.integer(factor(oXe$object_,unique(oXe$object_))))
+  structure(list(object = object, vertex = sc_vertex(x) %>% dplyr::mutate(vertex_ = NULL)), class = c("SC0", "sc"))
+}
 sc_vertex.SC0 <- function(x, ...) {
   x[["vertex"]]
 }

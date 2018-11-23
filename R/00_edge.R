@@ -1,3 +1,8 @@
+add_rownum <- function(x, name) {
+  x[[name]] <- seq_len(nrow(x))
+  x
+}
+
 #' Edges.
 #'
 #' Simple binary relationships, a primitive composed of two vertices.
@@ -27,6 +32,11 @@ sc_edge.default <- function(x, ...) {
 sc_edge.SC <- function(x, ...) {
   x[["edge"]]
 }
+#' @export
+sc_edge.SC0 <- function(x, ...) {
+ tidyr::unnest(x$object["topology_"], .id = "object_")
+}
+
 #' @name sc_edge
 #' @export
 sc_edge.PATH <- function(x, ...) {
@@ -45,6 +55,13 @@ sc_start.SC <- function(x, ...) {
   sc_edge(x, ...) %>% dplyr::inner_join(sc_vertex(x), c(".vx0" = "vertex_")) %>%
     dplyr::select(.data$x_, .data$y_)
 }
+#' @name sc_edge
+#' @export
+sc_start.SC0 <- function(x, ...) {
+  sc_edge(x, ...) %>% dplyr::inner_join(sc_vertex(x)  %>% add_rownum("vertex_"), c(".vx0" = "vertex_")) %>%
+    dplyr::select(.data$x_, .data$y_)
+}
+
 #' @name sc_edge
 #' @export
 sc_start.PATH <- function(x, ...) {
@@ -73,6 +90,14 @@ sc_end.SC <- function(x, ...) {
   sc_edge(x, ...) %>% dplyr::inner_join(sc_vertex(x), c(".vx1" = "vertex_")) %>%
   dplyr::select(.data$x_, .data$y_)
 }
+#' @name sc_edge
+#' @export
+sc_end.SC0 <- function(x, ...) {
+  ## FIXME: we aren't giving out edges per object (see also sc_coord.SC)
+  sc_edge(x, ...) %>% dplyr::inner_join(sc_vertex(x)  %>% add_rownum("vertex_"), c(".vx1" = "vertex_")) %>%
+    dplyr::select(.data$x_, .data$y_)
+}
+
 #' @name sc_edge
 #' @export
 sc_end.PATH <- function(x, ...) {

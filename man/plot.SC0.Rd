@@ -4,7 +4,7 @@
 \alias{plot.SC0}
 \title{Plot silicate}
 \usage{
-\method{plot}{SC0}(x, ...)
+\method{plot}{SC0}(x, ..., add = FALSE)
 }
 \arguments{
 \item{x}{SC0 object}

@@ -1,6 +1,17 @@
+#' Path model in structural form
+#'
+#' @param x
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
 PATH0 <- function(x, ...) {
   UseMethod("PATH0")
 }
+#' @name PATH0
+#' @export
 PATH0.default <- function(x, ...) {
   o <- sc_object(x)
   v <- sc_coord(x)
