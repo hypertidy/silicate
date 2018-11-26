@@ -15,7 +15,7 @@ sc_segment.default <- function(x, ...) {
 sc_segment.SC <- function(x, ...) {
   ## expand all instances of edges
   segments <- x$object_link_edge %>%
-    dplyr::inner_join(x$edge)
+    dplyr::inner_join(x$edge, "edge_")
 
   ## and badge them as segments
   segments$segment_ <- sc_uid(nrow(segments))

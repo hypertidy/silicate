@@ -31,9 +31,14 @@ sc_path.ARC <- function(x, ...) {
 #' @name sc_path
 #' @export
 sc_path.SC <- function(x, ...) {
-  x <- sc_path(PATH(x))
   stop("sc_path not yet supported for SC")
 }
+#' @name sc_path
+#' @export
+sc_path.SC0 <- function(x, ...) {
+  stop("sc_path not yet supported for SC")
+}
+
 xypaths <- function(x) {
   g <- cumsum(c(0, abs(diff(is.na(x[[1]])))))[!is.na(x[[1]])]
   as.integer(table(g))
