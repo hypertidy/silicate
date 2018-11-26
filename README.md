@@ -212,56 +212,56 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_
 #>    <dbl> <dbl> <chr>  
-#>  1  0     0    4K4gH2 
-#>  2  0     1    tNPAJX 
-#>  3  0.2   0.2  Hk4taB 
-#>  4  0.2   0.4  SRMerp 
-#>  5  0.3   0.6  ZlXTaV 
-#>  6  0.5   0.2  IeAPXb 
-#>  7  0.5   0.4  oLXlfF 
-#>  8  0.5   0.7  43Pvlx 
-#>  9  0.69  0    ulCCPk 
-#> 10  0.75  1    pGERvt 
-#> 11  0.8   0.6  YyYQpm 
-#> 12  1     0.8  jNgUGT 
-#> 13  1.1   0.63 YnDF9T 
-#> 14  1.23  0.3  PJujNL
+#>  1  0     0    Jwiase 
+#>  2  0     1    MCkCdK 
+#>  3  0.2   0.2  iNvuHg 
+#>  4  0.2   0.4  tsybG0 
+#>  5  0.3   0.6  6VNTeR 
+#>  6  0.5   0.2  eHN9EM 
+#>  7  0.5   0.4  DXnPPJ 
+#>  8  0.5   0.7  Hm7V6H 
+#>  9  0.69  0    z9iLDS 
+#> 10  0.75  1    nQ98P2 
+#> 11  0.8   0.6  vxoumd 
+#> 12  1     0.8  T92AQK 
+#> 13  1.1   0.63 135PQ6 
+#> 14  1.23  0.3  KXrqvm
 
 sc_edge(x)
 #> # A tibble: 15 x 3
 #>    .vx0   .vx1   edge_ 
 #>    <chr>  <chr>  <chr> 
-#>  1 4K4gH2 tNPAJX 8P6xUr
-#>  2 tNPAJX pGERvt wIQAI7
-#>  3 pGERvt jNgUGT UtEIgw
-#>  4 43Pvlx jNgUGT 5ln4sL
-#>  5 43Pvlx YyYQpm v34PuB
-#>  6 ulCCPk YyYQpm smGNxO
-#>  7 4K4gH2 ulCCPk 1zRD8f
-#>  8 Hk4taB IeAPXb pKnI0R
-#>  9 IeAPXb oLXlfF VsLieL
-#> 10 ZlXTaV oLXlfF aEKCwI
-#> 11 SRMerp ZlXTaV TgCutV
-#> 12 Hk4taB SRMerp bxZFpZ
-#> 13 YyYQpm YnDF9T BRA8ll
-#> 14 YnDF9T PJujNL 7u1YY1
-#> 15 ulCCPk PJujNL hMTb5C
+#>  1 Jwiase MCkCdK NIfHqc
+#>  2 MCkCdK nQ98P2 f4ijsb
+#>  3 nQ98P2 T92AQK oiHJSR
+#>  4 Hm7V6H T92AQK oOo9Wg
+#>  5 Hm7V6H vxoumd L3U7sR
+#>  6 z9iLDS vxoumd VQvahB
+#>  7 Jwiase z9iLDS w5MJjP
+#>  8 iNvuHg eHN9EM vGZBO3
+#>  9 eHN9EM DXnPPJ DU2IiK
+#> 10 6VNTeR DXnPPJ b9Oc9l
+#> 11 tsybG0 6VNTeR tM4wQ4
+#> 12 iNvuHg tsybG0 m9uMin
+#> 13 vxoumd 135PQ6 pJdnqN
+#> 14 135PQ6 KXrqvm WMNpnt
+#> 15 z9iLDS KXrqvm McWczJ
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_
 #>   <chr>  
-#> 1 T9Uena 
-#> 2 2cGi56
+#> 1 v0Gn0V 
+#> 2 CQeLvP
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_   ncoords_
 #>   <chr>     <int>
-#> 1 C5HJgH        6
-#> 2 cW03HP        2
-#> 3 ftfU48        7
-#> 4 WQbdf0        4
+#> 1 b9iz8I        7
+#> 2 dubyqt        2
+#> 3 r3RbNB        4
+#> 4 ZW7WWe        6
 ```
 
 ## silicate models
@@ -337,3 +337,7 @@ dependencies.
   - [scspatstat](https://github.com/hypertidy/scspatstat)
 
 Looking for a music reference? Child’s Play, by Carcass.
+
+Please note that the ‘silicate’ project is released with a [Contributor
+Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project,
+you agree to abide by its terms.
