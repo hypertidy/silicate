@@ -16,6 +16,9 @@ TRI.default <- function(x, ...) {
 TRI.TRI <- function(x, ...) {
   x
 }
+TRI.SC <- function(x, ...) {
+  stop("constrained triangulation not supported, use anglr::DEL or reconstruct as PATH")
+}
 #' @export
 TRI.PATH <- function(x, ...) {
   vertex <- x$vertex
