@@ -133,16 +133,3 @@ NULL
 #' @name routes
 #' @docType data
 NULL
-
-#' Deprecated functions from silicate.
-#'
-#' `sc_uid(n = )` replaced by `sc_uid(x = )`
-#' `PRIMITIVE()`
-#' @name sc-deprecated
-NULL
-
-#' @inheritParams SC
-#' @name sc-deprecated
-PRIMITIVE <- function(x, ...) {
-  .Defunct("SC", msg = "PRIMITIVE function no longer supported, see `SC` or `TRI` for alternatives")
-}
