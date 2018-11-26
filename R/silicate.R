@@ -1,4 +1,4 @@
-##
+## stub code
 include_nn <- function(x, y, name) {
   if (!is.null(y)) x[[name]] <- tibble::as_tibble(y)
   x
@@ -31,33 +31,4 @@ silicate <- function(vertex = NULL, edge = NULL, path = NULL, object = NULL, mod
   structure(x, class = "sc")
 }
 
-## has vertex
-## has vertex + edges (edge-triangulation, drop path)
-## has vertex + path (path-triangulation, no edges)
-## has object (I think we must ignore unless linked by edges or path)
-TRI.sc <- function(x, ...) {
-  if (has_vertex(x)) {
-    if (has_edge(x)) {
-      ## do we build SC/PATH, or do we allow those to existing without edges or paths?
-      stop("constrained triangulation not supported, use anglr::DEL or remove edges")
-      ##SC(x)  ## build the object for edge-triangulation
-    } else {
-      if (has_path(x)) {
-        ## PATH(x) ## build the object for path-triangulation
-      }
-      d <- x[["vertex"]]  ## pure coordinates
-    }
-  } else {
-    stop("no vertices to triangulate")
 
-  }
-  quo_named <- rlang::quos(...)
-  if (length(quo_named) < 1) {
-    nms <- names(d)
-    quo_named <- rlang::syms(nms)
-    message(sprintf("no columns specified, using %s", paste(nms, collapse = ", ")))
-  }
-   out <- try(geometry::delaunayn(as.matrix(dplyr::select(d, !!!quo_named))), silent = TRUE)
-
-  if (inherits(out, "try-error")) stop("triangulation failed") else out
-}
