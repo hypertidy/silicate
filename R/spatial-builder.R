@@ -22,10 +22,10 @@ build_sfc <- function(x, ...) {
   UseMethod("build_sfc")
 }
 build_sfc.PATH <- function(x, ...) {
-  raw_build_sf(x$path, x$path_link_vertex %>% dplyr::inner_join(x$vertex),
+  raw_build_sfc(x$path, x$path_link_vertex %>% dplyr::inner_join(x$vertex),
                crs = x$meta$proj[1])
 }
-raw_build_sf <- function(gm, coords_in, crs = NULL, force_close = FALSE) {
+raw_build_sfc <- function(gm, coords_in, crs = NULL, force_close = FALSE) {
   if (!"object_" %in% names(gm)) gm$object_ <- gm$object
   if (!"subobject" %in% names(gm)) gm$subobject <- 1
   if (!"nrow" %in% names(gm)) gm$nrow = gm$ncoords_
