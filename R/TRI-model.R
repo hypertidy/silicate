@@ -10,9 +10,12 @@ TRI <- function(x, ...) {
 }
 #' @export
 TRI.default <- function(x, ...) {
-  TRI(PATH(x), ...)
+  TRI(SC(x), ...)
 }
-
+#' @export
+TRI.TRI <- function(x, ...) {
+  x
+}
 #' @export
 TRI.PATH <- function(x, ...) {
   vertex <- x$vertex

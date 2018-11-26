@@ -16,5 +16,5 @@ get_projection.sfc <- function(x, ...) {
   attr(x, "crs")[["proj4string"]]
 }
 get_projection.sc <- function(x, ...) {
-  x$meta$proj
+  x$meta$proj[1L]
 }

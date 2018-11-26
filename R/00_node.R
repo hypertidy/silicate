@@ -25,7 +25,7 @@ sc_node.SC <- function(x, ...) {
 #' @name sc_node
 #' @export
 sc_node.default <- function(x, ...) {
-  x <- PATH(x)
+  x <- SC(x)
   sc_node(x)
 }
 #' @name sc_node

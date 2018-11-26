@@ -69,6 +69,11 @@ sc_coord.PATH <- function(x, ...) {
 }
 #' @name sc_coord
 #' @export
+sc_coord.TRI <- function(x, ...) {
+  sc_coord(SC(x))
+}
+#' @name sc_coord
+#' @export
 #' @importFrom dplyr inner_join
 sc_coord.SC <- function(x, ...) {
   ## FIXME this is pretty crass

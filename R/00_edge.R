@@ -33,6 +33,11 @@ sc_edge.SC <- function(x, ...) {
   x[["edge"]]
 }
 #' @export
+sc_edge.TRI <- function(x, ...) {
+  SC(x)[["edge"]]
+}
+
+#' @export
 sc_edge.SC0 <- function(x, ...) {
  tidyr::unnest(x$object["topology_"], .id = "object_")
 }

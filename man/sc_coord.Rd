@@ -5,6 +5,7 @@
 \alias{sc_coord.default}
 \alias{sc_coord.matrix}
 \alias{sc_coord.PATH}
+\alias{sc_coord.TRI}
 \alias{sc_coord.SC}
 \alias{sc_coord.sf}
 \alias{sc_coord.sfc}
@@ -26,6 +27,8 @@ sc_coord(x, ...)
 \method{sc_coord}{matrix}(x, ...)
 
 \method{sc_coord}{PATH}(x, ...)
+
+\method{sc_coord}{TRI}(x, ...)
 
 \method{sc_coord}{SC}(x, ...)
 
