@@ -15,7 +15,7 @@ test_that("SC verb methods work", {
   expect_s3_class(sc_object(sc), "tbl_df")
   expect_s3_class(sc_edge(sc), "tbl_df")
   #expect_s3_class(sc_path(sc), "tbl_df")
-  expect_error(sc_path(sc), "PATH not yet implemented for SC")
+  expect_error(sc_path(sc), "sc_path not yet supported for SC")
 
   expect_s3_class(sc_segment(sc), "tbl_df")
   expect_s3_class(sc_vertex(sc), "tbl_df")

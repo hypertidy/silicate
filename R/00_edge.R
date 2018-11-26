@@ -11,8 +11,8 @@ add_rownum <- function(x, name) {
 #' instances of edges.
 #'
 #' `sc_start` and `sc_end` are convenience functions that provide the obvious
-#' start and end coordinates by joining on the appropriate edge vertex label, `.vertex0`
-#' or `.vertex1`. Currently this returns the ordered segments, along with their unique (unordered) `edge_`, as
+#' start and end coordinates by joining on the appropriate edge vertex label, `.vx0`
+#' or `.vx1`. Currently this returns the ordered segments, along with their unique (unordered) `edge_`, as
 #' well as unique `segment`, a `object_` labels.
 #' @param x input object
 #' @param ... arguments for methods
@@ -46,7 +46,7 @@ sc_edge.SC0 <- function(x, ...) {
 #' @export
 sc_edge.PATH <- function(x, ...) {
   sc_segment(x, ...) %>% dplyr::distinct(.data$edge_, .keep_all = TRUE) %>%
-    dplyr::select(.data$.vertex0, .data$.vertex1, .data$edge_)
+    dplyr::select(.data$.vx0, .data$.vx1, .data$edge_)
 }
 
 #' @name sc_edge

@@ -6,6 +6,7 @@
 \alias{sc_path.PATH}
 \alias{sc_path.ARC}
 \alias{sc_path.SC}
+\alias{sc_path.SC0}
 \alias{sc_path.matrix}
 \alias{sc_path.sf}
 \alias{sc_path.sfc}
@@ -28,6 +29,8 @@ sc_path(x, ...)
 \method{sc_path}{ARC}(x, ...)
 
 \method{sc_path}{SC}(x, ...)
+
+\method{sc_path}{SC0}(x, ...)
 
 \method{sc_path}{default}(x, ...)
 

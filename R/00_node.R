@@ -45,9 +45,9 @@ sc_node.ARC <- function(x, ...) {
 
 sc_node_base <- function(unique_edges, vertex, ...) {
   nodes <- dplyr::bind_rows(vertex %>% dplyr::select(.data$vertex_) %>%
-                              dplyr::inner_join(unique_edges, c("vertex_" = ".vertex0")),
+                              dplyr::inner_join(unique_edges, c("vertex_" = ".vx0")),
                             vertex %>% dplyr::select(.data$vertex_) %>%
-                              dplyr::inner_join(unique_edges, c("vertex_" = ".vertex1"))) %>%
+                              dplyr::inner_join(unique_edges, c("vertex_" = ".vx1"))) %>%
     dplyr::distinct(.data$edge_, .data$vertex_) %>%
     dplyr::group_by(.data$vertex_) %>% dplyr::tally() %>% dplyr::ungroup() %>%
     dplyr::filter(.data$n > 2) %>% dplyr::distinct(.data$vertex_)
