@@ -74,17 +74,14 @@ sc_coord.TRI <- function(x, ...) {
 }
 #' @name sc_coord
 #' @export
-#' @importFrom dplyr inner_join
+#' @importFrom tidyr unnest
+sc_coord.SC0 <- function(x, ...) {
+  x[["vertex"]][as.vector(t(as.matrix(tidyr::unnest(x$object["topology_"])))), ]
+}
+#' @name sc_coord
+#' @export
 sc_coord.SC <- function(x, ...) {
-  ## FIXME this is pretty crass
-  v <- sc_vertex(x)
-  e <- sc_edge(x)
-  e$edge_ <- NULL
-  #oXe <- x$object_link_edge
-  s1 <- dplyr::inner_join(e, v, c(".vx0" = "vertex_"))
-  s2 <- dplyr::inner_join(e, v, c(".vx1" = "vertex_"))
-  tibble(x_ = as.vector(t(cbind(s1$x_, s2$x_))),
-         y = as.vector(t(cbind(s1$y_, s2$y_))))
+  sc_coord(SC0(x), ...)
 }
 
 #' Coordinate decomposition
