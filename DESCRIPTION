@@ -44,3 +44,4 @@ Imports:
     magrittr
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
+Remotes: mdsumner/gibble
