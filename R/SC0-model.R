@@ -98,8 +98,8 @@ SC0.SC <- function(x, ...) {
   ## swap order if not native instance
   swap <- !oXe[["native_"]]
   ## doing my head in atm ... could be better
-  if (length(swap) > 0) .vx  <- cbind(.vx0 = .vx[cbind(1:nrow(.vx), swap + 1)],
-                                      .vx1 = .vx[cbind(1:nrow(.vx), (!swap) + 1)])
+  if (length(which(swap)) > 0) .vx  <- cbind(.vx0 = .vx[cbind(1:nrow(.vx), swap + 1)],
+                                             .vx1 = .vx[cbind(1:nrow(.vx), (!swap) + 1)])
   object[["topology_"]] <- split(tibble::as_tibble(.vx), as.integer(factor(oXe$object_,unique(oXe$object_))))
   structure(list(object = object, vertex = sc_vertex(x) %>% dplyr::mutate(vertex_ = NULL)), class = c("SC0", "sc"))
 }
