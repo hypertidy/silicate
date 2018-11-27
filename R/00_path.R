@@ -30,7 +30,7 @@ sc_path.PATH <- function(x, ...) {
 #' @export
 sc_path.PATH0 <- function(x, ...) {
   tidyr::unnest(x[["object"]]["path_"]) %>%
-    dplyr::group_by(.data$object_, path_) %>%
+    dplyr::group_by(.data$object_, .data$path_) %>%
     dplyr::summarize(ncoords_ = dplyr::n())
 }
 #' @name sc_path
