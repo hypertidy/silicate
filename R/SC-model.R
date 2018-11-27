@@ -45,7 +45,7 @@ SC.default <- function(x, ...) {
     stop("unable to produce edge form of this data")
   }
   V <- sc_vertex(B)
-  V[["vertex_"]] <- sc_uid(V)
+  if (!"vertex_" %in% names(V)) V[["vertex_"]] <- sc_uid(V)
   ## these are now the edges, but we need to classify which changed direction
   v_0 <- pmin(edge$.vx0, edge$.vx1)
   v_1 <- pmax(edge$.vx0, edge$.vx1)
