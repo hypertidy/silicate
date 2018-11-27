@@ -19,8 +19,7 @@ test_that("generic forms are understood", {
 
   ## no separators
   sc_coord(d) %>%  expect_s3_class("tbl_df") %>% expect_length(2L)
-  p <- sc_path(d) %>%  expect_s3_class("tbl_df") %>% expect_length(1L)
-  expect_equal(p, tibble::tibble(nrow = 4L))
-})
+  expect_error(sc_path(d))
+  })
 
 

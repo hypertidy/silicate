@@ -10,7 +10,8 @@ TRI <- function(x, ...) {
 }
 #' @export
 TRI.default <- function(x, ...) {
-  TRI(SC(x), ...)
+  ## TRI is earcut, so must be PATH based
+  TRI(PATH(x), ...)
 }
 #' @export
 TRI.TRI <- function(x, ...) {

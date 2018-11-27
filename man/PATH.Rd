@@ -2,10 +2,16 @@
 % Please edit documentation in R/PATH-model.R
 \name{PATH}
 \alias{PATH}
+\alias{PATH.SC}
+\alias{PATH.TRI}
 \alias{PATH.default}
 \title{PATH model.}
 \usage{
 PATH(x, ...)
+
+\method{PATH}{SC}(x, ...)
+
+\method{PATH}{TRI}(x, ...)
 
 \method{PATH}{default}(x, ...)
 }

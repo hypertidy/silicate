@@ -32,8 +32,6 @@ sc_path(x, ...)
 
 \method{sc_path}{SC0}(x, ...)
 
-\method{sc_path}{default}(x, ...)
-
 \method{sc_path}{matrix}(x, ...)
 
 \method{sc_path}{sf}(x, ids = NULL, ...)

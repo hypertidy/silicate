@@ -69,6 +69,26 @@ SC0.SC0 <- function(x, ...) {
   x
 }
 #' @export
+SC0.TRI <- function(x, ...) {
+  ## this should be SC0(TRI0(x))
+  triangle <- x$triangle
+  triangle[c(".vx0", ".vx1", ".vx2")] <- matrix(match(unlist(  triangle[c(".vx0", ".vx1", ".vx2")]), x$vertex$vertex_), ncol = 3)
+  triangle_list <- split(triangle, triangle$object_)[unique(triangle$object_)]
+  top <- vector("list", length(triangle_list))
+  for (i in seq_along(triangle_list)) {
+    top[[i]] <- purrr::map_df(purrr:::transpose(triangle_list[[1]]),
+                              ~tibble::as_tibble(matrix(tri_to_seg(unlist(.x[c(".vx0", ".vx1", ".vx2")])), ncol = 2, byrow = TRUE, dimnames = list(NULL, c(".vx0", ".vx1")))))
+  }
+  object <- sc_object(x)
+  object[["object_"]] <- NULL
+  object[["topology_"]] <- top
+  vertex <- sc_vertex(x)
+  meta <- x$meta[1, ]
+  meta$ctime <- Sys.time()
+  structure(list(object = object, vertex = vertex, meta = rbind(meta, x$meta)), class = c("SC0", "sc"))
+
+}
+#' @export
 SC0.SC <- function(x, ...) {
   object <- sc_object(x)
   oXe <- x$object_link_edge %>%

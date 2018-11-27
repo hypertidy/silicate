@@ -16,6 +16,9 @@ sc_path <- function(x, ...) {
 #' @name sc_path
 #' @export
 sc_path.default <- function(x, ...) {
+  if (is_r_coords(x)) {
+    return(tibble::tibble(nrow = xypaths(x)))
+  }
   PATH(x)[["path"]]
 }
 #' @name sc_path
@@ -42,14 +45,6 @@ sc_path.SC0 <- function(x, ...) {
 xypaths <- function(x) {
   g <- cumsum(c(0, abs(diff(is.na(x[[1]])))))[!is.na(x[[1]])]
   as.integer(table(g))
-}
-#' @name sc_path
-#' @export
-sc_path.default <- function(x, ...) {
-  if (is_r_coords(x)) {
-    return(tibble::tibble(nrow = xypaths(x)))
-  }
-  tibble::tibble(nrow = length(x[[1L]]))
 }
 #' @name sc_path
 #' @export

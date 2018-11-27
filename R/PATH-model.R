@@ -16,8 +16,15 @@
 PATH <- function(x, ...) UseMethod("PATH")
 
 PATH.PATH <- function(x, ...) x
+#' @name PATH
+#' @export
 PATH.SC <- function(x, ...) {
   stop("PATH not yet implemented for SC")
+}
+#' @name PATH
+#' @export
+PATH.TRI <- function(x, ...) {
+  stop("PATH not yet implemented for TRI")
 }
 
 #' @name PATH
