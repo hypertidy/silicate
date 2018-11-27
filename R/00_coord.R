@@ -50,6 +50,7 @@ sc_coord.default <- function(x, ...){
   x
 }
 
+
 #' @name sc_coord
 #' @export
 sc_coord.matrix <- function(x, ...){
@@ -71,6 +72,11 @@ sc_coord.PATH <- function(x, ...) {
 #' @export
 sc_coord.TRI <- function(x, ...) {
   sc_coord(SC(x))
+}
+#' @name sc_coord
+#' @export
+sc_coord.PATH0 <- function(x, ...) {
+  x[["vertex"]][tidyr::unnest(x[["object"]]["path_"])[["vertex_"]], ]
 }
 #' @name sc_coord
 #' @export

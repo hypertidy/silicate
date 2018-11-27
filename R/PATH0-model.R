@@ -22,12 +22,18 @@ PATH0.default <- function(x, ...) {
   v <- sc_coord(x)
   g <- gibble::gibble(x)
   idx <- tibble::tibble(vertex_ = seq_len(sum(g$nrow)),
-                        object = rep(g$object, g$nrow),
-                        path = rep(seq_len(nrow(g)), g$nrow),
-                        subobject = rep(g$subobject, g$nrow))
-  if (length(unique(idx$subobject) > 1)) {
+                        object_ = rep(g$object, g$nrow),
+                        path_ = rep(seq_len(nrow(g)), g$nrow),
+                        subobject_ = rep(g$subobject, g$nrow))
+  if (length(unique(idx$subobject_) > 1)) {
    #handle multis
   }
-  o$path <- split(idx, idx$object)
-  structure(list(object = o, vertex = v), class = c("PATH0", "sc"))
+  o$path_ <- split(idx, idx$object_)
+  meta <- tibble::tibble(proj = get_projection(x), ctime = Sys.time())
+  structure(list(object = o, vertex = v, meta = meta), class = c("PATH0", "sc"))
+}
+#' @name PATH0
+#' @export
+PATH0.PATH0 <- function(x, ...) {
+  x
 }

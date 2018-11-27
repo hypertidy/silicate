@@ -69,35 +69,4 @@ sc_object.TRI <- function(x, ...) {
 
 
 
-triangulate_PATH <- function(x, ...) {
-  objlist <- split(x$path, x$path$object_)
-  objlist <- objlist[unique(x$path$object_)]
-  polygon_count <- nrow(dplyr::distinct(x$path[c("object", "subobject")]))
-  trilist <- vector("list", polygon_count)
-  itri <- 0
-  for (i in seq_along(objlist)) {
-    obj <- objlist[[i]]
-    subobjlist <- split(obj, obj$subobject)
-    subobjlist <- subobjlist[unique(obj$subobject)]
-    for (j in seq_along(subobjlist)) {
-      itri <- itri + 1
-    verts <- subobjlist[[j]] %>%
-      dplyr::select(.data$object_, .data$path_) %>%
-      dplyr::inner_join(x$path[c("path_", "object_")], "path_") %>%
-      dplyr::select(.data$path_) %>%
-      dplyr::inner_join(x$path_link_vertex, "path_") %>%
-      dplyr::inner_join(x$vertex, "vertex_")
-    holes <- which(c(0, abs(diff(as.integer(as.factor(verts$path_))))) > 0)
-    if (length(holes) < 1) holes <- 0
-    trindex <- decido::earcut(cbind(verts[["x_"]], verts[["y_"]]), holes)
-    trimat <- matrix(trindex, ncol = 3L, byrow = TRUE)
-    trilist[[itri]] <- tibble::tibble(.vx0 = verts$vertex_[trimat[,1L]],
-                                      .vx1 = verts$vertex_[trimat[,2L]],
-                                      .vx2 = verts$vertex_[trimat[,3L]],
-                                      path_ = verts$path_[1L],
-                                      object_ = obj$object_[1L])
 
-    }
-  }
-  dplyr::bind_rows(trilist)
-}

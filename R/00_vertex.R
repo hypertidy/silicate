@@ -12,6 +12,7 @@ sc_vertex <- function(x, ...) {
 sc_vertex.default <- function(x, ...) {
   SC(x)[["vertex"]]
 }
+
 #' @name sc_vertex
 #' @export
 sc_vertex.SC <- function(x, ...) {
@@ -33,5 +34,10 @@ sc_vertex.TRI <- function(x, ...) {
 #' @name sc_vertex
 #' @export
 sc_vertex.PATH <- function(x, ...) {
+  x[["vertex"]]
+}
+#' @name sc_vertex
+#' @export
+sc_vertex.PATH0 <- function(x, ...) {
   x[["vertex"]]
 }
