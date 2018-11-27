@@ -4,6 +4,7 @@
 \alias{sc_path}
 \alias{sc_path.default}
 \alias{sc_path.PATH}
+\alias{sc_path.PATH0}
 \alias{sc_path.ARC}
 \alias{sc_path.SC}
 \alias{sc_path.SC0}
@@ -25,6 +26,8 @@ sc_path(x, ...)
 \method{sc_path}{default}(x, ...)
 
 \method{sc_path}{PATH}(x, ...)
+
+\method{sc_path}{PATH0}(x, ...)
 
 \method{sc_path}{ARC}(x, ...)
 

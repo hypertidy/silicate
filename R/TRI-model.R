@@ -41,7 +41,7 @@ TRI.PATH <- function(x, ...) {
       dplyr::mutate(subobject = row_number()) %>%
       dplyr::ungroup()
   }
-  tri <- triangulate_PATH(x)
+  tri <- triangulate_0(x)
   tri$visible <- TRUE
 
   #tri$triangle_ <- sc_uid(nrow(tri))

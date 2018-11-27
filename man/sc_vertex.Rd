@@ -7,6 +7,7 @@
 \alias{sc_vertex.ARC}
 \alias{sc_vertex.TRI}
 \alias{sc_vertex.PATH}
+\alias{sc_vertex.PATH0}
 \title{Extract unique vertices}
 \usage{
 sc_vertex(x, ...)
@@ -20,6 +21,8 @@ sc_vertex(x, ...)
 \method{sc_vertex}{TRI}(x, ...)
 
 \method{sc_vertex}{PATH}(x, ...)
+
+\method{sc_vertex}{PATH0}(x, ...)
 }
 \arguments{
 \item{x}{model}

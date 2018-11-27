@@ -3,11 +3,14 @@
 \name{PATH0}
 \alias{PATH0}
 \alias{PATH0.default}
+\alias{PATH0.PATH0}
 \title{Path model in structural form}
 \usage{
 PATH0(x, ...)
 
 \method{PATH0}{default}(x, ...)
+
+\method{PATH0}{PATH0}(x, ...)
 }
 \arguments{
 \item{x}{an object understood by silicate}
