@@ -142,6 +142,7 @@ plot.TRI <- function(x, ..., add = FALSE) {
   for (i in seq_len(nrow(x$object))) {
    # triangle <- dplyr::inner_join(x$triangle, x$object_link_triangle, "triangle_")
     triangle <- x$triangle
+    if ("visible_" %in% names(triangle)) triangle <- dplyr::filter(triangle, .data$visible_)
     asub <- dplyr::filter(triangle, .data$object_ == x$object$object_[i]) %>%
       dplyr::transmute(.data$.vx0, .data$.vx1, .data$.vx2, fill = fill_type) %>%
       t() %>%
