@@ -2,11 +2,18 @@
 % Please edit documentation in R/plot.R
 \name{plot.SC}
 \alias{plot.SC}
+\alias{plot.SC0}
 \title{Plot silicate}
 \usage{
 \method{plot}{SC}(x, ..., add = FALSE)
+
+\method{plot}{SC0}(x, ..., add = FALSE)
 }
 \arguments{
+\item{x}{SC object}
+
+\item{...}{arguments passed to \code{graphics::segments}}
+
 \item{add}{if \code{TRUE} add to current plot}
 }
 \description{

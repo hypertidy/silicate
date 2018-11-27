@@ -1,14 +1,16 @@
 context("test-sc0-sanity")
 x <- SC0(minimal_mesh)
 
+
 test_that("SC0 round trip suite works", {
   expect_silent({
   SC(x)
   SC0(x)
-  anglr::DEL(SC(x))
   plot(SC(x))
   plot(SC0(x))
-  plot(anglr::DEL(SC(x)))
+  ## these test have to go in anglr
+  #anglr::DEL(SC(x))
+  #plot(anglr::DEL(SC(x)))
   sc_vertex(x)
   sc_coord(x)
   sc_node(x)
@@ -30,6 +32,6 @@ test_that("SC0 round trip suite works", {
    expect_error(ARC0(x))
    expect_error(PATH(x))
    expect_error(PATH0(x))
-
-   expect_error(DEL(x))
+   ## test must go in anglr
+   #expect_error(DEL(x))
 })

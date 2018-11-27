@@ -1,12 +1,17 @@
 #' Path model in structural form
 #'
-#' @param x
-#' @param ...
+#' Structural form requires only tables 'object' and 'vertex'.
 #'
-#' @return
+#' @param x an object understood by silicate
+#' @param ... ignored currently
+#'
+#' @return PATH0 model
 #' @export
 #'
 #' @examples
+#' (p <- PATH0(minimal_mesh))
+#'
+#' p$object$topology_
 PATH0 <- function(x, ...) {
   UseMethod("PATH0")
 }

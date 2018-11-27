@@ -38,14 +38,18 @@ sc_colour_values <- function(x, ..., viridis = FALSE) {
 #'
 #' `asp` and so on are not able to be passed to the initial plot setup.
 #' @name plot.SC
+#' @param x SC object
+#' @param ... arguments passed to `graphics::segments`
 #' @param add if `TRUE` add to current plot
 #' @export
+#' @rdname plot.SC
 #' @importFrom graphics plot
 #' @importFrom dplyr inner_join anti_join group_by summarize tally filter
 plot.SC <- function(x, ..., add = FALSE ) {
   plot(SC0(x), add = add, ...)
 }
 #' @export
+#' @rdname plot.SC
 plot.SC0 <- function(x, ... , add = FALSE) {
   args <- list(...)
   ## no colours for free, you get what you get
@@ -67,18 +71,19 @@ plot.SC0 <- function(x, ... , add = FALSE) {
 #  graphics::segments(x0$x_, x0$y_, x1$x_, x1$y_, col = col, ...)
 invisible(args)
 }
+
 #' @export
 plot.PATH <- function(x, ...) {
   plot(x$vertex[c("x_", "y_")], type = "n")
   paths <- split(x$path_link_vertex, x$path_link_vertex$path_)[unique(x$path_link_vertex$path_)]
   #cols <- sc_colours(length(obj))
   gg <- x$path %>% dplyr::group_by(.data$object) %>% dplyr::summarize(nn = sum(.data$ncoords_))
-  #objcols <- rep(sc_colours(dim(x$object)[1L]), gg$nn)
+
   pathcols <- sc_colours(dim(x$object)[1L])[x$path$object]
   if (all(x$path$ncoords_ == 1L)) {
     warning("all paths are degenerate (i.e. they are points)")
     toplot <- dplyr::inner_join(x$path_link_vertex, x$vertex, "vertex_")[c("x_", "y_")]
-    graphics::points(toplot, col = objcols)
+    graphics::points(toplot, col = rep(sc_colours(dim(x$object)[1L]), gg$nn))
     return(invisible(NULL))
   }
   junk <- lapply(seq_along(paths), function(a) {
@@ -98,7 +103,6 @@ plot.PATH0 <- function(x, ...) {
   paths <- split(x$path_link_vertex, x$path_link_vertex$path_)[unique(x$path_link_vertex$path_)]
   #cols <- sc_colours(length(obj))
   gg <- x$path %>% dplyr::group_by(.data$object) %>% dplyr::summarize(nn = sum(.data$ncoords_))
-  #objcols <- rep(sc_colours(dim(x$object)[1L]), gg$nn)
   objcols <- sc_colours(dim(x$object)[1L])
   if (all(x$path$ncoords_ == 1L)) {
     warning("all paths are degenerate (i.e. they are points)")
@@ -148,7 +152,7 @@ plot.TRI <- function(x, ..., add = FALSE) {
       t() %>%
       as.vector()
     asub <-   tibble::tibble(vertex_ = asub)
-    asub <- head(asub, -1L)
+    asub <- utils::head(asub, -1L)
     graphics::polypath(dplyr::left_join(asub,x$vertex,  "vertex_") %>% dplyr::select(.data$x_, .data$y_),
                        col = cols[i], ...)
 

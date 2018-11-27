@@ -1,10 +1,9 @@
 
-#' a pattern for building sf objects from
-#' - a gibble, the map of the paths
-#' - the coordinates
-#' the map is an encoding of the structural properties of the geometry
-#'
-#' currently only XY is supported
+# a pattern for building sf objects from
+# - a gibble, the map of the paths
+# - the coordinates
+# the map is an encoding of the structural properties of the geometry
+# currently only XY is supported
 build_sf <- function(x, ...) {
   UseMethod("build_sf")
 }
@@ -131,36 +130,36 @@ build_sp <- function(gm, coords_in, crs = NULL) {
 ## methods for reconstruction from SC
 ## https://github.com/hypertidy/silicate/issues/81#issuecomment-435833446
 
-to_dodgr <- function(x, ...) {
-  UseMethod("to_dodgr")
-}
-to_dodgr.SC <- function(x, ...) {
-  edge <- x$object_link_edge %>% dplyr::inner_join(x$edge, "edge_")
-  edge1 <- edge %>% dplyr::filter(native_)
-  edge2 <- edge %>% dplyr::filter(!native_)
-  tmp <- edge2$.vx0
-  edge2$.vx0 <- edge2$.vx1
-  edge2$.vx1 <- tmp
-  edge <- dplyr::bind_rows(edge1, edge2) %>% dplyr::transmute(from_id = .vx0, to_id = .vx1, edge_)
-  edge %>% dplyr::mutate(edge_id = row_number(), d = 1)
-#  edge <- x$edge %>% dplyr::transmute(from_id = .vx0, to_id = .vx1, edge_)
-#  edge2 <- tibble::tibble(from_id = edge$to_id, to_id  = edge$from_id, edge_ = edge$edge_)
-#  dplyr::bind_rows(edge, edge2) %>% dplyr::mutate(edge_id = row_number(), d = 1)
-}
-
-expand_verts <- function(a) {
-  a %>% inner_join(sc$vertex, c("from_id" = "vertex_")) %>% dplyr::rename(x0 = x_, y0 = y_) %>%
-    inner_join(sc$vertex, c("to_id" = "vertex_"))
-}
-
-to_arcs.SC <- function(x, ...) {
-  instances <- to_dodgr(x)
-  ## this can't work this way, because single edges and paired edges are left out
-  # https://github.com/ATFutures/dodgr/issues/78#
-  cg <- dodgr::dodgr_contract_graph(instances)
-
-
-  als <- cg$edge_map  %>%  split(.$edge_new) %>% purrr::map(~
-                                                            dplyr::inner_join(.x, instances %>% mutate(edge_id = as.character(edge_id)), c("edge_old" = "edge_id")) )
-  als
-}
+# to_dodgr <- function(x, ...) {
+#   UseMethod("to_dodgr")
+# }
+# to_dodgr.SC <- function(x, ...) {
+#   edge <- x$object_link_edge %>% dplyr::inner_join(x$edge, "edge_")
+#   edge1 <- edge %>% dplyr::filter(native_)
+#   edge2 <- edge %>% dplyr::filter(!native_)
+#   tmp <- edge2$.vx0
+#   edge2$.vx0 <- edge2$.vx1
+#   edge2$.vx1 <- tmp
+#   edge <- dplyr::bind_rows(edge1, edge2) %>% dplyr::transmute(from_id = .vx0, to_id = .vx1, edge_)
+#   edge %>% dplyr::mutate(edge_id = row_number(), d = 1)
+# #  edge <- x$edge %>% dplyr::transmute(from_id = .vx0, to_id = .vx1, edge_)
+# #  edge2 <- tibble::tibble(from_id = edge$to_id, to_id  = edge$from_id, edge_ = edge$edge_)
+# #  dplyr::bind_rows(edge, edge2) %>% dplyr::mutate(edge_id = row_number(), d = 1)
+# }
+#
+# expand_verts <- function(a) {
+#   a %>% inner_join(sc$vertex, c("from_id" = "vertex_")) %>% dplyr::rename(x0 = x_, y0 = y_) %>%
+#     inner_join(sc$vertex, c("to_id" = "vertex_"))
+# }
+#
+# to_arcs.SC <- function(x, ...) {
+#   instances <- to_dodgr(x)
+#   ## this can't work this way, because single edges and paired edges are left out
+#   # https://github.com/ATFutures/dodgr/issues/78#
+#   cg <- dodgr::dodgr_contract_graph(instances)
+#
+#
+#   als <- cg$edge_map  %>%  split(.$edge_new) %>% purrr::map(~
+#                                                             dplyr::inner_join(.x, instances %>% mutate(edge_id = as.character(edge_id)), c("edge_old" = "edge_id")) )
+#   als
+# }

@@ -76,7 +76,7 @@ SC0.TRI <- function(x, ...) {
   triangle_list <- split(triangle, triangle$object_)[unique(triangle$object_)]
   top <- vector("list", length(triangle_list))
   for (i in seq_along(triangle_list)) {
-    top[[i]] <- purrr::map_df(purrr:::transpose(triangle_list[[1]]),
+    top[[i]] <- purrr::map_df(purrr::transpose(triangle_list[[1]]),
                               ~tibble::as_tibble(matrix(tri_to_seg(unlist(.x[c(".vx0", ".vx1", ".vx2")])), ncol = 2, byrow = TRUE, dimnames = list(NULL, c(".vx0", ".vx1")))))
   }
   object <- sc_object(x)
@@ -107,29 +107,4 @@ sc_vertex.SC0 <- function(x, ...) {
   x[["vertex"]]
 }
 
-#' Plot silicate
-#'
-#' Plot a SC0 model, primitives coloured by object.
-#'
-#' @param x SC0 object
-#' @param ... arguments  passed to `graphics::segments` (col is ignored)
-#' @export
-#' @importFrom graphics segments
-plot.SC0 <- function(x, ...) {
-  plot(x$vertex[c("x_", "y_")], type = "n")
-  unn <- tidyr::unnest(x$object)
-  topology_dim <- dim(x$object$topology_[[1]])[2L]
-  ## properties are organized by object
-  col <- sc_colour_values(rep(seq_len(nrow(x$object)), purrr::map_int(x$object$topology_, nrow)),
-                                     viridis = TRUE)
-  if (topology_dim == 2) {
-    s1 <- x$vertex[unn[[".vx0"]], ]
-    s2 <- x$vertex[unn[[".vx1"]], ]
-    graphics::segments(s1$x_, s1$y_, s2$x_, s2$y_, col = col, ...)
 
-  } else {
-    s1 <- x$vertex[unn[[".vx0"]], ]
-    graphics::points(s1$x_, s1$y_, col = col, ...)
-  }
-invisible(NULL)
-}

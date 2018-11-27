@@ -10,8 +10,18 @@ PATH0(x, ...)
 \method{PATH0}{default}(x, ...)
 }
 \arguments{
-\item{...}{}
+\item{x}{an object understood by silicate}
+
+\item{...}{ignored currently}
+}
+\value{
+PATH0 model
 }
 \description{
-Path model in structural form
+Structural form requires only tables 'object' and 'vertex'.
+}
+\examples{
+(p <- PATH0(minimal_mesh))
+
+p$object$topology_
 }

@@ -43,7 +43,7 @@ sc_segment_base <- function(path_link_vertex) {
   if (length(frle$values) > 1L) {
     ## this fails if there's only one path in the whole set
     ## fixes https://github.com/hypertidy/silicate/issues/40
-    segtab <- segtab[-head(cumsum(frle$lengths), -1L), ]
+    segtab <- segtab[-utils::head(cumsum(frle$lengths), -1L), ]
   }
   segtab[["path_"]] <- rep(frle$values, frle$lengths - 1)
   segtab[["segment_"]] <- sc_uid(nrow(segtab))

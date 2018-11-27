@@ -67,10 +67,7 @@ sc_object.TRI <- function(x, ...) {
 
 
 
-na_split <- function(x) {
-  x <- split(x[c("x_", "y_")], x$path_)[unique(x$path_)]
-  if (length(x) == 1) x[[1]] else head(dplyr::bind_rows(lapply(x, function(x) rbind(dplyr::distinct(x), NA))), -1)
-}
+
 
 triangulate_PATH <- function(x, ...) {
   objlist <- split(x$path, x$path$object_)

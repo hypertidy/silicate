@@ -5,10 +5,12 @@ test_that("SC round trip suite works", {
   expect_silent({
   SC(x)
   SC0(x)
-  anglr::DEL(x)
+  ## must go in anglr
+  #anglr::DEL(x)
+  #plot(anglr::DEL(x))
+
   plot(SC(x))
   plot(SC0(x))
-  plot(anglr::DEL(x))
   sc_vertex(x)
   sc_coord(x)
   sc_node(x)
