@@ -66,6 +66,8 @@ SC0.default <- function(x, ...) {
 }
 #' @export
 SC0.SC0 <- function(x, ...) {
+  ## this should de-duplicated vertices so we can combine
+  ## multiple models - see https://github.com/mdsumner/spacebucket/issues/4
   x
 }
 #' @export
