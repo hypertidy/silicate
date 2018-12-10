@@ -77,7 +77,7 @@ n_paths <- function(x) {
   ARC = length(unique(x$object_link_arc$arc_)),
   PATH = nrow(x$path),
   SC0 = nrow(x$geometry),
-  PATH0 = sum(unlist(lapply(x$path, function(a) length(unique(a$path))))),
+  PATH0 = sum(unlist(lapply(x$object$path_, function(a) length(unique(a$path_))))),
   "[unknown")
 }
 n_coordinates <- function(x) {
