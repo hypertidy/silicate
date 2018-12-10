@@ -21,6 +21,7 @@ PATH0.default <- function(x, ...) {
   o <- sc_object(x)
   v <- sc_coord(x)
   g <- gibble::gibble(x)
+  if (!"subobject" %in% names(g)) g$subobject <- 1
   idx <- tibble::tibble(vertex_ = seq_len(sum(g$nrow)),
                         object_ = rep(g$object, g$nrow),
                         path_ = rep(seq_len(nrow(g)), g$nrow),
