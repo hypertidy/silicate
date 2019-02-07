@@ -7,6 +7,7 @@
 TRI0 <- function(x, ...) {
   UseMethod("TRI0")
 }
+
 TRI0.PATH <- function(x, ...) {
   vertex <- x$vertex
   if (nrow(vertex) < 3) stop("need at least 3 coordinates")
