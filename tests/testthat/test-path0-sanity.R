@@ -22,13 +22,15 @@ test_that("PATH0 round trip suite works", {
   ARC(x)
   PATH(x)
   PATH0(x)
-})
+
+  })
+  expect_warning(TRI0(x))
+  expect_warning(  TRI(x))
 })
 
 
  test_that("errors when PATH0 round trip unsupported", {
-   expect_error(TRI(x))
-   expect_error(TRI0(x))
+
    expect_error(ARC0(x))
 
    expect_error(sc_start(x))

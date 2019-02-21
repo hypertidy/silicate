@@ -1,3 +1,8 @@
+# dev
+
+* New models `TRI0` and `PATH0` as analogues to SC0. 
+
+
 # silicate 0.1.1.9001
 
 * `sc_uid` is now 6L characters by default, controlled by `uid_nchar` argument, and settable in option

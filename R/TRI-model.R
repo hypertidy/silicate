@@ -21,15 +21,19 @@ TRI.SC <- function(x, ...) {
   stop("constrained triangulation not supported, use anglr::DEL or reconstruct as PATH")
 }
 #' @export
+TRI.PATH0 <- function(x, ...) {
+  TRI(PATH(x), ...)
+}
+#' @export
 TRI.PATH <- function(x, ...) {
-  vertex <- x$vertex
+  vertex <- sc_vertex(x)
   if (nrow(vertex) < 3) stop("need at least 3 coordinates")
   if (anyNA(vertex$x_)) stop("missing values in x_")
   if (anyNA(vertex$y_)) stop("missing values in y_")
   if (all(x$path$ncoords_ < 2)) stop("TRI for PATH cannot include degenerate paths, see '.$path$ncoords_'")
   if (any(x$path$ncoords_ < 3)) {
     warning("filtering out paths with fewer than 3 coordinates before attempting triangulation by ear clipping")
-    x <- x$path %>% dplyr::filter(.data$ncoords_ > 2)
+    x$path <- x$path %>% dplyr::filter(.data$ncoords_ > 2)
   }
   ## pretty sure I'll live to regret this ...
   ## (but the right alternative is a smart DEL visibility classifier )
@@ -38,15 +42,12 @@ TRI.PATH <- function(x, ...) {
     warning("assuming that all paths are independent (i.e. all islands, no holes)")
     ##x$path$subobject <- 1
     x$path <- x$path %>% dplyr::group_by(.data$object_) %>%
-      dplyr::mutate(subobject = row_number()) %>%
+      dplyr::mutate(subobject_ = row_number(),
+                    subobject = .data$subobject_, object = .data$object_) %>%
       dplyr::ungroup()
   }
   tri <- triangulate_0(x)
   tri$visible <- TRUE
-
-  #tri$triangle_ <- sc_uid(nrow(tri))
-  #oXt <- dplyr::distinct(tri[c("object_", "triangle_")])
-  #tri$object_ <- NULL
   tri$path_ <- NULL
 
   obj <- sc_object(x)

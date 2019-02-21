@@ -30,8 +30,8 @@ sc_path.PATH <- function(x, ...) {
 #' @export
 sc_path.PATH0 <- function(x, ...) {
   tidyr::unnest(x[["object"]]["path_"]) %>%
-    dplyr::group_by(.data$object_, .data$path_) %>%
-    dplyr::summarize(ncoords_ = dplyr::n())
+    dplyr::group_by(.data$object_, .data$path_, .data$subobject_) %>%
+    dplyr::summarize(ncoords_ = dplyr::n()) %>% ungroup()
 }
 #' @name sc_path
 #' @export
@@ -108,9 +108,12 @@ sc_path.sfc <- function(x, ids = NULL, ...) {
     ids <- sc_uid(length(unique(x[["object"]])))
   }
   x[["object_"]] <- ids[x[["object"]]]
+  x[["subobject_"]] <- if (is.null(x[["subobject"]])) "1" else x[["subobject"]]
   x[["path_"]] <- sc_uid(nrow(x))
   x[["ncoords_"]] <- x[["nrow"]]
   x[["nrow"]] <- NULL
+  x[["suboject"]] <- NULL
+  x[["object"]] <- NULL
   x
 }
 

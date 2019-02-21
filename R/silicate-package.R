@@ -39,7 +39,7 @@ NULL
 #' sc_arc(arc)
 #' sc_node(arc)
 #' @name minimal_mesh
-#' @docType package
+#' @docType data
 NULL
 
 #' Simple features zoo.

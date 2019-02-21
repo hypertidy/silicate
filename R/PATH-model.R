@@ -9,6 +9,8 @@
 #' In a data set with no parts touching their  neighbours, the only normalization of the vertices
 #' will be the removal of the duplicated closing coordinate on any polygon ring, and on
 #' any self-intersecting case within a single path.
+#'
+#' `PATH()$path` should always have columns `object_ path_ subobject_ ncoords_`
 #' @inheritParams SC
 #' @name PATH
 #' @seealso `sc_path`, `sc_coord`
