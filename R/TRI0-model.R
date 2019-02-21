@@ -56,13 +56,13 @@ TRI0.PATH <- function(x, ...) {
 triangulate_0 <- function(x, ...) {
   objlist <- split(x$path, x$path$object_)
   objlist <- objlist[unique(x$path$object_)]
-  polygon_count <- nrow(dplyr::distinct(x$path[c("object_", "subobject_")]))
+  polygon_count <- nrow(dplyr::distinct(x$path[c("object_", "subobject")]))
   trilist <- vector("list", polygon_count)
   itri <- 0
   for (i in seq_along(objlist)) {
     obj <- objlist[[i]]
-    subobjlist <- split(obj, obj$subobject_)
-    subobjlist <- subobjlist[unique(obj$subobject_)]
+    subobjlist <- split(obj, obj$subobject)
+    subobjlist <- subobjlist[unique(obj$subobject)]
     for (j in seq_along(subobjlist)) {
       itri <- itri + 1
       verts <- subobjlist[[j]] %>%

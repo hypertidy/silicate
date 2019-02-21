@@ -42,8 +42,9 @@ TRI.PATH <- function(x, ...) {
     warning("assuming that all paths are independent (i.e. all islands, no holes)")
     ##x$path$subobject <- 1
     x$path <- x$path %>% dplyr::group_by(.data$object_) %>%
-      dplyr::mutate(subobject_ = row_number(),
-                    subobject = .data$subobject_, object = .data$object_) %>%
+      dplyr::mutate(subobject = row_number(),
+                    #subobject = .data$subobject_,
+                    object = .data$object_) %>%
       dplyr::ungroup()
   }
   tri <- triangulate_0(x)

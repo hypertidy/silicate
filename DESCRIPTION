@@ -30,7 +30,7 @@ Suggests:
 RoxygenNote: 6.1.1
 Imports: 
     dplyr,
-    gibble (>= 0.1.2.9004),
+    gibble (>= 0.1.2.9005),
     methods,
     purrr,
     rlang,

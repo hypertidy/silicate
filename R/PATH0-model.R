@@ -24,9 +24,9 @@ PATH0.default <- function(x, ...) {
   if (!"subobject" %in% names(g)) g$subobject <- 1
   idx <- tibble::tibble(vertex_ = seq_len(sum(g$nrow)),
                         object_ = rep(g$object, g$nrow),
-                        path_ = rep(seq_len(nrow(g)), g$nrow),
-                        subobject_ = rep(g$subobject, g$nrow))
-  if (length(unique(idx$subobject_) > 1)) {
+                        path_ = as.character(rep(seq_len(nrow(g)), g$nrow)),
+                        subobject = rep(g$subobject, g$nrow))
+  if (length(unique(idx$subobject) > 1)) {
    #handle multis
   }
   o$path_ <- split(idx, idx$object_)

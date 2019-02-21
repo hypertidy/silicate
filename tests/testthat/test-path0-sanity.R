@@ -24,8 +24,9 @@ test_that("PATH0 round trip suite works", {
   PATH0(x)
 
   })
-  expect_warning(TRI0(x))
-  expect_warning(  TRI(x))
+  ## this is wrong, it should be TRI0
+  expect_s3_class(TRI0(x), "TRI")
+  expect_s3_class(  TRI(x), "TRI")
 })
 
 
