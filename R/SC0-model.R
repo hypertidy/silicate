@@ -105,7 +105,7 @@ SC0.default <- function(x, ...) {
     segs <- instances %>% dplyr::select(.data$path, .data$coord, .data$object)  %>%
       dplyr::mutate(.cx0 = .data$coord,   ## specify in segment terms
                     .cx1 = .data$coord + 1L) %>%
-      dplyr::group_by(.data$path) %>% dplyr::slice(-n()) %>% dplyr::ungroup() %>%
+      dplyr::group_by(.data$path) %>% dplyr::slice(-dplyr::n()) %>% dplyr::ungroup() %>%
       dplyr::transmute(.data$.cx0, .data$.cx1, .data$path, .data$object)
 
     segs[[".vx0"]] <- instances$vertex_[match(segs$.cx0, instances$coord)]
