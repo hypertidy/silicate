@@ -1,3 +1,4 @@
+# nocov start
 sc_compact <- function(x, ...) {
   .Defunct("compact_indexes")
   #UseMethod("sc_compact")
@@ -108,3 +109,4 @@ expand_indexes.compact_PATH <- function(x, ...) {
   x[["vertex"]] <- vertex
   structure(x, class = c("PATH", "sc"))
 }
+# nocov end

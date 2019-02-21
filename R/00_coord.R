@@ -44,7 +44,7 @@ sc_coord.default <- function(x, ...){
     ## we might xy.coords
     if (is_r_coords(x)) x <- r_coords(x)
   } else {
-    x <- x[["coord"]]
+    x <- tibble::as_tibble(x[["coord"]])
   }
 
   x

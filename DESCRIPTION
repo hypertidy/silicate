@@ -25,7 +25,8 @@ Suggests:
     rmarkdown,
     sf,
     sp,
-    testthat
+    testthat,
+    trip
 RoxygenNote: 6.1.1
 Imports: 
     dplyr,

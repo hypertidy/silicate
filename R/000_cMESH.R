@@ -12,6 +12,7 @@
 # plot(x2, add = TRUE, border = "blue")
 
 
+# nocov start
 
 ## atomic index element
 si_triangle <- function(x) {
@@ -51,5 +52,6 @@ plot.cMESH <- function(x, ..., add = FALSE, inner_borders = TRUE) {
    invisible(NULL)
 }
 
+# nocov end
 
 
