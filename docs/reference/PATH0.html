@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Unique labels — sc_uid • silicate</title>
+<title>Path model in structural form — PATH0 • silicate</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="Unique labels — sc_uid" />
+<meta property="og:title" content="Path model in structural form — PATH0" />
 
-<meta property="og:description" content="Find unique labels for entities, or create them
-if not present." />
+<meta property="og:description" content="Structural form requires only tables 'object' and 'vertex'." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -110,55 +109,61 @@ if not present." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Unique labels</h1>
+    <h1>Path model in structural form</h1>
     
-    <div class="hidden name"><code>sc_uid.Rd</code></div>
+    <div class="hidden name"><code>PATH0.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Find unique labels for entities, or create them
-if not present.</p>
+    <p>Structural form requires only tables 'object' and 'vertex'.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sc_uid</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>uid_nchar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>PATH0</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>PATH0</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for PATH0</span>
+<span class='fu'>PATH0</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>number of unique IDs to generate</p></td>
+      <td><p>an object understood by silicate</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>reserved for future use</p></td>
-    </tr>
-    <tr>
-      <th>uid_nchar</th>
-      <td><p>number of raw characters to paste as a uuid, default is 6 (only if silicate.uid.type is "uuid", see Details)</p></td>
+      <td><p>ignored currently</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If 'integers' default we generate sequential integers, it's assumed that all IDs are created
-at one time, we are not adding to an existing set. Code that adds IDs should find
-the largest existing ID and offset these by that value.</p>
-<p>Using 'silicate.uid.type="uuid"' is the default. Using 'silicate.uid.type="integer"' is considered experimental.
-By default UIDs are a mix of letters, LETTERS and digits of length <code><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption("silicate.uid.size")</a></code> which defaults to 6.</p>
-<p>See <code>ids</code> package for <code>random_id</code> used if option 'silicate.uid.type="uuid"'.</p>
+    <p>PATH0 model</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>(<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>PATH0</span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; class       : PATH0
+#&gt; type        : Sequential
+#&gt; vertices    : 19 (2-space)
+#&gt; paths       : 3 (1-space)
+#&gt; coordinates : 19
+#&gt; crs         : NA</div><div class='input'>
+<span class='no'>p</span>$<span class='no'>object</span>$<span class='no'>topology_</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: 'topology_'.</span></div><div class='output co'>#&gt; NULL</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
-          </ul>
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

@@ -1,4 +1,4 @@
-## stub code
+# nocov start
 include_nn <- function(x, y, name) {
   if (!is.null(y)) x[[name]] <- tibble::as_tibble(y)
   x
@@ -31,4 +31,4 @@ silicate <- function(vertex = NULL, edge = NULL, path = NULL, object = NULL, mod
   structure(x, class = "sc")
 }
 
-
+# nocov end

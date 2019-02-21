@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Unique labels — sc_uid • silicate</title>
+<title>TRI0 model, structural triangulations — TRI0 • silicate</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="Unique labels — sc_uid" />
+<meta property="og:title" content="TRI0 model, structural triangulations — TRI0" />
 
-<meta property="og:description" content="Find unique labels for entities, or create them
-if not present." />
+<meta property="og:description" content="TRI0 model, structural triangulations" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -110,45 +109,41 @@ if not present." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Unique labels</h1>
+    <h1>TRI0 model, structural triangulations</h1>
     
-    <div class="hidden name"><code>sc_uid.Rd</code></div>
+    <div class="hidden name"><code>TRI0.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Find unique labels for entities, or create them
-if not present.</p>
+    <p>TRI0 model, structural triangulations</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sc_uid</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>uid_nchar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>TRI0</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for PATH0</span>
+<span class='fu'>TRI0</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for PATH</span>
+<span class='fu'>TRI0</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>number of unique IDs to generate</p></td>
+      <td><p>object understood by silicate (sf, sp, a silicate model, etc.)</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>reserved for future use</p></td>
-    </tr>
-    <tr>
-      <th>uid_nchar</th>
-      <td><p>number of raw characters to paste as a uuid, default is 6 (only if silicate.uid.type is "uuid", see Details)</p></td>
+      <td><p>current unused</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If 'integers' default we generate sequential integers, it's assumed that all IDs are created
-at one time, we are not adding to an existing set. Code that adds IDs should find
-the largest existing ID and offset these by that value.</p>
-<p>Using 'silicate.uid.type="uuid"' is the default. Using 'silicate.uid.type="integer"' is considered experimental.
-By default UIDs are a mix of letters, LETTERS and digits of length <code><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption("silicate.uid.size")</a></code> which defaults to 6.</p>
-<p>See <code>ids</code> package for <code>random_id</code> used if option 'silicate.uid.type="uuid"'.</p>
+    <p>TRI0 model</p>
     
 
   </div>
@@ -157,7 +152,7 @@ By default UIDs are a mix of letters, LETTERS and digits of length <code><a href
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
+      <li><a href="#value">Value</a></li>
           </ul>
 
   </div>

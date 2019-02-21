@@ -77,13 +77,13 @@ plot.PATH <- function(x, ...) {
   plot(x$vertex[c("x_", "y_")], type = "n")
   paths <- split(x$path_link_vertex, x$path_link_vertex$path_)[unique(x$path_link_vertex$path_)]
   #cols <- sc_colours(length(obj))
-  gg <- x$path %>% dplyr::group_by(.data$object) %>% dplyr::summarize(nn = sum(.data$ncoords_))
+  gg <- x$path %>% dplyr::group_by(.data$object_) %>% dplyr::summarize(nn = sum(.data$ncoords_))
 
-  pathcols <- sc_colours(dim(x$object)[1L])[x$path$object]
+  pathcols <- sc_colours(dim(x$object)[1L])[factor(x$path$object_)]
   if (all(x$path$ncoords_ == 1L)) {
     warning("all paths are degenerate (i.e. they are points)")
     toplot <- dplyr::inner_join(x$path_link_vertex, x$vertex, "vertex_")[c("x_", "y_")]
-    graphics::points(toplot, col = rep(sc_colours(dim(x$object)[1L]), gg$nn))
+    graphics::points(toplot, col = rep(sc_colours(dim(x$object_)[1L]), gg$nn))
     return(invisible(NULL))
   }
   junk <- lapply(seq_along(paths), function(a) {
@@ -159,40 +159,3 @@ plot.TRI <- function(x, ..., add = FALSE) {
   }
 }
 
-
-
-oldplot.SC <- function(x, add = FALSE, ..., vars = NULL, use_edge_colour = FALSE) {
-  if (!"color_" %in% names(x$object)) {
-    x$object$color_ <- sc_colour_values(x$object$object_, viridis = TRUE)
-  } else {
-    if (use_edge_colour) warning("'color_' property on object table ignored, set 'use_edge_colour = FALSE' to use them")
-  }
-  v <- sc_vertex(x)
-  if (!is.null(vars)) {
-    vars <- c(vars, "vertex_")
-    v <- dplyr::select(v, vars) %>%
-      setNames(c("x_", "y_", "vertex_"))
-  }
-  e <- sc_edge(x)
-  x0 <- e %>% dplyr::inner_join(v, c(".vx0" = "vertex_"))
-  x1 <- e %>% dplyr::inner_join(v, c(".vx1" = "vertex_"))
-  # browser()
-  if (identical(x0, x1)) warning("all edges are degenerate (i.e. a vertex related to itself)")
-  if (!use_edge_colour) {
-    #col <- colourvalues::colour_values(x$object_link_edge$object_[match(x$edge$edge_, x$object_link_edge$edge_)])
-    col <-  x$object$color_[match(x$object_link_edge$object_, x$object$object_)[match(x0$edge_, x$object_link_edge$edge_)]]
-  } else {
-    ## colours is object, UNLESS the edge is repeated
-    uedge <- x$object_link_edge
-    twoedge <- uedge %>% group_by(.data$edge_) %>% dplyr::tally() %>% dplyr::filter(n > 1)
-    twoedge <- twoedge %>% inner_join(uedge, "edge_") %>% group_by(.data$edge_) %>% summarize(id = paste(.data$object_, collapse = "-"))
-    uedge <- anti_join(uedge, twoedge, "edge_")
-    keepedges <- c(uedge$edge_, twoedge$edge_)
-    props <- c(uedge$object_, twoedge$id)
-    # browser()
-    col <- sc_colour_values(props, viridis = TRUE)[match(x0$edge_, keepedges)]
-  }
-
-  if (!add) graphics::plot(v$x_, v$y_, pch = ".")
-  graphics::segments(x0$x_, x0$y_, x1$x_, x1$y_, ..., col = col)
-}

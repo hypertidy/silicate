@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Unique labels — sc_uid • silicate</title>
+<title>Plot silicate — plot.SC • silicate</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="Unique labels — sc_uid" />
+<meta property="og:title" content="Plot silicate — plot.SC" />
 
-<meta property="og:description" content="Find unique labels for entities, or create them
-if not present." />
+<meta property="og:description" content="Basic edge plot, all the standard base graphics facilities for line segments are available." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -110,45 +109,46 @@ if not present." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Unique labels</h1>
+    <h1>Plot silicate</h1>
     
-    <div class="hidden name"><code>sc_uid.Rd</code></div>
+    <div class="hidden name"><code>plot.SC.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Find unique labels for entities, or create them
-if not present.</p>
+    <p>Basic edge plot, all the standard base graphics facilities for line segments are available.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sc_uid</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>uid_nchar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for SC</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='co'># S3 method for SC0</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>number of unique IDs to generate</p></td>
+      <td><p>SC object</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>reserved for future use</p></td>
+      <td><p>arguments passed to <code><a href='https://www.rdocumentation.org/packages/graphics/topics/segments'>graphics::segments</a></code></p></td>
     </tr>
     <tr>
-      <th>uid_nchar</th>
-      <td><p>number of raw characters to paste as a uuid, default is 6 (only if silicate.uid.type is "uuid", see Details)</p></td>
+      <th>add</th>
+      <td><p>if <code>TRUE</code> add to current plot</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If 'integers' default we generate sequential integers, it's assumed that all IDs are created
-at one time, we are not adding to an existing set. Code that adds IDs should find
-the largest existing ID and offset these by that value.</p>
-<p>Using 'silicate.uid.type="uuid"' is the default. Using 'silicate.uid.type="integer"' is considered experimental.
-By default UIDs are a mix of letters, LETTERS and digits of length <code><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption("silicate.uid.size")</a></code> which defaults to 6.</p>
-<p>See <code>ids</code> package for <code>random_id</code> used if option 'silicate.uid.type="uuid"'.</p>
+    <p>The 'col' argument is passed directly to <code>segments</code> if present, in the usual one-to-one or
+recycling way. The <code>...</code> args are passed to <code>segments</code>.  If <code>color_</code> present on the object table
+it is mapped to the edges of each object.</p>
+<p><code>asp</code> and so on are not able to be passed to the initial plot setup.</p>
     
 
   </div>

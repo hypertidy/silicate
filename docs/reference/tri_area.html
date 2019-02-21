@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Unique labels — sc_uid • silicate</title>
+<title>Area of triangles — tri_area • silicate</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="Unique labels — sc_uid" />
+<meta property="og:title" content="Area of triangles — tri_area" />
 
-<meta property="og:description" content="Find unique labels for entities, or create them
-if not present." />
+<meta property="og:description" content="Input is x,y matrix in triplets, with 3 rows per triangle vertex." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -110,55 +109,48 @@ if not present." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Unique labels</h1>
+    <h1>Area of triangles</h1>
     
-    <div class="hidden name"><code>sc_uid.Rd</code></div>
+    <div class="hidden name"><code>tri_area.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Find unique labels for entities, or create them
-if not present.</p>
+    <p>Input is x,y matrix in triplets, with 3 rows per triangle vertex.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sc_uid</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>uid_nchar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>tri_area</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>number of unique IDs to generate</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>reserved for future use</p></td>
-    </tr>
-    <tr>
-      <th>uid_nchar</th>
-      <td><p>number of raw characters to paste as a uuid, default is 6 (only if silicate.uid.type is "uuid", see Details)</p></td>
+      <td><p>matrix of triangle coordinates</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If 'integers' default we generate sequential integers, it's assumed that all IDs are created
-at one time, we are not adding to an existing set. Code that adds IDs should find
-the largest existing ID and offset these by that value.</p>
-<p>Using 'silicate.uid.type="uuid"' is the default. Using 'silicate.uid.type="integer"' is considered experimental.
-By default UIDs are a mix of letters, LETTERS and digits of length <code><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption("silicate.uid.size")</a></code> which defaults to 6.</p>
-<p>See <code>ids</code> package for <code>random_id</code> used if option 'silicate.uid.type="uuid"'.</p>
+    <p>numeric, area of triangles</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>pts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/structure'>structure</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5L</span>, <span class='fl'>3L</span>, <span class='fl'>1L</span>, <span class='fl'>4L</span>, <span class='fl'>4L</span>, <span class='fl'>8L</span>, <span class='fl'>6L</span>, <span class='fl'>9L</span>), <span class='kw'>.Dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>4L</span>, <span class='fl'>2L</span>))
+<span class='no'>tri</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>1</span>)
+(<span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'>tri_area</span>(<span class='no'>pts</span>[<span class='no'>tri</span>, ]))</div><div class='output co'>#&gt; [1] 6 3</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>pts</span>)</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/polygon'>polygon</a></span>(<span class='no'>pts</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/vector'>as.vector</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>rbind</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='no'>tri</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>), <span class='fl'>NA</span>)), -<span class='fl'>1</span>), ])</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/text'>text</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tapply'>tapply</a></span>(<span class='no'>pts</span>[<span class='no'>tri</span>,<span class='fl'>1</span>], <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>3</span>), <span class='no'>mean</span>),
+     <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tapply'>tapply</a></span>(<span class='no'>pts</span>[<span class='no'>tri</span>,<span class='fl'>2</span>], <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>3</span>), <span class='no'>mean</span>), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sprintf'>sprintf</a></span>(<span class='st'>"area: %0.1f"</span>, <span class='no'>a</span>))</div><div class='img'><img src='tri_area-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
-          </ul>
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
