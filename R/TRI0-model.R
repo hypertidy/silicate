@@ -7,6 +7,13 @@
 TRI0 <- function(x, ...) {
   UseMethod("TRI0")
 }
+
+#' @name TRI0
+#' @export
+TRI0.default <- function(x, ...) {
+  TRI0(PATH(x))
+}
+
 #' @name TRI0
 #' @export
 TRI0.PATH0 <- function(x, ...) {

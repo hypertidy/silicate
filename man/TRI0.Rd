@@ -2,11 +2,14 @@
 % Please edit documentation in R/TRI0-model.R
 \name{TRI0}
 \alias{TRI0}
+\alias{TRI0.default}
 \alias{TRI0.PATH0}
 \alias{TRI0.PATH}
 \title{TRI0 model, structural triangulations}
 \usage{
 TRI0(x, ...)
+
+\method{TRI0}{default}(x, ...)
 
 \method{TRI0}{PATH0}(x, ...)
 

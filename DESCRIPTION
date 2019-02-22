@@ -26,7 +26,8 @@ Suggests:
     sf,
     sp,
     testthat,
-    trip
+    trip,
+    vdiffr
 RoxygenNote: 6.1.1
 Imports: 
     dplyr,
