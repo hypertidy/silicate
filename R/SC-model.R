@@ -82,7 +82,7 @@ SC.TRI <- function(x, ...) {
                                    function(x) paste(sort(x), collapse = "-"))))
   segment$edge_ <- sc_uid(length(unique(edges)))[edges]
   segment$object_ <- x$triangle$object_[as.numeric(segment$triangle_)]
-  object_link_edge <- dplyr::distinct(segment, .data$object_, .data$edge_)
+  object_link_edge <- dplyr::distinct(segment, .data$object_, .data$edge_, .data$object_)
   object_link_edge[["native_"]] <- TRUE ## always native
   segment <- segment[c(".vx0", ".vx1", "edge_")] %>% inner_join(object_link_edge, "edge_") %>%
     dplyr::transmute(.vx0 = .data$.vx0, .vx1 = .data$.vx1, edge_ = .data$edge_)

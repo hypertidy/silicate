@@ -3,6 +3,7 @@
 \name{sc_node}
 \alias{sc_node}
 \alias{sc_node.SC}
+\alias{sc_node.SC0}
 \alias{sc_node.default}
 \alias{sc_node.PATH}
 \alias{sc_node.ARC}
@@ -11,6 +12,8 @@
 sc_node(x, ...)
 
 \method{sc_node}{SC}(x, ...)
+
+\method{sc_node}{SC0}(x, ...)
 
 \method{sc_node}{default}(x, ...)
 
