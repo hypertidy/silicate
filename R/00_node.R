@@ -24,6 +24,15 @@ sc_node.SC <- function(x, ...) {
 }
 #' @name sc_node
 #' @export
+sc_node.SC0 <- function(x, ...) {
+  sc <- SC(x)
+  nodes_id <- sc_node(sc)
+  nodes_id %>%
+    dplyr::inner_join(sc$vertex, "vertex_") %>%
+    dplyr::select(-.data$vertex_)
+}
+#' @name sc_node
+#' @export
 sc_node.default <- function(x, ...) {
   x <- SC(x)
   sc_node(x)
