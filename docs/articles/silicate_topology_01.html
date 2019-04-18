@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5.9002</span>
       </span>
     </div>
 
@@ -76,7 +76,7 @@
       <h1>silicate: the fabric of hierarchical structures</h1>
                         <h4 class="author">Michael D. Sumner</h4>
             
-            <h4 class="date">2019-02-21</h4>
+            <h4 class="date">2019-04-18</h4>
       
       
       <div class="hidden name"><code>silicate_topology_01.Rmd</code></div>
@@ -138,21 +138,21 @@
 <pre><code>## # A tibble: 15 x 3
 ##    .vx0   .vx1   edge_ 
 ##    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; 
-##  1 arg7Qm 25rghm WKzrVa
-##  2 25rghm GFeEaJ ELbxG5
-##  3 GFeEaJ Tbetzb Kl8Rln
-##  4 EuT8C6 Tbetzb kltQFd
-##  5 EuT8C6 0n6Ae0 jYoOUH
-##  6 wF1kmf 0n6Ae0 eXfvK0
-##  7 arg7Qm wF1kmf iGhMNs
-##  8 yFNGVd cYg8yT 6fJoMg
-##  9 cYg8yT jBebhu FmsKIM
-## 10 k3vUaU jBebhu XiJCUf
-## 11 uciLmZ k3vUaU qLTGxS
-## 12 yFNGVd uciLmZ b4V6BD
-## 13 0n6Ae0 WU9HWs HSg2Dx
-## 14 WU9HWs 1IYm1N KVTBTx
-## 15 wF1kmf 1IYm1N 4cWPaf</code></pre>
+##  1 jRJfvx YBqxti eoccAR
+##  2 YBqxti YKnW36 NsBn2q
+##  3 YKnW36 cbNFod PNxOBK
+##  4 BB5eTL cbNFod vU9LPa
+##  5 BB5eTL iRLTvl 43KE4Y
+##  6 eabHBk iRLTvl sljOXy
+##  7 jRJfvx eabHBk aCBxWl
+##  8 D3oxqd g7OPpU HfcVSc
+##  9 g7OPpU zCWZhB OPdBkz
+## 10 bETBal zCWZhB Dgv8c0
+## 11 ApaNhD bETBal N3pb67
+## 12 D3oxqd ApaNhD eESPqr
+## 13 iRLTvl 5a5Z5y oMjC7K
+## 14 5a5Z5y pSeo6t rcK6US
+## 15 eabHBk pSeo6t rDXlOb</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(x)</a></code></pre></div>
 <pre><code>## class       : SC
 ## type        : Primitive
@@ -178,29 +178,28 @@
 <pre><code>## Joining, by = "object_"</code></pre>
 <pre><code>## Joining, by = "path_"</code></pre>
 <pre><code>## Joining, by = "vertex_"</code></pre>
-<pre><code>## # A tibble: 19 x 11
-##        a object_  ncol type  subobject subobject_ path_ ncoords_ vertex_
-##    &lt;int&gt; &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;  
-##  1     1 z7Aqs4      2 MULT…         1          1 b94p…        8 Rsc0o1 
-##  2     1 z7Aqs4      2 MULT…         1          1 b94p…        8 b3aMTd 
-##  3     1 z7Aqs4      2 MULT…         1          1 b94p…        8 sW3tVX 
-##  4     1 z7Aqs4      2 MULT…         1          1 b94p…        8 ktgT7l 
-##  5     1 z7Aqs4      2 MULT…         1          1 b94p…        8 Dnl7fD 
-##  6     1 z7Aqs4      2 MULT…         1          1 b94p…        8 Y2w9f1 
-##  7     1 z7Aqs4      2 MULT…         1          1 b94p…        8 kfAMbC 
-##  8     1 z7Aqs4      2 MULT…         1          1 b94p…        8 Rsc0o1 
-##  9     1 z7Aqs4      2 MULT…         1          1 hNou…        6 jUWwOD 
-## 10     1 z7Aqs4      2 MULT…         1          1 hNou…        6 9YSbpk 
-## 11     1 z7Aqs4      2 MULT…         1          1 hNou…        6 8NOcPJ 
-## 12     1 z7Aqs4      2 MULT…         1          1 hNou…        6 mUqTiO 
-## 13     1 z7Aqs4      2 MULT…         1          1 hNou…        6 nydQtb 
-## 14     1 z7Aqs4      2 MULT…         1          1 hNou…        6 jUWwOD 
-## 15     2 TgiSag      2 MULT…         1          1 mPG9…        5 kfAMbC 
-## 16     2 TgiSag      2 MULT…         1          1 mPG9…        5 Y2w9f1 
-## 17     2 TgiSag      2 MULT…         1          1 mPG9…        5 OhaKcp 
-## 18     2 TgiSag      2 MULT…         1          1 mPG9…        5 rI0Qze 
-## 19     2 TgiSag      2 MULT…         1          1 mPG9…        5 kfAMbC 
-## # … with 2 more variables: x_ &lt;dbl&gt;, y_ &lt;dbl&gt;</code></pre>
+<pre><code>## # A tibble: 19 x 10
+##        a object_  ncol type    subobject path_ ncoords_ vertex_    x_    y_
+##    &lt;int&gt; &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1     1 S1lBm3      2 MULTIP…         1 vTIN…        8 f02fgZ   0     0   
+##  2     1 S1lBm3      2 MULTIP…         1 vTIN…        8 m8nTMX   0     1   
+##  3     1 S1lBm3      2 MULTIP…         1 vTIN…        8 Mart9P   0.75  1   
+##  4     1 S1lBm3      2 MULTIP…         1 vTIN…        8 dUxrvM   1     0.8 
+##  5     1 S1lBm3      2 MULTIP…         1 vTIN…        8 dyOXyu   0.5   0.7 
+##  6     1 S1lBm3      2 MULTIP…         1 vTIN…        8 vZKLgz   0.8   0.6 
+##  7     1 S1lBm3      2 MULTIP…         1 vTIN…        8 Ij96g7   0.69  0   
+##  8     1 S1lBm3      2 MULTIP…         1 vTIN…        8 f02fgZ   0     0   
+##  9     1 S1lBm3      2 MULTIP…         1 bz1h…        6 llMcsL   0.2   0.2 
+## 10     1 S1lBm3      2 MULTIP…         1 bz1h…        6 2EHHDu   0.5   0.2 
+## 11     1 S1lBm3      2 MULTIP…         1 bz1h…        6 O3xYwn   0.5   0.4 
+## 12     1 S1lBm3      2 MULTIP…         1 bz1h…        6 gTbS3y   0.3   0.6 
+## 13     1 S1lBm3      2 MULTIP…         1 bz1h…        6 jTa03b   0.2   0.4 
+## 14     1 S1lBm3      2 MULTIP…         1 bz1h…        6 llMcsL   0.2   0.2 
+## 15     2 8lvHVv      2 MULTIP…         1 Pwkj…        5 Ij96g7   0.69  0   
+## 16     2 8lvHVv      2 MULTIP…         1 Pwkj…        5 vZKLgz   0.8   0.6 
+## 17     2 8lvHVv      2 MULTIP…         1 Pwkj…        5 kB7tuf   1.1   0.63
+## 18     2 8lvHVv      2 MULTIP…         1 Pwkj…        5 rPkXrA   1.23  0.3 
+## 19     2 8lvHVv      2 MULTIP…         1 Pwkj…        5 Ij96g7   0.69  0</code></pre>
 <p>Paths are easily re-expressed as a set of edges, treating each pair of coordinates as a new kind of entity. Some edges are <em>shared</em>, in that two objects might have a particular edge in their own path. If the shared neighbours are two polygons, then it’s likely that each polygon encounters that edge in a different direction, but this is not a stable pattern so it’s best to not assume it to be the case. It’s important here because we need to differentiate between an <em>instance of an edge</em>, which is a particular <em>line segment</em> that is part of one particular polygon. If that polygon segment is a shared edge with a neighbour polygon, then we distinguish the instances as a particular <em>segment</em> of a unique <em>edge</em>. This allows us the opportunity to treat the edge as completely abstract, and also to decide or record what it’s orientation is, which records which vertex is the first one, and which is the second. Not all applications need to care about this distinction, though.</p>
 <p>In this way we have an analogy for edges and segments compared to vertices and coordinates, and I think this terminology makes sense!</p>
 </div>
@@ -237,7 +236,7 @@
 <a class="sourceLine" id="cb22-6" data-line-number="6"><span class="co"># 15.476   0.225  15.460 </span></a>
 <a class="sourceLine" id="cb22-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(tri &lt;-<span class="st"> </span><span class="kw"><a href="../reference/TRI.html">TRI</a></span>(inlandwaters))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   4.532   0.071   4.606</code></pre>
+##   4.528   0.008   4.536</code></pre>
 <p>The triangles are low-quality (but triangles are very easy to subdivide).</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(tri)</a></code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
