@@ -21,7 +21,7 @@ build_sfc <- function(x, ...) {
   UseMethod("build_sfc")
 }
 build_sfc.PATH <- function(x, ...) {
-  raw_build_sfc(x$path, x$path_link_vertex %>% dplyr::inner_join(x$vertex),
+  raw_build_sfc(x$path, x$path_link_vertex %>% dplyr::inner_join(x$vertex, "vertex_"),
                crs = x$meta$proj[1])
 }
 raw_build_sfc <- function(gm, coords_in, crs = NULL, force_close = FALSE) {
@@ -71,7 +71,8 @@ raw_build_sfc <- function(gm, coords_in, crs = NULL, force_close = FALSE) {
   }
   bb <- c(range(coords_in[["x_"]]), range(coords_in[["y_"]]))[c(1, 3, 2, 4)]
   names(bb) <- structure(c("xmin", "ymin", "xmax", "ymax"), class = "bbox")
-  glist <- structure(glist, class = c(sprintf("sfc_%s", type), "sfc"  ), n_empty = 0, precision = 0, crs = crs, bbox = bb)
+  glist <- structure(glist, precision = 0, bbox = bb, crs = crs, n_empty = 0,  crs = crs,
+                     class = c(sprintf("sfc_%s", type), "sfc"  ))
   glist
 
 }
@@ -93,38 +94,38 @@ split_to_matrix <- function(x, fac) {
 }
 
 
-build_sp <- function(gm, coords_in, crs = NULL) {
-  glist <- vector("list", length(unique(gm$object_)))
-  coords_in <- gm %>% dplyr::select(-type, -ncol, -nrow) %>%
-    dplyr::slice(rep(seq_len(nrow(gm)), gm$nrow)) %>% dplyr::bind_cols(coords_in)
-  ufeature <- unique(gm$object_)
-  #st <- system.time({
-  gmlist <- split(gm, gm$object_)[ufeature]
-  coordlist <- split(coords_in, coords_in$object)[unique(coords_in$object)]
-  #})
-
-  for (ifeature in seq_along(ufeature)) {
-    gm0 <- gmlist[[ifeature]]
-    type <- gm0$type[1]
-    coord0 <- coordlist[[ifeature]]
-    coord0$path_ <- rep(seq_len(nrow(gm0)), gm0$nrow)
-    ## todo need to set XY, XYZ, XYZM, XYM
-    cnames <- c("x_", "y_")
-    pathnames <- c(cnames, "path_")
-
-    feature <- switch(type,
-                      SpatialPoints = structure(unlist(coord0[cnames]), class = c("XY", "POINT", "sfg")),
-                      SpatialMultiPoints = structure(as.matrix(coord0[cnames]), class = c("XY", "MULTIPOINT", "sfg")),
-                      SpatialLines = structure(lapply(split(coord0[cnames], coord0[["path_"]]), as.matrix), class = c("XY", "MULTILINESTRING", "sfg")),
-                      SpatialPolygons = structure(split_to_matrix(coord0[cnames], coord0[["path_"]]), class = c("XY", "POLYGON", "sfg")))
-
-    glist[[ifeature]] <- feature
-  }
-
-  glist
-
-}
-
+# build_sp <- function(gm, coords_in, crs = NULL) {
+#   glist <- vector("list", length(unique(gm$object)))
+#   coords_in <- gm %>% dplyr::select(-type, -ncol, -nrow) %>%
+#     dplyr::slice(rep(seq_len(nrow(gm)), gm$nrow)) %>% dplyr::bind_cols(coords_in)
+#   ufeature <- unique(gm$object)
+#   #st <- system.time({
+#   gmlist <- split(gm, gm$object)[ufeature]
+#   coordlist <- split(coords_in, coords_in$object)[unique(coords_in$object)]
+#   #})
+#
+#   for (ifeature in seq_along(ufeature)) {
+#     gm0 <- gmlist[[ifeature]]
+#     type <- gm0$type[1]
+#     coord0 <- coordlist[[ifeature]]
+#     coord0$path_ <- rep(seq_len(nrow(gm0)), gm0$nrow)
+#     ## todo need to set XY, XYZ, XYZM, XYM
+#     cnames <- c("x_", "y_")
+#     pathnames <- c(cnames, "path_")
+#
+#     feature <- switch(type,
+#                       SpatialPoints = structure(unlist(coord0[cnames]), class = c("XY", "POINT", "sfg")),
+#                       SpatialMultiPoints = structure(as.matrix(coord0[cnames]), class = c("XY", "MULTIPOINT", "sfg")),
+#                       SpatialLines = structure(lapply(split(coord0[cnames], coord0[["path_"]]), as.matrix), class = c("XY", "MULTILINESTRING", "sfg")),
+#                       SpatialPolygons = structure(split_to_matrix(coord0[cnames], coord0[["path_"]]), class = c("XY", "POLYGON", "sfg")))
+#
+#     glist[[ifeature]] <- feature
+#   }
+#
+#   glist
+#
+# }
+#
 
 
 ## methods for reconstruction from SC

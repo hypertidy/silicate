@@ -12,7 +12,7 @@ c.SC0 <- function(...) {
     nrs[i] <- nrow(all_list[[i]]$vertex)
   }
   ## object here means which element of all_list
-print(nrs)
+#print(nrs)
   if (length(nrs) > 1) {
     incr <- 0
   for (i in seq_along(all_list)) {

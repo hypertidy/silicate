@@ -55,7 +55,7 @@ plot.SC0 <- function(x, ... , add = FALSE) {
   ## no colours for free, you get what you get
   if ("color_" %in% names(x$object)) {
       edge_per_object <- unlist(lapply(x$object$topology_, nrow))
-      args$col <- rep(sc_colour_values(seq_len(nrow(x$object)), viridis = TRUE), edge_per_object)
+      args$col <- rep(x$object$color_, edge_per_object)
 
   }
   v <- sc_vertex(x) %>% add_rownum("vertex_")
