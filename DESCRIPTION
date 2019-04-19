@@ -1,6 +1,6 @@
 Package: silicate
 Title: A Common Form for Complex Data
-Version: 0.1.5.9002
+Version: 0.1.5.9003
 Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com"), 
              person("John", "Corbett", role = "ctb", comment = "the original inspiration"), 
              person("Simon", "Wotherspoon", role = "ctb"), 
@@ -31,7 +31,7 @@ Suggests:
 RoxygenNote: 6.1.1
 Imports: 
     dplyr,
-    gibble (>= 0.1.2.9005),
+    gibble (>= 0.2.0),
     methods,
     purrr,
     rlang,
@@ -46,4 +46,4 @@ Imports:
     magrittr
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-Remotes: mdsumner/gibble
+

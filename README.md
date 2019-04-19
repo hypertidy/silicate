@@ -215,56 +215,56 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_
 #>    <dbl> <dbl> <chr>  
-#>  1  0     0    0CgOiP 
-#>  2  0     1    CPFOSx 
-#>  3  0.2   0.2  jAM7jL 
-#>  4  0.2   0.4  7moGdu 
-#>  5  0.3   0.6  zqEDVy 
-#>  6  0.5   0.2  UXeA9R 
-#>  7  0.5   0.4  hQIDJB 
-#>  8  0.5   0.7  Ofp72T 
-#>  9  0.69  0    QrTTYt 
-#> 10  0.75  1    xXpAQ1 
-#> 11  0.8   0.6  gDRdrk 
-#> 12  1     0.8  mm1ICf 
-#> 13  1.1   0.63 o1p5aB 
-#> 14  1.23  0.3  KSKzEY
+#>  1  0     0    eh5Ed3 
+#>  2  0     1    p2lcyv 
+#>  3  0.2   0.2  f5hDQ8 
+#>  4  0.2   0.4  C0zWt8 
+#>  5  0.3   0.6  B21P4W 
+#>  6  0.5   0.2  f3DaUO 
+#>  7  0.5   0.4  JQ1y4w 
+#>  8  0.5   0.7  oSF6af 
+#>  9  0.69  0    N5G27f 
+#> 10  0.75  1    nw1nJ3 
+#> 11  0.8   0.6  x0gd3m 
+#> 12  1     0.8  4cFPmK 
+#> 13  1.1   0.63 8mqCNX 
+#> 14  1.23  0.3  ERATxk
 
 sc_edge(x)
 #> # A tibble: 15 x 3
 #>    .vx0   .vx1   edge_ 
 #>    <chr>  <chr>  <chr> 
-#>  1 0CgOiP CPFOSx RbRWEa
-#>  2 CPFOSx xXpAQ1 9Rf8Df
-#>  3 xXpAQ1 mm1ICf Lq4KgA
-#>  4 Ofp72T mm1ICf b8z3fs
-#>  5 Ofp72T gDRdrk VB5ThV
-#>  6 QrTTYt gDRdrk SVmaQN
-#>  7 0CgOiP QrTTYt SoOUz5
-#>  8 jAM7jL UXeA9R pCSiHv
-#>  9 UXeA9R hQIDJB 2o0Rr1
-#> 10 zqEDVy hQIDJB qNXbSh
-#> 11 7moGdu zqEDVy iqoonf
-#> 12 jAM7jL 7moGdu VDjU5m
-#> 13 gDRdrk o1p5aB k7CWtb
-#> 14 o1p5aB KSKzEY ZZtqwh
-#> 15 QrTTYt KSKzEY CXluHM
+#>  1 eh5Ed3 p2lcyv JOwqh7
+#>  2 p2lcyv nw1nJ3 Gsx6na
+#>  3 nw1nJ3 4cFPmK PGGXX4
+#>  4 oSF6af 4cFPmK NP62NQ
+#>  5 oSF6af x0gd3m 5KFFwV
+#>  6 N5G27f x0gd3m 3GdhS7
+#>  7 eh5Ed3 N5G27f 36UQt2
+#>  8 f5hDQ8 f3DaUO 6qhzOU
+#>  9 f3DaUO JQ1y4w E88RxS
+#> 10 B21P4W JQ1y4w IQXM83
+#> 11 C0zWt8 B21P4W Efm6Do
+#> 12 f5hDQ8 C0zWt8 v2CGy6
+#> 13 x0gd3m 8mqCNX Y1VLnh
+#> 14 8mqCNX ERATxk 3xMqsw
+#> 15 N5G27f ERATxk KUkmzh
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_
 #>   <chr>  
-#> 1 G2dYCm 
-#> 2 WWqhAv
+#> 1 oawlPP 
+#> 2 1QwVO0
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_   ncoords_
 #>   <chr>     <int>
-#> 1 A4eEsa        7
-#> 2 aTfinC        6
-#> 3 iVQCUA        2
-#> 4 qdPJbj        4
+#> 1 AoMuTM        2
+#> 2 dVarZ4        6
+#> 3 Ou06sM        7
+#> 4 ptzDB6        4
 ```
 
 ## silicate models
