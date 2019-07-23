@@ -1,10 +1,6 @@
 context("test-colours")
 
-test_that("colours works", {
-  expect_equal(sc_colours(6, viridis = TRUE), c("#440154", "#414487", "#2A788E", "#22A883", "#7AD151", "#FDE725"
-  ))
 
-})
 
 test_that("plots have known output", {
   #library(vdiffr)
