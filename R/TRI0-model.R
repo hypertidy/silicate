@@ -60,6 +60,8 @@ TRI0.PATH <- function(x, ...) {
 
 
 
+
+
 triangulate_0 <- function(x, ...) {
   objlist <- split(x$path, x$path$object_)
   objlist <- objlist[unique(x$path$object_)]
@@ -67,9 +69,14 @@ triangulate_0 <- function(x, ...) {
   trilist <- vector("list", polygon_count)
   itri <- 0
   for (i in seq_along(objlist)) {
-    obj <- objlist[[i]]
-    subobjlist <- split(obj, obj$subobject)
-    subobjlist <- subobjlist[unique(obj$subobject)]
+    #obj <- objlist[[i]]
+    #browser()
+    if (length(unique(objlist[[i]]$subobject)) > 1) {
+      subobjlist <- split(objlist[[i]], objlist[[i]]$subobject)
+      subobjlist <- subobjlist[unique(objlist[[i]]$subobject)]
+    } else {
+      subobjlist <- objlist[i]
+    }
     for (j in seq_along(subobjlist)) {
       itri <- itri + 1
       verts <- subobjlist[[j]] %>%
@@ -80,13 +87,14 @@ triangulate_0 <- function(x, ...) {
         dplyr::inner_join(x$vertex, "vertex_")
       holes <- which(c(0, abs(diff(as.integer(as.factor(verts$path_))))) > 0)
       if (length(holes) < 1) holes <- 0
+
       trindex <- decido::earcut(cbind(verts[["x_"]], verts[["y_"]]), holes)
       trimat <- matrix(trindex, ncol = 3L, byrow = TRUE)
       trilist[[itri]] <- tibble::tibble(.vx0 = verts$vertex_[trimat[,1L]],
                                         .vx1 = verts$vertex_[trimat[,2L]],
                                         .vx2 = verts$vertex_[trimat[,3L]],
                                         path_ = verts$path_[1L],
-                                        object_ = obj$object_[1L])
+                                        object_ = objlist[[i]]$object_[1L])
 
     }
   }
