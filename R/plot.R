@@ -131,9 +131,15 @@ plot.PATH0 <- function(x, ...) {
 plot.ARC <- function(x, ..., lwd = 2L) {
 
   plot(x$vertex[c("x_", "y_")], pch = "")
-  a1 <- split(x$arc_link_vertex, x$arc_link_vertex$arc_)
-  col <- setNames(sc_colours(length(a1)), names(a1))
-  a1 %>% purrr::iwalk(~lines(dplyr::inner_join(.x, x$vertex, "vertex_") %>% dplyr::select(x_, y_), col = col[.y], lwd = lwd))
+  a1 <- x$arc_link_vertex %>% dplyr::inner_join(x$vertex, "vertex_") %>%
+    split(.$arc_)
+#  a1 <- split(x$arc_link_vertex, x$arc_link_vertex$arc_)
+  col <- rep(sc_colours(length(a1)), purrr::map_int(a1, nrow))
+  p2s <- function(x) cbind(.vx0 = utils::head(x, -1L),
+                          .vx1 = utils::tail(x, -1))
+segs <-   do.call(rbind, purrr::map(a1, ~p2s(as.matrix(.x[c("x_", "y_")]))))
+
+segments(segs[,1], segs[,2], segs[,3], segs[,4], col = col)
 }
 
 #' @name TRI
