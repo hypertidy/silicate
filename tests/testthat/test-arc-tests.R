@@ -13,16 +13,16 @@ a <- ARC(x)
 sc_to_dodgr <- function(x, ...) {
   UseMethod("sc_to_dodgr")
 }
-sc_to_dodgr.SC <- function(x, ...) {
-  edge <- sc_edge(x)
-  graph <- structure(tibble::tibble(id = seq_len(nrow(edge)),
-                 from = match(edge[[".vertex0"]], x$vertex[["vertex_"]]),
-                 to = match(edge[[".vertex1"]], x$vertex[["vertex_"]]),
-                 d = 1, w = 1),
-            class = c("data.frame", "dodgr_streetnet"))
-  graph_contracted <- dodgr:::rcpp_contract_graph(graph, NULL)
-  graph_contracted
-}
+# sc_to_dodgr.SC <- function(x, ...) {
+#   edge <- sc_edge(x)
+#   graph <- structure(tibble::tibble(id = seq_len(nrow(edge)),
+#                  from = match(edge[[".vertex0"]], x$vertex[["vertex_"]]),
+#                  to = match(edge[[".vertex1"]], x$vertex[["vertex_"]]),
+#                  d = 1, w = 1),
+#             class = c("data.frame", "dodgr_streetnet"))
+#   graph_contracted <- dodgr:::rcpp_contract_graph(graph, NULL)
+#   graph_contracted
+# }
 ## not yet
 # test_that("graph contraction works", {
 #   expect_equal(nrow(sc_arc(a)), 4L)

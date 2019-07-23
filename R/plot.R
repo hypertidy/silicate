@@ -128,18 +128,20 @@ plot.PATH0 <- function(x, ...) {
 #'
 #' @name ARC
 #' @export
+#' @importFrom graphics segments
 plot.ARC <- function(x, ..., lwd = 2L) {
 
   plot(x$vertex[c("x_", "y_")], pch = "")
-  a1 <- x$arc_link_vertex %>% dplyr::inner_join(x$vertex, "vertex_") %>%
-    split(.$arc_)
+  a0 <- dplyr::inner_join(x$arc_link_vertex, x$vertex, "vertex_")
+  a0$vertex_ <- NULL
+  a1 <-   split(a0, a0$arc_)
 #  a1 <- split(x$arc_link_vertex, x$arc_link_vertex$arc_)
   col <- rep(sc_colours(length(a1)), purrr::map_int(a1, nrow))
   p2s <- function(x) cbind(.vx0 = utils::head(x, -1L),
                           .vx1 = utils::tail(x, -1))
 segs <-   do.call(rbind, purrr::map(a1, ~p2s(as.matrix(.x[c("x_", "y_")]))))
 
-segments(segs[,1], segs[,2], segs[,3], segs[,4], col = col)
+  graphics::segments(segs[,1], segs[,2], segs[,3], segs[,4], col = col)
 }
 
 #' @name TRI
