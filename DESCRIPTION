@@ -39,7 +39,7 @@ Imports:
     tibble,
     unjoin (>= 0.0.3),
     geometry,
-    tidyr,
+    tidyr (<= 0.8.3),
     grDevices,
     graphics,
     stats,
