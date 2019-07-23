@@ -8,6 +8,8 @@ x <- list (l1, l2) %>% st_sfc () %>% st_sf ()
 
 library(silicate)
 a <- ARC(x)
+
+
 sc_to_dodgr <- function(x, ...) {
   UseMethod("sc_to_dodgr")
 }
