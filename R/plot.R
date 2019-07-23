@@ -100,24 +100,21 @@ plot.PATH <- function(x, ...) {
 #' @export
 plot.PATH0 <- function(x, ...) {
   plot(x$vertex[c("x_", "y_")], type = "n")
-  paths <- split(x$path_link_vertex, x$path_link_vertex$path_)[unique(x$path_link_vertex$path_)]
-  #cols <- sc_colours(length(obj))
-  gg <- x$path %>% dplyr::group_by(.data$object) %>% dplyr::summarize(nn = sum(.data$ncoords_))
-  objcols <- sc_colours(dim(x$object)[1L])
-  if (all(x$path$ncoords_ == 1L)) {
-    warning("all paths are degenerate (i.e. they are points)")
-    toplot <- dplyr::inner_join(x$path_link_vertex, x$vertex, "vertex_")[c("x_", "y_")]
-    graphics::points(toplot, col = objcols)
-    return(invisible(NULL))
+  col <- sc_colours(nrow(x$object))
+
+  pp <-
+  function(x, paster = function(...) paste(..., sep = "-")) {
+    ## we are looking for  any of these three
+    do.call(paster, x[intersect(names(x), c("object_", "subobject", "path_"))])
   }
-  junk <- lapply(seq_along(paths), function(a) {
-    toplot <- dplyr::inner_join(paths[[a]], x$vertex, "vertex_")[c("x_", "y_")]
-    if (dim(toplot)[1L] > 1L) {
-      graphics::lines(toplot, col = objcols[a])
-    } else {
-      graphics::points(toplot, col = objcols[a])
-    }
-  })
+  for (i in seq_along(col)) {
+    paths <- split(x$object$path_[[i]],
+                   pp(x$object$path_[[i]]))
+    purrr::map(paths, ~{
+      lines(x$vertex[.x$vertex_, c("x_", "y_")], col = col[i])
+    })
+
+  }
   invisible(NULL)
 }
 #' @noRd
