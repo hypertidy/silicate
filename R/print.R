@@ -70,7 +70,7 @@ n_primitives <- function(x) {
          "[unknown]")
 }
 n_geometry <- function(x) {
-   length(intersect(c("x_", "y_", "z_"), names(x$vertex)))
+   length(intersect(c("x_", "y_", "z_", "t_"), names(x$vertex)))
 }
 n_paths <- function(x) {
   switch(tail(class(x), 2)[1],
