@@ -58,7 +58,24 @@ c.SC0 <- function(...) {
 }
 
 
+normalize_to_vertices <- function(x, ...) {
+  coord0 <- sc_coord(x)
+  if (all(c("x_", "y_","z_", "t_") %in% names(coord0))) {
+    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$z_, .data$t_, key_col = "vertex_")
+    return(out)
+}
+  if (all(c("x_", "y_","z_") %in% names(coord0))) {
+    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$z_,  key_col = "vertex_")
+    return(out)
+  }
+  if (all(c("x_", "y_","t_") %in% names(coord0))) {
+    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$t_,  key_col = "vertex_")
+    return(out)
+  }
 
+  ## need more cases, but by now we assume x_, y_
+  unjoin::unjoin(coord0, .data$x_, .data$y_, .data$t_,  key_col = "vertex_")
+}
 
 
 #' Pure edge model, structural form
@@ -84,8 +101,9 @@ SC0 <- function(x, ...) {
 #' @importFrom gibble gibble
 #' @export
 SC0.default <- function(x, ...) {
-  coord0 <- sc_coord(x)
-  udata <- unjoin::unjoin(coord0, .data$x_, .data$y_, key_col = "vertex_")
+  #coord0 <- sc_coord(x)
+  #udata <- unjoin::unjoin(coord0, .data$x_, .data$y_, key_col = "vertex_")
+  udata <- normalize_to_vertices(x)
   udata[["vertex_"]]$row <- seq_len(nrow(udata[["vertex_"]]))
   gmap <- gibble::gibble(x) %>% dplyr::mutate(path = dplyr::row_number())
   instances <- udata$data %>% dplyr::mutate(path = as.integer(factor(rep(path_paste(gmap), gmap$nrow))),
@@ -117,7 +135,7 @@ SC0.default <- function(x, ...) {
   meta <- tibble(proj = get_projection(x), ctime = Sys.time())
 
   structure(list(object = object, vertex = udata$vertex_ %>%
-                   dplyr::arrange(.data$vertex_) %>% dplyr::select(.data$x_, .data$y_),
+                   dplyr::arrange(.data$vertex_),
                  meta = meta),
             class = c("SC0", "sc"))
 }
