@@ -30,7 +30,6 @@ SC <- function(x, ...) {
 #' @export
 #' @importFrom tidyr unnest
 SC.default <- function(x, ...) {
-  ##P <- PATH(x, ...)
   B <- SC0(x, ...)
   O <- sc_object(B)
   O$topology_ <- NULL

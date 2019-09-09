@@ -19,7 +19,7 @@ SC0
 }
 \description{
 \code{SC0} is the simplest and most general of all silicate models. Composed of
-an \code{object} and and \code{vertex} table linked by nested vertex-index pairs.
+an \code{object} and \code{vertex} table linked by nested vertex-index pairs.
 }
 \examples{
 SC0(minimal_mesh)

@@ -17,13 +17,17 @@ test_that("PATH0 round trip suite works", {
   sc_edge(x)
   sc_segment(x)
   sc_object(x)
-  sc_arc(x)
   sc_path(x)
-  ARC(x)
   PATH(x)
   PATH0(x)
 
   })
+
+  expect_warning({
+    ARC(x)
+    sc_arc(x)
+  }
+  )
   ## this is wrong, it should be TRI0
   expect_s3_class(TRI0(x), "TRI")
   expect_s3_class(  TRI(x), "TRI")

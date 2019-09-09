@@ -63,7 +63,11 @@ normalize_to_vertices <- function(x, ..., .keep_all = FALSE) {
   if (all(c("x_", "y_","z_", "t_") %in% names(coord0))) {
     out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$z_, .data$t_, key_col = "vertex_")
     return(out)
-}
+  }
+  if (all(c("x_", "y_","z_", "m_") %in% names(coord0))) {
+    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$z_, .data$m_, key_col = "vertex_")
+    return(out)
+  }
   if (all(c("x_", "y_","z_") %in% names(coord0))) {
     out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$z_,  key_col = "vertex_")
     return(out)
@@ -72,10 +76,7 @@ normalize_to_vertices <- function(x, ..., .keep_all = FALSE) {
     out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$t_,  key_col = "vertex_")
     return(out)
   }
-  if (all(c("x_", "y_","z_", "m_") %in% names(coord0))) {
-    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$z_, .data$m_, key_col = "vertex_")
-    return(out)
-  }
+
   if (all(c("x_", "y_","m_") %in% names(coord0))) {
     out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$m_,  key_col = "vertex_")
     return(out)
@@ -145,9 +146,12 @@ SC0.default <- function(x, ...) {
 
   }
   meta <- tibble(proj = get_projection(x), ctime = Sys.time())
+vertex <- udata$vertex_ %>%
+  dplyr::arrange(.data$vertex_)
 
-  structure(list(object = object, vertex = udata$vertex_ %>%
-                   dplyr::arrange(.data$vertex_),
+bad <- !names(vertex) %in% c("x_", "y_", "z_", "m_", "t_")
+  if (any(bad)) vertex <- vertex[!bad]
+  structure(list(object = object, vertex = vertex,
                  meta = meta),
             class = c("SC0", "sc"))
 }
