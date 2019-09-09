@@ -2,15 +2,18 @@
 
 #' ARC model
 #'
-#' Arcs are paths within the line segment graph between nodes.
+#' Arcs are unique paths that connect nodes. In a polygon layer with shared boundaries, the
+#' arcs are the linear features that have no branches.
 #'
-#' Nodes are the vertices where three or more arcs meet.
-#' An arc can exist without including any nodes, a path that has no neighbouring relationship with another path.
+#' Nodes are the vertices where three or more arcs meet. An arc can exist without including
+#' any nodes, a path that has no neighbouring relationship with another path.
 #'
-#' This is _not_ the same terminology as used by other systems. The `arc_link_vertex` mapping is inherently ordered,
-#' but we don't consider order of arcs. Duplicated arcs (i.e. complementary turns around neighbouring polygons) are
-#' not kept. The `object_link_arc` mapping records which arc belongs to the objects, so can be reconstructed within
-#' objects by tracing `arc_link_vertex` start and end point identity.
+#' This is _not_ the same terminology as used by other systems, such as "arc-node". The
+#' `arc_link_vertex` mapping is inherently ordered, but we don't consider order of arcs.
+#' Duplicated arcs (i.e. complementary turns around neighbouring polygons) are not kept.
+#' The `object_link_arc` mapping records which arc belongs to the objects, so feature polygons
+#' can in theory be reconstructed within objects by tracing `arc_link_vertex` start and end point
+#' identity.
 #' @inheritParams SC
 #'
 #' @return ARC model
@@ -34,6 +37,10 @@ ARC.SC <- function(x, ...) {
 #' @name ARC
 #' @export
 ARC.PATH <- function(x, ...) {
+  if (!all(grepl("polygon", x$path$type, ignore.case = TRUE))) {
+    warning(paste("ARC is not well-defined unless used on polygon layers",
+                  "please use with caution", sep = "\n"))
+  }
   o <- sc_object(x)
   arc_map <- sc_arc_PATH(x)
   arc_map <- unique_arcs(arc_map)

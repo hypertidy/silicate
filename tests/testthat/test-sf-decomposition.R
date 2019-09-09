@@ -48,3 +48,10 @@ test_that("object and path names as expected", {
 
 
 }  )
+
+
+test_that("topology basis is sane", {
+  expect_identical(PATH0(minimal_mesh)$vertex, SC0(minimal_mesh)$vertex)
+
+  #identical(TRI0(minimal_mesh)$vertex, SC0(minimal_mesh)$vertex)
+})
