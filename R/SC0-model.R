@@ -58,7 +58,7 @@ c.SC0 <- function(...) {
 }
 
 
-normalize_to_vertices <- function(x, ...) {
+normalize_to_vertices <- function(x, ..., .keep_all = FALSE) {
   coord0 <- sc_coord(x)
   if (all(c("x_", "y_","z_", "t_") %in% names(coord0))) {
     out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$z_, .data$t_, key_col = "vertex_")
@@ -72,16 +72,28 @@ normalize_to_vertices <- function(x, ...) {
     out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$t_,  key_col = "vertex_")
     return(out)
   }
+  if (all(c("x_", "y_","z_", "m_") %in% names(coord0))) {
+    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$z_, .data$m_, key_col = "vertex_")
+    return(out)
+  }
+  if (all(c("x_", "y_","m_") %in% names(coord0))) {
+    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$m_,  key_col = "vertex_")
+    return(out)
+  }
+  if (all(c("x_", "y_","m_") %in% names(coord0))) {
+    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$m_,  key_col = "vertex_")
+    return(out)
+  }
 
   ## need more cases, but by now we assume x_, y_
-  unjoin::unjoin(coord0, .data$x_, .data$y_, .data$t_,  key_col = "vertex_")
+  unjoin::unjoin(coord0, .data$x_, .data$y_,   key_col = "vertex_")
 }
 
 
 #' Pure edge model, structural form
 #'
 #' `SC0` is the simplest and most general of all silicate models. Composed of
-#' an `object` and and `vertex` table linked by nested vertex-index pairs.
+#' an `object` and `vertex` table linked by nested vertex-index pairs.
 #'
 #'
 #' @param x an object understood by silicate
