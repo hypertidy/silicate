@@ -19,7 +19,7 @@ sc_path.default <- function(x, ...) {
   if (is_r_coords(x)) {
     return(tibble::tibble(nrow = xypaths(x)))
   }
-  PATH(x)[["path"]]
+  sc_path(PATH0(x))
 }
 #' @name sc_path
 #' @export

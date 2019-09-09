@@ -25,7 +25,7 @@ sc_edge <- function(x, ...) {
 #' @name sc_edge
 #' @export
 sc_edge.default <- function(x, ...) {
-  x <- PATH(x, ...)
+  x <- SC0(x, ...)
   sc_edge(x)
 }
 #' @export
