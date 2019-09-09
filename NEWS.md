@@ -1,5 +1,7 @@
 # dev
 
+* Commited to ARC only being relevant to polygon layers. 
+
 * New models `TRI0` and `PATH0` as analogues to SC0. 
 
 

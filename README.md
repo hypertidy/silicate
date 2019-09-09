@@ -212,59 +212,59 @@ Obtain the elements of a known model type.
 
 ``` r
 sc_vertex(x)
-#> # A tibble: 14 x 3
-#>       x_    y_ vertex_
-#>    <dbl> <dbl> <chr>  
-#>  1  0     0    eh5Ed3 
-#>  2  0     1    p2lcyv 
-#>  3  0.2   0.2  f5hDQ8 
-#>  4  0.2   0.4  C0zWt8 
-#>  5  0.3   0.6  B21P4W 
-#>  6  0.5   0.2  f3DaUO 
-#>  7  0.5   0.4  JQ1y4w 
-#>  8  0.5   0.7  oSF6af 
-#>  9  0.69  0    N5G27f 
-#> 10  0.75  1    nw1nJ3 
-#> 11  0.8   0.6  x0gd3m 
-#> 12  1     0.8  4cFPmK 
-#> 13  1.1   0.63 8mqCNX 
-#> 14  1.23  0.3  ERATxk
+#> # A tibble: 14 x 4
+#>       x_    y_ vertex_   row
+#>    <dbl> <dbl>   <int> <int>
+#>  1  0     0          1     1
+#>  2  0     1          2     2
+#>  3  0.2   0.2        3     8
+#>  4  0.2   0.4        4    12
+#>  5  0.3   0.6        5    11
+#>  6  0.5   0.2        6     9
+#>  7  0.5   0.4        7    10
+#>  8  0.5   0.7        8     5
+#>  9  0.69  0          9     7
+#> 10  0.75  1         10     3
+#> 11  0.8   0.6       11     6
+#> 12  1     0.8       12     4
+#> 13  1.1   0.63      13    13
+#> 14  1.23  0.3       14    14
 
 sc_edge(x)
 #> # A tibble: 15 x 3
-#>    .vx0   .vx1   edge_ 
-#>    <chr>  <chr>  <chr> 
-#>  1 eh5Ed3 p2lcyv JOwqh7
-#>  2 p2lcyv nw1nJ3 Gsx6na
-#>  3 nw1nJ3 4cFPmK PGGXX4
-#>  4 oSF6af 4cFPmK NP62NQ
-#>  5 oSF6af x0gd3m 5KFFwV
-#>  6 N5G27f x0gd3m 3GdhS7
-#>  7 eh5Ed3 N5G27f 36UQt2
-#>  8 f5hDQ8 f3DaUO 6qhzOU
-#>  9 f3DaUO JQ1y4w E88RxS
-#> 10 B21P4W JQ1y4w IQXM83
-#> 11 C0zWt8 B21P4W Efm6Do
-#> 12 f5hDQ8 C0zWt8 v2CGy6
-#> 13 x0gd3m 8mqCNX Y1VLnh
-#> 14 8mqCNX ERATxk 3xMqsw
-#> 15 N5G27f ERATxk KUkmzh
+#>     .vx0  .vx1 edge_ 
+#>    <int> <int> <chr> 
+#>  1     1     2 yFYbtn
+#>  2     2    10 fqtmnV
+#>  3    10    12 6Douhy
+#>  4     8    12 3X5pb7
+#>  5     8    11 ixzJCJ
+#>  6     9    11 OrO1tU
+#>  7     1     9 exbVUW
+#>  8     3     6 iPZDQa
+#>  9     6     7 rMEpW9
+#> 10     5     7 BB0jZs
+#> 11     4     5 eErycR
+#> 12     3     4 UfHYTV
+#> 13    11    13 3pQ5EU
+#> 14    13    14 f07zjT
+#> 15     9    14 O8zyGX
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_
 #>   <chr>  
-#> 1 oawlPP 
-#> 2 1QwVO0
+#> 1 dIDzTK 
+#> 2 3l47kn
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_   ncoords_
 #>   <chr>     <int>
-#> 1 AoMuTM        2
-#> 2 dVarZ4        6
-#> 3 Ou06sM        7
-#> 4 ptzDB6        4
+#> 1 d3Ek0I        4
+#> 2 fQhFHX        2
+#> 3 FxaNLQ        6
+#> 4 xCeWSw        7
 ```
 
 ## silicate models
@@ -339,8 +339,9 @@ dependencies.
   - [scgraph](https://github.com/hypertidy/scgraph)
   - [scspatstat](https://github.com/hypertidy/scspatstat)
 
-Looking for a music reference? Child’s Play, by Carcass.
+Looking for a music reference? I always am: Child’s Play, by Carcass.
 
 Please note that the ‘silicate’ project is released with a [Contributor
-Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project,
-you agree to abide by its terms.
+Code of
+Conduct](https://github.com/hypertidy/silicate/blob/master/CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.

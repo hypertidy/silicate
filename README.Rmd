@@ -211,8 +211,8 @@ The silicate family is composed of a small number of packages that apply the pri
 * [scgraph](https://github.com/hypertidy/scgraph)
 * [scspatstat](https://github.com/hypertidy/scspatstat)
 
-Looking for a music reference? Child's Play, by Carcass.
+Looking for a music reference? I always am: Child's Play, by Carcass.
 
 
+Please note that the 'silicate' project is released with a [Contributor Code of Conduct](https://github.com/hypertidy/silicate/blob/master/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
 
-  Please note that the 'silicate' project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
