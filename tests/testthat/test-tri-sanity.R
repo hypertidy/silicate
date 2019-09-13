@@ -1,6 +1,6 @@
 context("test-TRI-sanity")
 x <- TRI(minimal_mesh)
-
+skip_on_cran()
 test_that("TRI round trip suite works", {
   expect_silent({
   SC(x)

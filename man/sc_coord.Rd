@@ -72,12 +72,6 @@ an object, since the number of coordinates per path gives a structural mapping i
 Collect all coordinates in one table, the path_link_vertex table
 has the information about the original grouping.
 }
-\examples{
-data("sfzoo")
-#sc_coord(sf::st_sfc(sfzoo))
-# lapply(sfzoo, sc_coord)
-#sc_coord(sf::st_sfc(sfzoo))
-}
 \seealso{
 \code{sc_path} for the central part of the model, \code{sc_object} for
 the features, and \code{PATH} for the full model.

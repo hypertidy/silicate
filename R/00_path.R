@@ -86,11 +86,6 @@ sc_list <- function(x) {
 #' @name sc_path
 #' @export
 #' @export sc_path
-#' @examples
-#' #library(scsf)
-#' #sf_dataset <- sf::st_sf(geometry = sf::st_sfc(sfzoo[[2]]), a = 1)
-#' #PATH(sf_dataset)
-#' #sc_path(sf::st_sfc(sfzoo))
 sc_path.sf <- function(x, ids = NULL, ...) {
   sc_path(.st_get_geometry(x), ids = ids, ...)
 }
@@ -100,8 +95,6 @@ sc_path.sf <- function(x, ids = NULL, ...) {
 #' @importFrom dplyr bind_rows
 #' @name sc_path
 #' @export
-#' @examples
-#' #sc_path(sf::st_sfc(sfzoo))
 sc_path.sfc <- function(x, ids = NULL, ...) {
   x <- gibble::gibble(x)
   if (is.null(ids)) {

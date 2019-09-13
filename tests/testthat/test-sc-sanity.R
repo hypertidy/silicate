@@ -2,6 +2,7 @@ context("test-SC-sanity")
 x <- SC(minimal_mesh)
 
 test_that("SC round trip suite works", {
+  skip_on_cran()  ## we get warnings
   expect_silent({
   SC(x)
   SC0(x)

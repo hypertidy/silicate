@@ -99,18 +99,12 @@ sc_coord.SC <- function(x, ...) {
 #' the features, and `PATH` for the full model.
 #' @name sc_coord
 #' @export
-#' @examples
-#' data("sfzoo")
-#' #sc_coord(sf::st_sfc(sfzoo))
-#'# lapply(sfzoo, sc_coord)
 sc_coord.sf <- function(x, ...) {
   sc_coord(.st_get_geometry(x), ...)
 }
 #' @importFrom dplyr bind_rows
 #' @name sc_coord
 #' @export
-#' @examples
-#' #sc_coord(sf::st_sfc(sfzoo))
 sc_coord.sfc <- function(x,  ...) {
   x <- lapply(x, sc_coord)
   dplyr::bind_rows(x)

@@ -1,6 +1,5 @@
 context("test-sp-decomposition.R")
 skip("no sp test for now")  ## this ain't working
-library(sf)
 library(sp)
 library(gibble)
 spobj <- as(minimal_mesh, "Spatial")

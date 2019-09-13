@@ -15,16 +15,14 @@ Status](https://img.shields.io/codecov/c/github/hypertidy/silicate/master.svg)](
 
 # Overview
 
-The goal of silicate is to bridge formal data structure definitions with
-flexible analytical and visualization techniques.
+The goal of silicate is to bridge planar geospatial data types with
+flexible mesh data structures and visualization.
 
-We aim to
+We aim to provide
 
-  - provide a universal *common-form* of hierarchical data
-  - provide a framework for a *universal converter* between complex data
-    types
-  - enable working with topological primitives for analysis and
-    interaction.
+  - a *common-form* for representing hierarchical data structures
+  - a *universal converter* between complex data types
+  - topological primitives for analysis and exploration.
 
 The core of silicate is the general model `SC`, composed of three tables
 `vertex`, `edge` and `object` and all entities are explicitly labelled.
@@ -234,37 +232,37 @@ sc_edge(x)
 #> # A tibble: 15 x 3
 #>     .vx0  .vx1 edge_ 
 #>    <int> <int> <chr> 
-#>  1     1     2 yFYbtn
-#>  2     2    10 fqtmnV
-#>  3    10    12 6Douhy
-#>  4     8    12 3X5pb7
-#>  5     8    11 ixzJCJ
-#>  6     9    11 OrO1tU
-#>  7     1     9 exbVUW
-#>  8     3     6 iPZDQa
-#>  9     6     7 rMEpW9
-#> 10     5     7 BB0jZs
-#> 11     4     5 eErycR
-#> 12     3     4 UfHYTV
-#> 13    11    13 3pQ5EU
-#> 14    13    14 f07zjT
-#> 15     9    14 O8zyGX
+#>  1     1     2 8kGdWg
+#>  2     2    10 cqVF0J
+#>  3    10    12 zG3PTP
+#>  4     8    12 vn9sPn
+#>  5     8    11 0PY3z6
+#>  6     9    11 IEwBnu
+#>  7     1     9 V10qGh
+#>  8     3     6 5qAFi5
+#>  9     6     7 NYR7y7
+#> 10     5     7 A9pBdD
+#> 11     4     5 bjgvHz
+#> 12     3     4 ph3g9t
+#> 13    11    13 8J3Gk5
+#> 14    13    14 SBVcyy
+#> 15     9    14 7zkYGX
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_
 #>   <chr>  
-#> 1 dIDzTK 
-#> 2 3l47kn
+#> 1 FygQ5m 
+#> 2 9nfMzH
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_   ncoords_
 #>   <chr>     <int>
-#> 1 d3Ek0I        4
-#> 2 fQhFHX        2
-#> 3 FxaNLQ        6
-#> 4 xCeWSw        7
+#> 1 6hiLih        7
+#> 2 dKZMPB        4
+#> 3 KV6eQq        2
+#> 4 MNbFlV        6
 ```
 
 ## silicate models

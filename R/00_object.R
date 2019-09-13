@@ -47,10 +47,6 @@ sc_object.default <- function(x, ...) {
 #' @name sc_object
 #' @importFrom tibble as_tibble
 #' @export
-#' @examples
-#' #library(sf)
-#' #nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
-#' #sc_object(nc)
 sc_object.sf <- function(x, ...) {
   tibble::as_tibble(.st_set_geometry(x))
 }

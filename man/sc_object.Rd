@@ -30,11 +30,6 @@ or features.
 The objects are the front end entities, the usual "GIS contract" objects,
 the features.
 }
-\examples{
-#library(sf)
-#nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
-#sc_object(nc)
-}
 \seealso{
 \code{sc_coord} for the coordinates part of the model, \code{sc_path} for
 the central part of the model, and \code{PATH} for the full model.
