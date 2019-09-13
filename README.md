@@ -24,10 +24,60 @@ We aim to provide
   - a *universal converter* between complex data types
   - topological primitives for analysis and exploration.
 
-The core of silicate is the general model `SC`, composed of three tables
-`vertex`, `edge` and `object` and all entities are explicitly labelled.
-Indexes between tables are unique and persistent and arbitrary, they can
-be arbitrarily accessed. This is closely related to the more bare-bones
+The core of silicate are *worker functions* that are generic and work
+with any kind of data that has hierarchical structure. These functions
+work on *models*, that include various formats (sf, sp, trip) and also
+on silicate models themselves.
+
+## Functions
+
+We have the following worker verbs, designed to work with many spatial
+data formats and with silicate’s own structures.
+
+  - `sc_object()` - highest level properties, the “features”
+  - `sc_coord()` - all instances of coordinates, labelled by vertex if
+    the source model includes them
+  - `sc_vertex()` - only unique coordinates (in some geometric space)
+  - `sc_path()` - individual paths, sequential traces
+  - `sc_edge()` - unique binary relations, unordered segments (segments
+    and edges are currently under review, and may change)
+  - `sc_segment()` - all instances of edges
+  - `sc_arc()` - unique topological paths, arcs either meet two other
+    arcs at a node, or include no nodes
+  - `sc_node()` - unique nodes
+
+The idea is that each function can return the underlying entities of a
+data object, no matter its underlying format. This interoperability
+design contrasts with major spatial packages that require format
+peculiarities in order to work, even when these details are not
+relevant.
+
+## Models
+
+Silicate defines a number of key models to represent various
+interpretations of hierarchical (usually spatial) data. These are `SC`,
+`PATH`, `ARC` and `TRI`. Most models have a counterpart
+*structurally-optimized* version with a similar name: `SC0`, `PATH0`,
+`TRI0`. Other models are possible, and include `DEL` in the
+[in-development anglr package](https://github.com/hypertidy/anglr/) that
+extends `TRI`.
+
+Each model is composed of a type of *primitive*, and each provides a
+normalization (de-duplication) of geometry for efficiency and or
+topology. Silicate quite deliberately separates the concepts of geometry
+and topology completely. Primitives define the topology (edges, paths,
+arcs, or triangles) and the vertex table defines the geometry. We
+reserve the names `x_`, `y_`, `t_` (time) and `z_` (elevation) for the
+usual geometric dimensions, and these are treated specially by default.
+No limit is put geometric dimension however, it’s possible to store
+anything at all on the vertex table. Some models include an `object`
+table, and this represents a higher level grouping of primitives (and
+corresponds to *features* in SF).
+
+The most general model is `SC`, composed of three tables `vertex`,
+`edge` and `object` and all entities are explicitly labelled. Indexes
+between tables are unique and persistent and arbitrary, they can be
+arbitrarily accessed. This is closely related to the more bare-bones
 `SC0` model, composed of only two tables `vertices`, and `objects`.
 These are related *structurally* by nesting the relations within the
 object table. Here the relations are not persistent, so we can subset
@@ -75,22 +125,12 @@ external packages to publish methods for these verbs, keeping
 package-specific code in the original package. We think this provides a
 very powerful and general mechanism for a family of consistent packages.
 
-We have the following worker verbs that are used to build the above
-models, and work between what each model offers.
-
-  - `sc_object` - highest level properties, the “features”
-  - `sc_coord` - all instances of coordinates, labelled by vertex if the
-    source model includes them
-  - `sc_vertex` - only unique coordinates (in some geometric space)
-  - `sc_path` - individual paths, sequential traces
-  - `sc_edge` - unique binary relations, unordered segments (segments
-    and edges are currently under review, and may change)
-  - `sc_segment` - all instances of edges
-  - `sc_arc` - unique topological paths, arcs either meet two other arcs
-    at a node, or include no nodes
-  - `sc_node` - unique nodes
-  - `unjoin` - a function to *un join* a table, the opposite of the
-    database join
+There is another important function `unjoin()` use to normalize tables
+that have redundant information. The `unjoin()` isthe opposite of the
+database join, and has a nearly identical counterpart in [the dm
+package](https://github.com/krlmlr/dm) with its `decompose_table()`.
+Unjoin is the same as `tidyr::nest()` but returns two tables rather than
+splitting one into the rows of other.
 
 The `unjoin` is a bit out of place here, but it’s a key step when
 building these models, used to remove duplication at various levels.
@@ -210,59 +250,59 @@ Obtain the elements of a known model type.
 
 ``` r
 sc_vertex(x)
-#> # A tibble: 14 x 4
-#>       x_    y_ vertex_   row
-#>    <dbl> <dbl>   <int> <int>
-#>  1  0     0          1     1
-#>  2  0     1          2     2
-#>  3  0.2   0.2        3     8
-#>  4  0.2   0.4        4    12
-#>  5  0.3   0.6        5    11
-#>  6  0.5   0.2        6     9
-#>  7  0.5   0.4        7    10
-#>  8  0.5   0.7        8     5
-#>  9  0.69  0          9     7
-#> 10  0.75  1         10     3
-#> 11  0.8   0.6       11     6
-#> 12  1     0.8       12     4
-#> 13  1.1   0.63      13    13
-#> 14  1.23  0.3       14    14
+#> # A tibble: 14 x 3
+#>       x_    y_ vertex_
+#>    <dbl> <dbl> <chr>  
+#>  1  0     0    ONOypP 
+#>  2  0     1    KL4uul 
+#>  3  0.2   0.2  2kpVdt 
+#>  4  0.2   0.4  HcuByO 
+#>  5  0.3   0.6  kLVKPJ 
+#>  6  0.5   0.2  khkPFz 
+#>  7  0.5   0.4  0uStk5 
+#>  8  0.5   0.7  LWGxPV 
+#>  9  0.69  0    J6Lsie 
+#> 10  0.75  1    G1iIsf 
+#> 11  0.8   0.6  W7e20R 
+#> 12  1     0.8  UanTYj 
+#> 13  1.1   0.63 8CvLnS 
+#> 14  1.23  0.3  JjzHSI
 
 sc_edge(x)
 #> # A tibble: 15 x 3
-#>     .vx0  .vx1 edge_ 
-#>    <int> <int> <chr> 
-#>  1     1     2 8kGdWg
-#>  2     2    10 cqVF0J
-#>  3    10    12 zG3PTP
-#>  4     8    12 vn9sPn
-#>  5     8    11 0PY3z6
-#>  6     9    11 IEwBnu
-#>  7     1     9 V10qGh
-#>  8     3     6 5qAFi5
-#>  9     6     7 NYR7y7
-#> 10     5     7 A9pBdD
-#> 11     4     5 bjgvHz
-#> 12     3     4 ph3g9t
-#> 13    11    13 8J3Gk5
-#> 14    13    14 SBVcyy
-#> 15     9    14 7zkYGX
+#>    .vx0   .vx1   edge_ 
+#>    <chr>  <chr>  <chr> 
+#>  1 ONOypP KL4uul OHC9vp
+#>  2 KL4uul G1iIsf FrXlSN
+#>  3 G1iIsf UanTYj 4aq4Cm
+#>  4 LWGxPV UanTYj GB0AOs
+#>  5 LWGxPV W7e20R Vvz4o8
+#>  6 J6Lsie W7e20R 9AFGWh
+#>  7 ONOypP J6Lsie AvySY0
+#>  8 2kpVdt khkPFz B0dZuh
+#>  9 khkPFz 0uStk5 XSXoxz
+#> 10 kLVKPJ 0uStk5 yEO01n
+#> 11 HcuByO kLVKPJ 0wJLZn
+#> 12 2kpVdt HcuByO 0TjTRl
+#> 13 W7e20R 8CvLnS IEsiuk
+#> 14 8CvLnS JjzHSI l7GYEe
+#> 15 J6Lsie JjzHSI D1X0d8
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_
 #>   <chr>  
-#> 1 FygQ5m 
-#> 2 9nfMzH
+#> 1 yv7ofN 
+#> 2 zcgMHM
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_   ncoords_
 #>   <chr>     <int>
-#> 1 6hiLih        7
-#> 2 dKZMPB        4
-#> 3 KV6eQq        2
-#> 4 MNbFlV        6
+#> 1 bXPcbP        6
+#> 2 M3z8U3        4
+#> 3 QkrX3G        2
+#> 4 xHFIc1        7
 ```
 
 ## silicate models
