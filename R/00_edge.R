@@ -17,6 +17,7 @@ add_rownum <- function(x, name) {
 #' @param x input object
 #' @param ... arguments for methods
 #' @name sc_edge
+#' @return data frame of edge identity, or start/end coordinates
 #' @aliases sc_start sc_end
 #' @export
 sc_edge <- function(x, ...) {

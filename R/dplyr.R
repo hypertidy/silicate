@@ -14,6 +14,7 @@
 #' @export
 #' @importFrom dplyr filter
 #' @export filter
+#' @return an [SC()] model, with some parts filtered out
 #' @examples
 #' library(dplyr)
 #' sc <- SC(inlandwaters)

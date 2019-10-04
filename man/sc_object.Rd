@@ -23,6 +23,9 @@ sc_object(x, ...)
 
 \item{...}{arguments passed to methods}
 }
+\value{
+data frame of the object values
+}
 \description{
 The objects are the front end entities, the usual "GIS contract" objects,
 or features.

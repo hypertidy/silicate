@@ -4,8 +4,11 @@
 #'
 #' @param x input object
 #' @param ... arguments for methods
+#' @return data frame of the nodes
 #' @export
 #' @importFrom rlang .data
+#' @examples
+#' sc_node(ARC(minimal_mesh))
 sc_node <- function(x, ...) {
   UseMethod("sc_node")
 }

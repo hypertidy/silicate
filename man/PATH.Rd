@@ -20,6 +20,9 @@ PATH(x, ...)
 
 \item{...}{arguments passed to methods}
 }
+\value{
+a PATH model, with tables 'object', 'path', 'path_link_vertex' and 'vertex'
+}
 \description{
 A PATH model is a direct translation of a simple features-alike
 object to normal form. This is four tables with the three kinds of entities,

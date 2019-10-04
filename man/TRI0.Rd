@@ -21,11 +21,21 @@ TRI0(x, ...)
 \arguments{
 \item{x}{object understood by silicate (sf, sp, a silicate model, etc.)}
 
-\item{...}{current unused}
+\item{...}{currently unused}
 }
 \value{
-TRI0 model
+TRI0 model with tables 'object', 'vertex'
 }
 \description{
-TRI0 model, structural triangulations
+TRI0 creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
+polygons.
+}
+\details{
+Ear-cutting is inherently path-based, so this model is only available for
+path-based structures, like simple features, \code{\link[=PATH]{PATH()}}, \code{\link[=PATH0]{PATH0()}} and \code{\link[=ARC]{ARC()}}.
+}
+\examples{
+tri <- TRI0(minimal_mesh)
+print(tri)
+plot(tri)
 }

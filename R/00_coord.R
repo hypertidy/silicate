@@ -7,9 +7,13 @@
 #' @param ... arguments passed to methods
 #'
 #' @name sc_coord
+#' @return data frame of all the coordinates in the order they occur
 #' @export
 #' @seealso `sc_path` for the central part of the model, `sc_object` for
 #' the features, and `PATH` for the full model.
+#' @examples
+#' sc_coord(minimal_mesh)
+#' sc_coord(SC(minimal_mesh))
 sc_coord <- function(x, ...) UseMethod("sc_coord")
 
 ## --------------------------------------------------------

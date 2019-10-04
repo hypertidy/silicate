@@ -5,7 +5,7 @@
 #' @param x an object understood by silicate
 #' @param ... ignored currently
 #'
-#' @return PATH0 model
+#' @return PATH0 model with tables 'object' and 'vertex'
 #' @export
 #'
 #' @examples

@@ -18,7 +18,7 @@ PATH0(x, ...)
 \item{...}{ignored currently}
 }
 \value{
-PATH0 model
+PATH0 model with tables 'object' and 'vertex'
 }
 \description{
 Structural form requires only tables 'object' and 'vertex'.

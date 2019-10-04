@@ -2,11 +2,12 @@
 #'
 #' Simple set of colours for discrete palette.
 #'
+#'
 #' @param x number of colours to generate
 #' @param ... currently ignored
 #' @param viridis use viridis, TRUE or FALSE
 #'
-#' @return colours
+#' @return vector of colours
 #' @export
 #'
 #' @examples
@@ -32,14 +33,14 @@ sc_colour_values <- function(x, ..., viridis = FALSE) {
 #'
 #' Basic edge plot, all the standard base graphics facilities for line segments are available.
 #'
-#' The 'col' argument is passed directly to `segments` if present, in the usual one-to-one or
-#' recycling way. The `...` args are passed to `segments`.  If `color_` present on the object table
-#' it is mapped to the edges of each object.
+#' The 'col' argument is passed directly to [segments()]  or [polypath()] as needed, in the usual
+#' one-to-one or recycling way.
 #'
-#' `asp` and so on are not able to be passed to the initial plot setup.
+#' Graphical parameters are not able to be passed to the initial plot setup, but a plot
+#' can be set up and then added to with this method.
 #' @name plot.SC
-#' @param x SC object
-#' @param ... arguments passed to `graphics::segments`
+#' @param x sc object
+#' @param ... arguments passed to lower level plotting functions
 #' @param add if `TRUE` add to current plot
 #' @export
 #' @rdname plot.SC

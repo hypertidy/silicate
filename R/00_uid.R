@@ -16,6 +16,9 @@
 #' @param ... reserved for future use
 #' @param uid_nchar number of raw characters to paste as a uuid, default is 6 (only if silicate.uid.type is "uuid", see Details)
 #' @export
+#' @return vector of unique id values for elements in the input
+#' @examples
+#' sc_uid(data.frame(1:10))
 sc_uid <- function(x, ..., uid_nchar = NULL) {
   UseMethod("sc_uid")
 }

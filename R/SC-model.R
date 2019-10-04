@@ -9,6 +9,7 @@ globalVariables("n")
 #' @param x input model
 #' @param ... arguments passed to methods
 #' @export
+#' @return SC model with tables 'object', 'object_link_edge', 'edge', and 'vertex'
 #' @examples
 #' ## we can produce a high quality triangulation from a low quality one
 #' ## see how the TRI edges are maintained (we can't yet filter out holes from DEL)

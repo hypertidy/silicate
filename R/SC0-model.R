@@ -100,7 +100,7 @@ normalize_to_vertices <- function(x, ..., .keep_all = FALSE) {
 #' @param x an object understood by silicate
 #' @param ... reserved for methods
 #'
-#' @return SC0
+#' @return SC0 model with tables 'object' and 'vertex'
 #' @export
 #'
 #' @examples

@@ -26,10 +26,14 @@ sc_node(x, ...)
 
 \item{...}{arguments for methods}
 }
+\value{
+data frame of the nodes
+}
 \description{
 Nodes are the vertices in the graph that are shared by "arcs".
 }
 \examples{
+sc_node(ARC(minimal_mesh))
 sc <- SC(routes)
 library(dplyr)
 plot(sc)

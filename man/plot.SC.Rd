@@ -10,9 +10,9 @@
 \method{plot}{SC0}(x, ..., add = FALSE)
 }
 \arguments{
-\item{x}{SC object}
+\item{x}{sc object}
 
-\item{...}{arguments passed to \code{graphics::segments}}
+\item{...}{arguments passed to lower level plotting functions}
 
 \item{add}{if \code{TRUE} add to current plot}
 }
@@ -20,9 +20,9 @@
 Basic edge plot, all the standard base graphics facilities for line segments are available.
 }
 \details{
-The 'col' argument is passed directly to \code{segments} if present, in the usual one-to-one or
-recycling way. The \code{...} args are passed to \code{segments}.  If \code{color_} present on the object table
-it is mapped to the edges of each object.
+The 'col' argument is passed directly to \code{\link[=segments]{segments()}}  or \code{\link[=polypath]{polypath()}} as needed, in the usual
+one-to-one or recycling way.
 
-\code{asp} and so on are not able to be passed to the initial plot setup.
+Graphical parameters are not able to be passed to the initial plot setup, but a plot
+can be set up and then added to with this method.
 }

@@ -59,6 +59,9 @@ sc_end(x, ...)
 
 \item{...}{arguments for methods}
 }
+\value{
+data frame of edge identity, or start/end coordinates
+}
 \description{
 Simple binary relationships, a primitive composed of two vertices.
 }

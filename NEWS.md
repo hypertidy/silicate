@@ -1,4 +1,6 @@
-# dev
+# silicate 0.2.0
+
+* First viable release. 
 
 * Commited to ARC only being relevant to polygon layers. 
 

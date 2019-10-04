@@ -2,8 +2,11 @@
 #'
 #' @param x model
 #' @param ... passed to methods
-#'
+#' @return data frame of only the unique coordinates
 #' @export
+#' @examples
+#' sc_vertex(minimal_mesh)
+#' sc_vertex(SC0(minimal_mesh))
 sc_vertex <- function(x, ...) {
   UseMethod("sc_vertex")
 }

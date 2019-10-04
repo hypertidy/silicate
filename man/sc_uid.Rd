@@ -13,6 +13,9 @@ sc_uid(x, ..., uid_nchar = NULL)
 
 \item{uid_nchar}{number of raw characters to paste as a uuid, default is 6 (only if silicate.uid.type is "uuid", see Details)}
 }
+\value{
+vector of unique id values for elements in the input
+}
 \description{
 Find unique labels for entities, or create them
 if not present.
@@ -26,4 +29,7 @@ Using 'silicate.uid.type="uuid"' is the default. Using 'silicate.uid.type="integ
 By default UIDs are a mix of letters, LETTERS and digits of length \code{getOption("silicate.uid.size")} which defaults to 6.
 
 See \code{ids} package for \code{random_id} used if option 'silicate.uid.type="uuid"'.
+}
+\examples{
+sc_uid(data.frame(1:10))
 }

@@ -1,10 +1,18 @@
 #' TRI model, triangulations
 #'
+#' TRI creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
+#' polygons.
+#'
+#' Ear-cutting is inherently path-based, so this model is only available for
+#' path-based structures, like simple features, [PATH()], [PATH0()] and [ARC()].
 #' @param x object understood by silicate (sf, sp, a silicate model, etc.)
 #' @param ... current unused
 #' @param add logical create  new plot (default), or add to existing
-#' @return TRI model
+#' @return TRI model with tables 'object', 'triangle', 'vertex'
 #' @export
+#' @examples
+#' tri <- TRI(minimal_mesh)
+#' plot(tri)
 TRI <- function(x, ...) {
   UseMethod("TRI")
 }

@@ -65,12 +65,19 @@ sc_coord(x, ...)
 
 \item{...}{arguments passed to methods}
 }
+\value{
+data frame of all the coordinates in the order they occur
+}
 \description{
 Collect all instances of all coordinates in one table. This complementary to the \code{sc_path} of
 an object, since the number of coordinates per path gives a structural mapping into this set.
 
 Collect all coordinates in one table, the path_link_vertex table
 has the information about the original grouping.
+}
+\examples{
+sc_coord(minimal_mesh)
+sc_coord(SC(minimal_mesh))
 }
 \seealso{
 \code{sc_path} for the central part of the model, \code{sc_object} for

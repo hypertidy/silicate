@@ -14,6 +14,9 @@ SC(x, ...)
 
 \item{...}{arguments passed to methods}
 }
+\value{
+SC model with tables 'object', 'object_link_edge', 'edge', and 'vertex'
+}
 \description{
 The universal model \code{SC} is coordinates and binary relations between
 pairs of coordinates. This is purely an edge (or segment) model, with all

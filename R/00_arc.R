@@ -11,6 +11,7 @@
 #' work with models that don't included labels.
 #' @param x input object
 #' @param ... arguments for methods
+#' @return a data frame with only the identities of the shared boundaries (arcs)
 #' @export
 #' @examples
 #' sc_arc(minimal_mesh)

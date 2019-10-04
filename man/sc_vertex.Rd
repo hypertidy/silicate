@@ -32,6 +32,13 @@ sc_vertex(x, ...)
 
 \item{...}{passed to methods}
 }
+\value{
+data frame of only the unique coordinates
+}
 \description{
 Extract unique vertices
+}
+\examples{
+sc_vertex(minimal_mesh)
+sc_vertex(SC0(minimal_mesh))
 }

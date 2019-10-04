@@ -15,7 +15,7 @@ SC0(x, ...)
 \item{...}{reserved for methods}
 }
 \value{
-SC0
+SC0 model with tables 'object' and 'vertex'
 }
 \description{
 \code{SC0} is the simplest and most general of all silicate models. Composed of

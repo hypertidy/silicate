@@ -14,7 +14,7 @@ sc_colours(x = 16, ..., viridis = FALSE)
 \item{viridis}{use viridis, TRUE or FALSE}
 }
 \value{
-colours
+vector of colours
 }
 \description{
 Simple set of colours for discrete palette.

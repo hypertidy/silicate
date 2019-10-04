@@ -1,9 +1,18 @@
 #' TRI0 model, structural triangulations
 #'
+#' TRI0 creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
+#' polygons.
+#'
+#' Ear-cutting is inherently path-based, so this model is only available for
+#' path-based structures, like simple features, [PATH()], [PATH0()] and [ARC()].
 #' @param x object understood by silicate (sf, sp, a silicate model, etc.)
-#' @param ... current unused
-#' @return TRI0 model
+#' @param ... currently unused
+#' @return TRI0 model with tables 'object', 'vertex'
 #' @export
+#' @examples
+#' tri <- TRI0(minimal_mesh)
+#' print(tri)
+#' plot(tri)
 TRI0 <- function(x, ...) {
   UseMethod("TRI0")
 }

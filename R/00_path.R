@@ -3,13 +3,19 @@
 #'
 #' Start in the middle, and build the 'path-link-vertex' table.
 #'
+#' Paths have properties of their type, their number of vertices, their geometric
+#' dimension and which object they occur in.
 #' @param x input object
 #' @param ... arguments passed to methods
 #'
 #' @name sc_path
 #' @export
+#' @return data frame of path identity and properties
 #' @seealso `sc_coord` for the coordinates part of the model, `sc_object` for
 #' the features, and `PATH` for the full model.
+#' @examples
+#' sc_path(minimal_mesh)
+#' sc_path(PATH(minimal_mesh))
 sc_path <- function(x, ...) {
   UseMethod("sc_path")
 }

@@ -64,12 +64,21 @@ sc_path(x, ...)
 
 \item{ids}{object id, one for each object in the \code{sfc}}
 }
+\value{
+data frame of path identity and properties
+}
 \description{
 Start in the middle, and build the 'path-link-vertex' table.
 
 Paths.
 }
+\details{
+Paths have properties of their type, their number of vertices, their geometric
+dimension and which object they occur in.
+}
 \examples{
+sc_path(minimal_mesh)
+sc_path(PATH(minimal_mesh))
 sc_path(sfzoo$multipolygon)
 sc_path(sfzoo$polygon)
 sc_path(sfzoo$linestring)
