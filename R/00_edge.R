@@ -70,8 +70,24 @@ sc_start.SC0 <- function(x, ...) {
 #' @name sc_edge
 #' @export
 sc_start.PATH <- function(x, ...) {
-  sc_start(SC(x), ...)
+  pth_rle <- sc_path(x)$ncoords_
+  start_idx <- c(1L)
+  if (length(pth_rle) > 1L) {
+    start_idx <- cumsum(c(start_idx, head(pth_rle, -1)))
+  }
+  (x$path_link_vertex[start_idx, ] %>% dplyr::inner_join(x$vertex, "vertex_"))[c("x_", "y_", "path_","vertex_")]
 }
+#' @name sc_edge
+#' @export
+sc_end.PATH <- function(x, ...) {
+  pth_rle <- sc_path(x)$ncoords_
+  end_idx <- pth_rle[1L]
+  if (length(pth_rle) > 1L) {
+    end_idx <- cumsum(c(end_idx, tail(pth_rle, -1)))
+  }
+  (x$path_link_vertex[end_idx, ] %>% dplyr::inner_join(x$vertex, "vertex_"))[c("x_", "y_", "path_","vertex_")]
+}
+
 #' @name sc_edge
 #' @export
 sc_start.ARC <- function(x, ...) {
@@ -103,11 +119,7 @@ sc_end.SC0 <- function(x, ...) {
     dplyr::select(.data$x_, .data$y_)
 }
 
-#' @name sc_edge
-#' @export
-sc_end.PATH <- function(x, ...) {
-  sc_end(SC(x), ...)
-}
+
 #' @name sc_edge
 #' @export
 sc_end.ARC <- function(x, ...) {
