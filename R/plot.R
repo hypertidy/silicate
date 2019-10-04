@@ -147,38 +147,20 @@ segs <-   do.call(rbind, purrr::map(a1, ~p2s(as.matrix(.x[c("x_", "y_")]))))
 #' @name TRI
 #' @export
 plot.TRI <- function(x, ..., add = FALSE) {
+  plot(TRI0(x), add = add, ...)
 
-  if (!add) plot(x$vertex[c("x_", "y_")], type = "n")
-  cols <- rep(NA, nrow(sc_object(x))) ## sc_colours(nrow(sc_object(x)))
-  args <- list(...)
-  if (!is.null(args$col)) cols <- rep_len(args$col, length.out = nrow(x$triangle))
-  fill_type <- if (getOption("silicate.uid.type") == "integer") NA_integer_ else NA_character_
-  for (i in seq_len(nrow(x$object))) {
-   # triangle <- dplyr::inner_join(x$triangle, x$object_link_triangle, "triangle_")
-    triangle <- x$triangle
-    if ("visible_" %in% names(triangle)) triangle <- dplyr::filter(triangle, .data$visible_)
-    asub <- dplyr::filter(triangle, .data$object_ == x$object$object_[i]) %>%
-      dplyr::transmute(.data$.vx0, .data$.vx1, .data$.vx2, fill = fill_type) %>%
-      t() %>%
-      as.vector()
-    asub <-   tibble::tibble(vertex_ = asub)
-    asub <- utils::head(asub, -1L)
-    args$col <- cols[i]
-    args$x <- dplyr::left_join(asub,x$vertex,  "vertex_") %>% dplyr::select(.data$x_, .data$y_)
-
-    do.call(graphics::polypath, args)
-
-  }
 }
 
 #' @export
-plot.TRI0 <- function(x, ...) {
+plot.TRI0 <- function(x, ..., add = FALSE) {
   v <- x$vertex
-  plot(v$x_, v$y_, type = "n", asp = 1)
+  if (!add) plot(v$x_, v$y_, type = "n", asp = 1)
   vps <- gridBase::baseViewports()
   grid::pushViewport(vps$inner, vps$figure, vps$plot)
-  tt <- t(as.matrix(dplyr::bind_rows(x$object$topology_)))
-  xx <- tibble(x = v$x_[tt], y = v$y_[tt], id = rep(seq_len(length(tt)/3), each = 3), col = NA, border = "black")
+  tt <- t(as.matrix(dplyr::bind_rows(x$object$topology_)[c(".vx0", ".vx1", ".vx2")]))
+
+  xx <- tibble(x = v$x_[tt], y = v$y_[tt], id = rep(seq_len(length(tt)/3), each = 3),
+               col = NA, border = "black")
   args <- list(...)
   if (!is.null(args$col)) {
     xx$col <- rep_len(args$col, length.out = nrow(xx))

@@ -33,6 +33,12 @@ sc_vertex.TRI <- function(x, ...) {
 }
 #' @name sc_vertex
 #' @export
+sc_vertex.TRI0 <- function(x, ...) {
+  x[["vertex"]]
+}
+
+#' @name sc_vertex
+#' @export
 sc_vertex.PATH <- function(x, ...) {
   x[["vertex"]]
 }

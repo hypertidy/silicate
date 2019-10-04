@@ -11,13 +11,31 @@ TRI0 <- function(x, ...) {
 #' @name TRI0
 #' @export
 TRI0.default <- function(x, ...) {
-  TRI0(PATH(x))
+  TRI0(PATH0(x), ...)
 }
+#' @name TRI0
+#' @export
+TRI0.TRI <- function(x, ...) {
+  o <- sc_object(x)
+  o$object_ <- NULL
+  topol <- x$triangle
+  v <- sc_vertex(x)
 
+  idx <- split(tibble::tibble(.vx0 = match(topol$.vx0, v$vertex_),
+                        .vx1 = match(topol$.vx1, v$vertex_),
+                        .vx2 = match(topol$.vx2, v$vertex_)),
+               topol$object_)[unique(topol$object_)]
+  v$vertex_ <- NULL
+  o$topology_ <- idx
+  meta <- x$meta[1,]
+  meta$ctime <- Sys.time()
+  structure(list(object = o, vertex = v, meta = rbind(meta, x$meta)),
+            class = c("TRI0", "sc"))
+}
 #' @name TRI0
 #' @export
 TRI0.PATH0 <- function(x, ...) {
- TRI0(PATH(x), ...)
+  triangulate_00(x)
 }
 #' @name TRI0
 #' @export
@@ -26,36 +44,7 @@ TRI0.PATH <- function(x, ...) {
   if (nrow(vertex) < 3) stop("need at least 3 coordinates")
   if (anyNA(vertex$x_)) stop("missing values in x_")
   if (anyNA(vertex$y_)) stop("missing values in y_")
-  path <- sc_path(x)
-  if (all(path$ncoords_ < 2)) stop("TRI for PATH cannot include degenerate paths, see '.$path$ncoords_'")
-  if (any(path$ncoords_ < 3)) {
-    warning("filtering out paths with fewer than 3 coordinates before attempting triangulation by ear clipping")
-    path <- path %>% dplyr::filter(.data$ncoords_ > 2)
-  }
-  ## pretty sure I'll live to regret this ...
-  ## (but the right alternative is a smart DEL visibility classifier )
-  ## if we get lines, just pretend they all independently POLYGON
-  if (!"subobject" %in% names(path)) {
-    warning("assuming that all paths are independent (i.e. all islands, no holes)")
-    ##x$path$subobject <- 1
-    path <- path %>% dplyr::group_by(.data$object_) %>%
-      dplyr::mutate(subobject = dplyr::row_number()) %>%
-      dplyr::ungroup()
-  }
-  x$path <- path
-  tri <- triangulate_0(x)
-  tri$visible <- TRUE
-
-  tri$path_ <- NULL
-
-  obj <- sc_object(x)
-  #obj <- obj[obj$object_ %in% tri$object_, ]
-  meta <- tibble(proj = get_projection(x), ctime = Sys.time())
-
-  structure(list(object = obj, #object_link_triangle = oXt,
-                 triangle = tri,
-                 vertex = sc_vertex(x),
-                 meta = meta), class = c("TRI", "sc"))
+  TRI0(PATH0(x), ...)
 }
 
 
