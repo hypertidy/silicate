@@ -253,56 +253,56 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_
 #>    <dbl> <dbl> <chr>  
-#>  1  0     0    ONOypP 
-#>  2  0     1    KL4uul 
-#>  3  0.2   0.2  2kpVdt 
-#>  4  0.2   0.4  HcuByO 
-#>  5  0.3   0.6  kLVKPJ 
-#>  6  0.5   0.2  khkPFz 
-#>  7  0.5   0.4  0uStk5 
-#>  8  0.5   0.7  LWGxPV 
-#>  9  0.69  0    J6Lsie 
-#> 10  0.75  1    G1iIsf 
-#> 11  0.8   0.6  W7e20R 
-#> 12  1     0.8  UanTYj 
-#> 13  1.1   0.63 8CvLnS 
-#> 14  1.23  0.3  JjzHSI
+#>  1  0     0    zF3v3e 
+#>  2  0     1    4u503v 
+#>  3  0.2   0.2  PCZKVr 
+#>  4  0.2   0.4  yRREbL 
+#>  5  0.3   0.6  Gzi5J5 
+#>  6  0.5   0.2  tTSvR9 
+#>  7  0.5   0.4  Nbm44D 
+#>  8  0.5   0.7  i7zK6P 
+#>  9  0.69  0    dw198X 
+#> 10  0.75  1    2Jngno 
+#> 11  0.8   0.6  KzDKqp 
+#> 12  1     0.8  bq6mA9 
+#> 13  1.1   0.63 yXuzBG 
+#> 14  1.23  0.3  AMPmcu
 
 sc_edge(x)
 #> # A tibble: 15 x 3
 #>    .vx0   .vx1   edge_ 
 #>    <chr>  <chr>  <chr> 
-#>  1 ONOypP KL4uul OHC9vp
-#>  2 KL4uul G1iIsf FrXlSN
-#>  3 G1iIsf UanTYj 4aq4Cm
-#>  4 LWGxPV UanTYj GB0AOs
-#>  5 LWGxPV W7e20R Vvz4o8
-#>  6 J6Lsie W7e20R 9AFGWh
-#>  7 ONOypP J6Lsie AvySY0
-#>  8 2kpVdt khkPFz B0dZuh
-#>  9 khkPFz 0uStk5 XSXoxz
-#> 10 kLVKPJ 0uStk5 yEO01n
-#> 11 HcuByO kLVKPJ 0wJLZn
-#> 12 2kpVdt HcuByO 0TjTRl
-#> 13 W7e20R 8CvLnS IEsiuk
-#> 14 8CvLnS JjzHSI l7GYEe
-#> 15 J6Lsie JjzHSI D1X0d8
+#>  1 zF3v3e 4u503v UNLZfF
+#>  2 4u503v 2Jngno Jqlzdw
+#>  3 2Jngno bq6mA9 0mzDPM
+#>  4 i7zK6P bq6mA9 qa8zB8
+#>  5 i7zK6P KzDKqp NYn6eI
+#>  6 dw198X KzDKqp CIU725
+#>  7 zF3v3e dw198X 15Qy7K
+#>  8 PCZKVr tTSvR9 oQOuH4
+#>  9 tTSvR9 Nbm44D PHX0xl
+#> 10 Gzi5J5 Nbm44D YqMUyt
+#> 11 yRREbL Gzi5J5 mhZJuV
+#> 12 PCZKVr yRREbL 48OFjO
+#> 13 KzDKqp yXuzBG 0wjfSR
+#> 14 yXuzBG AMPmcu ltsAl6
+#> 15 dw198X AMPmcu KgGydZ
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_
 #>   <chr>  
-#> 1 yv7ofN 
-#> 2 zcgMHM
+#> 1 hz0DjH 
+#> 2 RxFNq8
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_   ncoords_
 #>   <chr>     <int>
-#> 1 bXPcbP        6
-#> 2 M3z8U3        4
-#> 3 QkrX3G        2
-#> 4 xHFIc1        7
+#> 1 kj1gA8        6
+#> 2 KwmoDy        7
+#> 3 MNRJOs        4
+#> 4 oZnlbW        2
 ```
 
 ## silicate models
