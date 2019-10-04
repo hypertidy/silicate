@@ -79,7 +79,10 @@ plot.PATH <- function(x, ...) {
   #cols <- sc_colours(length(obj))
   gg <- x$path %>% dplyr::group_by(.data$object_) %>% dplyr::summarize(nn = sum(.data$ncoords_))
 
-  pathcols <- sc_colours(dim(x$object)[1L])[factor(x$path$object_)]
+  ##pathcols <- sc_colours(dim(x$object)[1L])[factor(x$path$object_)]
+  pathcols <- rep("black", dim(x$object)[1L])
+  if (!is.null(list(...)$col)) pathcols <- rep_len(list(...)$col, length.out = dim(x$object)[1L])
+  pathcols <- pathcols[factor(x$path$object_)]
   if (all(x$path$ncoords_ == 1L)) {
     warning("all paths are degenerate (i.e. they are points)")
     toplot <- dplyr::inner_join(x$path_link_vertex, x$vertex, "vertex_")[c("x_", "y_")]
@@ -146,7 +149,9 @@ segs <-   do.call(rbind, purrr::map(a1, ~p2s(as.matrix(.x[c("x_", "y_")]))))
 plot.TRI <- function(x, ..., add = FALSE) {
 
   if (!add) plot(x$vertex[c("x_", "y_")], type = "n")
-  cols <- sc_colours(nrow(sc_object(x)))
+  cols <- rep(NA, nrow(sc_object(x))) ## sc_colours(nrow(sc_object(x)))
+  args <- list(...)
+  if (!is.null(args$col)) cols <- rep_len(args$col, length.out = nrow(x$triangle))
   fill_type <- if (getOption("silicate.uid.type") == "integer") NA_integer_ else NA_character_
   for (i in seq_len(nrow(x$object))) {
    # triangle <- dplyr::inner_join(x$triangle, x$object_link_triangle, "triangle_")
@@ -158,9 +163,30 @@ plot.TRI <- function(x, ..., add = FALSE) {
       as.vector()
     asub <-   tibble::tibble(vertex_ = asub)
     asub <- utils::head(asub, -1L)
-    graphics::polypath(dplyr::left_join(asub,x$vertex,  "vertex_") %>% dplyr::select(.data$x_, .data$y_),
-                       col = cols[i], ...)
+    args$col <- cols[i]
+    args$x <- dplyr::left_join(asub,x$vertex,  "vertex_") %>% dplyr::select(.data$x_, .data$y_)
+
+    do.call(graphics::polypath, args)
 
   }
 }
 
+#' @export
+plot.TRI0 <- function(x, ...) {
+  v <- x$vertex
+  plot(v$x_, v$y_, type = "n", asp = 1)
+  vps <- gridBase::baseViewports()
+  grid::pushViewport(vps$inner, vps$figure, vps$plot)
+  tt <- t(as.matrix(dplyr::bind_rows(x$object$topology_)))
+  xx <- tibble(x = v$x_[tt], y = v$y_[tt], id = rep(seq_len(length(tt)/3), each = 3), col = NA, border = "black")
+  args <- list(...)
+  if (!is.null(args$col)) {
+    xx$col <- rep_len(args$col, length.out = nrow(xx))
+    xx$border <- NA
+  }
+  if (!is.null(args$border)) xx$border <- rep_len(args$border, length.out = nrow(xx))
+  grid::grid.polygon(xx$x, xx$y, xx$id, gp = grid::gpar(col = xx$border, fill = xx$col),
+                     default.units = "native")
+  grid::popViewport(3)
+
+}

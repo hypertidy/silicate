@@ -37,7 +37,7 @@ SC.default <- function(x, ...) {
   O1 <- O["object_"]
   O1[["edge_"]] <- B$object[["topology_"]]
   meta <- tibble::tibble(proj = get_projection(x), ctime = format(Sys.time(), tz = "UTC"))
-  edge <- tidyr::unnest(O1)
+  edge <- tidyr::unnest(O1, cols = c(edge_))
   tst <- c(".vx0", ".vx1") %in% names(edge)
   if (!all(tst)) {
     if (sum(tst) == 1) stop("model has only 0-space vertices (is it point-topology? Try '?SC0'. )")
