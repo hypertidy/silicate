@@ -49,3 +49,4 @@ test_that("topology basis is sane", {
 
   #identical(TRI0(minimal_mesh)$vertex, SC0(minimal_mesh)$vertex)
 })
+

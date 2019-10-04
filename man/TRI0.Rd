@@ -3,6 +3,7 @@
 \name{TRI0}
 \alias{TRI0}
 \alias{TRI0.default}
+\alias{TRI0.TRI}
 \alias{TRI0.PATH0}
 \alias{TRI0.PATH}
 \title{TRI0 model, structural triangulations}
@@ -10,6 +11,8 @@
 TRI0(x, ...)
 
 \method{TRI0}{default}(x, ...)
+
+\method{TRI0}{TRI}(x, ...)
 
 \method{TRI0}{PATH0}(x, ...)
 

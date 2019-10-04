@@ -21,7 +21,8 @@ test_that("PATH0 round trip suite works", {
   sc_path(x)
   PATH(x)
   PATH0(x)
-
+ sc_start(x)
+ sc_end(x)
   })
 
   expect_warning({
@@ -29,8 +30,7 @@ test_that("PATH0 round trip suite works", {
     sc_arc(x)
   }
   )
-  ## this is wrong, it should be TRI0
-  expect_s3_class(TRI0(x), "TRI")
+  expect_s3_class(TRI0(x), "TRI0")
   expect_s3_class(  TRI(x), "TRI")
 })
 
@@ -39,8 +39,9 @@ test_that("PATH0 round trip suite works", {
 
    expect_error(ARC0(x))
 
-   expect_error(sc_start(x))
-   expect_error(sc_end(x))
+##   expect_error(sc_start(x))
+##   expect_error(sc_end(x))
    ## test must go in anglr
    #expect_error(DEL(x))
 })
+

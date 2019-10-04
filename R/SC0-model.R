@@ -26,7 +26,7 @@ c.SC0 <- function(...) {
   }
   }
 
-  segs <- purrr::map_df(all_list, ~tidyr::unnest(.x$object["topology_"]), .id = "object")
+  segs <- purrr::map_df(all_list, ~tidyr::unnest(.x$object["topology_"], cols = c(.data$topology_)), .id = "object")
   ## id here means the same (but it didn't exist before)
   #objs <- purrr::map_df(all_list, ~.x$object["id"])
 

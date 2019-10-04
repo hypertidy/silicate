@@ -39,7 +39,8 @@ sc_edge.TRI <- function(x, ...) {
 
 #' @export
 sc_edge.SC0 <- function(x, ...) {
- tidyr::unnest(x$object["topology_"], .id = "object_")
+ tidyr::unnest(x$object["topology_"], cols = c(.data$topology_)) %>%
+   mutate(object_ = dplyr::row_number())
 }
 
 #' @name sc_edge
@@ -69,11 +70,12 @@ sc_start.SC0 <- function(x, ...) {
 
 #' @name sc_edge
 #' @export
+#' @importFrom utils head
 sc_start.PATH <- function(x, ...) {
   pth_rle <- sc_path(x)$ncoords_
   start_idx <- c(1L)
   if (length(pth_rle) > 1L) {
-    start_idx <- cumsum(c(start_idx, head(pth_rle, -1)))
+    start_idx <- cumsum(c(start_idx, utils::head(pth_rle, -1)))
   }
   (x$path_link_vertex[start_idx, ] %>% dplyr::inner_join(x$vertex, "vertex_"))[c("x_", "y_", "path_","vertex_")]
 }
@@ -86,6 +88,18 @@ sc_end.PATH <- function(x, ...) {
     end_idx <- cumsum(c(end_idx, tail(pth_rle, -1)))
   }
   (x$path_link_vertex[end_idx, ] %>% dplyr::inner_join(x$vertex, "vertex_"))[c("x_", "y_", "path_","vertex_")]
+}
+#' @name sc_edge
+#' @export
+sc_start.PATH0 <- function(x, ...) {
+  ## FIXME:: avoid conversion to PATH
+  sc_start(PATH(x), ...)
+}
+#' @name sc_edge
+#' @export
+sc_end.PATH0 <- function(x, ...) {
+  ## FIXME:: avoid conversion to PATH
+  sc_end(PATH(x), ...)
 }
 
 #' @name sc_edge

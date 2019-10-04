@@ -38,11 +38,11 @@ Imports:
     tibble,
     unjoin (>= 0.0.3),
     geometry,
-    tidyr,
+    tidyr (>= 1.0.0),
     grDevices,
     graphics,
     stats,
-    magrittr
+    magrittr,
+    gridBase
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-

@@ -6,6 +6,7 @@
 \alias{sc_vertex.SC}
 \alias{sc_vertex.ARC}
 \alias{sc_vertex.TRI}
+\alias{sc_vertex.TRI0}
 \alias{sc_vertex.PATH}
 \alias{sc_vertex.PATH0}
 \title{Extract unique vertices}
@@ -19,6 +20,8 @@ sc_vertex(x, ...)
 \method{sc_vertex}{ARC}(x, ...)
 
 \method{sc_vertex}{TRI}(x, ...)
+
+\method{sc_vertex}{TRI0}(x, ...)
 
 \method{sc_vertex}{PATH}(x, ...)
 
