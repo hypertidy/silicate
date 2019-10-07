@@ -33,6 +33,10 @@ or features.
 The objects are the front end entities, the usual "GIS contract" objects,
 the features.
 }
+\examples{
+sc_object(minimal_mesh)
+sc_object(SC0(minimal_mesh))
+}
 \seealso{
 \code{sc_coord} for the coordinates part of the model, \code{sc_path} for
 the central part of the model, and \code{PATH} for the full model.

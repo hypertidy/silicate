@@ -11,3 +11,4 @@
 ^inst/examples
 ^R/old
 ^silicate\.Rproj$
+^CRAN-RELEASE$

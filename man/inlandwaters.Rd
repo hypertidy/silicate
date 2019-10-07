@@ -23,7 +23,7 @@ it's just what happened doing a quick crop and extract with the mouse. Lord Howe
 Macquarie Island are both present, as part of New South Wales and Tasmania respectively.
 }
 \examples{
-\dontrun{
+\donttest{
 path <- PATH(inlandwaters)
 plot(path)
 obj <- split(path$path_link_vertex, path$path_link_vertex$path_)
@@ -40,5 +40,5 @@ function(a) {
   invisible(NULL)
   })
   par(op)
-  }
+ }
 }

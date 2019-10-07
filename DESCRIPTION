@@ -8,11 +8,13 @@ Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsu
              person("Mark", "Padgham", role = "aut")
              )
 Description: Generate common data forms for complex data suitable for conversions and
- transmission by decomposition as 'paths' or 'primitives'. Paths are sequentially-linked records, 
+ transmission by decomposition as paths or primitives. Paths are sequentially-linked records, 
  primitives are basic atomic elements and both can model many forms and be grouped into hierarchical 
  structures.  The universal models 'SC0' (structural) and 'SC' (labelled, relational) are composed of 
  edges and can represent any hierarchical form. Specialist models 'PATH', 'ARC' and 'TRI' provide the 
- most common intermediate forms used for converting from one form to another. 
+ most common intermediate forms used for converting from one form to another. The methods are
+ inspired by the simplicial complex <https://en.wikipedia.org/wiki/Simplicial_complex> and 
+ provide intermediate forms that relate spatial data structures to this mathematical construct. 
 Depends:
     R (>= 3.4.0)
 License: GPL-3

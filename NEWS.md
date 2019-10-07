@@ -1,11 +1,12 @@
 # silicate 0.2.0
 
+* Clarified Description and cleaned up examples, thanks to CRAN feedback. 
+
 * First viable release. 
 
 * Commited to ARC only being relevant to polygon layers. 
 
 * New models `TRI0` and `PATH0` as analogues to SC0. 
-
 
 # silicate 0.1.1.9001
 
