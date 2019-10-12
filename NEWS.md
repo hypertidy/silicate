@@ -1,3 +1,8 @@
+# silicate dev
+
+* Fixed unused geometry package import. 
+
+
 # silicate 0.2.0
 
 * Clarified Description and cleaned up examples, thanks to CRAN feedback. 

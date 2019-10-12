@@ -1,11 +1,6 @@
-Resubmission silicate 0.2.0
+<next release>
 
-* Removed single quotes from non-special words in Description
-* Added url link to Description
-* Removed one \dontrun{} that required a non-CRAN package. 
-* Replaced one \dontrun{} with \donttest{} to avoid speed penalty. 
-
-Thank you very much. 
+Fixed CRAN NOTE about not using geometry import
 
 ## Test environments
 
@@ -15,6 +10,4 @@ Thank you very much.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
-* This is a new release.
+0 errors | 0 warnings | 0 notes
