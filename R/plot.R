@@ -150,8 +150,26 @@ segs <-   do.call(rbind, purrr::map(a1, ~p2s(as.matrix(.x[c("x_", "y_")]))))
 #' @name TRI
 #' @export
 plot.TRI <- function(x, ..., add = FALSE) {
-  plot(TRI0(x), add = add, ...)
-
+  v <- x$vertex
+  if (!add) plot(v$x_, v$y_, type = "n", asp = 1)
+  vps <- gridBase::baseViewports()
+  grid::pushViewport(vps$inner, vps$figure, vps$plot)
+  tt <- x[["triangle"]]
+  if (!is.null(tt[["visible_"]]))  tt <- dplyr::filter(tt, .data$visible_) 
+  
+  tt <- match(as.vector(t(as.matrix(tt[c(".vx0", ".vx1", ".vx2")]))), v$vertex_)
+  xx <- tibble(x = v$x_[tt], y = v$y_[tt], id = rep(seq_len(length(tt)/3), each = 3),
+               col = NA, border = "black")
+  
+  args <- list(...)
+  if (!is.null(args$col)) {
+    xx$col <- rep_len(args$col, length.out = nrow(xx))
+    xx$border <- NA
+  }
+  if (!is.null(args$border)) xx$border <- rep_len(args$border, length.out = nrow(xx))
+  grid::grid.polygon(xx$x, xx$y, xx$id, gp = grid::gpar(col = xx$border, fill = xx$col),
+                     default.units = "native")
+  grid::popViewport(3)
 }
 
 #' @export
