@@ -137,12 +137,12 @@ plot.ARC <- function(x, ..., lwd = 2L) {
   a0$vertex_ <- NULL
   a1 <-   split(a0, a0$arc_)
 #  a1 <- split(x$arc_link_vertex, x$arc_link_vertex$arc_)
-  col <- rep(sc_colours(length(a1)), purrr::map_int(a1, nrow))
+  col <- rep(sc_colours(length(a1)), purrr::map_int(a1, nrow) - 1)
   p2s <- function(x) cbind(.vx0 = utils::head(x, -1L),
                           .vx1 = utils::tail(x, -1))
 segs <-   do.call(rbind, purrr::map(a1, ~p2s(as.matrix(.x[c("x_", "y_")]))))
 
-  graphics::segments(segs[,1], segs[,2], segs[,3], segs[,4], col = col)
+  graphics::segments(segs[,1], segs[,2], segs[,3], segs[,4], col = col, lwd = lwd, ...)
 }
 
 #' @name TRI

@@ -1,5 +1,7 @@
 # silicate dev
 
+* Fixed off-by-one error in segment colours when plotting ARC. Fixes #101. 
+
 * Fixed unused geometry package import. 
 
 
