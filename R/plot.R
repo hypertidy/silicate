@@ -130,9 +130,9 @@ plot.PATH0 <- function(x, ...) {
 #' @name ARC
 #' @export
 #' @importFrom graphics segments
-plot.ARC <- function(x, ...,  col = NULL, lwd = 2L) {
+plot.ARC <- function(x, ...,  col = NULL, lwd = 2L, add = FALSE) {
 
-  plot(x$vertex[c("x_", "y_")], pch = "")
+  if (!add) plot(x$vertex[c("x_", "y_")], pch = "")
   a0 <- dplyr::inner_join(x$arc_link_vertex, x$vertex, "vertex_")
   a0$vertex_ <- NULL
   a1 <-   split(a0, a0$arc_)
@@ -155,12 +155,12 @@ plot.TRI <- function(x, ..., add = FALSE) {
   vps <- gridBase::baseViewports()
   grid::pushViewport(vps$inner, vps$figure, vps$plot)
   tt <- x[["triangle"]]
-  if (!is.null(tt[["visible_"]]))  tt <- dplyr::filter(tt, .data$visible_) 
-  
+  if (!is.null(tt[["visible_"]]))  tt <- dplyr::filter(tt, .data$visible_)
+
   tt <- match(as.vector(t(as.matrix(tt[c(".vx0", ".vx1", ".vx2")]))), v$vertex_)
   xx <- tibble(x = v$x_[tt], y = v$y_[tt], id = rep(seq_len(length(tt)/3), each = 3),
                col = NA, border = "black")
-  
+
   args <- list(...)
   if (!is.null(args$col)) {
     xx$col <- rep_len(args$col, length.out = nrow(xx))
