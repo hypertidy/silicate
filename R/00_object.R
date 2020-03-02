@@ -7,9 +7,13 @@
 #' @param ... arguments passed to methods
 #'
 #' @name sc_object
+#' @return data frame of the object values
 #' @export
 #' @seealso `sc_coord` for the coordinates part of the model, `sc_path` for
 #' the central part of the model, and `PATH` for the full model.
+#' @examples
+#' sc_object(minimal_mesh)
+#' sc_object(SC0(minimal_mesh))
 sc_object <- function(x, ...) UseMethod("sc_object")
 
 #' @name sc_object
@@ -47,10 +51,6 @@ sc_object.default <- function(x, ...) {
 #' @name sc_object
 #' @importFrom tibble as_tibble
 #' @export
-#' @examples
-#' #library(sf)
-#' #nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
-#' #sc_object(nc)
 sc_object.sf <- function(x, ...) {
   tibble::as_tibble(.st_set_geometry(x))
 }

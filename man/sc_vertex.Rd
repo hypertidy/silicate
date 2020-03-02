@@ -6,6 +6,7 @@
 \alias{sc_vertex.SC}
 \alias{sc_vertex.ARC}
 \alias{sc_vertex.TRI}
+\alias{sc_vertex.TRI0}
 \alias{sc_vertex.PATH}
 \alias{sc_vertex.PATH0}
 \title{Extract unique vertices}
@@ -20,6 +21,8 @@ sc_vertex(x, ...)
 
 \method{sc_vertex}{TRI}(x, ...)
 
+\method{sc_vertex}{TRI0}(x, ...)
+
 \method{sc_vertex}{PATH}(x, ...)
 
 \method{sc_vertex}{PATH0}(x, ...)
@@ -29,6 +32,13 @@ sc_vertex(x, ...)
 
 \item{...}{passed to methods}
 }
+\value{
+data frame of only the unique coordinates
+}
 \description{
 Extract unique vertices
+}
+\examples{
+sc_vertex(minimal_mesh)
+sc_vertex(SC0(minimal_mesh))
 }

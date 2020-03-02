@@ -1,6 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Travis-CI Build
 Status](http://badges.herokuapp.com/travis/hypertidy/silicate?branch=master&env=BUILD_NAME=trusty_release&label=linux)](https://travis-ci.org/hypertidy/silicate)
 [![Build
@@ -9,24 +10,74 @@ Status](http://badges.herokuapp.com/travis/hypertidy/silicate?branch=master&env=
 Status](https://ci.appveyor.com/api/projects/status/github/hypertidy/silicate?branch=master&svg=true)](https://ci.appveyor.com/project/mdsumner/silicate)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/hypertidy/silicate/master.svg)](https://codecov.io/github/hypertidy/silicate?branch=master)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/silicate)](https://cran.r-project.org/package=silicate)
+[![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/silicate)](https://cran.r-project.org/package=silicate)
 
 # Overview
 
-The goal of silicate is to bridge formal data structure definitions with
-flexible analytical and visualization techniques.
+The goal of silicate is to bridge planar geospatial data types with
+flexible mesh data structures and visualization.
 
-We aim to
+We aim to provide
 
-  - provide a universal *common-form* of hierarchical data
-  - provide a framework for a *universal converter* between complex data
-    types
-  - enable working with topological primitives for analysis and
-    interaction.
+  - a *common-form* for representing hierarchical data structures
+  - a *universal converter* between complex data types
+  - topological primitives for analysis and exploration.
 
-The core of silicate is the general model `SC`, composed of three tables
-`vertex`, `edge` and `object` and all entities are explicitly labelled.
-Indexes between tables are unique and persistent and arbitrary, they can
-be arbitrarily accessed. This is closely related to the more bare-bones
+The core of silicate are *worker functions* that are generic and work
+with any kind of data that has hierarchical structure. These functions
+work on *models*, that include various formats (sf, sp, trip) and also
+on silicate models themselves.
+
+## Functions
+
+We have the following worker verbs, designed to work with many spatial
+data formats and with silicate’s own structures.
+
+  - `sc_object()` - highest level properties, the “features”
+  - `sc_coord()` - all instances of coordinates, labelled by vertex if
+    the source model includes them
+  - `sc_vertex()` - only unique coordinates (in some geometric space)
+  - `sc_path()` - individual paths, sequential traces
+  - `sc_edge()` - unique binary relations, unordered segments (segments
+    and edges are currently under review, and may change)
+  - `sc_segment()` - all instances of edges
+  - `sc_arc()` - unique topological paths, arcs either meet two other
+    arcs at a node, or include no nodes
+  - `sc_node()` - unique nodes
+
+The idea is that each function can return the underlying entities of a
+data object, no matter its underlying format. This interoperability
+design contrasts with major spatial packages that require format
+peculiarities in order to work, even when these details are not
+relevant.
+
+## Models
+
+Silicate defines a number of key models to represent various
+interpretations of hierarchical (usually spatial) data. These are `SC`,
+`PATH`, `ARC` and `TRI`. Most models have a counterpart
+*structurally-optimized* version with a similar name: `SC0`, `PATH0`,
+`TRI0`. Other models are possible, and include `DEL` in the
+[in-development anglr package](https://github.com/hypertidy/anglr/) that
+extends `TRI`.
+
+Each model is composed of a type of *primitive*, and each provides a
+normalization (de-duplication) of geometry for efficiency and or
+topology. Silicate quite deliberately separates the concepts of geometry
+and topology completely. Primitives define the topology (edges, paths,
+arcs, or triangles) and the vertex table defines the geometry. We
+reserve the names `x_`, `y_`, `t_` (time) and `z_` (elevation) for the
+usual geometric dimensions, and these are treated specially by default.
+No limit is put geometric dimension however, it’s possible to store
+anything at all on the vertex table. Some models include an `object`
+table, and this represents a higher level grouping of primitives (and
+corresponds to *features* in SF).
+
+The most general model is `SC`, composed of three tables `vertex`,
+`edge` and `object` and all entities are explicitly labelled. Indexes
+between tables are unique and persistent and arbitrary, they can be
+arbitrarily accessed. This is closely related to the more bare-bones
 `SC0` model, composed of only two tables `vertices`, and `objects`.
 These are related *structurally* by nesting the relations within the
 object table. Here the relations are not persistent, so we can subset
@@ -74,22 +125,12 @@ external packages to publish methods for these verbs, keeping
 package-specific code in the original package. We think this provides a
 very powerful and general mechanism for a family of consistent packages.
 
-We have the following worker verbs that are used to build the above
-models, and work between what each model offers.
-
-  - `sc_object` - highest level properties, the “features”
-  - `sc_coord` - all instances of coordinates, labelled by vertex if the
-    source model includes them
-  - `sc_vertex` - only unique coordinates (in some geometric space)
-  - `sc_path` - individual paths, sequential traces
-  - `sc_edge` - unique binary relations, unordered segments (segments
-    and edges are currently under review, and may change)
-  - `sc_segment` - all instances of edges
-  - `sc_arc` - unique topological paths, arcs either meet two other arcs
-    at a node, or include no nodes
-  - `sc_node` - unique nodes
-  - `unjoin` - a function to *un join* a table, the opposite of the
-    database join
+There is another important function `unjoin()` use to normalize tables
+that have redundant information. The `unjoin()` isthe opposite of the
+database join, and has a nearly identical counterpart in [the dm
+package](https://github.com/krlmlr/dm) with its `decompose_table()`.
+Unjoin is the same as `tidyr::nest()` but returns two tables rather than
+splitting one into the rows of other.
 
 The `unjoin` is a bit out of place here, but it’s a key step when
 building these models, used to remove duplication at various levels.
@@ -212,56 +253,56 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_
 #>    <dbl> <dbl> <chr>  
-#>  1  0     0    7IqYAO 
-#>  2  0     1    E9RNUL 
-#>  3  0.2   0.2  uO5L5H 
-#>  4  0.2   0.4  2whKej 
-#>  5  0.3   0.6  Ok3dHF 
-#>  6  0.5   0.2  KKIvcK 
-#>  7  0.5   0.4  ZSRRMK 
-#>  8  0.5   0.7  qKDoi0 
-#>  9  0.69  0    536KqT 
-#> 10  0.75  1    DFK6xU 
-#> 11  0.8   0.6  ds9mRp 
-#> 12  1     0.8  gtbhgW 
-#> 13  1.1   0.63 0F8uI8 
-#> 14  1.23  0.3  J2WA2G
+#>  1  0     0    zF3v3e 
+#>  2  0     1    4u503v 
+#>  3  0.2   0.2  PCZKVr 
+#>  4  0.2   0.4  yRREbL 
+#>  5  0.3   0.6  Gzi5J5 
+#>  6  0.5   0.2  tTSvR9 
+#>  7  0.5   0.4  Nbm44D 
+#>  8  0.5   0.7  i7zK6P 
+#>  9  0.69  0    dw198X 
+#> 10  0.75  1    2Jngno 
+#> 11  0.8   0.6  KzDKqp 
+#> 12  1     0.8  bq6mA9 
+#> 13  1.1   0.63 yXuzBG 
+#> 14  1.23  0.3  AMPmcu
 
 sc_edge(x)
 #> # A tibble: 15 x 3
 #>    .vx0   .vx1   edge_ 
 #>    <chr>  <chr>  <chr> 
-#>  1 7IqYAO E9RNUL Zw1DAy
-#>  2 E9RNUL DFK6xU Ff0PnB
-#>  3 DFK6xU gtbhgW sJ3mX9
-#>  4 qKDoi0 gtbhgW SBhoEW
-#>  5 qKDoi0 ds9mRp xaSqjL
-#>  6 536KqT ds9mRp 6tDwzi
-#>  7 7IqYAO 536KqT cULnEw
-#>  8 uO5L5H KKIvcK kI0DQ1
-#>  9 KKIvcK ZSRRMK Hce8k9
-#> 10 Ok3dHF ZSRRMK EoSWqY
-#> 11 2whKej Ok3dHF awwb6F
-#> 12 uO5L5H 2whKej rGfDkb
-#> 13 ds9mRp 0F8uI8 kuNM53
-#> 14 0F8uI8 J2WA2G bmXdD1
-#> 15 536KqT J2WA2G 5xZPYI
+#>  1 zF3v3e 4u503v UNLZfF
+#>  2 4u503v 2Jngno Jqlzdw
+#>  3 2Jngno bq6mA9 0mzDPM
+#>  4 i7zK6P bq6mA9 qa8zB8
+#>  5 i7zK6P KzDKqp NYn6eI
+#>  6 dw198X KzDKqp CIU725
+#>  7 zF3v3e dw198X 15Qy7K
+#>  8 PCZKVr tTSvR9 oQOuH4
+#>  9 tTSvR9 Nbm44D PHX0xl
+#> 10 Gzi5J5 Nbm44D YqMUyt
+#> 11 yRREbL Gzi5J5 mhZJuV
+#> 12 PCZKVr yRREbL 48OFjO
+#> 13 KzDKqp yXuzBG 0wjfSR
+#> 14 yXuzBG AMPmcu ltsAl6
+#> 15 dw198X AMPmcu KgGydZ
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_
 #>   <chr>  
-#> 1 jdPA6L 
-#> 2 lQV2Nr
+#> 1 hz0DjH 
+#> 2 RxFNq8
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_   ncoords_
 #>   <chr>     <int>
-#> 1 03eYM6        6
-#> 2 2m89z6        2
-#> 3 383bIS        7
-#> 4 Q9DYJD        4
+#> 1 kj1gA8        6
+#> 2 KwmoDy        7
+#> 3 MNRJOs        4
+#> 4 oZnlbW        2
 ```
 
 ## silicate models
@@ -336,8 +377,9 @@ dependencies.
   - [scgraph](https://github.com/hypertidy/scgraph)
   - [scspatstat](https://github.com/hypertidy/scspatstat)
 
-Looking for a music reference? Child’s Play, by Carcass.
+Looking for a music reference? I always am: Child’s Play, by Carcass.
 
 Please note that the ‘silicate’ project is released with a [Contributor
-Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project,
-you agree to abide by its terms.
+Code of
+Conduct](https://github.com/hypertidy/silicate/blob/master/CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.

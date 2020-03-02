@@ -3,6 +3,7 @@ x <- PATH0(minimal_mesh)
 
 
 test_that("PATH0 round trip suite works", {
+  skip_on_cran()  ## we get warnings here
   expect_silent({
   SC(x)
   SC0(x)
@@ -17,15 +18,19 @@ test_that("PATH0 round trip suite works", {
   sc_edge(x)
   sc_segment(x)
   sc_object(x)
-  sc_arc(x)
   sc_path(x)
-  ARC(x)
   PATH(x)
   PATH0(x)
-
+ sc_start(x)
+ sc_end(x)
   })
-  ## this is wrong, it should be TRI0
-  expect_s3_class(TRI0(x), "TRI")
+
+  expect_warning({
+    ARC(x)
+    sc_arc(x)
+  }
+  )
+  expect_s3_class(TRI0(x), "TRI0")
   expect_s3_class(  TRI(x), "TRI")
 })
 
@@ -34,8 +39,9 @@ test_that("PATH0 round trip suite works", {
 
    expect_error(ARC0(x))
 
-   expect_error(sc_start(x))
-   expect_error(sc_end(x))
+##   expect_error(sc_start(x))
+##   expect_error(sc_end(x))
    ## test must go in anglr
    #expect_error(DEL(x))
 })
+

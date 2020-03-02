@@ -14,3 +14,4 @@
 ^silicate\.Rcheck$
 ^silicate.*\.tar\.gz$
 ^silicate.*\.tgz$
+^CRAN-RELEASE$

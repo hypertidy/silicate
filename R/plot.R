@@ -2,11 +2,12 @@
 #'
 #' Simple set of colours for discrete palette.
 #'
+#'
 #' @param x number of colours to generate
 #' @param ... currently ignored
 #' @param viridis use viridis, TRUE or FALSE
 #'
-#' @return colours
+#' @return vector of colours
 #' @export
 #'
 #' @examples
@@ -32,14 +33,14 @@ sc_colour_values <- function(x, ..., viridis = FALSE) {
 #'
 #' Basic edge plot, all the standard base graphics facilities for line segments are available.
 #'
-#' The 'col' argument is passed directly to `segments` if present, in the usual one-to-one or
-#' recycling way. The `...` args are passed to `segments`.  If `color_` present on the object table
-#' it is mapped to the edges of each object.
+#' The 'col' argument is passed directly to [segments()]  or [polypath()] as needed, in the usual
+#' one-to-one or recycling way.
 #'
-#' `asp` and so on are not able to be passed to the initial plot setup.
+#' Graphical parameters are not able to be passed to the initial plot setup, but a plot
+#' can be set up and then added to with this method.
 #' @name plot.SC
-#' @param x SC object
-#' @param ... arguments passed to `graphics::segments`
+#' @param x sc object
+#' @param ... arguments passed to lower level plotting functions
 #' @param add if `TRUE` add to current plot
 #' @export
 #' @rdname plot.SC
@@ -55,7 +56,7 @@ plot.SC0 <- function(x, ... , add = FALSE) {
   ## no colours for free, you get what you get
   if ("color_" %in% names(x$object)) {
       edge_per_object <- unlist(lapply(x$object$topology_, nrow))
-      args$col <- rep(sc_colour_values(seq_len(nrow(x$object)), viridis = TRUE), edge_per_object)
+      args$col <- rep(x$object$color_, edge_per_object)
 
   }
   v <- sc_vertex(x) %>% add_rownum("vertex_")
@@ -79,7 +80,10 @@ plot.PATH <- function(x, ...) {
   #cols <- sc_colours(length(obj))
   gg <- x$path %>% dplyr::group_by(.data$object_) %>% dplyr::summarize(nn = sum(.data$ncoords_))
 
-  pathcols <- sc_colours(dim(x$object)[1L])[factor(x$path$object_)]
+  ##pathcols <- sc_colours(dim(x$object)[1L])[factor(x$path$object_)]
+  pathcols <- rep("black", dim(x$object)[1L])
+  if (!is.null(list(...)$col)) pathcols <- rep_len(list(...)$col, length.out = dim(x$object)[1L])
+  pathcols <- pathcols[factor(x$path$object_)]
   if (all(x$path$ncoords_ == 1L)) {
     warning("all paths are degenerate (i.e. they are points)")
     toplot <- dplyr::inner_join(x$path_link_vertex, x$vertex, "vertex_")[c("x_", "y_")]
@@ -100,24 +104,21 @@ plot.PATH <- function(x, ...) {
 #' @export
 plot.PATH0 <- function(x, ...) {
   plot(x$vertex[c("x_", "y_")], type = "n")
-  paths <- split(x$path_link_vertex, x$path_link_vertex$path_)[unique(x$path_link_vertex$path_)]
-  #cols <- sc_colours(length(obj))
-  gg <- x$path %>% dplyr::group_by(.data$object) %>% dplyr::summarize(nn = sum(.data$ncoords_))
-  objcols <- sc_colours(dim(x$object)[1L])
-  if (all(x$path$ncoords_ == 1L)) {
-    warning("all paths are degenerate (i.e. they are points)")
-    toplot <- dplyr::inner_join(x$path_link_vertex, x$vertex, "vertex_")[c("x_", "y_")]
-    graphics::points(toplot, col = objcols)
-    return(invisible(NULL))
+  col <- sc_colours(nrow(x$object))
+
+  pp <-
+  function(x, paster = function(...) paste(..., sep = "-")) {
+    ## we are looking for  any of these three
+    do.call(paster, x[intersect(names(x), c("object_", "subobject", "path_"))])
   }
-  junk <- lapply(seq_along(paths), function(a) {
-    toplot <- dplyr::inner_join(paths[[a]], x$vertex, "vertex_")[c("x_", "y_")]
-    if (dim(toplot)[1L] > 1L) {
-      graphics::lines(toplot, col = objcols[a])
-    } else {
-      graphics::points(toplot, col = objcols[a])
-    }
-  })
+  for (i in seq_along(col)) {
+    paths <- split(x$object$path_[[i]],
+                   pp(x$object$path_[[i]]))
+    purrr::map(paths, ~{
+      lines(x$vertex[.x$vertex_, c("x_", "y_")], col = col[i])
+    })
+
+  }
   invisible(NULL)
 }
 #' @noRd
@@ -128,34 +129,67 @@ plot.PATH0 <- function(x, ...) {
 #'
 #' @name ARC
 #' @export
-plot.ARC <- function(x, ..., lwd = 2L) {
+#' @importFrom graphics segments
+plot.ARC <- function(x, ...,  col = NULL, lwd = 2L, add = FALSE) {
 
-  plot(x$vertex[c("x_", "y_")], pch = "")
-  a1 <- split(x$arc_link_vertex, x$arc_link_vertex$arc_)
-  col <- setNames(sc_colours(length(a1)), names(a1))
-  a1 %>% purrr::iwalk(~lines(dplyr::inner_join(.x, x$vertex, "vertex_") %>% dplyr::select(x_, y_), col = col[.y], lwd = lwd))
+  if (!add) plot(x$vertex[c("x_", "y_")], pch = "")
+  a0 <- dplyr::inner_join(x$arc_link_vertex, x$vertex, "vertex_")
+  a0$vertex_ <- NULL
+  a1 <-   split(a0, a0$arc_)
+#  a1 <- split(x$arc_link_vertex, x$arc_link_vertex$arc_)
+  if (is.null(col)) {
+    col <- sc_colours(length(a1))
+  }
+  col <- rep(col, purrr::map_int(a1, nrow) - 1)
+  p2s <- function(x) cbind(.vx0 = utils::head(x, -1L),
+                          .vx1 = utils::tail(x, -1))
+segs <-   do.call(rbind, purrr::map(a1, ~p2s(as.matrix(.x[c("x_", "y_")]))))
+  graphics::segments(segs[,1], segs[,2], segs[,3], segs[,4], col = col, lwd = lwd, ...)
 }
 
 #' @name TRI
 #' @export
 plot.TRI <- function(x, ..., add = FALSE) {
+  v <- x$vertex
+  if (!add) plot(v$x_, v$y_, type = "n", asp = 1)
+  vps <- gridBase::baseViewports()
+  grid::pushViewport(vps$inner, vps$figure, vps$plot)
+  tt <- x[["triangle"]]
+  if (!is.null(tt[["visible_"]]))  tt <- dplyr::filter(tt, .data$visible_)
 
-  if (!add) plot(x$vertex[c("x_", "y_")], type = "n")
-  cols <- sc_colours(nrow(sc_object(x)))
-  fill_type <- if (getOption("silicate.uid.type") == "integer") NA_integer_ else NA_character_
-  for (i in seq_len(nrow(x$object))) {
-   # triangle <- dplyr::inner_join(x$triangle, x$object_link_triangle, "triangle_")
-    triangle <- x$triangle
-    if ("visible_" %in% names(triangle)) triangle <- dplyr::filter(triangle, .data$visible_)
-    asub <- dplyr::filter(triangle, .data$object_ == x$object$object_[i]) %>%
-      dplyr::transmute(.data$.vx0, .data$.vx1, .data$.vx2, fill = fill_type) %>%
-      t() %>%
-      as.vector()
-    asub <-   tibble::tibble(vertex_ = asub)
-    asub <- utils::head(asub, -1L)
-    graphics::polypath(dplyr::left_join(asub,x$vertex,  "vertex_") %>% dplyr::select(.data$x_, .data$y_),
-                       col = cols[i], ...)
+  tt <- match(as.vector(t(as.matrix(tt[c(".vx0", ".vx1", ".vx2")]))), v$vertex_)
+  xx <- tibble(x = v$x_[tt], y = v$y_[tt], id = rep(seq_len(length(tt)/3), each = 3),
+               col = NA, border = "black")
 
+  args <- list(...)
+  if (!is.null(args$col)) {
+    xx$col <- rep_len(args$col, length.out = nrow(xx))
+    xx$border <- NA
   }
+  if (!is.null(args$border)) xx$border <- rep_len(args$border, length.out = nrow(xx))
+  grid::grid.polygon(xx$x, xx$y, xx$id, gp = grid::gpar(col = xx$border, fill = xx$col),
+                     default.units = "native")
+  grid::popViewport(3)
 }
 
+#' @export
+plot.TRI0 <- function(x, ..., add = FALSE) {
+  v <- x$vertex
+  if (!add) plot(v$x_, v$y_, type = "n", asp = 1)
+  vps <- gridBase::baseViewports()
+  grid::pushViewport(vps$inner, vps$figure, vps$plot)
+  tt <- t(as.matrix(dplyr::bind_rows(x$object$topology_)[c(".vx0", ".vx1", ".vx2")]))
+
+  xx <- tibble(x = v$x_[tt], y = v$y_[tt], id = rep(seq_len(length(tt)/3), each = 3),
+               col = NA, border = "black")
+  args <- list(...)
+  if (!is.null(args$col)) {
+    xx$col <- rep_len(args$col, length.out = nrow(xx))
+    xx$border <- NA
+  }
+  if (!is.null(args$border)) xx$border <- rep_len(args$border, length.out = nrow(xx))
+  grid::grid.polygon(xx$x, xx$y, xx$id, gp = grid::gpar(col = xx$border, fill = xx$col),
+                     default.units = "native")
+  grid::popViewport(3)
+
+}

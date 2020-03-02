@@ -17,6 +17,7 @@ add_rownum <- function(x, name) {
 #' @param x input object
 #' @param ... arguments for methods
 #' @name sc_edge
+#' @return data frame of edge identity, or start/end coordinates
 #' @aliases sc_start sc_end
 #' @export
 sc_edge <- function(x, ...) {
@@ -25,7 +26,7 @@ sc_edge <- function(x, ...) {
 #' @name sc_edge
 #' @export
 sc_edge.default <- function(x, ...) {
-  x <- PATH(x, ...)
+  x <- SC0(x, ...)
   sc_edge(x)
 }
 #' @export
@@ -39,7 +40,14 @@ sc_edge.TRI <- function(x, ...) {
 
 #' @export
 sc_edge.SC0 <- function(x, ...) {
- tidyr::unnest(x$object["topology_"], .id = "object_")
+  # if (is.null(x$object[["object_"]])) {
+  #   x$object$object_ <- seq_len(dim(x$object)[1])
+  # }
+ out <- tidyr::unnest(x$object[c( "topology_")], cols = c(.data$topology_))
+ out$edge_ <- as.integer(as.factor(paste(pmin(out$.vx0, out$.vx1), pmax(out$.vx0, out$.vx1))))
+ out <- out %>% dplyr::distinct(.data$edge_, .keep_all = TRUE)
+ out$edge_ <- NULL
+ out
 }
 
 #' @name sc_edge
@@ -69,9 +77,38 @@ sc_start.SC0 <- function(x, ...) {
 
 #' @name sc_edge
 #' @export
+#' @importFrom utils head
 sc_start.PATH <- function(x, ...) {
-  sc_start(SC(x), ...)
+  pth_rle <- sc_path(x)$ncoords_
+  start_idx <- c(1L)
+  if (length(pth_rle) > 1L) {
+    start_idx <- cumsum(c(start_idx, utils::head(pth_rle, -1)))
+  }
+  (x$path_link_vertex[start_idx, ] %>% dplyr::inner_join(x$vertex, "vertex_"))[c("x_", "y_", "path_","vertex_")]
 }
+#' @name sc_edge
+#' @export
+sc_end.PATH <- function(x, ...) {
+  pth_rle <- sc_path(x)$ncoords_
+  end_idx <- pth_rle[1L]
+  if (length(pth_rle) > 1L) {
+    end_idx <- cumsum(c(end_idx, tail(pth_rle, -1)))
+  }
+  (x$path_link_vertex[end_idx, ] %>% dplyr::inner_join(x$vertex, "vertex_"))[c("x_", "y_", "path_","vertex_")]
+}
+#' @name sc_edge
+#' @export
+sc_start.PATH0 <- function(x, ...) {
+  ## FIXME:: avoid conversion to PATH
+  sc_start(PATH(x), ...)
+}
+#' @name sc_edge
+#' @export
+sc_end.PATH0 <- function(x, ...) {
+  ## FIXME:: avoid conversion to PATH
+  sc_end(PATH(x), ...)
+}
+
 #' @name sc_edge
 #' @export
 sc_start.ARC <- function(x, ...) {
@@ -103,11 +140,7 @@ sc_end.SC0 <- function(x, ...) {
     dplyr::select(.data$x_, .data$y_)
 }
 
-#' @name sc_edge
-#' @export
-sc_end.PATH <- function(x, ...) {
-  sc_end(SC(x), ...)
-}
+
 #' @name sc_edge
 #' @export
 sc_end.ARC <- function(x, ...) {

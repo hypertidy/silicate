@@ -23,6 +23,9 @@ sc_object(x, ...)
 
 \item{...}{arguments passed to methods}
 }
+\value{
+data frame of the object values
+}
 \description{
 The objects are the front end entities, the usual "GIS contract" objects,
 or features.
@@ -31,9 +34,8 @@ The objects are the front end entities, the usual "GIS contract" objects,
 the features.
 }
 \examples{
-#library(sf)
-#nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
-#sc_object(nc)
+sc_object(minimal_mesh)
+sc_object(SC0(minimal_mesh))
 }
 \seealso{
 \code{sc_coord} for the coordinates part of the model, \code{sc_path} for

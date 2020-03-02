@@ -43,3 +43,4 @@ test_that("trip decomposition works", {
 
 
     })
+

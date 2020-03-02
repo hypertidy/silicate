@@ -17,6 +17,12 @@ sc_segment(x, ...)
 
 \item{...}{arguments passed to methods}
 }
+\value{
+data frame of the segments, each occurence of an edge and its order
+}
 \description{
 Given a `PATH`` model decompose to 1-dimensional primitives (or 0-dimensional).
+}
+\examples{
+sc_segment(SC(minimal_mesh))
 }

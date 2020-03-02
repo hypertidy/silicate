@@ -13,6 +13,9 @@
 
 \item{...}{passed to \code{dplyr::filter}}
 }
+\value{
+an \code{\link[=SC]{SC()}} model, with some parts filtered out
+}
 \description{
 Filter an SC model, currently only \code{dplyr::filter} for \code{SC} is available.
 }

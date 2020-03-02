@@ -13,6 +13,7 @@
 #' `PATH()$path` should always have columns `object_ path_ subobject ncoords_`
 #' @inheritParams SC
 #' @name PATH
+#' @return a PATH model, with tables 'object', 'path', 'path_link_vertex' and 'vertex'
 #' @seealso `sc_path`, `sc_coord`
 #' @export
 PATH <- function(x, ...) UseMethod("PATH")

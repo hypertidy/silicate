@@ -9,19 +9,13 @@ globalVariables("n")
 #' @param x input model
 #' @param ... arguments passed to methods
 #' @export
+#' @return SC model with tables 'object', 'object_link_edge', 'edge', and 'vertex'
 #' @examples
 #' ## we can produce a high quality triangulation from a low quality one
 #' ## see how the TRI edges are maintained (we can't yet filter out holes from DEL)
 #' tri <- TRI(minimal_mesh)
 #' plot(tri)
 #' plot(SC(tri))
-#' \dontrun{
-#' # library(anglr)
-#' #plot(DEL(SC(TRI(minimal_mesh)), max_area = 0.001))
-#'
-#' ## Nice small triangles in a conforming Delaunay mesh.
-#' #plot(SC(DEL(simpleworld[121, ], D = TRUE, max_area = .1)))
-#' }
 SC <- function(x, ...) {
   UseMethod("SC")
 }
@@ -30,7 +24,6 @@ SC <- function(x, ...) {
 #' @export
 #' @importFrom tidyr unnest
 SC.default <- function(x, ...) {
-  ##P <- PATH(x, ...)
   B <- SC0(x, ...)
   O <- sc_object(B)
   O$topology_ <- NULL
@@ -38,7 +31,7 @@ SC.default <- function(x, ...) {
   O1 <- O["object_"]
   O1[["edge_"]] <- B$object[["topology_"]]
   meta <- tibble::tibble(proj = get_projection(x), ctime = format(Sys.time(), tz = "UTC"))
-  edge <- tidyr::unnest(O1)
+  edge <- tidyr::unnest(O1, cols = c(.data$edge_))
   tst <- c(".vx0", ".vx1") %in% names(edge)
   if (!all(tst)) {
     if (sum(tst) == 1) stop("model has only 0-space vertices (is it point-topology? Try '?SC0'. )")
@@ -82,7 +75,7 @@ SC.TRI <- function(x, ...) {
                                    function(x) paste(sort(x), collapse = "-"))))
   segment$edge_ <- sc_uid(length(unique(edges)))[edges]
   segment$object_ <- x$triangle$object_[as.numeric(segment$triangle_)]
-  object_link_edge <- dplyr::distinct(segment, .data$object_, .data$edge_)
+  object_link_edge <- dplyr::distinct(segment, .data$object_, .data$edge_, .data$object_)
   object_link_edge[["native_"]] <- TRUE ## always native
   segment <- segment[c(".vx0", ".vx1", "edge_")] %>% inner_join(object_link_edge, "edge_") %>%
     dplyr::transmute(.vx0 = .data$.vx0, .vx1 = .data$.vx1, edge_ = .data$edge_)

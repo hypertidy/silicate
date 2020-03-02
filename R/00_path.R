@@ -3,13 +3,19 @@
 #'
 #' Start in the middle, and build the 'path-link-vertex' table.
 #'
+#' Paths have properties of their type, their number of vertices, their geometric
+#' dimension and which object they occur in.
 #' @param x input object
 #' @param ... arguments passed to methods
 #'
 #' @name sc_path
 #' @export
+#' @return data frame of path identity and properties
 #' @seealso `sc_coord` for the coordinates part of the model, `sc_object` for
 #' the features, and `PATH` for the full model.
+#' @examples
+#' sc_path(minimal_mesh)
+#' sc_path(PATH(minimal_mesh))
 sc_path <- function(x, ...) {
   UseMethod("sc_path")
 }
@@ -19,7 +25,7 @@ sc_path.default <- function(x, ...) {
   if (is_r_coords(x)) {
     return(tibble::tibble(nrow = xypaths(x)))
   }
-  PATH(x)[["path"]]
+  sc_path(PATH0(x))
 }
 #' @name sc_path
 #' @export
@@ -29,7 +35,7 @@ sc_path.PATH <- function(x, ...) {
 #' @name sc_path
 #' @export
 sc_path.PATH0 <- function(x, ...) {
-  tidyr::unnest(x[["object"]]["path_"]) %>%
+  tidyr::unnest(x[["object"]]["path_"], cols= c(.data$path_)) %>%
     dplyr::group_by(.data$object_, .data$path_, .data$subobject) %>%
     dplyr::summarize(ncoords_ = dplyr::n()) %>% ungroup()
 }
@@ -86,11 +92,6 @@ sc_list <- function(x) {
 #' @name sc_path
 #' @export
 #' @export sc_path
-#' @examples
-#' #library(scsf)
-#' #sf_dataset <- sf::st_sf(geometry = sf::st_sfc(sfzoo[[2]]), a = 1)
-#' #PATH(sf_dataset)
-#' #sc_path(sf::st_sfc(sfzoo))
 sc_path.sf <- function(x, ids = NULL, ...) {
   sc_path(.st_get_geometry(x), ids = ids, ...)
 }
@@ -100,8 +101,6 @@ sc_path.sf <- function(x, ids = NULL, ...) {
 #' @importFrom dplyr bind_rows
 #' @name sc_path
 #' @export
-#' @examples
-#' #sc_path(sf::st_sfc(sfzoo))
 sc_path.sfc <- function(x, ids = NULL, ...) {
   x <- gibble::gibble(x)
   if (is.null(ids)) {

@@ -17,6 +17,9 @@ sc_arc(x, ...)
 
 \item{...}{arguments for methods}
 }
+\value{
+a data frame with only the identities of the shared boundaries (arcs)
+}
 \description{
 Return a label and vertex count of each arc.
 }

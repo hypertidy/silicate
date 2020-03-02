@@ -1,10 +1,24 @@
-# dev
+# silicate dev
 
 * Fix deprecated usage of tibble. 1) Internal sf objects now have "list" in the class of the sfc column. 
  2) No matrix sub-assignment into columns of a tibble. See #105. 
  
 * New models `TRI0` and `PATH0` as analogues to SC0. 
 
+* Fixed off-by-one error in segment colours when plotting ARC. Fixes #101. 
+
+* Fixed unused geometry package import. 
+
+
+# silicate 0.2.0
+
+* Clarified Description and cleaned up examples, thanks to CRAN feedback. 
+
+* First viable release. 
+
+* Commited to ARC only being relevant to polygon layers. 
+
+* New models `TRI0` and `PATH0` as analogues to SC0. 
 
 # silicate 0.1.1.9001
 

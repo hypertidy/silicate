@@ -42,7 +42,9 @@ model_type <- function(x) {
          SC0 = "Structural",
          PATH0 = "Sequential",
          TRI = "Primitive",
+         TRI0 = "Primitive",
          DEL = "Primitive",
+         DEL0 = "Primitive",
          SC = "Primitive",
          ARC = "Sequential",
          PATH = "Sequential",
@@ -53,6 +55,8 @@ topology_type <- function(x) {
   switch(tail(class(x), 2)[1],
          TRI = "2-space",
          DEL = "2-space",
+         TRI0 = "2-space",
+         DEL0 = "2-space",
          SC = "1-space",
          SC0 = sprintf("%i-space", ncol(x$object$topology_[[1]]) - 1),
          PATH0 = "1-space",
@@ -66,11 +70,13 @@ n_primitives <- function(x) {
          SC0 = sum(unlist(lapply(x$object$topology_, nrow))),
          TRI = nrow(x$triangle),
          DEL = nrow(x$triangle),
+         TRI0 = sum(unlist(lapply(x$object$topology_, nrow))),
+         DEL0 = sum(unlist(lapply(x$object$topology_, nrow))),
          SC = nrow(x$edge),
          "[unknown]")
 }
 n_geometry <- function(x) {
-   length(intersect(c("x_", "y_", "z_"), names(x$vertex)))
+   length(intersect(c("x_", "y_", "z_", "t_", "m_"), names(x$vertex)))
 }
 n_paths <- function(x) {
   switch(tail(class(x), 2)[1],

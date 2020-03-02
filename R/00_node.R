@@ -4,8 +4,11 @@
 #'
 #' @param x input object
 #' @param ... arguments for methods
+#' @return data frame of the nodes
 #' @export
 #' @importFrom rlang .data
+#' @examples
+#' sc_node(ARC(minimal_mesh))
 sc_node <- function(x, ...) {
   UseMethod("sc_node")
 }
@@ -21,6 +24,15 @@ sc_node.SC <- function(x, ...) {
                             e = c(x$edge$edge_, x$edge$edge_))
   v0 <- alledge %>% group_by(.data$v) %>% tally() %>% filter(!n == 2)
   tibble::tibble(vertex_ = sort(unique(v0$v)))
+}
+#' @name sc_node
+#' @export
+sc_node.SC0 <- function(x, ...) {
+  sc <- SC(x)
+  nodes_id <- sc_node(sc)
+  nodes_id %>%
+    dplyr::inner_join(sc$vertex, "vertex_") %>%
+    dplyr::select(-.data$vertex_)
 }
 #' @name sc_node
 #' @export

@@ -1,19 +1,20 @@
 Package: silicate
-Title: A Common Form for Complex Data
-Version: 0.1.5.9002
+Title: Common Forms for Complex Hierarchical and Relational Data Structures
+Version: 0.2.0.9002
 Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com"), 
              person("John", "Corbett", role = "ctb", comment = "the original inspiration"), 
              person("Simon", "Wotherspoon", role = "ctb"), 
              person("Kent", "Johnson", role = "dtc"), 
              person("Mark", "Padgham", role = "aut")
              )
-Description: Generate a generic common form of complex data, suitable for conversions and
- transmission. Many complex data structures are composed of 'paths' (sequentially-linked records) or 
- 'primitives' (basic, component types grouped into higher forms). These two kinds of structure are
- very common, particularly in spatial data, graphics and analytical structures. The universal model 'SC0'
- is provided that can represent any of these forms, with a fully labelled model 'SC' that is specifically 
- edge-based. Specialist models 'PATH', 'ARC' and 'TRI' are included as as well as tools to switch between 
- these forms. 
+Description: Generate common data forms for complex data suitable for conversions and
+ transmission by decomposition as paths or primitives. Paths are sequentially-linked records, 
+ primitives are basic atomic elements and both can model many forms and be grouped into hierarchical 
+ structures.  The universal models 'SC0' (structural) and 'SC' (labelled, relational) are composed of 
+ edges and can represent any hierarchical form. Specialist models 'PATH', 'ARC' and 'TRI' provide the 
+ most common intermediate forms used for converting from one form to another. The methods are
+ inspired by the simplicial complex <https://en.wikipedia.org/wiki/Simplicial_complex> and 
+ provide intermediate forms that relate spatial data structures to this mathematical construct. 
 Depends:
     R (>= 3.4.0)
 License: GPL-3
@@ -23,7 +24,6 @@ Suggests:
     covr,
     knitr,
     rmarkdown,
-    sf,
     sp,
     testthat,
     trip,
@@ -31,19 +31,20 @@ Suggests:
 RoxygenNote: 6.1.1
 Imports: 
     dplyr,
-    gibble (>= 0.1.2.9005),
+    gibble (>= 0.2.0),
     methods,
     purrr,
     rlang,
     decido,
     tibble,
     unjoin (>= 0.0.3),
-    geometry,
-    tidyr,
+    tidyr (>= 1.0.0),
     grDevices,
     graphics,
     stats,
-    magrittr
+    magrittr,
+    gridBase
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-Remotes: mdsumner/gibble
+URL: https://github.com/hypertidy/silicate
+BugReports: https://github.com/hypertidy/silicate/issues

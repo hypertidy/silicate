@@ -1,6 +1,6 @@
 context("test-TRI-sanity")
 x <- TRI(minimal_mesh)
-
+skip_on_cran()
 test_that("TRI round trip suite works", {
   expect_silent({
   SC(x)
@@ -21,6 +21,7 @@ test_that("TRI round trip suite works", {
   sc_object(x)
 
   TRI(x)
+  TRI0(x)
 })
 })
 
@@ -30,7 +31,7 @@ test_that("TRI round trip suite works", {
    expect_error(sc_path(x))
    ## put in anglr
 #   expect_error(anglr::DEL(x))
-   expect_error(TRI0(x))
+
    expect_error(ARC(x))
    expect_error(ARC0(x))
    expect_error(PATH(x))

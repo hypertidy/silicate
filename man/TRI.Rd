@@ -17,8 +17,17 @@ TRI(x, ...)
 \item{add}{logical create  new plot (default), or add to existing}
 }
 \value{
-TRI model
+TRI model with tables 'object', 'triangle', 'vertex'
 }
 \description{
-TRI model, triangulations
+TRI creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
+polygons.
+}
+\details{
+Ear-cutting is inherently path-based, so this model is only available for
+path-based structures, like simple features, \code{\link[=PATH]{PATH()}}, \code{\link[=PATH0]{PATH0()}} and \code{\link[=ARC]{ARC()}}.
+}
+\examples{
+tri <- TRI(minimal_mesh)
+plot(tri)
 }

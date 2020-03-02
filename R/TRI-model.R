@@ -1,10 +1,18 @@
 #' TRI model, triangulations
 #'
+#' TRI creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
+#' polygons.
+#'
+#' Ear-cutting is inherently path-based, so this model is only available for
+#' path-based structures, like simple features, [PATH()], [PATH0()] and [ARC()].
 #' @param x object understood by silicate (sf, sp, a silicate model, etc.)
 #' @param ... current unused
 #' @param add logical create  new plot (default), or add to existing
-#' @return TRI model
+#' @return TRI model with tables 'object', 'triangle', 'vertex'
 #' @export
+#' @examples
+#' tri <- TRI(minimal_mesh)
+#' plot(tri)
 TRI <- function(x, ...) {
   UseMethod("TRI")
 }
@@ -19,6 +27,24 @@ TRI.TRI <- function(x, ...) {
 }
 TRI.SC <- function(x, ...) {
   stop("constrained triangulation not supported, use anglr::DEL or reconstruct as PATH")
+}
+#' @export
+TRI.TRI0 <- function(x, ...){
+  topol <- dplyr::bind_rows(x$object$topology_, .id = "object_")
+  x$object$topology_ <- NULL
+  x$object$object_ <- sc_uid(x$object)
+  topol$object_ <- x$object$object_[as.integer(topol$object_)]
+  v <- sc_vertex(x)
+  v$vertex_ <- sc_uid(v)
+  topol$.vx0 <- v$vertex_[topol$.vx0]
+  topol$.vx1 <- v$vertex_[topol$.vx1]
+  topol$.vx2 <- v$vertex_[topol$.vx2]
+  meta <- x$meta[1,]
+  meta$ctime <- Sys.time()
+  structure(list(object = x$object, triangle = topol,
+                 vertex = v, meta = rbind(meta, x$meta)), class = c("TRI", "sc"))
+
+
 }
 #' @export
 TRI.PATH0 <- function(x, ...) {

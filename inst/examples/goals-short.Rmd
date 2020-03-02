@@ -1,0 +1,44 @@
+
+## silicate
+
+The goals of silicate can be summed up by asking what is the right way to think about these two polygons: 
+
+
+```{r polygons, include=FALSE}
+plot(minimal_mesh$geom, col = c("dodgerblue", "firebrick"))
+```
+Are there
+
+* two partitions of the plane, differentiated by colour? 
+* three linear sequences of coordinates (paths) with a rule about nesting inside and out?
+* fifteen linear segments?
+* fourteen triangles? 
+* three shared boundaries? 
+
+The answer is all of the above!  The PATH model knows about three linear sequences of coordinates. 
+
+```{r PATH}
+(p <- PATH(minimal_mesh))
+plot(p, col = viridis::viridis(2))
+```
+
+The SC model knows about the segments. 
+
+```{r SC}
+(sc <- SC(minimal_mesh))
+plot(sc, col = viridis::viridis(15))
+```
+
+The TRI model knows about the triangles. 
+
+```{r TRI}
+(tri <- TRI(minimal_mesh))
+plot(tri, col = viridis::viridis(14))
+```
+
+Finally, the ARC model knows about the shared boundaries, although only in 
+this special case of neighbouring triangles. 
+
+```{r ARC}
+
+```

@@ -14,6 +14,9 @@ SC(x, ...)
 
 \item{...}{arguments passed to methods}
 }
+\value{
+SC model with tables 'object', 'object_link_edge', 'edge', and 'vertex'
+}
 \description{
 The universal model \code{SC} is coordinates and binary relations between
 pairs of coordinates. This is purely an edge (or segment) model, with all
@@ -25,11 +28,4 @@ higher level structures recorded as groupings of edges.
 tri <- TRI(minimal_mesh)
 plot(tri)
 plot(SC(tri))
-\dontrun{
-# library(anglr)
-#plot(DEL(SC(TRI(minimal_mesh)), max_area = 0.001))
-
-## Nice small triangles in a conforming Delaunay mesh.
-#plot(SC(DEL(simpleworld[121, ], D = TRUE, max_area = .1)))
-}
 }

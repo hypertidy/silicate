@@ -11,24 +11,51 @@ knitr::opts_chunk$set(
   fig.path = "README-"
 )
 ```
-
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Travis-CI Build Status](http://badges.herokuapp.com/travis/hypertidy/silicate?branch=master&env=BUILD_NAME=trusty_release&label=linux)](https://travis-ci.org/hypertidy/silicate)
 [![Build Status](http://badges.herokuapp.com/travis/hypertidy/silicate?branch=master&env=BUILD_NAME=osx_release&label=osx)](https://travis-ci.org/hypertidy/silicate) 
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/hypertidy/silicate?branch=master&svg=true)](https://ci.appveyor.com/project/mdsumner/silicate)
 [![Coverage Status](https://img.shields.io/codecov/c/github/hypertidy/silicate/master.svg)](https://codecov.io/github/hypertidy/silicate?branch=master)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/silicate)](https://cran.r-project.org/package=silicate)
+[![CRAN_Download_Badge](http://cranlogs.r-pkg.org/badges/silicate)](https://cran.r-project.org/package=silicate)
 
   
 # Overview
 
-The goal of silicate is to bridge formal data structure definitions with flexible analytical and visualization techniques.
+The goal of silicate is to bridge planar geospatial data types with flexible mesh data structures and visualization.
 
-We aim to
+We aim to provide
 
-* provide a universal *common-form* of hierarchical data
-* provide a framework for a *universal converter* between complex data types
-* enable working with topological primitives for analysis and interaction. 
+* a *common-form* for representing hierarchical data structures
+* a *universal converter* between complex data types
+* topological primitives for analysis and exploration. 
 
-The core of silicate is the general model `SC`, composed of three tables `vertex`, `edge` and `object` and all entities are explicitly labelled. Indexes between tables are unique and persistent and arbitrary, they can be arbitrarily accessed. This is closely related to the more bare-bones `SC0` model, composed of only two tables `vertices`, and `objects`. These are related *structurally* by nesting the relations within the object table. Here the relations are not persistent, so we can subset the objects but we cannot change the vertex table with updating these indexes. 
+The core of silicate are *worker functions* that are generic and work with any kind of data that has hierarchical structure. These functions work on *models*, that include various formats (sf, sp, trip) and also on silicate models themselves. 
+
+
+## Functions
+
+
+We have the following worker verbs, designed to work with many spatial data formats and with silicate's own structures. 
+
+* `sc_object()` - highest level properties, the "features"
+* `sc_coord()` - all instances of coordinates, labelled by vertex if the source model includes them
+* `sc_vertex()` - only unique coordinates (in some geometric space)
+* `sc_path()` - individual paths, sequential traces
+* `sc_edge()` - unique binary relations, unordered segments (segments and edges are currently under review, and may change)
+* `sc_segment()` - all instances of edges
+* `sc_arc()` - unique topological paths, arcs either meet two other arcs at a node, or include no nodes
+* `sc_node()` - unique nodes
+
+The idea is that each function can return the underlying entities of a data object, no matter its underlying format. This interoperability design contrasts with major spatial packages that require format peculiarities in order to work, even when these details are not relevant. 
+
+## Models
+
+Silicate defines a number of key models to represent various interpretations of hierarchical (usually spatial) data. These are `SC`, `PATH`, `ARC` and `TRI`. Most models have a counterpart *structurally-optimized* version with a similar name: `SC0`, `PATH0`, `TRI0`. Other models are possible, and include `DEL` in the [in-development anglr package](https://github.com/hypertidy/anglr/) that extends `TRI`. 
+
+Each model is composed of a type of *primitive*, and each provides a normalization (de-duplication) of geometry for efficiency and or topology. Silicate quite deliberately separates the concepts of geometry and topology completely. Primitives define the topology (edges, paths, arcs, or triangles) and the vertex table defines the geometry. We reserve the names `x_`, `y_`, `t_` (time) and `z_` (elevation) for the usual geometric dimensions, and these are treated specially by default. No limit is put geometric dimension however, it's possible to store anything at all on the vertex table. Some models include an `object` table, and this represents a higher level grouping of primitives (and corresponds to *features* in SF). 
+
+The most general model is `SC`, composed of three tables `vertex`, `edge` and `object` and all entities are explicitly labelled. Indexes between tables are unique and persistent and arbitrary, they can be arbitrarily accessed. This is closely related to the more bare-bones `SC0` model, composed of only two tables `vertices`, and `objects`. These are related *structurally* by nesting the relations within the object table. Here the relations are not persistent, so we can subset the objects but we cannot change the vertex table with updating these indexes. 
 
 `SC0` can deal with 0-dimensional topology types (points) as well as 1-dimensional types (edges), but `SC` is strictly for edges. 
 
@@ -50,17 +77,10 @@ An extension of the `TRI` model `DEL` is provided in [anglr](https://github.com/
 Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context. Our ideal situation would be for external packages to publish methods
 for these verbs, keeping package-specific code in the original package. We think this provides a very powerful and general mechanism for a family of consistent packages. 
 
-We have the following worker verbs that are used to build the above models, and work between what each model offers. 
 
-* `sc_object` - highest level properties, the "features"
-* `sc_coord` - all instances of coordinates, labelled by vertex if the source model includes them
-* `sc_vertex` - only unique coordinates (in some geometric space)
-* `sc_path` - individual paths, sequential traces
-* `sc_edge` - unique binary relations, unordered segments (segments and edges are currently under review, and may change)
-* `sc_segment` - all instances of edges
-* `sc_arc` - unique topological paths, arcs either meet two other arcs at a node, or include no nodes
-* `sc_node` - unique nodes
-* `unjoin` - a function to *un join* a table, the opposite of the database join
+There is another important function `unjoin()` use to normalize tables that have redundant information. The `unjoin()` isthe opposite of the database join, and has a nearly identical counterpart in [the dm package](https://github.com/krlmlr/dm) with its `decompose_table()`. Unjoin is the same as `tidyr::nest()` but returns two tables rather than splitting one into the rows of other. 
+
+
 
 The `unjoin` is a bit out of place here, but it's a key step when building these models, used to remove duplication at various levels. It's the primary mechanism for *defining and building-in* topology, which is precisely the relationships between entities in a model.  This function is published in the [CRAN package unjoin]( https://CRAN.R-project.org/package=unjoin). 
 
@@ -209,8 +229,8 @@ The silicate family is composed of a small number of packages that apply the pri
 * [scgraph](https://github.com/hypertidy/scgraph)
 * [scspatstat](https://github.com/hypertidy/scspatstat)
 
-Looking for a music reference? Child's Play, by Carcass.
+Looking for a music reference? I always am: Child's Play, by Carcass.
 
 
+Please note that the 'silicate' project is released with a [Contributor Code of Conduct](https://github.com/hypertidy/silicate/blob/master/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
 
-  Please note that the 'silicate' project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.

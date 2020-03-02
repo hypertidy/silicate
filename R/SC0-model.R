@@ -12,7 +12,7 @@ c.SC0 <- function(...) {
     nrs[i] <- nrow(all_list[[i]]$vertex)
   }
   ## object here means which element of all_list
-print(nrs)
+#print(nrs)
   if (length(nrs) > 1) {
     incr <- 0
   for (i in seq_along(all_list)) {
@@ -26,7 +26,7 @@ print(nrs)
   }
   }
 
-  segs <- purrr::map_df(all_list, ~tidyr::unnest(.x$object["topology_"]), .id = "object")
+  segs <- purrr::map_df(all_list, ~tidyr::unnest(.x$object["topology_"], cols = c(.data$topology_)), .id = "object")
   ## id here means the same (but it didn't exist before)
   #objs <- purrr::map_df(all_list, ~.x$object["id"])
 
@@ -58,19 +58,49 @@ print(nrs)
 }
 
 
+normalize_to_vertices <- function(x, ..., .keep_all = FALSE) {
+  coord0 <- sc_coord(x)
+  if (all(c("x_", "y_","z_", "t_") %in% names(coord0))) {
+    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$z_, .data$t_, key_col = "vertex_")
+    return(out)
+  }
+  if (all(c("x_", "y_","z_", "m_") %in% names(coord0))) {
+    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$z_, .data$m_, key_col = "vertex_")
+    return(out)
+  }
+  if (all(c("x_", "y_","z_") %in% names(coord0))) {
+    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$z_,  key_col = "vertex_")
+    return(out)
+  }
+  if (all(c("x_", "y_","t_") %in% names(coord0))) {
+    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$t_,  key_col = "vertex_")
+    return(out)
+  }
 
+  if (all(c("x_", "y_","m_") %in% names(coord0))) {
+    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$m_,  key_col = "vertex_")
+    return(out)
+  }
+  if (all(c("x_", "y_","m_") %in% names(coord0))) {
+    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$m_,  key_col = "vertex_")
+    return(out)
+  }
+
+  ## need more cases, but by now we assume x_, y_
+  unjoin::unjoin(coord0, .data$x_, .data$y_,   key_col = "vertex_")
+}
 
 
 #' Pure edge model, structural form
 #'
 #' `SC0` is the simplest and most general of all silicate models. Composed of
-#' an `object` and and `vertex` table linked by nested vertex-index pairs.
+#' an `object` and `vertex` table linked by nested vertex-index pairs.
 #'
 #'
 #' @param x an object understood by silicate
 #' @param ... reserved for methods
 #'
-#' @return SC0
+#' @return SC0 model with tables 'object' and 'vertex'
 #' @export
 #'
 #' @examples
@@ -84,8 +114,9 @@ SC0 <- function(x, ...) {
 #' @importFrom gibble gibble
 #' @export
 SC0.default <- function(x, ...) {
-  coord0 <- sc_coord(x)
-  udata <- unjoin::unjoin(coord0, .data$x_, .data$y_, key_col = "vertex_")
+  #coord0 <- sc_coord(x)
+  #udata <- unjoin::unjoin(coord0, .data$x_, .data$y_, key_col = "vertex_")
+  udata <- normalize_to_vertices(x)
   udata[["vertex_"]]$row <- seq_len(nrow(udata[["vertex_"]]))
   gmap <- gibble::gibble(x) %>% dplyr::mutate(path = dplyr::row_number())
   instances <- udata$data %>% dplyr::mutate(path = as.integer(factor(rep(path_paste(gmap), gmap$nrow))),
@@ -115,9 +146,12 @@ SC0.default <- function(x, ...) {
 
   }
   meta <- tibble(proj = get_projection(x), ctime = Sys.time())
+vertex <- udata$vertex_ %>%
+  dplyr::arrange(.data$vertex_)
 
-  structure(list(object = object, vertex = udata$vertex_ %>%
-                   dplyr::arrange(.data$vertex_) %>% dplyr::select(.data$x_, .data$y_),
+bad <- !names(vertex) %in% c("x_", "y_", "z_", "m_", "t_")
+  if (any(bad)) vertex <- vertex[!bad]
+  structure(list(object = object, vertex = vertex,
                  meta = meta),
             class = c("SC0", "sc"))
 }

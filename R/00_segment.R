@@ -4,7 +4,10 @@
 #' @param ... arguments passed to methods
 #' @importFrom dplyr %>% inner_join mutate
 #' @name sc_segment
+#' @return data frame of the segments, each occurence of an edge and its order
 #' @export
+#' @examples
+#' sc_segment(SC(minimal_mesh))
 sc_segment <- function(x, ...) UseMethod("sc_segment")
 #' @name sc_segment
 #' @export

@@ -7,9 +7,13 @@
 #' @param ... arguments passed to methods
 #'
 #' @name sc_coord
+#' @return data frame of all the coordinates in the order they occur
 #' @export
 #' @seealso `sc_path` for the central part of the model, `sc_object` for
 #' the features, and `PATH` for the full model.
+#' @examples
+#' sc_coord(minimal_mesh)
+#' sc_coord(SC(minimal_mesh))
 sc_coord <- function(x, ...) UseMethod("sc_coord")
 
 ## --------------------------------------------------------
@@ -76,13 +80,13 @@ sc_coord.TRI <- function(x, ...) {
 #' @name sc_coord
 #' @export
 sc_coord.PATH0 <- function(x, ...) {
-  x[["vertex"]][tidyr::unnest(x[["object"]]["path_"])[["vertex_"]], ]
+  x[["vertex"]][tidyr::unnest(x[["object"]]["path_"], cols = .data$path_)[["vertex_"]], ]
 }
 #' @name sc_coord
 #' @export
 #' @importFrom tidyr unnest
 sc_coord.SC0 <- function(x, ...) {
-  x[["vertex"]][as.vector(t(as.matrix(tidyr::unnest(x$object["topology_"])))), ]
+  x[["vertex"]][as.vector(t(as.matrix(tidyr::unnest(x$object["topology_"], cols = c(.data$topology_))))), ]
 }
 #' @name sc_coord
 #' @export
@@ -99,18 +103,12 @@ sc_coord.SC <- function(x, ...) {
 #' the features, and `PATH` for the full model.
 #' @name sc_coord
 #' @export
-#' @examples
-#' data("sfzoo")
-#' #sc_coord(sf::st_sfc(sfzoo))
-#'# lapply(sfzoo, sc_coord)
 sc_coord.sf <- function(x, ...) {
   sc_coord(.st_get_geometry(x), ...)
 }
 #' @importFrom dplyr bind_rows
 #' @name sc_coord
 #' @export
-#' @examples
-#' #sc_coord(sf::st_sfc(sfzoo))
 sc_coord.sfc <- function(x,  ...) {
   x <- lapply(x, sc_coord)
   dplyr::bind_rows(x)

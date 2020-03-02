@@ -21,16 +21,19 @@ ARC(x, ...)
 ARC model
 }
 \description{
-Arcs are paths within the line segment graph between nodes.
+Arcs are unique paths that connect nodes. In a polygon layer with shared boundaries, the
+arcs are the linear features that have no branches.
 }
 \details{
-Nodes are the vertices where three or more arcs meet.
-An arc can exist without including any nodes, a path that has no neighbouring relationship with another path.
+Nodes are the vertices where three or more arcs meet. An arc can exist without including
+any nodes, a path that has no neighbouring relationship with another path.
 
-This is \emph{not} the same terminology as used by other systems. The \code{arc_link_vertex} mapping is inherently ordered,
-but we don't consider order of arcs. Duplicated arcs (i.e. complementary turns around neighbouring polygons) are
-not kept. The \code{object_link_arc} mapping records which arc belongs to the objects, so can be reconstructed within
-objects by tracing \code{arc_link_vertex} start and end point identity.
+This is \emph{not} the same terminology as used by other systems, such as "arc-node". The
+\code{arc_link_vertex} mapping is inherently ordered, but we don't consider order of arcs.
+Duplicated arcs (i.e. complementary turns around neighbouring polygons) are not kept.
+The \code{object_link_arc} mapping records which arc belongs to the objects, so feature polygons
+can in theory be reconstructed within objects by tracing \code{arc_link_vertex} start and end point
+identity.
 }
 \examples{
 a <- ARC(minimal_mesh)
