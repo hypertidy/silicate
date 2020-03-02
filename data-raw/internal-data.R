@@ -9,7 +9,7 @@ minimal_line <- sf::st_sf(a = 1:3,
 
 
 
-
+class(minimal_line$geometry) <- c("sfc_LINESTRING", "sfc" , "list")
 raw_chars <- c(LETTERS, letters, 0:9)
 viridis_cols <- viridis::viridis(256)
-usethis::use_data(viridis_cols,raw_chars,minimal_line, internal = TRUE)
+usethis::use_data(viridis_cols,raw_chars,minimal_line, internal = TRUE, overwrite = TRUE)

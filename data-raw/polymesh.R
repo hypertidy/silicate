@@ -6,7 +6,9 @@ library(dplyr)
 library(sf)
 polymesh <- st_cast(spex::polygonize(r) %>% group_by(layer) %>% summarize(), 
                     "MULTIPOLYGON")
-devtools::use_data(polymesh)
+
+class(polymesh$geometry) <- c("sfc_MULTIPOLYGON", "sfc" , "list")
+usethis::use_data(polymesh, overwrite = TRUE)
 
 
 

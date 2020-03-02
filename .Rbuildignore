@@ -11,3 +11,6 @@
 ^inst/examples
 ^R/old
 ^silicate\.Rproj$
+^silicate\.Rcheck$
+^silicate.*\.tar\.gz$
+^silicate.*\.tgz$

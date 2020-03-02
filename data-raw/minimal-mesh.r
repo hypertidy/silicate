@@ -13,8 +13,9 @@ library(sf)
 minimal_mesh <- st_sf(a = 1:2, 
                          geom = st_sfc(list(st_multipolygon(list(list(p1, p2[rev(seq(nrow(p2))), ]))),  
                                                  st_multipolygon(list(list(p4))))))
+class(minimal_mesh$geom) <- c("sfc_MULTIPOLYGON", "sfc" , "list")
 #plot(x, col = c("grey", "firebrick"))
-devtools::use_data(minimal_mesh)
+usethis::use_data(minimal_mesh, overwrite = TRUE)
 
 ## this object will be removed once dodgr takes over
 #mmesh <- PRIMITIVE(minimal_mesh)

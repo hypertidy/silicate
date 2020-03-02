@@ -10,5 +10,6 @@ inlandwaters <- st_read(file.path("data-raw", basename(f)),
                         stringsAsFactors = FALSE) %>% 
   slice(c(1, 2, 3, 6, 7, 8))
 plot(inlandwaters)
+class(inlandwaters$geom) <- c("sfc_MULTIPOLYGON", "sfc" , "list")
 
-devtools::use_data(inlandwaters, compress = "xz")
+usethis::use_data(inlandwaters, compress = "xz", overwrite = TRUE)

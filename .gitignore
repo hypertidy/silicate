@@ -3,3 +3,6 @@
 .RData
 *.Rproj
 inst/doc
+silicate.Rcheck/
+silicate*.tar.gz
+silicate*.tgz

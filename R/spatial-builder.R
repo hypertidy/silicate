@@ -10,7 +10,9 @@ build_sf <- function(x, ...) {
 build_sf.PATH <- function(x, ...) {
   out <- x$object
   agr <- factor(setNames(rep(NA_integer_, ncol(out)), names(out)))
-  out[["geometry"]] <- build_sfc(x)
+  xsfc <- build_sfc(x)
+  class(xsfc) <- c(class(xsfc), "list")
+  out[["geometry"]] <- xsfc
   attr(out, "sf_column") <- "geometry"
   attr(out, "agr") <- agr
   class(out) <- c("sf", class(out))
