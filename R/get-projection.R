@@ -22,7 +22,7 @@ get_projection.sfc <- function(x, ...) {
    }
   }
   if (is.na(out)) {
-    warning("cannot get proj string from sf object")
+    #warning("cannot get proj string from sf object")
   }
   out
 }
