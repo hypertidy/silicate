@@ -131,11 +131,15 @@ SC0.SC0 <- function(x, ...) {
 SC0.TRI <- function(x, ...) {
   ## this should be SC0(TRI0(x))
   triangle <- x$triangle
-  triangle[c(".vx0", ".vx1", ".vx2")] <- matrix(match(unlist(  triangle[c(".vx0", ".vx1", ".vx2")]), x$vertex$vertex_), ncol = 3)
+  tritri <- matrix(match(unlist(  triangle[c(".vx0", ".vx1", ".vx2")]), x$vertex$vertex_), ncol = 3)
+  triangle[[".vx0"]] <- tritri[,1L, drop = TRUE]
+  triangle[[".vx1"]] <- tritri[,2L, drop = TRUE]
+  triangle[[".vx2"]] <- tritri[,3L, drop = TRUE]
+  
   triangle_list <- split(triangle, triangle$object_)[unique(triangle$object_)]
   top <- vector("list", length(triangle_list))
   for (i in seq_along(triangle_list)) {
-    top[[i]] <- purrr::map_df(purrr::transpose(triangle_list[[1]]),
+    top[[i]] <- purrr::map_df(purrr::transpose(triangle_list[[i]]),
                               ~tibble::as_tibble(matrix(tri_to_seg(unlist(.x[c(".vx0", ".vx1", ".vx2")])), ncol = 2, byrow = TRUE, dimnames = list(NULL, c(".vx0", ".vx1")))))
   }
   object <- sc_object(x)
