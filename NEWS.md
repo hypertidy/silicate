@@ -1,6 +1,11 @@
-# silicate dev
+# silicate 0.3.0
 
-* Fix deprecated usage of tibble. 1) Internal sf objects now have "list" in the class of the sfc column. 
+* Import crsmeta so we can navigate the structure change in sf crs. 
+
+* Fixed CRAN NOTE about not using geometry import. 
+
+* Fix deprecated usage of tibble. 
+ 1) Internal sf objects now have "list" in the class of the sfc column. 
  2) No matrix sub-assignment into columns of a tibble. See #105. 
  
 * New models `TRI0` and `PATH0` as analogues to SC0. 
