@@ -95,7 +95,9 @@ tri_to_seg <- function(x) {
 }
 
 to_tibble <- function(x) {
-  setNames(tibble::as_tibble(matrix(x, ncol = 2, byrow = TRUE)), c(".vx0", ".vx1"))
+  mat <- matrix(x, ncol = 2, byrow = TRUE)
+  colnames(mat) <- c(".vx0", ".vx1")
+  tibble::as_tibble(mat)
 }
 
 ##https://github.com/hypertidy/silicate/issues/46

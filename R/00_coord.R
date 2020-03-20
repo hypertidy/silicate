@@ -142,50 +142,52 @@ sc_geom_names <- function(gnames) {
   gnames <- gsub("^type$", "type_", gnames)
   gnames
 }
-sfcoords <- function(x, ...) tibble::as_tibble(m_v(x))
+sfcoords <- function(x, ...) as.data.frame(m_v(x))
 
 
 # these are short-cut methods for single-type sets
 #' @export
 sc_coord.sfc_MULTIPOLYGON <- function(x, ...) {
-  colnames <- sc_geom_names(sf_geom_names(x[[1]]))
-  out <- tibble::as_tibble(do.call(rbind, lapply(x, function(y) do.call(rbind, lapply(unclass(y), function(a) do.call(rbind, a))))))
-  setNames(out, colnames)
-
+  colnames0 <- sc_geom_names(sf_geom_names(x[[1]]))
+  mat <- do.call(rbind, lapply(x, function(y) do.call(rbind, lapply(unclass(y), function(a) do.call(rbind, a)))))
+  colnames(mat) <- colnames0
+  tibble::as_tibble(mat)
 }
 #' @export
 sc_coord.sfc_MULTILINESTRING <- sc_coord.sfc_POLYGON <- function(x, ...) {
-  colnames <- sc_geom_names(sf_geom_names(x[[1]]))
-  out <- tibble::as_tibble(do.call(rbind, lapply(x, function(y) do.call(rbind, unclass(y)))))
-  setNames(out, colnames)
-
+  colnames0 <- sc_geom_names(sf_geom_names(x[[1]]))
+  mat <- do.call(rbind, lapply(x, function(y) do.call(rbind, unclass(y))))
+  colnames(mat) <- colnames0
+  tibble::as_tibble(mat)
 }
 #' @export
 sc_coord.sfc_LINESTRING <- sc_coord.sfc_MULTIPOINT <- function(x, ...) {
-  colnames <- sc_geom_names(sf_geom_names(x[[1]]))
-  out <- tibble::as_tibble(do.call(rbind, unclass(x)))
-  setNames(out, colnames)
+  colnames0 <- sc_geom_names(sf_geom_names(x[[1]]))
+  mat <- do.call(rbind, unclass(x))
+  colnames(mat) <- colnames0
+  tibble::as_tibble(mat)
 }
 #' @export
 sc_coord.sfc_POINT <- function(x, ...) {
-  colnames <- sc_geom_names(sf_geom_names(x[[1]]))
-  out <- tibble::as_tibble(do.call(rbind, unclass(x)))
-  setNames(out, colnames)
+  colnames0 <- sc_geom_names(sf_geom_names(x[[1]]))
+  mat <- do.call(rbind, unclass(x))
+  colnames(mat) <- colnames0
+  tibble::as_tibble(mat)
 }
 
 #' @name sc_coord
 #' @export
 #' @importFrom  stats setNames
 sc_coord.MULTIPOLYGON <- function(x, ...) {
-  colnames <- sc_geom_names(sf_geom_names(x))
-  setNames(dplyr::bind_rows(lapply(x, function(y) dplyr::bind_rows(lapply(y, sfcoords)))), colnames)
+  colnames0 <- sc_geom_names(sf_geom_names(x))
+  tibble::as_tibble(setNames(dplyr::bind_rows(lapply(x, function(y) dplyr::bind_rows(lapply(y, sfcoords)))), colnames0))
   #setNames(purrr::map_df(x, function(y) purrr::map_df(y, sfcoords)), colnames)
 }
 #' @name sc_coord
 #' @export
 sc_coord.POLYGON <- function(x, ...) {
-  colnames <- sc_geom_names(sf_geom_names(x))
-  setNames(dplyr::bind_rows(lapply(x, sfcoords)), colnames)
+  colnames0 <- sc_geom_names(sf_geom_names(x))
+  setNames(dplyr::bind_rows(lapply(x, sfcoords)), colnames0)
   # setNames(purrr:map_df(x, sfcoords), colnames)
 }
 #' @name sc_coord
@@ -194,8 +196,8 @@ sc_coord.MULTILINESTRING <- sc_coord.POLYGON
 #' @name sc_coord
 #' @export
 sc_coord.LINESTRING <- function(x, ...) {
-  colnames <- sc_geom_names(sf_geom_names(x))
-  setNames(sfcoords(x), colnames)
+  colnames0 <- sc_geom_names(sf_geom_names(x))
+  tibble::as_tibble(setNames(sfcoords(x), colnames0))
 }
 #' @name sc_coord
 #' @export

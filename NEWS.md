@@ -1,6 +1,7 @@
 # silicate 0.3.0
 
-* Import crsmeta so we can navigate the structure change in sf crs. 
+* Import crsmeta so we can navigate the structure change in sf crs. (Fixes
+breakage in eixport).
 
 * Fixed CRAN NOTE about not using geometry import. 
 

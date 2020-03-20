@@ -51,7 +51,7 @@ NULL
 #' lapply(sfzoo, sc_coord)
 #' lapply(sfzoo, sc_path)
 #'
-#' ## unsure how usefult this is ...
+#' ## unsure how useful this is ...
 #' sc_path(sfgc)
 #' @aliases sfgc sfzoo
 #' @name sfzoo
