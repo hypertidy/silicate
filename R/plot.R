@@ -22,13 +22,7 @@ sc_colours <- function(x = 16, ..., viridis = FALSE) {
   sample(cl, x, replace = x > length(cl))
 }
 
-sc_colour_values <- function(x, ..., viridis = FALSE) {
-  if (!is.numeric(x)) x <- as.integer(factor(x))
-  cols <- sc_colours(256, viridis = viridis)
-  if (length(x) == 1L) return(sample(cols, 1))  ## a fun easter egg
-  scl <- function(x) (x - min(x, na.rm = TRUE))/diff(range(x, na.rm = TRUE))
-  cols[scl(x) * (length(cols)-1) + 1]
-}
+
 #' Plot silicate
 #'
 #' Basic edge plot, all the standard base graphics facilities for line segments are available.
@@ -87,7 +81,7 @@ plot.PATH <- function(x, ...) {
   if (all(x$path$ncoords_ == 1L)) {
     warning("all paths are degenerate (i.e. they are points)")
     toplot <- dplyr::inner_join(x$path_link_vertex, x$vertex, "vertex_")[c("x_", "y_")]
-    graphics::points(toplot, col = rep(sc_colours(dim(x$object_)[1L]), gg$nn))
+    graphics::points(toplot, col = rep(sc_colours(dim(x$object)[1L]), gg$nn))
     return(invisible(NULL))
   }
   junk <- lapply(seq_along(paths), function(a) {

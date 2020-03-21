@@ -1,7 +1,7 @@
 #' TRI0 model, structural triangulations
 #'
 #' TRI0 creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
-#' polygons. 'Structural' is a denser storage mode than 'relational'
+#' polygons. It is a 'structural' form, a denser storage mode than 'relational'
 #' as used by [TRI()], we trade some generality for size and speed.
 #' 
 #' TRI0 is suitable for simple conversion to other mesh forms. See

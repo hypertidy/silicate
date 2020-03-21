@@ -37,7 +37,10 @@
 
 <meta property="og:title" content="TRI model, triangulations — TRI" />
 <meta property="og:description" content="TRI creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
-polygons." />
+polygons. The model is a 'relational' form in that the underlying tables are
+linked implicitly by unique identifiers.
+Ear-cutting is inherently path-based, so this model is only available for
+path-based structures, like simple features, PATH(), PATH0() and ARC()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -128,7 +131,10 @@ polygons." />
 
     <div class="ref-description">
     <p>TRI creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
-polygons.</p>
+polygons. The model is a 'relational' form in that the underlying tables are
+linked implicitly by unique identifiers.
+Ear-cutting is inherently path-based, so this model is only available for
+path-based structures, like simple features, <code><a href='PATH.html'>PATH()</a></code>, <code><a href='PATH0.html'>PATH0()</a></code> and <code><a href='ARC.html'>ARC()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>TRI</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -156,10 +162,6 @@ polygons.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>TRI model with tables 'object', 'triangle', 'vertex'</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Ear-cutting is inherently path-based, so this model is only available for
-path-based structures, like simple features, <code><a href='PATH.html'>PATH()</a></code>, <code><a href='PATH0.html'>PATH0()</a></code> and <code><a href='ARC.html'>ARC()</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>tri</span> <span class='kw'>&lt;-</span> <span class='fu'>TRI</span>(<span class='no'>minimal_mesh</span>)
@@ -170,7 +172,6 @@ path-based structures, like simple features, <code><a href='PATH.html'>PATH()</a
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

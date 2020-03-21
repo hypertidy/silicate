@@ -71,17 +71,6 @@ sc_path.matrix <- function(x, ...) {
 
 
 
-#' @importFrom purrr map_df
-sc_atom <- function(x, ...) tibble::as_tibble(list(ncoords_= nrow(x),
-                                                  path_ = sc_uid(1L)))
-sc_list <- function(x) {
-  dplyr::bind_rows(lapply(x, sc_atom))
-}
-#sc_atom <- function(x, ...) UseMethod("sc_atom")
-#sc_atom.matrix <- function(x, ...) cbind(nrow(x), ncol(x))
-#sc_atom.list <- function(x, ...) lapply(x, sc_atom)
-#sc_atom_mat <- function(x, ...) nrow(x)
-#sc_list_mat <- function(x) unlist(lapply(x, sc_atom_mat))
 
 
 

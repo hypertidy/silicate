@@ -34,7 +34,7 @@ In a data set with no parts touching their  neighbours, the only normalization o
 will be the removal of the duplicated closing coordinate on any polygon ring, and on
 any self-intersecting case within a single path.
 
-\code{PATH()$path} should always have columns \code{object_ path_ subobject ncoords_}
+\code{PATH()$path} should always have columns \verb{object_ path_ subobject ncoords_}
 }
 \seealso{
 \code{sc_path}, \code{sc_coord}

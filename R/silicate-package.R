@@ -1,5 +1,11 @@
-#' silicate.
+#' silicate
 #'
+#' Decomposes spatial data (of various formats) into simpler forms, including
+#' paths, triangles or segments. A development tool for exploring the underlying
+#' structures of spatial data, and for converting it to something else. The models
+#' [PATH()], [TRI()], [SC()] and [ARC()] provide relational tables of all underlying
+#' entities, and more specialist versions [PATH0()], [TRI0()] and [SC0()] provide more
+#' efficient topological representations of polygons or lines. 
 #' @name silicate
 #' @docType package
 NULL

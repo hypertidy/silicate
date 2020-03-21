@@ -16,6 +16,8 @@ test_that("geometrycollection decomposition works", {
   dplyr::bind_rows(lapply(sfgc, sc_path)) %>%
   expect_s3_class("tbl_df") %>%
     expect_named(c("nrow", "ncol", "type", "path_", "subobject"))
+  
+  expect_silent( sc_path(silicate::sfgc))
 })
 
 test_that("sf decomposition works", {

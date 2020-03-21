@@ -1,0 +1,4 @@
+crs_epsg                Extract 'EPSG' value
+crs_proj                Extract 'PROJ4' string
+crs_wkt2                Extract 'WKT2' string
+sfx                     Simple features example data

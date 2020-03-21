@@ -1,0 +1,39 @@
+Package: silicate
+Title: Common Forms for Complex Hierarchical and Relational Data
+        Structures
+Version: 0.2.0
+Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com"), 
+             person("John", "Corbett", role = "ctb", comment = "the original inspiration"), 
+             person("Simon", "Wotherspoon", role = "ctb"), 
+             person("Kent", "Johnson", role = "dtc"), 
+             person("Mark", "Padgham", role = "aut")
+             )
+Description: Generate common data forms for complex data suitable for conversions and
+ transmission by decomposition as paths or primitives. Paths are sequentially-linked records, 
+ primitives are basic atomic elements and both can model many forms and be grouped into hierarchical 
+ structures.  The universal models 'SC0' (structural) and 'SC' (labelled, relational) are composed of 
+ edges and can represent any hierarchical form. Specialist models 'PATH', 'ARC' and 'TRI' provide the 
+ most common intermediate forms used for converting from one form to another. The methods are
+ inspired by the simplicial complex <https://en.wikipedia.org/wiki/Simplicial_complex> and 
+ provide intermediate forms that relate spatial data structures to this mathematical construct. 
+Depends: R (>= 3.4.0)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Suggests: covr, knitr, rmarkdown, sp, testthat, trip, vdiffr
+RoxygenNote: 6.1.1
+Imports: dplyr, gibble (>= 0.2.0), methods, purrr, rlang, decido,
+        tibble, unjoin (>= 0.0.3), geometry, tidyr (>= 1.0.0),
+        grDevices, graphics, stats, magrittr, gridBase
+VignetteBuilder: knitr
+NeedsCompilation: no
+Packaged: 2019-10-07 14:27:46 UTC; mdsumner
+Author: Michael D. Sumner [aut, cre],
+  John Corbett [ctb] (the original inspiration),
+  Simon Wotherspoon [ctb],
+  Kent Johnson [dtc],
+  Mark Padgham [aut]
+Maintainer: Michael D. Sumner <mdsumner@gmail.com>
+Repository: CRAN
+Date/Publication: 2019-10-09 11:30:02 UTC
+Built: R 3.6.3; ; 2020-03-20 22:21:52 UTC; unix

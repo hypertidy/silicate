@@ -1,0 +1,31 @@
+ARC                     ARC model
+PATH                    PATH model.
+PATH0                   Path model in structural form
+SC                      The universal model
+SC0                     Pure edge model, structural form
+TRI                     TRI model, triangulations
+TRI0                    TRI0 model, structural triangulations
+dplyr-methods           Dplyr methods for silicate objects
+flight_tracks           Flight tracks
+inlandwaters            Inland waters, for parts of Australia, and New
+                        Caledonia.
+minimal_mesh            Minimal mesh.
+mmesh                   Deprecated data set.
+plot.SC                 Plot silicate
+polymesh                Polygonal mesh
+print.sc                Methods for silicate
+routes                  Transport routes
+sc_arc                  Arc-node topology.
+sc_colours              Silicate colours
+sc_coord                Coordinate decomposition
+sc_edge                 Edges.
+sc_node                 Nodes for arc-node topology.
+sc_object               Objects, features
+sc_path                 Path decomposition
+sc_segment              Given a 'PATH" model decompose to 1-dimensional
+                        primitives (or 0-dimensional).
+sc_uid                  Unique labels
+sc_vertex               Extract unique vertices
+sfzoo                   Simple features zoo.
+silicate                silicate.
+tri_area                Area of triangles

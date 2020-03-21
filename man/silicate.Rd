@@ -3,8 +3,12 @@
 \docType{package}
 \name{silicate}
 \alias{silicate}
-\alias{silicate-package}
-\title{silicate.}
+\title{silicate}
 \description{
-silicate.
+Decomposes spatial data (of various formats) into simpler forms, including
+paths, triangles or segments. A development tool for exploring the underlying
+structures of spatial data, and for converting it to something else. The models
+\code{\link[=PATH]{PATH()}}, \code{\link[=TRI]{TRI()}}, \code{\link[=SC]{SC()}} and \code{\link[=ARC]{ARC()}} provide relational tables of all underlying
+entities, and more specialist versions \code{\link[=PATH0]{PATH0()}}, \code{\link[=TRI0]{TRI0()}} and \code{\link[=SC0]{SC0()}} provide more
+efficient topological representations of polygons or lines.
 }

@@ -22,7 +22,16 @@ test_that("TRI round trip suite works", {
 
   TRI(x)
   TRI0(x)
+
 })
+  
+  expect_warning(  TRI(TRI0(x)))
+  expect_silent({
+    
+    sc_triangle(x)
+    
+  
+  })
 })
 
 

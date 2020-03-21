@@ -15,3 +15,4 @@
 ^silicate.*\.tar\.gz$
 ^silicate.*\.tgz$
 ^CRAN-RELEASE$
+^revdep$

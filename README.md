@@ -253,56 +253,56 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_
 #>    <dbl> <dbl> <chr>  
-#>  1  0     0    zF3v3e 
-#>  2  0     1    4u503v 
-#>  3  0.2   0.2  PCZKVr 
-#>  4  0.2   0.4  yRREbL 
-#>  5  0.3   0.6  Gzi5J5 
-#>  6  0.5   0.2  tTSvR9 
-#>  7  0.5   0.4  Nbm44D 
-#>  8  0.5   0.7  i7zK6P 
-#>  9  0.69  0    dw198X 
-#> 10  0.75  1    2Jngno 
-#> 11  0.8   0.6  KzDKqp 
-#> 12  1     0.8  bq6mA9 
-#> 13  1.1   0.63 yXuzBG 
-#> 14  1.23  0.3  AMPmcu
+#>  1  0     0    fO0iGe 
+#>  2  0     1    LSjBPj 
+#>  3  0.2   0.2  KkJPG5 
+#>  4  0.2   0.4  qNEMyy 
+#>  5  0.3   0.6  sEDnJw 
+#>  6  0.5   0.2  8m5Xzq 
+#>  7  0.5   0.4  dp58cl 
+#>  8  0.5   0.7  PbmxT2 
+#>  9  0.69  0    e4aDaS 
+#> 10  0.75  1    OZbmTk 
+#> 11  0.8   0.6  By3dv4 
+#> 12  1     0.8  kmSTZr 
+#> 13  1.1   0.63 JVAuKf 
+#> 14  1.23  0.3  2y9s6X
 
 sc_edge(x)
-#> # A tibble: 15 x 3
-#>    .vx0   .vx1   edge_ 
-#>    <chr>  <chr>  <chr> 
-#>  1 zF3v3e 4u503v UNLZfF
-#>  2 4u503v 2Jngno Jqlzdw
-#>  3 2Jngno bq6mA9 0mzDPM
-#>  4 i7zK6P bq6mA9 qa8zB8
-#>  5 i7zK6P KzDKqp NYn6eI
-#>  6 dw198X KzDKqp CIU725
-#>  7 zF3v3e dw198X 15Qy7K
-#>  8 PCZKVr tTSvR9 oQOuH4
-#>  9 tTSvR9 Nbm44D PHX0xl
-#> 10 Gzi5J5 Nbm44D YqMUyt
-#> 11 yRREbL Gzi5J5 mhZJuV
-#> 12 PCZKVr yRREbL 48OFjO
-#> 13 KzDKqp yXuzBG 0wjfSR
-#> 14 yXuzBG AMPmcu ltsAl6
-#> 15 dw198X AMPmcu KgGydZ
+#> # A tibble: 15 x 4
+#>    .vx0   .vx1   path_ edge_ 
+#>    <chr>  <chr>  <int> <chr> 
+#>  1 fO0iGe LSjBPj     1 jb5NFn
+#>  2 LSjBPj OZbmTk     1 jldQm0
+#>  3 OZbmTk kmSTZr     1 P9uodS
+#>  4 PbmxT2 kmSTZr     1 lEPz5r
+#>  5 PbmxT2 By3dv4     1 RuxVoR
+#>  6 e4aDaS By3dv4     1 jJxmDM
+#>  7 fO0iGe e4aDaS     1 Jdkmgu
+#>  8 KkJPG5 8m5Xzq     2 opt3Hi
+#>  9 8m5Xzq dp58cl     2 Bn9ivT
+#> 10 sEDnJw dp58cl     2 AxPIOV
+#> 11 qNEMyy sEDnJw     2 G3wTMM
+#> 12 KkJPG5 qNEMyy     2 BKj9Jp
+#> 13 By3dv4 JVAuKf     3 0kaPcl
+#> 14 JVAuKf 2y9s6X     3 603agi
+#> 15 e4aDaS 2y9s6X     3 6Rw6Mx
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_
 #>   <chr>  
-#> 1 hz0DjH 
-#> 2 RxFNq8
+#> 1 jbyjXr 
+#> 2 RimrBg
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_   ncoords_
 #>   <chr>     <int>
-#> 1 kj1gA8        6
-#> 2 KwmoDy        7
-#> 3 MNRJOs        4
-#> 4 oZnlbW        2
+#> 1 eezbKP        2
+#> 2 ON4LpQ        4
+#> 3 puov6t        6
+#> 4 rrqC67        7
 ```
 
 ## silicate models

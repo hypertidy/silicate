@@ -28,7 +28,7 @@ Suggests:
     testthat,
     trip,
     vdiffr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Imports: 
     dplyr,
     gibble (>= 0.2.0),

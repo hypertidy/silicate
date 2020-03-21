@@ -37,7 +37,8 @@
 
 <meta property="og:title" content="TRI0 model, structural triangulations — TRI0" />
 <meta property="og:description" content="TRI0 creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
-polygons." />
+polygons. It is a 'structural' form, a denser storage mode than 'relational'
+as used by TRI(), we trade some generality for size and speed." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -128,7 +129,8 @@ polygons." />
 
     <div class="ref-description">
     <p>TRI0 creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
-polygons.</p>
+polygons. It is a 'structural' form, a denser storage mode than 'relational'
+as used by <code><a href='TRI.html'>TRI()</a></code>, we trade some generality for size and speed.</p>
     </div>
 
     <pre class="usage"><span class='fu'>TRI0</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -163,8 +165,20 @@ polygons.</p>
     <p>TRI0 model with tables 'object', 'vertex'</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Ear-cutting is inherently path-based, so this model is only available for
+    <p>TRI0 is suitable for simple conversion to other mesh forms. See
+the examples for plotting and (in commented code) conversion to
+rgl's 'mesh3d'.</p>
+<p>'Structural' means that the model does not store relational
+IDs between tables, the vertex indexing is stored as a nested
+list of data frames in the 'object' table. Unlike <code><a href='TRI.html'>TRI()</a></code> we
+cannot arbitrarily rearrange the order or remove content
+of the underlying tables, without updating the vertex indexes
+stored for each object.</p>
+<p>Ear-cutting is inherently path-based, so this model is only available for
 path-based structures, like simple features, <code><a href='PATH.html'>PATH()</a></code>, <code><a href='PATH0.html'>PATH0()</a></code> and <code><a href='ARC.html'>ARC()</a></code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>TRI</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>tri</span> <span class='kw'>&lt;-</span> <span class='fu'>TRI0</span>(<span class='no'>minimal_mesh</span>)
@@ -172,7 +186,24 @@ path-based structures, like simple features, <code><a href='PATH.html'>PATH()</a
 #&gt; type        : Primitive
 #&gt; vertices    : 14 (2-space)
 #&gt; primitives  : 14 (2-space)
-#&gt; crs         : NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>tri</span>)</div><div class='img'><img src='TRI0-1.png' alt='' width='700' height='433' /></div></pre>
+#&gt; crs         : NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>tri</span>)</div><div class='img'><img src='TRI0-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># obtain the vertices and indices in raw form</span>
+
+<span class='co'>## idx is the triplets of row numbers in tri$vertex </span>
+<span class='no'>idx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>rbind</span>, <span class='fu'><a href='sc_object.html'>sc_object</a></span>(<span class='no'>tri</span>)$<span class='no'>topology_</span>)
+<span class='no'>idx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>idx</span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>".vx0"</span>, <span class='st'>".vx1"</span>, <span class='st'>".vx2"</span>)])
+
+<span class='co'>## vert is the vertices x_, y_, ...</span>
+<span class='no'>vert</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='sc_vertex.html'>sc_vertex</a></span>(<span class='no'>tri</span>))
+
+<span class='co'>## now we can plot with generic tools</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>vert</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/polygon.html'>polygon</a></span>(<span class='no'>vert</span>[<span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='no'>idx</span>, <span class='fl'>NA</span>)), ])</div><div class='img'><img src='TRI0-2.png' alt='' width='700' height='433' /></div><div class='input'>
+## or create other structures like rgl's mesh3d 
+## (see hypertidy/anglr for in-dev helpers)
+## rgl::tmesh3d(t(cbind(vert, 1, 1)), t(idx), 
+##   material = list(color = c("firebrick", "black", "grey", "blue")), 
+##   meshColor = "faces")
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -180,6 +211,7 @@ path-based structures, like simple features, <code><a href='PATH.html'>PATH()</a
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

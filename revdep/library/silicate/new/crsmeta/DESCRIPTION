@@ -1,0 +1,34 @@
+Package: crsmeta
+Title: Extract Coordinate System Metadata
+Version: 0.2.0
+Authors@R: 
+    person(given = "Michael",
+           family = "Sumner",
+           role = c("aut", "cre"),
+           email = "mdsumner@gmail.com",
+           comment = c(ORCID = "0000-0002-2471-7511"))
+Description: Obtain coordinate system metadata from various data formats. There 
+ are functions to extract a 'CRS' (coordinate reference system, 
+ <https://en.wikipedia.org/wiki/Spatial_reference_system>) in 'EPSG' (European 
+ Petroleum Survey Group, <http://www.epsg.org/>), 'PROJ4' <https://proj.org/>, 
+ or 'WKT2' (Well-Known Text 2, 
+ <http://docs.opengeospatial.org/is/12-063r5/12-063r5.html>) forms. This is 
+ purely for getting simple metadata from in-memory formats, please use other 
+ tools for out of memory data sources. 
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
+Depends: R (>= 3.2)
+Suggests: testthat (>= 2.1.0), spelling
+Imports: methods
+URL: https://github.com/hypertidy/crsmeta
+BugReports: https://github.com/hypertidy/crsmeta/issues
+Language: en-US
+NeedsCompilation: no
+Packaged: 2020-03-20 16:53:48 UTC; mdsumner
+Author: Michael Sumner [aut, cre] (<https://orcid.org/0000-0002-2471-7511>)
+Maintainer: Michael Sumner <mdsumner@gmail.com>
+Repository: CRAN
+Date/Publication: 2020-03-20 17:20:02 UTC
+Built: R 3.6.3; ; 2020-03-21 03:10:52 UTC; unix

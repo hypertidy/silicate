@@ -124,7 +124,6 @@ SC0.default <- function(x, ...) {
                                             coord = row_number())
 
   object <- sc_object(x)
-
   if (length(unique(instances$path)) == nrow(instances)) {
     ## we are only points
     #   stop(sprintf("no segments/edges found in object of class %s", class(x)))
@@ -137,12 +136,12 @@ SC0.default <- function(x, ...) {
       dplyr::mutate(.cx0 = .data$coord,   ## specify in segment terms
                     .cx1 = .data$coord + 1L) %>%
       dplyr::group_by(.data$path) %>% dplyr::slice(-dplyr::n()) %>% dplyr::ungroup() %>%
-      dplyr::transmute(.data$.cx0, .data$.cx1, .data$path, .data$object)
+      dplyr::transmute(.data$.cx0, .data$.cx1, path_ = .data$path, .data$object)
 
     segs[[".vx0"]] <- instances$vertex_[match(segs$.cx0, instances$coord)]
     segs[[".vx1"]] <- instances$vertex_[match(segs$.cx1, instances$coord)]
     ## but udata$.idx0 has the vertices, with .idx0 as the mapping
-    object$topology_ <- split(segs[c(".vx0", ".vx1")], segs$object)
+    object$topology_ <- split(segs[c(".vx0", ".vx1", "path_")], segs$object)
 
   }
   meta <- tibble(proj = get_projection(x), ctime = Sys.time())

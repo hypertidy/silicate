@@ -144,24 +144,24 @@
 <pre><code>## [1] "object"           "object_link_edge" "edge"             "vertex"          
 ## [5] "meta"</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>x<span class="op">$</span>edge</span></code></pre></div>
-<pre><code>## # A tibble: 15 x 3
-##    .vx0   .vx1   edge_ 
-##    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; 
-##  1 zHnGvv HkULl1 686JFv
-##  2 HkULl1 eoxMdr ZUdsHT
-##  3 eoxMdr QSgXCr RrfgTx
-##  4 ZCiSl3 QSgXCr dffMDg
-##  5 ZCiSl3 PPDAq7 AR3G3k
-##  6 2Fb0W3 PPDAq7 3geGWl
-##  7 zHnGvv 2Fb0W3 fbrt1B
-##  8 kmzS8c Bahgw4 CwnoQW
-##  9 Bahgw4 A5UYAI 4gO3yd
-## 10 FG2rDd A5UYAI 1stvrb
-## 11 I9By7G FG2rDd ZruweY
-## 12 kmzS8c I9By7G ShhxaT
-## 13 PPDAq7 kwU0G3 7CR68k
-## 14 kwU0G3 Sxitau NzOgBt
-## 15 2Fb0W3 Sxitau nfKJg2</code></pre>
+<pre><code>## # A tibble: 15 x 4
+##    .vx0   .vx1   path_ edge_ 
+##    &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;chr&gt; 
+##  1 XUBSh6 rLggZv     1 m96Uu6
+##  2 rLggZv BTesND     1 sZV5te
+##  3 BTesND QbhPPT     1 xhA7Hd
+##  4 h0Ez4u QbhPPT     1 A3Knf6
+##  5 h0Ez4u zeO07r     1 48DJL3
+##  6 qQbc6Z zeO07r     1 XSUIYO
+##  7 XUBSh6 qQbc6Z     1 w2qkzO
+##  8 8SzLnA L6BY9a     2 hlm6EW
+##  9 L6BY9a 2a6Q1f     2 N7nEbl
+## 10 90SqGo 2a6Q1f     2 MH2yCD
+## 11 OwWa8s 90SqGo     2 GLJNwU
+## 12 8SzLnA OwWa8s     2 7LCApI
+## 13 zeO07r 2gIUIu     3 ZGZQ56
+## 14 2gIUIu kw4G59     3 lwOZU3
+## 15 qQbc6Z kw4G59     3 GdJ51W</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(x)</span></code></pre></div>
 <pre><code>## class       : SC
 ## type        : Primitive
@@ -178,42 +178,37 @@
 <p>At the highest level silicate provides a normalized form of a complicated structure containing <em>paths</em>. This data structure contains three paths, each of which is a sequentially joined set of coordinates.</p>
 <p>The key aspect here is that each component entity is formally named, with a unique ID that we persist for subsequent usage. This persistence is required as it records relationships between existing entitites <em>implicitly</em> rather than baking data into structure that are both <em>explicit</em> and also discard a lot of information about relationships.</p>
 <p>Even though the path scheme requires that two vertices are visited separately by two polygon rings, we don’t expand out the vertices but simply record a reference to it in the path.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PATH.html">PATH</a></span>(minimal_mesh)</span></code></pre></div>
-<pre><code>## Warning: `as_data_frame()` is deprecated as of tibble 2.0.0.
-## Please use `as_tibble()` instead.
-## The signature and semantics have changed, see `?as_tibble`.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PATH.html">PATH</a></span>(minimal_mesh)</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(x)</span></code></pre></div>
 <pre><code>## [1] "object"           "path"             "path_link_vertex" "vertex"          
 ## [5] "meta"</code></pre>
 <p>At a basic level, the tables in this <code>PATH</code> are essentially the same as the kinds of structures we normally use, but we need to de-normalize them to see this exactly.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span>(x[<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"object"</span>, <span class="st">"path"</span>, <span class="st">"path_link_vertex"</span>, <span class="st">"vertex"</span>)], dplyr<span class="op">::</span>inner_join)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span>(x[<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"object"</span>, <span class="st">"path"</span>, <span class="st">"path_link_vertex"</span>, <span class="st">"vertex"</span>)], dplyr<span class="op">::</span>inner_join)</span></code></pre></div>
 <pre><code>## Joining, by = "object_"</code></pre>
 <pre><code>## Joining, by = "path_"</code></pre>
 <pre><code>## Joining, by = "vertex_"</code></pre>
 <pre><code>## # A tibble: 19 x 10
 ##        a object_  ncol type         subobject path_ ncoords_ vertex_    x_    y_
 ##    &lt;int&gt; &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
-##  1     1 S2X2QX      2 MULTIPOLYGON         1 9bou…        8 kRgoYO   0     0   
-##  2     1 S2X2QX      2 MULTIPOLYGON         1 9bou…        8 4a6OCG   0     1   
-##  3     1 S2X2QX      2 MULTIPOLYGON         1 9bou…        8 6axw1L   0.75  1   
-##  4     1 S2X2QX      2 MULTIPOLYGON         1 9bou…        8 OWjztY   1     0.8 
-##  5     1 S2X2QX      2 MULTIPOLYGON         1 9bou…        8 YQDEud   0.5   0.7 
-##  6     1 S2X2QX      2 MULTIPOLYGON         1 9bou…        8 3Y4B8B   0.8   0.6 
-##  7     1 S2X2QX      2 MULTIPOLYGON         1 9bou…        8 vfg6a1   0.69  0   
-##  8     1 S2X2QX      2 MULTIPOLYGON         1 9bou…        8 kRgoYO   0     0   
-##  9     1 S2X2QX      2 MULTIPOLYGON         1 Fpk8…        6 Mt6XR6   0.2   0.2 
-## 10     1 S2X2QX      2 MULTIPOLYGON         1 Fpk8…        6 9lv0Rg   0.5   0.2 
-## 11     1 S2X2QX      2 MULTIPOLYGON         1 Fpk8…        6 0s5trI   0.5   0.4 
-## 12     1 S2X2QX      2 MULTIPOLYGON         1 Fpk8…        6 KBlKO3   0.3   0.6 
-## 13     1 S2X2QX      2 MULTIPOLYGON         1 Fpk8…        6 U6KqZT   0.2   0.4 
-## 14     1 S2X2QX      2 MULTIPOLYGON         1 Fpk8…        6 Mt6XR6   0.2   0.2 
-## 15     2 RicDv7      2 MULTIPOLYGON         1 CkHp…        5 vfg6a1   0.69  0   
-## 16     2 RicDv7      2 MULTIPOLYGON         1 CkHp…        5 3Y4B8B   0.8   0.6 
-## 17     2 RicDv7      2 MULTIPOLYGON         1 CkHp…        5 iKnFDE   1.1   0.63
-## 18     2 RicDv7      2 MULTIPOLYGON         1 CkHp…        5 DFrGG4   1.23  0.3 
-## 19     2 RicDv7      2 MULTIPOLYGON         1 CkHp…        5 vfg6a1   0.69  0</code></pre>
+##  1     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 UrN15F   0     0   
+##  2     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 1A0pop   0     1   
+##  3     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 q1dMbS   0.75  1   
+##  4     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 hLJAiQ   1     0.8 
+##  5     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 zcaQ3k   0.5   0.7 
+##  6     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 ITDlzt   0.8   0.6 
+##  7     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 3jLyyM   0.69  0   
+##  8     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 UrN15F   0     0   
+##  9     1 s2VBZG      2 MULTIPOLYGON         1 WQLK…        6 0BfT1w   0.2   0.2 
+## 10     1 s2VBZG      2 MULTIPOLYGON         1 WQLK…        6 xU5xeJ   0.5   0.2 
+## 11     1 s2VBZG      2 MULTIPOLYGON         1 WQLK…        6 JmiwW7   0.5   0.4 
+## 12     1 s2VBZG      2 MULTIPOLYGON         1 WQLK…        6 M3tCBT   0.3   0.6 
+## 13     1 s2VBZG      2 MULTIPOLYGON         1 WQLK…        6 QOKSdH   0.2   0.4 
+## 14     1 s2VBZG      2 MULTIPOLYGON         1 WQLK…        6 0BfT1w   0.2   0.2 
+## 15     2 wIffKy      2 MULTIPOLYGON         1 wzKq…        5 3jLyyM   0.69  0   
+## 16     2 wIffKy      2 MULTIPOLYGON         1 wzKq…        5 ITDlzt   0.8   0.6 
+## 17     2 wIffKy      2 MULTIPOLYGON         1 wzKq…        5 52xEHy   1.1   0.63
+## 18     2 wIffKy      2 MULTIPOLYGON         1 wzKq…        5 8rrgiF   1.23  0.3 
+## 19     2 wIffKy      2 MULTIPOLYGON         1 wzKq…        5 3jLyyM   0.69  0</code></pre>
 <p>Paths are easily re-expressed as a set of edges, treating each pair of coordinates as a new kind of entity. Some edges are <em>shared</em>, in that two objects might have a particular edge in their own path. If the shared neighbours are two polygons, then it’s likely that each polygon encounters that edge in a different direction, but this is not a stable pattern so it’s best to not assume it to be the case. It’s important here because we need to differentiate between an <em>instance of an edge</em>, which is a particular <em>line segment</em> that is part of one particular polygon. If that polygon segment is a shared edge with a neighbour polygon, then we distinguish the instances as a particular <em>segment</em> of a unique <em>edge</em>. This allows us the opportunity to treat the edge as completely abstract, and also to decide or record what it’s orientation is, which records which vertex is the first one, and which is the second. Not all applications need to care about this distinction, though.</p>
 <p>In this way we have an analogy for edges and segments compared to vertices and coordinates, and I think this terminology makes sense!</p>
 </div>
@@ -222,12 +217,12 @@
 <a href="#arc" class="anchor"></a>ARC</h2>
 <p>There’s only one more entity we need to describe an alternative view of this polygon data, the actual component paths that describe these structures topologically. These are paths that occur between any two nodes, or that have no nodes at all. This will occur for any isolated “island”, or for any hole within a polygon. These arcs are exactly analogous to a LINESTRING, but are used within a context where the nodes are important information about the topology.</p>
 <p>Nodes are any coordinate where three or more edges meet each other, so they are inherently about relationships between neighbouring shapes. This is exactly the same model as was used in the olden days, called arc-node topology, a one-dimensional topology that pre-dates the more modern use of closed planar paths to describe polygons.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span>
-<span id="cb21-2"><a href="#cb21-2"></a>arc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ARC.html">ARC</a></span>(minimal_mesh)</span>
-<span id="cb21-3"><a href="#cb21-3"></a>nodes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sc_node.html">sc_node</a></span>(arc)</span>
-<span id="cb21-4"><a href="#cb21-4"></a></span>
-<span id="cb21-5"><a href="#cb21-5"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(arc)</span>
-<span id="cb21-6"><a href="#cb21-6"></a><span class="kw"><a href="https://dplyr.tidyverse.org/reference/join.html">inner_join</a></span>(nodes, arc<span class="op">$</span>vertex) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(x_, y_) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(<span class="dt">pch =</span> <span class="st">"N"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span>
+<span id="cb19-2"><a href="#cb19-2"></a>arc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ARC.html">ARC</a></span>(minimal_mesh)</span>
+<span id="cb19-3"><a href="#cb19-3"></a>nodes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sc_node.html">sc_node</a></span>(arc)</span>
+<span id="cb19-4"><a href="#cb19-4"></a></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(arc)</span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="kw"><a href="https://dplyr.tidyverse.org/reference/join.html">inner_join</a></span>(nodes, arc<span class="op">$</span>vertex) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(x_, y_) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(<span class="dt">pch =</span> <span class="st">"N"</span>)</span></code></pre></div>
 <pre><code>## Joining, by = "vertex_"</code></pre>
 <p><img src="silicate_topology_01_files/figure-html/arc-node-1.png" width="700"></p>
 <p>We haven’t yet done any coordinate precision checking, so there will be mis-identified arcs where coordinates are intended to be but are not exactly the same. (spdep glosses over this in a way we can’t control)</p>
@@ -238,27 +233,27 @@
 <a href="#tri" class="anchor"></a>TRI</h2>
 <p>Triangulations. Here we strictly want <em>constrained triangulations</em>, where there is no divergence from the planar coverage of input shape and its triangulated decomposition. This is not easy to do, and there are two main methods. One is high-quality <em>mostly-Delaunay</em> triangulations where the Delaunay condition is relaxed in order to always align to input boundaries. Holes in a near-Delaunay triangulation are either removed by flood-fill from a seed-vertex, or by post-filtering the triangles whose centroid does not intersect the input boundaries. The second method is ear-clippping, a relatively inexpensive algorithm that produces low-quality triangle meshes.</p>
 <p>Currently silicate can only provide the second form, the ear-clipping method provided by <code>decido</code>.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>tri &lt;-<span class="st"> </span><span class="kw"><a href="../reference/TRI.html">TRI</a></span>(minimal_mesh)</span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(tri)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>tri &lt;-<span class="st"> </span><span class="kw"><a href="../reference/TRI.html">TRI</a></span>(minimal_mesh)</span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(tri)</span></code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/TRI-1.png" width="700"></p>
 <p>Performance is pretty good for this method of triangulation, despite also being constrained to the input shapes.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co">#system.time(sf::st_triangulate(inlandwaters))</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="co">#   user  system elapsed </span></span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="co">#  4.699   0.125   4.823 </span></span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#system.time(sfdct::ct_triangulate(inlandwaters))</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="co">#  user  system elapsed </span></span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="co"># 15.476   0.225  15.460 </span></span>
-<span id="cb24-7"><a href="#cb24-7"></a><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(tri &lt;-<span class="st"> </span><span class="kw"><a href="../reference/TRI.html">TRI</a></span>(inlandwaters))</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">#system.time(sf::st_triangulate(inlandwaters))</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="co">#   user  system elapsed </span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="co">#  4.699   0.125   4.823 </span></span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="co">#system.time(sfdct::ct_triangulate(inlandwaters))</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="co">#  user  system elapsed </span></span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="co"># 15.476   0.225  15.460 </span></span>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(tri &lt;-<span class="st"> </span><span class="kw"><a href="../reference/TRI.html">TRI</a></span>(inlandwaters))</span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   5.348   0.007   5.358</code></pre>
+##   5.623   0.060   5.695</code></pre>
 <p>The triangles are low-quality (but triangles are very easy to subdivide).</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(tri)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(tri)</span></code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="ot">NA</span>, <span class="dt">xlim =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">625000</span>, <span class="dv">1060000</span>), <span class="dt">ylim =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="dv">1350000</span>,  <span class="dv">-550000</span>))</span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(tri, <span class="dt">add =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="ot">NA</span>, <span class="dt">xlim =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">625000</span>, <span class="dv">1060000</span>), <span class="dt">ylim =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="dv">1350000</span>,  <span class="dv">-550000</span>))</span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(tri, <span class="dt">add =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/unnamed-chunk-2-2.png" width="700"></p>
 <p>The <a href="https://CRAN.R-project.org/package=sfdct">CRAN package sfdct</a> will use the first method (package <code>RTriangle</code> wraps the Triangle library) for simple features.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co">#plot(sfdct::ct_triangulate(minimal_mesh))</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co">#plot(sfdct::ct_triangulate(minimal_mesh))</span></span></code></pre></div>
 </div>
 </div>
   </div>
