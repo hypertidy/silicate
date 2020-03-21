@@ -70,7 +70,7 @@ if not present." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -102,7 +102,12 @@ if not present." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/hypertidy/silicate">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -117,7 +122,7 @@ if not present." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Unique labels</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/hypertidy/silicate/blob/master/R/00_uid.R'><code>R/00_uid.R</code></a></small>
     <div class="hidden name"><code>sc_uid.Rd</code></div>
     </div>
 
@@ -145,6 +150,9 @@ if not present.</p>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>vector of unique id values for elements in the input</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>If 'integers' default we generate sequential integers, it's assumed that all IDs are created
@@ -154,12 +162,17 @@ the largest existing ID and offset these by that value.</p>
 By default UIDs are a mix of letters, LETTERS and digits of length <code><a href='https://rdrr.io/r/base/options.html'>getOption("silicate.uid.size")</a></code> which defaults to 6.</p>
 <p>See <code>ids</code> package for <code>random_id</code> used if option 'silicate.uid.type="uuid"'.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>sc_uid</span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>))</div><div class='output co'>#&gt;  [1] "fAPsOu" "Csz9nk" "Tjtg42" "4XlAHS" "YoH2ob" "hr0aDX" "AnU13i" "Kwa1uA"
+#&gt;  [9] "TJScGC" "z7PePE"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

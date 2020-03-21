@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -101,7 +101,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/hypertidy/silicate">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -116,7 +121,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Given a `PATH`` model decompose to 1-dimensional primitives (or 0-dimensional).</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/hypertidy/silicate/blob/master/R/00_segment.R'><code>R/00_segment.R</code></a></small>
     <div class="hidden name"><code>sc_segment.Rd</code></div>
     </div>
 
@@ -145,12 +150,37 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>data frame of the segments, each occurence of an edge and its order</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>sc_segment</span>(<span class='fu'><a href='SC.html'>SC</a></span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 16 x 6</span><span>
+#&gt;    object_ edge_  native_ .vx0   .vx1   segment_
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> tHru0z  CmHByV TRUE    MbUwpk xjKdIt NRSxzT  
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> tHru0z  yuaV3M TRUE    xjKdIt lUx6Ve 2Zec5S  
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> tHru0z  D3c2yY TRUE    lUx6Ve cNzFBj ger0Dm  
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> tHru0z  1NE4wJ FALSE   JX00hE cNzFBj DGJmkA  
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> tHru0z  HWyLvG TRUE    JX00hE K4XPVR A4OSJi  
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> tHru0z  47MLCc FALSE   n3heWp K4XPVR B09jL7  
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> tHru0z  SX4xHz FALSE   MbUwpk n3heWp GNh6HB  
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> tHru0z  TsmytX TRUE    LxHOqU XatHfv 50pY4l  
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> tHru0z  6Xu55C TRUE    XatHfv hd1A3g ucxFc5  
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> tHru0z  u77OxX FALSE   681SNa hd1A3g U92iZH  
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> tHru0z  uchWmt FALSE   3RyOHC 681SNa xJGBxo  
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> tHru0z  R7vLzI FALSE   LxHOqU 3RyOHC zC8IB0  
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> FnuHPW  47MLCc TRUE    n3heWp K4XPVR qb3eIn  
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> FnuHPW  sRNI7w TRUE    K4XPVR SnqAJW UGwcvG  
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> FnuHPW  IIwyDJ TRUE    SnqAJW xm2nKf LkOm9q  
+#&gt; </span><span style='color: #BCBCBC;'>16</span><span> FnuHPW  eG9WKq FALSE   n3heWp xm2nKf 0FttMw  </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

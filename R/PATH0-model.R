@@ -37,7 +37,8 @@ PATH0.default <- function(x, ...) {
   if (!"subobject" %in% names(gmap)) gmap$subobject <- 1
   idx <- tibble::tibble(vertex_ = instances$vertex_,
                         object_ = rep(gmap$object, gmap$nrow),
-                        path_ = as.character(rep(seq_len(nrow(gmap)), gmap$nrow)),
+                        ## removed as.character, path_ (and in TRI0) should not be character
+                        path_ = rep(seq_len(nrow(gmap)), gmap$nrow),
                         subobject = rep(gmap$subobject, gmap$nrow))
   if (length(unique(idx$subobject) > 1)) {
    #handle multis

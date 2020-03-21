@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -101,7 +101,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/hypertidy/silicate">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -116,7 +121,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Path model in structural form</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/hypertidy/silicate/blob/master/R/PATH0-model.R'><code>R/PATH0-model.R</code></a></small>
     <div class="hidden name"><code>PATH0.Rd</code></div>
     </div>
 
@@ -147,7 +152,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>PATH0 model</p>
+    <p>PATH0 model with tables 'object' and 'vertex'</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>(<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>PATH0</span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; class       : PATH0
@@ -156,7 +161,7 @@
 #&gt; paths       : 3 (1-space)
 #&gt; coordinates : 14
 #&gt; crs         : NA</div><div class='input'>
-<span class='no'>p</span>$<span class='no'>object</span>$<span class='no'>topology_</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: 'topology_'.</span></div><div class='output co'>#&gt; NULL</div></pre>
+<span class='no'>p</span>$<span class='no'>object</span>$<span class='no'>topology_</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: `topology_`.</span></div><div class='output co'>#&gt; NULL</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

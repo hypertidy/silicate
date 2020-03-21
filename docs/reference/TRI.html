@@ -36,7 +36,8 @@
 
 
 <meta property="og:title" content="TRI model, triangulations — TRI" />
-<meta property="og:description" content="TRI model, triangulations" />
+<meta property="og:description" content="TRI creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
+polygons." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -69,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -101,7 +102,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/hypertidy/silicate">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -116,12 +122,13 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>TRI model, triangulations</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/hypertidy/silicate/blob/master/R/TRI-model.R'><code>R/TRI-model.R</code></a>, <a href='https://github.com/hypertidy/silicate/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
     <div class="hidden name"><code>TRI.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>TRI model, triangulations</p>
+    <p>TRI creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
+polygons.</p>
     </div>
 
     <pre class="usage"><span class='fu'>TRI</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -148,14 +155,23 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>TRI model</p>
+    <p>TRI model with tables 'object', 'triangle', 'vertex'</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p>Ear-cutting is inherently path-based, so this model is only available for
+path-based structures, like simple features, <code><a href='PATH.html'>PATH()</a></code>, <code><a href='PATH0.html'>PATH0()</a></code> and <code><a href='ARC.html'>ARC()</a></code>.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>tri</span> <span class='kw'>&lt;-</span> <span class='fu'>TRI</span>(<span class='no'>minimal_mesh</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>tri</span>)</div><div class='img'><img src='TRI-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

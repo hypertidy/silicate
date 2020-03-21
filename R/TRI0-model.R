@@ -1,18 +1,51 @@
 #' TRI0 model, structural triangulations
 #'
 #' TRI0 creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
-#' polygons.
+#' polygons. 'Structural' is a denser storage mode than 'relational'
+#' as used by [TRI()], we trade some generality for size and speed.
+#' 
+#' TRI0 is suitable for simple conversion to other mesh forms. See
+#' the examples for plotting and (in commented code) conversion to
+#' rgl's 'mesh3d'. 
+#'  
+#' 'Structural' means that the model does not store relational
+#' IDs between tables, the vertex indexing is stored as a nested
+#' list of data frames in the 'object' table. Unlike [TRI()] we
+#' cannot arbitrarily rearrange the order or remove content
+#' of the underlying tables, without updating the vertex indexes
+#' stored for each object. 
 #'
+#' 
 #' Ear-cutting is inherently path-based, so this model is only available for
 #' path-based structures, like simple features, [PATH()], [PATH0()] and [ARC()].
 #' @param x object understood by silicate (sf, sp, a silicate model, etc.)
 #' @param ... currently unused
 #' @return TRI0 model with tables 'object', 'vertex'
+#' @seealso TRI
 #' @export
 #' @examples
 #' tri <- TRI0(minimal_mesh)
 #' print(tri)
 #' plot(tri)
+#' 
+#' # obtain the vertices and indices in raw form
+#' 
+#' ## idx is the triplets of row numbers in tri$vertex 
+#' idx <- do.call(rbind, sc_object(tri)$topology_)
+#' idx <- as.matrix(idx[c(".vx0", ".vx1", ".vx2")])
+#' 
+#' ## vert is the vertices x_, y_, ...
+#' vert <- as.matrix(sc_vertex(tri))
+#' 
+#' ## now we can plot with generic tools
+#' plot(vert)
+#' polygon(vert[t(cbind(idx, NA)), ])
+#' 
+#' ## or create other structures like rgl's mesh3d 
+#' ## (see hypertidy/anglr for in-dev helpers)
+#' ## rgl::tmesh3d(t(cbind(vert, 1, 1)), t(idx), 
+#' ##   material = list(color = c("firebrick", "black", "grey", "blue")), 
+#' ##   meshColor = "faces")
 TRI0 <- function(x, ...) {
   UseMethod("TRI0")
 }

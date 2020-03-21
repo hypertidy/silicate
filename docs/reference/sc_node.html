@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -101,7 +101,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/hypertidy/silicate">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -116,7 +121,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Nodes for arc-node topology.</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/hypertidy/silicate/blob/master/R/00_node.R'><code>R/00_node.R</code></a></small>
     <div class="hidden name"><code>sc_node.Rd</code></div>
     </div>
 
@@ -154,16 +159,35 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>data frame of the nodes</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>sc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='SC.html'>SC</a></span>(<span class='no'>routes</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>sc</span>)</div><div class='input'><span class='fu'>sc_node</span>(<span class='no'>sc</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>inner_join</a></span>(<span class='no'>sc</span>$<span class='no'>vertex</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='no'>x_</span>, <span class='no'>y_</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>()</div><div class='output co'>#&gt; <span class='message'>Joining, by = "vertex_"</span></div><div class='img'><img src='sc_node-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>sc_node</span>(<span class='fu'><a href='ARC.html'>ARC</a></span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 1</span><span>
+#&gt;   vertex_
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> nDk9nX 
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> lTPAh1 </div><div class='input'><span class='no'>sc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='SC.html'>SC</a></span>(<span class='no'>routes</span>)</div><div class='output co'>#&gt; <span class='message'>New names:</span>
+#&gt; <span class='message'>* `111` -&gt; `111...11`</span>
+#&gt; <span class='message'>* `112` -&gt; `112...12`</span>
+#&gt; <span class='message'>* `113` -&gt; `113...13`</span>
+#&gt; <span class='message'>* `114` -&gt; `114...14`</span>
+#&gt; <span class='message'>* `115` -&gt; `115...15`</span>
+#&gt; <span class='message'>* ...</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>sc</span>)</div><div class='output co'>#&gt; <span class='message'>New names:</span>
+#&gt; <span class='message'>* `111` -&gt; `111...11`</span>
+#&gt; <span class='message'>* `112` -&gt; `112...12`</span>
+#&gt; <span class='message'>* `113` -&gt; `113...13`</span>
+#&gt; <span class='message'>* `114` -&gt; `114...14`</span>
+#&gt; <span class='message'>* `115` -&gt; `115...15`</span>
+#&gt; <span class='message'>* ...</span></div><div class='input'><span class='fu'>sc_node</span>(<span class='no'>sc</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>inner_join</a></span>(<span class='no'>sc</span>$<span class='no'>vertex</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='no'>x_</span>, <span class='no'>y_</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>()</div><div class='output co'>#&gt; <span class='message'>Joining, by = "vertex_"</span></div><div class='img'><img src='sc_node-1.png' alt='' width='700' height='433' /></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

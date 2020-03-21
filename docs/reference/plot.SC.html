@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -101,7 +101,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/hypertidy/silicate">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -116,7 +121,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot silicate</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/hypertidy/silicate/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
     <div class="hidden name"><code>plot.SC.Rd</code></div>
     </div>
 
@@ -135,11 +140,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>SC object</p></td>
+      <td><p>sc object</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='https://rdrr.io/r/graphics/segments.html'>graphics::segments</a></code></p></td>
+      <td><p>arguments passed to lower level plotting functions</p></td>
     </tr>
     <tr>
       <th>add</th>
@@ -149,10 +154,10 @@
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The 'col' argument is passed directly to <code>segments</code> if present, in the usual one-to-one or
-recycling way. The <code>...</code> args are passed to <code>segments</code>.  If <code>color_</code> present on the object table
-it is mapped to the edges of each object.</p>
-<p><code>asp</code> and so on are not able to be passed to the initial plot setup.</p>
+    <p>The 'col' argument is passed directly to <code><a href='https://rdrr.io/r/graphics/segments.html'>segments()</a></code>  or <code><a href='https://rdrr.io/r/graphics/polypath.html'>polypath()</a></code> as needed, in the usual
+one-to-one or recycling way.</p>
+<p>Graphical parameters are not able to be passed to the initial plot setup, but a plot
+can be set up and then added to with this method.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

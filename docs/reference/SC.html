@@ -71,7 +71,7 @@ higher level structures recorded as groupings of edges." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -103,7 +103,12 @@ higher level structures recorded as groupings of edges." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/hypertidy/silicate">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -118,7 +123,7 @@ higher level structures recorded as groupings of edges." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>The universal model</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/hypertidy/silicate/blob/master/R/SC-model.R'><code>R/SC-model.R</code></a></small>
     <div class="hidden name"><code>SC.Rd</code></div>
     </div>
 
@@ -146,23 +151,21 @@ higher level structures recorded as groupings of edges.</p>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>SC model with tables 'object', 'object_link_edge', 'edge', and 'vertex'</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## we can produce a high quality triangulation from a low quality one</span>
 <span class='co'>## see how the TRI edges are maintained (we can't yet filter out holes from DEL)</span>
 <span class='no'>tri</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='TRI.html'>TRI</a></span>(<span class='no'>minimal_mesh</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>tri</span>)</div><div class='img'><img src='SC-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>SC</span>(<span class='no'>tri</span>))</div><div class='img'><img src='SC-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'># library(anglr)</span>
-<span class='co'>#plot(DEL(SC(TRI(minimal_mesh)), max_area = 0.001))</span>
-
-<span class='co'>## Nice small triangles in a conforming Delaunay mesh.</span>
-<span class='co'>#plot(SC(DEL(simpleworld[121, ], D = TRUE, max_area = .1)))</span>
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>tri</span>)</div><div class='img'><img src='SC-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>SC</span>(<span class='no'>tri</span>))</div><div class='img'><img src='SC-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

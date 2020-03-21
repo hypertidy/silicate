@@ -70,7 +70,7 @@ arcs are the linear features that have no branches." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -102,7 +102,12 @@ arcs are the linear features that have no branches." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/hypertidy/silicate">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -117,7 +122,7 @@ arcs are the linear features that have no branches." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>ARC model</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/hypertidy/silicate/blob/master/R/ARC-model.R'><code>R/ARC-model.R</code></a></small>
     <div class="hidden name"><code>ARC.Rd</code></div>
     </div>
 
@@ -162,20 +167,23 @@ can in theory be reconstructed within objects by tracing <code>arc_link_vertex</
 identity.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)
-<span class='fu'><a href='sc_arc.html'>sc_arc</a></span>(<span class='no'>a</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 2</span><span>
+    <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'>ARC</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `as_data_frame()` is deprecated as of tibble 2.0.0.</span>
+#&gt; <span class='warning'>Please use `as_tibble()` instead.</span>
+#&gt; <span class='warning'>The signature and semantics have changed, see `?as_tibble`.</span>
+#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
+#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'><span class='fu'><a href='sc_arc.html'>sc_arc</a></span>(<span class='no'>a</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 2</span><span>
 #&gt;   arc_   ncoords_
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> ovppqU        6
-#&gt; </span><span style='color: #555555;'>2</span><span> pXT9rs        7
-#&gt; </span><span style='color: #555555;'>3</span><span> RahELW        2
-#&gt; </span><span style='color: #555555;'>4</span><span> TSUUSt        4</div><div class='input'><span class='fu'><a href='sc_arc.html'>sc_arc</a></span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> ovppqU        6
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> pXT9rs        7
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> RahELW        2
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> TSUUSt        4</div><div class='input'><span class='fu'><a href='sc_arc.html'>sc_arc</a></span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 2</span><span>
 #&gt;   arc_   ncoords_
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 8WSnW8        6
-#&gt; </span><span style='color: #555555;'>2</span><span> hwJciN        2
-#&gt; </span><span style='color: #555555;'>3</span><span> Qo6fKJ        4
-#&gt; </span><span style='color: #555555;'>4</span><span> XkMWgN        7</div></span></pre>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 8WSnW8        6
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> hwJciN        2
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Qo6fKJ        4
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> XkMWgN        7</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
