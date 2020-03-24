@@ -7,6 +7,7 @@
 #' entities, and more specialist versions [PATH0()], [TRI0()] and [SC0()] provide more
 #' efficient topological representations of polygons or lines. 
 #' @name silicate
+#' @aliases silicate-package
 #' @docType package
 NULL
 

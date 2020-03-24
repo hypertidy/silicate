@@ -3,6 +3,7 @@
 \docType{package}
 \name{silicate}
 \alias{silicate}
+\alias{silicate-package}
 \title{silicate}
 \description{
 Decomposes spatial data (of various formats) into simpler forms, including

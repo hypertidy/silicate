@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9001</span>
       </span>
     </div>
 
@@ -54,6 +54,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/silicate-data-model.html">silicate-data-model</a>
+    </li>
+    <li>
       <a href="../articles/silicate_topology_01.html">silicate: the fabric of hierarchical structures</a>
     </li>
   </ul>
@@ -85,7 +88,7 @@
       <h1>silicate: the fabric of hierarchical structures</h1>
                         <h4 class="author">Michael D. Sumner</h4>
             
-            <h4 class="date">2020-03-21</h4>
+            <h4 class="date">2020-03-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hypertidy/silicate/blob/master/vignettes/silicate_topology_01.Rmd"><code>vignettes/silicate_topology_01.Rmd</code></a></small>
       <div class="hidden name"><code>silicate_topology_01.Rmd</code></div>
@@ -147,21 +150,21 @@
 <pre><code>## # A tibble: 15 x 4
 ##    .vx0   .vx1   path_ edge_ 
 ##    &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;chr&gt; 
-##  1 XUBSh6 rLggZv     1 m96Uu6
-##  2 rLggZv BTesND     1 sZV5te
-##  3 BTesND QbhPPT     1 xhA7Hd
-##  4 h0Ez4u QbhPPT     1 A3Knf6
-##  5 h0Ez4u zeO07r     1 48DJL3
-##  6 qQbc6Z zeO07r     1 XSUIYO
-##  7 XUBSh6 qQbc6Z     1 w2qkzO
-##  8 8SzLnA L6BY9a     2 hlm6EW
-##  9 L6BY9a 2a6Q1f     2 N7nEbl
-## 10 90SqGo 2a6Q1f     2 MH2yCD
-## 11 OwWa8s 90SqGo     2 GLJNwU
-## 12 8SzLnA OwWa8s     2 7LCApI
-## 13 zeO07r 2gIUIu     3 ZGZQ56
-## 14 2gIUIu kw4G59     3 lwOZU3
-## 15 qQbc6Z kw4G59     3 GdJ51W</code></pre>
+##  1 zh1yAx yA8enm     1 eDKc1w
+##  2 yA8enm jovXFE     1 Xyuszm
+##  3 jovXFE sGTzVq     1 PaZK9C
+##  4 5NEDVc sGTzVq     1 AeLUdL
+##  5 5NEDVc ziY0rn     1 fbUGEz
+##  6 DPccXS ziY0rn     1 8wyUME
+##  7 zh1yAx DPccXS     1 d7eAME
+##  8 ggzL5l nAfiSD     2 OmhqDE
+##  9 nAfiSD hB97f0     2 C6dNmh
+## 10 jQXmoV hB97f0     2 xCXUSU
+## 11 L6cP6r jQXmoV     2 uKV2cf
+## 12 ggzL5l L6cP6r     2 5pBm6h
+## 13 ziY0rn nckb97     3 U2GLoD
+## 14 nckb97 Gtr2pc     3 8WjFul
+## 15 DPccXS Gtr2pc     3 b4jUNf</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(x)</span></code></pre></div>
 <pre><code>## class       : SC
 ## type        : Primitive
@@ -190,25 +193,25 @@
 <pre><code>## # A tibble: 19 x 10
 ##        a object_  ncol type         subobject path_ ncoords_ vertex_    x_    y_
 ##    &lt;int&gt; &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
-##  1     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 UrN15F   0     0   
-##  2     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 1A0pop   0     1   
-##  3     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 q1dMbS   0.75  1   
-##  4     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 hLJAiQ   1     0.8 
-##  5     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 zcaQ3k   0.5   0.7 
-##  6     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 ITDlzt   0.8   0.6 
-##  7     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 3jLyyM   0.69  0   
-##  8     1 s2VBZG      2 MULTIPOLYGON         1 m2mX…        8 UrN15F   0     0   
-##  9     1 s2VBZG      2 MULTIPOLYGON         1 WQLK…        6 0BfT1w   0.2   0.2 
-## 10     1 s2VBZG      2 MULTIPOLYGON         1 WQLK…        6 xU5xeJ   0.5   0.2 
-## 11     1 s2VBZG      2 MULTIPOLYGON         1 WQLK…        6 JmiwW7   0.5   0.4 
-## 12     1 s2VBZG      2 MULTIPOLYGON         1 WQLK…        6 M3tCBT   0.3   0.6 
-## 13     1 s2VBZG      2 MULTIPOLYGON         1 WQLK…        6 QOKSdH   0.2   0.4 
-## 14     1 s2VBZG      2 MULTIPOLYGON         1 WQLK…        6 0BfT1w   0.2   0.2 
-## 15     2 wIffKy      2 MULTIPOLYGON         1 wzKq…        5 3jLyyM   0.69  0   
-## 16     2 wIffKy      2 MULTIPOLYGON         1 wzKq…        5 ITDlzt   0.8   0.6 
-## 17     2 wIffKy      2 MULTIPOLYGON         1 wzKq…        5 52xEHy   1.1   0.63
-## 18     2 wIffKy      2 MULTIPOLYGON         1 wzKq…        5 8rrgiF   1.23  0.3 
-## 19     2 wIffKy      2 MULTIPOLYGON         1 wzKq…        5 3jLyyM   0.69  0</code></pre>
+##  1     1 D2a27I      2 MULTIPOLYGON         1 1xuf…        8 Y8ESi3   0     0   
+##  2     1 D2a27I      2 MULTIPOLYGON         1 1xuf…        8 glAEr5   0     1   
+##  3     1 D2a27I      2 MULTIPOLYGON         1 1xuf…        8 krnmcD   0.75  1   
+##  4     1 D2a27I      2 MULTIPOLYGON         1 1xuf…        8 ufZEW4   1     0.8 
+##  5     1 D2a27I      2 MULTIPOLYGON         1 1xuf…        8 iFRDAE   0.5   0.7 
+##  6     1 D2a27I      2 MULTIPOLYGON         1 1xuf…        8 TM8wbx   0.8   0.6 
+##  7     1 D2a27I      2 MULTIPOLYGON         1 1xuf…        8 yqLkff   0.69  0   
+##  8     1 D2a27I      2 MULTIPOLYGON         1 1xuf…        8 Y8ESi3   0     0   
+##  9     1 D2a27I      2 MULTIPOLYGON         1 pMG9…        6 M1zPbP   0.2   0.2 
+## 10     1 D2a27I      2 MULTIPOLYGON         1 pMG9…        6 oL8oPy   0.5   0.2 
+## 11     1 D2a27I      2 MULTIPOLYGON         1 pMG9…        6 0RDAjA   0.5   0.4 
+## 12     1 D2a27I      2 MULTIPOLYGON         1 pMG9…        6 Qv9QAD   0.3   0.6 
+## 13     1 D2a27I      2 MULTIPOLYGON         1 pMG9…        6 qmMgKp   0.2   0.4 
+## 14     1 D2a27I      2 MULTIPOLYGON         1 pMG9…        6 M1zPbP   0.2   0.2 
+## 15     2 GZMYmd      2 MULTIPOLYGON         1 RZwo…        5 yqLkff   0.69  0   
+## 16     2 GZMYmd      2 MULTIPOLYGON         1 RZwo…        5 TM8wbx   0.8   0.6 
+## 17     2 GZMYmd      2 MULTIPOLYGON         1 RZwo…        5 OvO3g8   1.1   0.63
+## 18     2 GZMYmd      2 MULTIPOLYGON         1 RZwo…        5 ipUN1K   1.23  0.3 
+## 19     2 GZMYmd      2 MULTIPOLYGON         1 RZwo…        5 yqLkff   0.69  0</code></pre>
 <p>Paths are easily re-expressed as a set of edges, treating each pair of coordinates as a new kind of entity. Some edges are <em>shared</em>, in that two objects might have a particular edge in their own path. If the shared neighbours are two polygons, then it’s likely that each polygon encounters that edge in a different direction, but this is not a stable pattern so it’s best to not assume it to be the case. It’s important here because we need to differentiate between an <em>instance of an edge</em>, which is a particular <em>line segment</em> that is part of one particular polygon. If that polygon segment is a shared edge with a neighbour polygon, then we distinguish the instances as a particular <em>segment</em> of a unique <em>edge</em>. This allows us the opportunity to treat the edge as completely abstract, and also to decide or record what it’s orientation is, which records which vertex is the first one, and which is the second. Not all applications need to care about this distinction, though.</p>
 <p>In this way we have an analogy for edges and segments compared to vertices and coordinates, and I think this terminology makes sense!</p>
 </div>
@@ -245,7 +248,7 @@
 <span id="cb22-6"><a href="#cb22-6"></a><span class="co"># 15.476   0.225  15.460 </span></span>
 <span id="cb22-7"><a href="#cb22-7"></a><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(tri &lt;-<span class="st"> </span><span class="kw"><a href="../reference/TRI.html">TRI</a></span>(inlandwaters))</span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   5.623   0.060   5.695</code></pre>
+##   5.173   0.012   5.194</code></pre>
 <p>The triangles are low-quality (but triangles are very easy to subdivide).</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(tri)</span></code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>

@@ -2,5 +2,6 @@ pandoc: 2.7.3
 pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
+  silicate-data-model: silicate-data-model.html
   silicate_topology_01: silicate_topology_01.html
 
