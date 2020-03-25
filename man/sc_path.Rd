@@ -2,6 +2,7 @@
 % Please edit documentation in R/00_path.R
 \name{sc_path}
 \alias{sc_path}
+\alias{sc_path.list}
 \alias{sc_path.default}
 \alias{sc_path.PATH}
 \alias{sc_path.PATH0}
@@ -22,6 +23,8 @@
 \title{Path decomposition}
 \usage{
 sc_path(x, ...)
+
+\method{sc_path}{list}(x, ...)
 
 \method{sc_path}{default}(x, ...)
 

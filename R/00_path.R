@@ -30,6 +30,7 @@ sc_path.list <- function(x, ...) {
     out <- try(sc_path.default(x), silent = TRUE)
     if (inherits(out, "try-error")) stop("cannot determine coords from 'x'")
   }
+  out
 }
 #' @name sc_path
 #' @export
