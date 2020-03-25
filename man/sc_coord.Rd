@@ -2,6 +2,7 @@
 % Please edit documentation in R/00_coord.R
 \name{sc_coord}
 \alias{sc_coord}
+\alias{sc_coord.list}
 \alias{sc_coord.default}
 \alias{sc_coord.matrix}
 \alias{sc_coord.PATH}
@@ -23,6 +24,8 @@
 \title{Coordinate decomposition}
 \usage{
 sc_coord(x, ...)
+
+\method{sc_coord}{list}(x, ...)
 
 \method{sc_coord}{default}(x, ...)
 

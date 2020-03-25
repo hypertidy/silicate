@@ -42,6 +42,21 @@ r_coords <- function(x) {
 
 #' @name sc_coord
 #' @export
+sc_coord.list <- function(x, ...) {
+  ## before we bail out to sc_coord.default, check if this is an unclass sfc
+  if (inherits(x[[1]], "sfg")) {
+    ## assume it is a sfc
+    return(sc_coord.sfc(x))
+  } else {
+    out <- try(sc_coord.default(x), silent = TRUE)
+  }
+  if (inherits(out, "try-error")) {
+    stop("cannot interpret coords from 'x'")
+  }
+  out
+}
+#' @name sc_coord
+#' @export
 sc_coord.default <- function(x, ...){
   if (is.null(x[["coord"]]) || !inherits(x[["coord"]], "data.frame")) {
     if (is.list(x)) x <- tibble::as_tibble(x)
