@@ -19,6 +19,19 @@
 sc_path <- function(x, ...) {
   UseMethod("sc_path")
 }
+
+#' @name sc_path
+#' @export
+sc_path.list <- function(x, ...) {
+  ## check we aren't an unclass sfc list
+  if (inherits(x[[1]], "sfg")) {
+    return(sc_path.sfc(x))
+  } else {
+    out <- try(sc_path.default(x), silent = TRUE)
+    if (inherits(out, "try-error")) stop("cannot determine coords from 'x'")
+  }
+  out
+}
 #' @name sc_path
 #' @export
 sc_path.default <- function(x, ...) {
