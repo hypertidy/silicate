@@ -1,3 +1,7 @@
+# silicate dev
+
+* Fixed a problem with unclassed sfc lists. #109 and https://github.com/hypertidy/anglr/issues/91/. 
+
 # silicate 0.3.0
 
 * Import crsmeta so we can navigate the structure change in sf crs. (Fixes
