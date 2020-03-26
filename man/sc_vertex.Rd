@@ -4,6 +4,7 @@
 \alias{sc_vertex}
 \alias{sc_vertex.default}
 \alias{sc_vertex.SC}
+\alias{sc_vertex.SC0}
 \alias{sc_vertex.ARC}
 \alias{sc_vertex.TRI}
 \alias{sc_vertex.TRI0}
@@ -16,6 +17,8 @@ sc_vertex(x, ...)
 \method{sc_vertex}{default}(x, ...)
 
 \method{sc_vertex}{SC}(x, ...)
+
+\method{sc_vertex}{SC0}(x, ...)
 
 \method{sc_vertex}{ARC}(x, ...)
 

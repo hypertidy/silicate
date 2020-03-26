@@ -43,7 +43,7 @@ sc_edge.SC0 <- function(x, ...) {
   # if (is.null(x$object[["object_"]])) {
   #   x$object$object_ <- seq_len(dim(x$object)[1])
   # }
- out <- tidyr::unnest(x$object[c( "topology_")], cols = c(.data$topology_))
+ out <- do.call(rbind, x$object$topology_)
  out$edge_ <- as.integer(as.factor(paste(pmin(out$.vx0, out$.vx1), pmax(out$.vx0, out$.vx1))))
  out <- out %>% dplyr::distinct(.data$edge_, .keep_all = TRUE)
  out$edge_ <- NULL

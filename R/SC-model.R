@@ -20,8 +20,25 @@ SC <- function(x, ...) {
   UseMethod("SC")
 }
 
+#' #' @export
+#' #' @name SC
+#' SC.SC0 <- function(x, ...) {
+#'   v <- sc_vertex(x)
+#'   o <- sc_object(x)
+#'   index <- do.call(rbind, o$topology_)
+#'   o$topology_ <- NULL
+#'   structure(list(object = O,
+#'                  object_link_edge = oXe,
+#'                  edge = edge,
+#'                  vertex = V,
+#'                  meta = meta),
+#'             ## a special join_ramp, needs edge to split on vertex
+#'             join_ramp = c("object", "object_link_edge", "edge", "vertex"),
+#'             class = c("SC", "sc"))
+#' }
 
 #' @export
+#' @name SC
 #' @importFrom tidyr unnest
 SC.default <- function(x, ...) {
   B <- SC0(x, ...)
@@ -31,7 +48,8 @@ SC.default <- function(x, ...) {
   O1 <- O["object_"]
   O1[["edge_"]] <- B$object[["topology_"]]
   meta <- tibble::tibble(proj = get_projection(x), ctime = format(Sys.time(), tz = "UTC"))
-  edge <- tidyr::unnest(O1, cols = c(.data$edge_))
+  for (i in seq_along(O1$edge_)) O1$edge_[[i]]$object_ <- O1$object_[i]
+  edge <- do.call(rbind, O1$edge_)
   tst <- c(".vx0", ".vx1") %in% names(edge)
   if (!all(tst)) {
     if (sum(tst) == 1) stop("model has only 0-space vertices (is it point-topology? Try '?SC0'. )")

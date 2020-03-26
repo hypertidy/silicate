@@ -168,7 +168,7 @@ SC0.TRI <- function(x, ...) {
   triangle[[".vx0"]] <- tritri[,1L, drop = TRUE]
   triangle[[".vx1"]] <- tritri[,2L, drop = TRUE]
   triangle[[".vx2"]] <- tritri[,3L, drop = TRUE]
-  
+
   triangle_list <- split(triangle, triangle$object_)[unique(triangle$object_)]
   top <- vector("list", length(triangle_list))
   for (i in seq_along(triangle_list)) {
@@ -199,8 +199,6 @@ SC0.SC <- function(x, ...) {
   object[["topology_"]] <- split(tibble::as_tibble(.vx), as.integer(factor(oXe$object_,unique(oXe$object_))))
   structure(list(object = object, vertex = sc_vertex(x) %>% dplyr::mutate(vertex_ = NULL)), class = c("SC0", "sc"))
 }
-sc_vertex.SC0 <- function(x, ...) {
-  x[["vertex"]]
-}
+
 
 

@@ -48,16 +48,21 @@ plot.SC <- function(x, ..., add = FALSE ) {
 plot.SC0 <- function(x, ... , add = FALSE) {
   args <- list(...)
   ## no colours for free, you get what you get
-  if ("color_" %in% names(x$object)) {
-      edge_per_object <- unlist(lapply(x$object$topology_, nrow))
-      args$col <- rep(x$object$color_, edge_per_object)
+  edge_per_object <- unlist(lapply(x$object$topology_, nrow))
 
+  if ("color_" %in% names(x$object)) {
+    args$col <- rep(x$object$color_, edge_per_object)
+  } else {
+    if ("col" %in% names(args)) {
+      args$col <- rep(args$col, sum(edge_per_object))
+    }
   }
+
   v <- sc_vertex(x) %>% add_rownum("vertex_")
   e <- sc_edge(x)
   x0 <- e %>% dplyr::inner_join(v, c(".vx0" = "vertex_"))
   x1 <- e %>% dplyr::inner_join(v, c(".vx1" = "vertex_"))
-  if (!add) graphics::plot(v$x_, v$y_, pch = ".")
+  if (!add) graphics::plot(v$x_, v$y_, type = "n")
   args$x0 <- x0$x_
   args$x1 <- x1$x_
   args$y0 <- x0$y_

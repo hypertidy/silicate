@@ -2,10 +2,13 @@
 % Please edit documentation in R/SC-model.R
 \name{SC}
 \alias{SC}
+\alias{SC.default}
 \alias{SC.TRI}
 \title{The universal model}
 \usage{
 SC(x, ...)
+
+\method{SC}{default}(x, ...)
 
 \method{SC}{TRI}(x, ...)
 }
