@@ -1,8 +1,8 @@
 #' TRI model, triangulations
 #'
 #' TRI creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
-#' polygons. The model is a 'relational' form in that the underlying tables are 
-#' linked implicitly by unique identifiers.  
+#' polygons. The model is a 'relational' form in that the underlying tables are
+#' linked implicitly by unique identifiers.
 #' Ear-cutting is inherently path-based, so this model is only available for
 #' path-based structures, like simple features, [PATH()], [PATH0()] and [ARC()].
 #' @param x object understood by silicate (sf, sp, a silicate model, etc.)
@@ -73,6 +73,7 @@ TRI.PATH <- function(x, ...) {
                     object = .data$object_) %>%
       dplyr::ungroup()
   }
+
   tri <- triangulate_0(x)
   tri$visible <- TRUE
   tri$path_ <- NULL

@@ -40,6 +40,20 @@ r_coords <- function(x) {
   tibble::as_tibble(x)[!nas, ]
 }
 
+## -- from anglr, suited for a data frame
+maybe_geom_column <- function(x, ...) {
+  names(x)[purrr::map_lgl(x, ~ inherits(.x, "list"))]
+}
+
+check_is_geom_column <- function(x, ...) {
+  any(class(x[[1]]) == "sfg")
+}
+
+find_geom_column <- function(x) {
+  purrr::map(maybe_geom_column(x), check_is_geom_column)
+}
+## ^^ from anglr
+
 #' @name sc_coord
 #' @export
 sc_coord.list <- function(x, ...) {

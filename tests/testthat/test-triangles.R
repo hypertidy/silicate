@@ -9,3 +9,12 @@ test_that("triangle tools works", {
   expect_equal(tri_jx(pts[tri, ]), c(1, 2, 3, 4, 5, 6))
 
 })
+
+
+test_that("triangle cull/visibility works", {
+  ## first object has a hole in it
+  mintri <- silicate::TRI(silicate::minimal_mesh)
+
+  ## TRI model *does not* have triangles that exist within a hole
+  expect_true(sum(mintri$triangle$visible) == dim(mintri$triangle)[1L])
+})
