@@ -1,0 +1,30 @@
+---
+title: "silicate-data-model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{silicate-data-model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(silicate)
+```
+
+The silicate package provides tools and data models to work with decompositions of complex data types. The primary examples of use are
+with spatial data layers and most silicate workflows are geared to using the underlying structures and topology of spatial data. We can use these for a range of activities: 
+
+* converting data from one format to another
+* exploring the underlying relationships with a data set
+* developing new tools. 
+
+The functions in silicate are grouped into *models* and *worker verbs*. The models have capitalized names and the worker verbs are prefixed with 'sc'. 
+
+The worker verbs work with all (there are some exceptions) model types and with several external formats, particularly sf, sp, trip, and other external package types.  
