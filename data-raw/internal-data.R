@@ -93,4 +93,9 @@ arc0 <- structure(list(object = structure(list(ID = 9897:9899, GAR_ID = c(0L,
 
 raw_chars <- c(LETTERS, letters, 0:9)
 viridis_cols <- viridis::viridis(256)
-usethis::use_data(viridis_cols,raw_chars,minimal_line, arc0, internal = TRUE, overwrite = TRUE)
+.xyz <-   sf::st_sfc(sf::st_linestring(cbind(c(0, 0, 1, 1, 0), 
+                                                    c(0, 1, 1, 0, 0), 
+                                                    rnorm(4)[c(1, 2, 3, 4, 1)])) )
+
+.tr <- trip::walrus818[600:1200, ]
+usethis::use_data(.tr, .xyz, viridis_cols,raw_chars,minimal_line, arc0, internal = TRUE, overwrite = TRUE)

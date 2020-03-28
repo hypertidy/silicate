@@ -25,7 +25,7 @@ Suggests:
     knitr,
     rmarkdown,
     sp,
-    testthat,
+    testthat (>= 2.1.0),
     trip,
     vdiffr
 RoxygenNote: 7.1.0
@@ -50,4 +50,3 @@ Roxygen: list(markdown = TRUE)
 URL: https://github.com/hypertidy/silicate
 BugReports: https://github.com/hypertidy/silicate/issues
 Remotes: hypertidy/reproj, hypertidy/crsmeta
-
