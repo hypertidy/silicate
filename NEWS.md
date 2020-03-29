@@ -1,5 +1,8 @@
 # silicate dev
 
+* Several fixes related to new unnest() behaviour, it was 
+ unnecessary so replaced with use of do.call/rbind. 
+ 
 * Fix previous unexported `sc_vertex.SC0`, the cause of https://github.com/hypertidy/anglr/issues/97. 
 
 * Fixed a problem with unclassed sfc lists. #109 and https://github.com/hypertidy/anglr/issues/91/. 
