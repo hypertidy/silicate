@@ -48,4 +48,4 @@ VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/hypertidy/silicate
 BugReports: https://github.com/hypertidy/silicate/issues
-Remotes: hypertidy/reproj, hypertidy/crsmeta
+
