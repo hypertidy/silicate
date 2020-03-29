@@ -109,13 +109,14 @@ sc_coord.TRI <- function(x, ...) {
 #' @name sc_coord
 #' @export
 sc_coord.PATH0 <- function(x, ...) {
-  x[["vertex"]][tidyr::unnest(x[["object"]]["path_"], cols = .data$path_)[["vertex_"]], ]
+  x[["vertex"]][do.call(rbind, x$object$path_)[["vertex_"]], ]
 }
 #' @name sc_coord
 #' @export
-#' @importFrom tidyr unnest
 sc_coord.SC0 <- function(x, ...) {
-  x[["vertex"]][as.vector(t(as.matrix(tidyr::unnest(x$object["topology_"], cols = c(.data$topology_))))), ]
+  id <- do.call(rbind, x$object[["topology_"]])[c(".vx0", ".vx1")]
+
+  x[["vertex"]][as.vector(t(as.matrix(id))), ]
 }
 #' @name sc_coord
 #' @export
