@@ -256,7 +256,9 @@ sc_coord.POINT <- sc_coord.LINESTRING
 #' @name sc_coord
 #' @importFrom stats setNames
 sc_coord.Spatial <- function(x, ...) {
-  stats::setNames(tibble::as_tibble(do.call(rbind, lapply(.sp_get_geometry(x), sc_coord))), c("x_", "y_"))
+  mat <- do.call(rbind, lapply(.sp_get_geometry(x), sc_coord))
+  colnames(mat) <- c("x_", "y_")
+  tibble::as_tibble(mat)
 }
 #' @name sc_coord
 #' @export

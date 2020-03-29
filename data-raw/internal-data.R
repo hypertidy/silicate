@@ -99,4 +99,5 @@ viridis_cols <- viridis::viridis(256)
 
 .tr <- trip::walrus818[600:1200, ]
 .cad_tas_path0 <- PATH0(anglr::cad_tas)
-usethis::use_data(.cad_tas_path0, .tr, .xyz, viridis_cols,raw_chars,minimal_line, arc0, internal = TRUE, overwrite = TRUE)
+.nc_sp <- rgdal::readOGR(system.file("gpkg/nc.gpkg", package = "sf"))
+usethis::use_data(.nc_sp, .cad_tas_path0, .tr, .xyz, viridis_cols,raw_chars,minimal_line, arc0, internal = TRUE, overwrite = TRUE)
