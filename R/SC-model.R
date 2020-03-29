@@ -39,7 +39,6 @@ SC <- function(x, ...) {
 
 #' @export
 #' @name SC
-#' @importFrom tidyr unnest
 SC.default <- function(x, ...) {
   B <- SC0(x, ...)
   O <- sc_object(B)
