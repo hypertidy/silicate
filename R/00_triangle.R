@@ -13,8 +13,11 @@ sc_triangle.default <- function(x, ...) {
 
 sc_triangle.TRI0 <- function(x, ...) {
   obj <- sc_object(x)
-  #obj[["object_"]] <- seq_len(nrow(obj))
-  tidyr::unnest(obj["topology_"], cols = c("topology_"), .id = "object_")
+  topol <- obj$topology_
+  for (i in seq_along(topol)) {
+    topol[[i]][["object_"]] <- as.character(i)
+  }
+  do.call(rbind, topol)
 }
 
 sc_triangle.TRI <- function(x, ...) {
