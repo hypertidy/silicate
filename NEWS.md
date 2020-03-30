@@ -1,5 +1,8 @@
 # silicate dev
 
+* A potentially breaking change, stray uses of the `triangle$visible_` 
+property have been removed, to be consistent with the anglr package. 
+
 * Several fixes related to new unnest() behaviour, it was 
  unnecessary so replaced with use of do.call/rbind. 
  

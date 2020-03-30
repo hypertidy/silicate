@@ -154,7 +154,7 @@ plot.TRI <- function(x, ..., add = FALSE) {
   vps <- gridBase::baseViewports()
   grid::pushViewport(vps$inner, vps$figure, vps$plot)
   tt <- x[["triangle"]]
-  if (!is.null(tt[["visible_"]]))  tt <- dplyr::filter(tt, .data$visible_)
+  if (!is.null(tt[["visible"]]))  tt <- dplyr::filter(tt, .data$visible)
 
   tt <- match(as.vector(t(as.matrix(tt[c(".vx0", ".vx1", ".vx2")]))), v$vertex_)
   xx <- tibble(x = v$x_[tt], y = v$y_[tt], id = rep(seq_len(length(tt)/3), each = 3),
