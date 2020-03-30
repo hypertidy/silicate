@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,7 +41,6 @@
 
 <meta property="og:title" content="Given a `PATH`` model decompose to 1-dimensional primitives (or 0-dimensional). — sc_segment" />
 <meta property="og:description" content="Given a `PATH`` model decompose to 1-dimensional primitives (or 0-dimensional)." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -55,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -69,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9030</span>
       </span>
     </div>
 
@@ -105,7 +108,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hypertidy/silicate">
+  <a href="https://github.com/hypertidy/silicate/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -158,34 +161,30 @@
     <p>data frame of the segments, each occurence of an edge and its order</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>sc_segment</span>(<span class='fu'><a href='SC.html'>SC</a></span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 16 x 6</span><span>
+    <pre class="examples"><div class='input'><span class='fu'>sc_segment</span>(<span class='fu'><a href='SC.html'>SC</a></span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 16 x 6</span><span>
 #&gt;    object_ edge_  native_ .vx0   .vx1   segment_
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> tHru0z  CmHByV TRUE    MbUwpk xjKdIt NRSxzT  
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> tHru0z  yuaV3M TRUE    xjKdIt lUx6Ve 2Zec5S  
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> tHru0z  D3c2yY TRUE    lUx6Ve cNzFBj ger0Dm  
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> tHru0z  1NE4wJ FALSE   JX00hE cNzFBj DGJmkA  
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> tHru0z  HWyLvG TRUE    JX00hE K4XPVR A4OSJi  
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> tHru0z  47MLCc FALSE   n3heWp K4XPVR B09jL7  
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> tHru0z  SX4xHz FALSE   MbUwpk n3heWp GNh6HB  
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> tHru0z  TsmytX TRUE    LxHOqU XatHfv 50pY4l  
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> tHru0z  6Xu55C TRUE    XatHfv hd1A3g ucxFc5  
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> tHru0z  u77OxX FALSE   681SNa hd1A3g U92iZH  
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> tHru0z  uchWmt FALSE   3RyOHC 681SNa xJGBxo  
-#&gt; </span><span style='color: #BCBCBC;'>12</span><span> tHru0z  R7vLzI FALSE   LxHOqU 3RyOHC zC8IB0  
-#&gt; </span><span style='color: #BCBCBC;'>13</span><span> FnuHPW  47MLCc TRUE    n3heWp K4XPVR qb3eIn  
-#&gt; </span><span style='color: #BCBCBC;'>14</span><span> FnuHPW  sRNI7w TRUE    K4XPVR SnqAJW UGwcvG  
-#&gt; </span><span style='color: #BCBCBC;'>15</span><span> FnuHPW  IIwyDJ TRUE    SnqAJW xm2nKf LkOm9q  
-#&gt; </span><span style='color: #BCBCBC;'>16</span><span> FnuHPW  eG9WKq FALSE   n3heWp xm2nKf 0FttMw  </div></span></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   
+#&gt; </span><span style='color: #555555;'> 1</span><span> nQ39CG  N8u0LR TRUE    OSRGLr L7TLqM mdHvTX  
+#&gt; </span><span style='color: #555555;'> 2</span><span> nQ39CG  p8caxx TRUE    L7TLqM vlnWIx UONgSm  
+#&gt; </span><span style='color: #555555;'> 3</span><span> nQ39CG  WQJ0Xd TRUE    vlnWIx RrRqSA KOfEC7  
+#&gt; </span><span style='color: #555555;'> 4</span><span> nQ39CG  hbhXcx FALSE   ba8jvC RrRqSA HS3p4G  
+#&gt; </span><span style='color: #555555;'> 5</span><span> nQ39CG  0GP8QS TRUE    ba8jvC eplq4p yHheeI  
+#&gt; </span><span style='color: #555555;'> 6</span><span> nQ39CG  05jSKN FALSE   z92J5T eplq4p 1AWRIX  
+#&gt; </span><span style='color: #555555;'> 7</span><span> nQ39CG  a3Hx38 FALSE   OSRGLr z92J5T t0Vj6u  
+#&gt; </span><span style='color: #555555;'> 8</span><span> nQ39CG  gCFLnU TRUE    wjgMzL ySI6p7 1eVWyh  
+#&gt; </span><span style='color: #555555;'> 9</span><span> nQ39CG  X8tyl4 TRUE    ySI6p7 OuDSsg 06Bfc7  
+#&gt; </span><span style='color: #555555;'>10</span><span> nQ39CG  uV6AMj FALSE   k8J26b OuDSsg hPJu7E  
+#&gt; </span><span style='color: #555555;'>11</span><span> nQ39CG  T935hX FALSE   vnpJ6B k8J26b xFKuNy  
+#&gt; </span><span style='color: #555555;'>12</span><span> nQ39CG  KYoTJ3 FALSE   wjgMzL vnpJ6B XAk1WN  
+#&gt; </span><span style='color: #555555;'>13</span><span> OT72Fb  05jSKN TRUE    z92J5T eplq4p zntHRc  
+#&gt; </span><span style='color: #555555;'>14</span><span> OT72Fb  QKFMPb TRUE    eplq4p SosxqB qpUs3v  
+#&gt; </span><span style='color: #555555;'>15</span><span> OT72Fb  3ppd6a TRUE    SosxqB kguyEy 2ICD7m  
+#&gt; </span><span style='color: #555555;'>16</span><span> OT72Fb  OWtPcn FALSE   z92J5T kguyEy wqaRs4  </div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -196,7 +195,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>

@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -38,7 +42,6 @@
 <meta property="og:title" content="Path decomposition — sc_path" />
 <meta property="og:description" content="Start in the middle, and build the 'path-link-vertex' table.
 Paths." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -56,7 +59,7 @@ Paths." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -70,7 +73,7 @@ Paths." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9030</span>
       </span>
     </div>
 
@@ -106,7 +109,7 @@ Paths." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hypertidy/silicate">
+  <a href="https://github.com/hypertidy/silicate/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -135,6 +138,9 @@ Paths." />
     </div>
 
     <pre class="usage"><span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for list</span>
+<span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
 <span class='fu'>sc_path</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -217,56 +223,50 @@ dimension and which object they occur in.</p>
 the features, and <code>PATH</code> for the full model.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>sc_path</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 6</span><span>
+    <pre class="examples"><div class='input'><span class='fu'>sc_path</span>(<span class='no'>minimal_mesh</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 6</span><span>
 #&gt;    ncol type         subobject object_ path_  ncoords_
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     2 MULTIPOLYGON         1 821xzz  7Bu6Eb        8
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2 MULTIPOLYGON         1 821xzz  IPJY4l        6
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     2 MULTIPOLYGON         1 S3zyph  LTToqU        5</div><div class='input'><span class='fu'>sc_path</span>(<span class='fu'><a href='PATH.html'>PATH</a></span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 6</span><span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     2 MULTIPOLYGON         1 aVIOCL  ZsNDMa        8
+#&gt; </span><span style='color: #555555;'>2</span><span>     2 MULTIPOLYGON         1 aVIOCL  98eknG        6
+#&gt; </span><span style='color: #555555;'>3</span><span>     2 MULTIPOLYGON         1 HQ1ZYF  BYCEV8        5</div><div class='input'><span class='fu'>sc_path</span>(<span class='fu'><a href='PATH.html'>PATH</a></span>(<span class='no'>minimal_mesh</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 6</span><span>
 #&gt;    ncol type         subobject object_ path_  ncoords_
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     2 MULTIPOLYGON         1 Qz89ed  HhmSI7        8
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2 MULTIPOLYGON         1 Qz89ed  qaBl03        6
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     2 MULTIPOLYGON         1 5BnzMf  98rIhV        5</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipolygon</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 5</span><span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     2 MULTIPOLYGON         1 rhUQSu  O48aoU        8
+#&gt; </span><span style='color: #555555;'>2</span><span>     2 MULTIPOLYGON         1 rhUQSu  ap8Ua9        6
+#&gt; </span><span style='color: #555555;'>3</span><span>     2 MULTIPOLYGON         1 T4k26z  MK02xU        5</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipolygon</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 5</span><span>
 #&gt;    nrow  ncol type         subobject path_ 
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     6     2 MULTIPOLYGON         1 vGmUOs
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     4     2 MULTIPOLYGON         1 mkhHx8
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     5     2 MULTIPOLYGON         2 ubt9by
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>     5     2 MULTIPOLYGON         2 AQ40SY
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>     4     2 MULTIPOLYGON         3 BGFexY</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>polygon</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 4</span><span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span>     6     2 MULTIPOLYGON         1 bzzH8l
+#&gt; </span><span style='color: #555555;'>2</span><span>     4     2 MULTIPOLYGON         1 lBeqmI
+#&gt; </span><span style='color: #555555;'>3</span><span>     5     2 MULTIPOLYGON         2 U8M9BI
+#&gt; </span><span style='color: #555555;'>4</span><span>     5     2 MULTIPOLYGON         2 Qndhr0
+#&gt; </span><span style='color: #555555;'>5</span><span>     4     2 MULTIPOLYGON         3 59faSh</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>polygon</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 4</span><span>
 #&gt;    nrow  ncol type    path_ 
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     6     2 POLYGON gMtuZK
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     4     2 POLYGON wdSGgz</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>linestring</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 4</span><span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span>     6     2 POLYGON 7VjNX1
+#&gt; </span><span style='color: #555555;'>2</span><span>     4     2 POLYGON 3gM4gQ</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>linestring</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;    nrow  ncol type       path_ 
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     4     2 LINESTRING 83nvbQ</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multilinestring</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 4</span><span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span>     4     2 LINESTRING rD6PIf</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multilinestring</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 4</span><span>
 #&gt;    nrow  ncol type            path_ 
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     4     2 MULTILINESTRING oOuz4E
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     4     2 MULTILINESTRING Gz9su1
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     2     2 MULTILINESTRING c11hA8</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>point</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 4</span><span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span>     4     2 MULTILINESTRING IJstRA
+#&gt; </span><span style='color: #555555;'>2</span><span>     4     2 MULTILINESTRING SJKKt0
+#&gt; </span><span style='color: #555555;'>3</span><span>     2     2 MULTILINESTRING YLlMuV</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>point</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;    nrow  ncol type  path_ 
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1     2 POINT M4Ftww</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 4</span><span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span>     1     2 POINT EjcoxZ</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;    nrow  ncol type       path_ 
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     6     2 MULTIPOINT cNtdXD</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 4</span><span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span>     6     2 MULTIPOINT ywf5XQ</div><div class='input'><span class='fu'>sc_path</span>(<span class='no'>sfzoo</span>$<span class='no'>multipoint</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;    nrow  ncol type       path_ 
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     6     2 MULTIPOINT Sc7XVO</div></span></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span>     6     2 MULTIPOINT Fge8bt</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -277,7 +277,7 @@ the features, and <code>PATH</code> for the full model.</p></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>
