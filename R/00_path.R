@@ -55,12 +55,14 @@ sc_path.PATH0 <- function(x, ...) {
 #' @name sc_path
 #' @export
 sc_path.ARC <- function(x, ...) {
-  ## arcs are paths from this perspective
+  ## arcs are paths from this perspective,
+  ## and are each an object (so LINESTRING)
   arcs <- x$arc_link_vertex %>%
     dplyr::group_by(.data$arc_) %>% dplyr::tally()
   #arcs <- arcs[match(arcs$arc_, unique(x$object_link_arc$arc_)), ]
   tibble(ncol = 2L, type = "LINESTRING",
-         subobject = 1L, object_ = x$object_link_arc$object_[match(arcs$arc_, x$object_link_arc$arc_)],
+         subobject = 1L, object_ = arcs$arc_,
+         #object_ = x$object_link_arc$object_[match(arcs$arc_, x$object_link_arc$arc_)],
          path_ = arcs$arc_, ncoords_ = arcs$n)
 }
 #' @name sc_path
