@@ -21,5 +21,5 @@ Build sf
 to_sf(PATH(minimal_mesh))
 to_sf(PATH0(minimal_mesh))
 
-#to_sf(ARC(minimal_mesh))
+to_sf(ARC(minimal_mesh))
 }
