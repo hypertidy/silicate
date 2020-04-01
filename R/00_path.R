@@ -57,7 +57,8 @@ sc_path.PATH0 <- function(x, ...) {
 sc_path.ARC <- function(x, ...) {
   ## arcs are paths from this perspective
   arcs <- x$arc_link_vertex %>%
-    group_by(.data$arc_) %>% tally()
+    dplyr::group_by(.data$arc_) %>% dplyr::tally()
+  #arcs <- arcs[match(arcs$arc_, unique(x$object_link_arc$arc_)), ]
   tibble(ncol = 2L, type = "LINESTRING",
          subobject = 1L, object_ = x$object_link_arc$object_[match(arcs$arc_, x$object_link_arc$arc_)],
          path_ = arcs$arc_, ncoords_ = arcs$n)
