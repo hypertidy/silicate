@@ -91,7 +91,13 @@ sc_coord.matrix <- function(x, ...){
 }
 
 
-
+#' @name sc_coord
+#' @export
+sc_coord.ARC <- function(x, ...) {
+  x$arc_link_vertex %>%
+    dplyr::inner_join(sc_vertex(x), "vertex_") %>%
+    dplyr::select(-.data$arc_, -.data$vertex_)
+}
 #' @name sc_coord
 #' @export
 #' @importFrom rlang .data

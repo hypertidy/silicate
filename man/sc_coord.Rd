@@ -5,6 +5,7 @@
 \alias{sc_coord.list}
 \alias{sc_coord.default}
 \alias{sc_coord.matrix}
+\alias{sc_coord.ARC}
 \alias{sc_coord.PATH}
 \alias{sc_coord.TRI}
 \alias{sc_coord.PATH0}
@@ -30,6 +31,8 @@ sc_coord(x, ...)
 \method{sc_coord}{default}(x, ...)
 
 \method{sc_coord}{matrix}(x, ...)
+
+\method{sc_coord}{ARC}(x, ...)
 
 \method{sc_coord}{PATH}(x, ...)
 
