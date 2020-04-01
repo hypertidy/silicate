@@ -21,12 +21,16 @@ to_sf.sc <- function(x, sfc_type = NULL, geom_type = NULL) {
   path <- sc_path(x)
   ncoord <- path[["ncoords_"]]
 
-  sfc_type <- "MULTILINESTRING"
-  if (sfc_type == "MULTILINESTRING") {
-    df[["multilinestring_id"]] <-
-      rep(as.integer(factor(path[["object_"]])), ncoord)
-     df[["linestring_id"]] <-
+  sfc_type <- unique(path$type)
+  stopifnot(length(sfc_type) == 1L)
+  if (sfc_type == "LINESTRING") {
+    # df[["multilinestring_id"]] <-
+    #   rep(as.integer(factor(path[["object_"]])), ncoord)
+      df[["linestring_id"]] <-
       rep(as.integer(factor(path[["path_"]])), ncoord)
+     df <- dplyr::arrange(df,
+                          #.data$multilinestring_id,
+                              .data$linestring_id)
   }
 
   # sfc_type <- sfc_type %||%  unique(path$type)

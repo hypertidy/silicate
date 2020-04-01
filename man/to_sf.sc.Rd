@@ -17,5 +17,9 @@ sf dataframe
 Build sf
 }
 \examples{
+## PATHs are MULTILINESTRING, nominate LINESTRING and ignore object_
 to_sf(PATH(minimal_mesh))
+to_sf(PATH0(minimal_mesh))
+
+#to_sf(ARC(minimal_mesh))
 }
