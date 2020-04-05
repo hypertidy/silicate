@@ -1,5 +1,7 @@
 # silicate dev
 
+* Fixed obscure bug that messed up anglr because of class-dropping for the 
+sfc in a tibble. now 0.3.0.9040
 * A potentially breaking change, stray uses of the `triangle$visible_` 
 property have been removed, to be consistent with the anglr package. 
 

@@ -58,11 +58,14 @@ ARC.PATH <- function(x, ...) {
   )
   structure(lst, class = c("ARC", "sc"), join_ramp = c("object", "object_link_arc", "arc_link_vertex", "vertex"))
 }
-PATH.ARC <- function(x, ...) {
-  o <- sc_object(x)
-  paths <- dplyr::inner_join(o[1, "object_"], x$object_link_arc) %>%
-    dplyr::inner_join(x$arc_link_vertex)
-}
+# PATH.ARC <- function(x, ...) {
+#   o <- sc_object(x)
+#   paths <- dplyr::inner_join(o[1, "object_"], x$object_link_arc) %>%
+#     dplyr::inner_join(x$arc_link_vertex)
+#   o <- o[match(paths$object_, o$object_), ]
+#   o$object_ <- paths$arc_
+#
+# }
 unique_arcs <- function(x, ...) {
   dat <- split(x, x$arc_)
   arc_id <- dat %>%

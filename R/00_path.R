@@ -22,10 +22,10 @@ sc_path <- function(x, ...) {
 
 #' @name sc_path
 #' @export
-sc_path.list <- function(x, ...) {
+sc_path.list <- function(x, ids = NULL, ...) {
   ## check we aren't an unclass sfc list
   if (inherits(x[[1]], "sfg")) {
-    return(sc_path.sfc(x))
+    return(sc_path.sfc(x, ids = ids))
   } else {
     out <- try(sc_path.default(x), silent = TRUE)
     if (inherits(out, "try-error")) stop("cannot determine coords from 'x'")
@@ -59,7 +59,8 @@ sc_path.ARC <- function(x, ...) {
   ## and are each an object (so LINESTRING)
   arcs <- x$arc_link_vertex %>%
     dplyr::group_by(.data$arc_) %>% dplyr::tally()
-  #arcs <- arcs[match(arcs$arc_, unique(x$object_link_arc$arc_)), ]
+  #arcs <- arcs[match(arcs$arc_, unique(x$object_link_arc$arc_)), ]\
+
   tibble(ncol = 2L, type = "LINESTRING",
          subobject = 1L, object_ = arcs$arc_,
          #object_ = x$object_link_arc$object_[match(arcs$arc_, x$object_link_arc$arc_)],

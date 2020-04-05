@@ -24,7 +24,7 @@
 \usage{
 sc_path(x, ...)
 
-\method{sc_path}{list}(x, ...)
+\method{sc_path}{list}(x, ids = NULL, ...)
 
 \method{sc_path}{default}(x, ...)
 

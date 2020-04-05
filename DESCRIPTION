@@ -1,6 +1,6 @@
 Package: silicate
 Title: Common Forms for Complex Hierarchical and Relational Data Structures
-Version: 0.3.0.9030
+Version: 0.3.0.9040
 Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com"), 
              person("John", "Corbett", role = "ctb", comment = "the original inspiration"), 
              person("Simon", "Wotherspoon", role = "ctb"), 
