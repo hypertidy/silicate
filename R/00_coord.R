@@ -49,11 +49,6 @@ check_is_geom_column <- function(x, ...) {
   any(class(x[[1]]) == "sfg")
 }
 
-find_geom_column <- function(x) {
-  purrr::map(maybe_geom_column(x), check_is_geom_column)
-}
-## ^^ from anglr
-
 #' @name sc_coord
 #' @export
 sc_coord.list <- function(x, ...) {
@@ -74,6 +69,14 @@ sc_coord.list <- function(x, ...) {
 sc_coord.default <- function(x, ...){
   if (is.null(x[["coord"]]) || !inherits(x[["coord"]], "data.frame")) {
     if (is.list(x)) x <- tibble::as_tibble(x)
+    geo <- maybe_geom_column(x)
+    if (length(geo) > 0) {
+      if (check_is_geom_column(x[[geo]])) {
+      return(sc_coord(x[[geo]]))
+      } else {
+        stop("cannot find coords")
+      }
+    }
     ## we might xy.coords
     if (is_r_coords(x)) x <- r_coords(x)
   } else {

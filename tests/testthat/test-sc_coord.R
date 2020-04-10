@@ -9,3 +9,11 @@ test_that("weird case works", {
   expect_silent(sc_coord(x))  ##issue107
 
 })
+
+test_that("drop sfc etc works", {
+  mm <- minimal_mesh
+ # class(mm) <- "data.frame"
+  class(mm$geom) <- "list"
+  expect_equivalent(sc_coord(mm), 
+                    sc_coord(minimal_mesh))
+})

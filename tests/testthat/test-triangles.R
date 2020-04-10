@@ -18,3 +18,17 @@ test_that("triangle cull/visibility works", {
   ## TRI model *does not* have triangles that exist within a hole
   expect_true(sum(mintri$triangle$visible) == dim(mintri$triangle)[1L])
 })
+
+test_that("primitives extraction works", {
+  tri <- TRI(minimal_mesh)
+  tri0 <- TRI0(minimal_mesh)
+  expect_named(sc_triangle(tri), c(".vx0", ".vx1", ".vx2", "object_", "visible"))
+  expect_named(sc_triangle(tri0), c(".vx0", ".vx1", ".vx2", "path_", "object_"))
+  
+  expect_silent(plot(tri))
+  expect_silent(plot(tri, col = viridis_cols))
+  expect_silent(plot(tri0))
+  expect_silent(plot(tri0, col = viridis_cols))
+  
+  
+})
