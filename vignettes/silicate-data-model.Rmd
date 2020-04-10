@@ -37,4 +37,10 @@ Silicate itself only inclues *ear-clipping* triangulation, a relatively cheap me
  
 It's important to know what is the simplest vs more complex ways of creating surfaces. In general, `TRI0()` is cheapest, and `DEL()` is most expensive - but the former requires *paths*, and the latter works with *edges*.  The cheapest one, is TRI0(). TRI() is next expensive (adds visible property, and native orientation, and arbitrary subsetting) ... but cheap triangles, next is DEL0() (control over area, angle, Steiner points, Delaunay constraint, etc), then DEL(). 
 
-
+* DEL must be composed from edges, and edges can come from any model
+*TRI must be composed from close paths, there's no path in SC, ARC or TRI
+* DEL0 should exist, and be the default workhorse
+* TRI cannot be set-vectorized, we have to call earcut for each POLYGON
+* DEL is set-vectorized, classify all triangles by intersection with input paths (or holes)
+* triangles in DEL that fall in holes are not visible, but don't need to be removed
+* if we DEL a TRI we could test triangle inclusion to classify the triangles that are in holes
