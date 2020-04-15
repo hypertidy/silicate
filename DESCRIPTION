@@ -43,7 +43,7 @@ Imports:
     stats,
     magrittr,
     gridBase,
-    crsmeta (>= 0.2.0.9001)
+    crsmeta (>= 0.3.0)
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/hypertidy/silicate

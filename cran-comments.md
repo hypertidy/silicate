@@ -1,7 +1,8 @@
 # silicate 0.4.0
 
 Apologies for a quick turnaround for this package, less than a month
-but required for an upcoming release of a new package. 
+but required clean out some problems with the new version of tibble 
+and prepare for an upcoming new release. 
 
 Thank you very much. 
 
