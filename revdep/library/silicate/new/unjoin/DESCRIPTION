@@ -1,0 +1,32 @@
+Package: unjoin
+Title: Separate a Data Frame by Normalization
+Version: 0.0.4
+Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com"), 
+             person("Simon", "Wotherspoon", role = "ctb"),
+             person("Hadley", "Wickham", role = "ctb", comment = "named the concept, provided excellent guidance via tidyr source code"))
+Description: Separate a data frame in two based on key columns. The function
+ unjoin() provides an inside-out version of a nested data frame. This is used
+ to identify duplication and normalize it (in the database sense) by linking
+ two tables with the redundancy removed. This is a basic requirement for
+ detecting topology within spatial structures that has motivated the need for
+ this package as a building block for workflows within more applied projects.
+Depends: R (>= 3.3.2)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
+Imports: dplyr, rlang, tibble
+Suggests: gapminder, tidyr, testthat, covr, spelling
+URL: https://github.com/hypertidy/unjoin
+BugReports: https://github.com/hypertidy/unjoin/issues
+Language: en-US
+NeedsCompilation: no
+Packaged: 2020-03-21 03:00:40 UTC; mdsumner
+Author: Michael D. Sumner [aut, cre],
+  Simon Wotherspoon [ctb],
+  Hadley Wickham [ctb] (named the concept, provided excellent guidance
+    via tidyr source code)
+Maintainer: Michael D. Sumner <mdsumner@gmail.com>
+Repository: CRAN
+Date/Publication: 2020-03-21 19:00:02 UTC
+Built: R 3.6.3; ; 2020-04-15 14:16:41 UTC; unix

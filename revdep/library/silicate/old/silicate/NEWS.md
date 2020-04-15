@@ -1,3 +1,21 @@
+# silicate 0.3.0
+
+* Import crsmeta so we can navigate the structure change in sf crs.
+ (Fixes breakage in eixport).
+
+* Fixed CRAN NOTE about not using geometry import. 
+
+* Fix deprecated usage of tibble. 
+ 1) Internal sf objects now have "list" in the class of the sfc column. 
+ 2) No matrix sub-assignment into columns of a tibble. See #105. 
+ 
+* New models `TRI0` and `PATH0` as analogues to SC0. 
+
+* Fixed off-by-one error in segment colours when plotting ARC. Fixes #101. 
+
+* Fixed unused geometry package import. 
+
+
 # silicate 0.2.0
 
 * Clarified Description and cleaned up examples, thanks to CRAN feedback. 

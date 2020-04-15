@@ -10,20 +10,21 @@
 |collate  |en_AU.UTF-8                  |
 |ctype    |en_AU.UTF-8                  |
 |tz       |Australia/Hobart             |
-|date     |2020-03-21                   |
+|date     |2020-04-16                   |
 
 # Dependencies
 
 |package  |old   |new   |Δ  |
 |:--------|:-----|:-----|:--|
-|silicate |0.2.0 |0.3.0 |*  |
-|crsmeta  |NA    |0.2.0 |*  |
+|silicate |0.3.0 |0.4.0 |*  |
+|unjoin   |NA    |0.0.4 |*  |
 
 # Revdeps
 
-## Failed to check (1)
+## Failed to check (2)
 
-|package |version |error |warning |note |
-|:-------|:-------|:-----|:-------|:----|
-|eixport |?       |      |        |     |
+|package      |version |error |warning |note |
+|:------------|:-------|:-----|:-------|:----|
+|eixport      |?       |      |        |     |
+|tabularaster |?       |      |        |     |
 

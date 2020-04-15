@@ -27,5 +27,5 @@ sc_segment              Given a 'PATH" model decompose to 1-dimensional
 sc_uid                  Unique labels
 sc_vertex               Extract unique vertices
 sfzoo                   Simple features zoo.
-silicate                silicate.
+silicate                silicate
 tri_area                Area of triangles
