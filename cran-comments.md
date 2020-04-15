@@ -1,10 +1,9 @@
-# silicate 0.3.0
+# silicate 0.4.0
 
-* Made robust to upcoming tibble release. 
-* Fixed problems with new sf breaking eixport package.
-* Fixed problem with unused 'geometry' import. 
+Apologies for a quick turnaround for this package, less than a month
+but required for an upcoming release of a new package. 
 
-Thanks! 
+Thank you very much. 
 
 ## Test environments
 
@@ -15,6 +14,23 @@ Thanks!
 
 0 errors | 0 warnings | 0 notes
 
+## CRAN checks
+
+The previous version 0.3.0 has a warning in the vignette build
+
+* r-patched-osx-x86_64
+
+  'dyld: lazy symbol binding failed: Symbol not found: ____chkstk_darwin'
+
 ## Reverse dependencies
 
-The one dependency 'eixport' passes check with this version. 
+The dependency 'tabularaster' passes check under this version. 
+
+The dependency 'eixport' fails under this version, as with silicate 0.3.0
+but the author has been informed and when fixed will work with this version of
+silicate. 
+
+
+
+
+
