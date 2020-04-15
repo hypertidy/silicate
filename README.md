@@ -139,60 +139,6 @@ which is precisely the relationships between entities in a model. This
 function is published in the [CRAN package
 unjoin](https://CRAN.R-project.org/package=unjoin).
 
-# What about simple features?
-
-Silicate is not about simple features, it’s about transcending those
-limitations for day to day data problems. Unfortunately we inevitably
-have to couch this work in that context.
-
-Modern geospatial science needs normal-form data structures.
-
-Modern GIS standards generally represent spatial data as nested lists,
-whether in accordance with the Simple Features (SF) standard of the Open
-Geospatial Consortium, or in `geojson` format. Most commonly used
-geometric libraries are based on one or both of these two standards. We
-argue that (1) the agreed representations in modern GIS geometry
-effectively restrict ongoing development of GIS as a whole, and (2) the
-enforced representation of geometry as nested lists as a central form is
-inefficient.
-
-## Simple Features
-
-SF does not address what “non-simple” features are or might be, yet
-clearly these include important application domains such as GPS data,
-transport networks, point clouds, computer aided design, virtual and/or
-augmented reality, and 3D games. Each of these significant arenas have
-their own standards which are difficult to reconcile or unite without
-risking fragmentation and inefficiency.
-
-SF and nested-list representations are limited because:
-
-  - Shapes are not represented as topological primitives and so internal
-    boundaries are precluded.
-  - Shapes are represented as paths so only planar polygonal shapes are
-    possible.
-  - Shapes may exist in XY\[Z\[M\]\] geometry, but this is not
-    extensible, with no capacity to store data against component
-    geometry elements.
-  - Shapes have no persistent naming of features or their components.
-  - There is no capacity for internal topology of shapes or within
-    collections (no vertex-, edge-, or path-sharing).
-
-These limitations mean that SF cannot fully represent every-day data
-forms from tracked objects, transport, Lidar, 3D models, statistical
-graphics, topological spatial maps, TopoJSON, CAD drawings, meshes or
-triangulations. Translations between geospatial forms and the grammars
-of data science can be disjointed, relying on localized implementations
-that are lossy or inefficient, require third party workflows, or involve
-unnecessary tasks.
-
-GIS applications generally diverge from common standards in different
-ways but none currently provide a normal-form model. There is no
-standard way to normalize data by detecting and removing redundancy
-(topology), or to densify data (a common necessity in planning domains).
-There is no standard way to extend the types although complex forms are
-well established in other domains.
-
 ## Arbitrarily re-composable hierarchies
 
 The common “well-known” formats of encoding geometry (WKB/WKT for
@@ -253,56 +199,56 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_
 #>    <dbl> <dbl> <chr>  
-#>  1  0     0    lZs8mF 
-#>  2  0     1    A2CkYh 
-#>  3  0.2   0.2  ab5b4m 
-#>  4  0.2   0.4  r6YHHu 
-#>  5  0.3   0.6  P2fNgi 
-#>  6  0.5   0.2  pU2CvJ 
-#>  7  0.5   0.4  155n5T 
-#>  8  0.5   0.7  mrdYWm 
-#>  9  0.69  0    yQ9bZm 
-#> 10  0.75  1    RYU6VC 
-#> 11  0.8   0.6  vb8FLg 
-#> 12  1     0.8  wAurVe 
-#> 13  1.1   0.63 2dj6Hg 
-#> 14  1.23  0.3  hhqIhP
+#>  1  0     0    4uNW6Q 
+#>  2  0     1    y2gy2d 
+#>  3  0.2   0.2  QsJpbh 
+#>  4  0.2   0.4  j7RDJd 
+#>  5  0.3   0.6  tZBQpa 
+#>  6  0.5   0.2  72miSq 
+#>  7  0.5   0.4  7ztNvX 
+#>  8  0.5   0.7  71CpfF 
+#>  9  0.69  0    r3GjmU 
+#> 10  0.75  1    PNOs0v 
+#> 11  0.8   0.6  nUDkxA 
+#> 12  1     0.8  UGcN4d 
+#> 13  1.1   0.63 8TPh0r 
+#> 14  1.23  0.3  bDj9jz
 
 sc_edge(x)
 #> # A tibble: 15 x 4
 #>    .vx0   .vx1   path_ edge_ 
 #>    <chr>  <chr>  <int> <chr> 
-#>  1 lZs8mF A2CkYh     1 tQGdSq
-#>  2 A2CkYh RYU6VC     1 PCKGLr
-#>  3 RYU6VC wAurVe     1 VqakPf
-#>  4 mrdYWm wAurVe     1 QNsKJC
-#>  5 mrdYWm vb8FLg     1 LLFkNc
-#>  6 yQ9bZm vb8FLg     1 zlZdeQ
-#>  7 lZs8mF yQ9bZm     1 E6Pxnq
-#>  8 ab5b4m pU2CvJ     2 yqIl1U
-#>  9 pU2CvJ 155n5T     2 XkRTqn
-#> 10 P2fNgi 155n5T     2 B0mzEH
-#> 11 r6YHHu P2fNgi     2 4hP9Tw
-#> 12 ab5b4m r6YHHu     2 oO0o6C
-#> 13 vb8FLg 2dj6Hg     3 WyCeUO
-#> 14 2dj6Hg hhqIhP     3 fyRVQs
-#> 15 yQ9bZm hhqIhP     3 v13Yof
+#>  1 4uNW6Q y2gy2d     1 Bv7ywl
+#>  2 y2gy2d PNOs0v     1 c7yYv4
+#>  3 PNOs0v UGcN4d     1 v920X2
+#>  4 71CpfF UGcN4d     1 EjEvok
+#>  5 71CpfF nUDkxA     1 3bd9iy
+#>  6 r3GjmU nUDkxA     1 Qtmm8b
+#>  7 4uNW6Q r3GjmU     1 J7q7Tc
+#>  8 QsJpbh 72miSq     2 PhcsCR
+#>  9 72miSq 7ztNvX     2 c1b35B
+#> 10 tZBQpa 7ztNvX     2 GYw0uE
+#> 11 j7RDJd tZBQpa     2 nD0VCf
+#> 12 QsJpbh j7RDJd     2 2NFrMU
+#> 13 nUDkxA 8TPh0r     3 IDTDZB
+#> 14 8TPh0r bDj9jz     3 nfAWTi
+#> 15 r3GjmU bDj9jz     3 YcRFlG
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_
 #>   <chr>  
-#> 1 ytgihB 
-#> 2 AUETbo
+#> 1 goweCx 
+#> 2 3c7YON
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_   ncoords_
 #>   <chr>     <int>
-#> 1 7O9JTW        2
-#> 2 IXd8oM        7
-#> 3 MJpH0u        4
-#> 4 qDndvu        6
+#> 1 ez0JMu        2
+#> 2 LFIhVC        7
+#> 3 Y4rlXs        4
+#> 4 zeSia4        6
 ```
 
 ## silicate models
