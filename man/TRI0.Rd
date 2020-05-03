@@ -6,6 +6,7 @@
 \alias{TRI0.TRI}
 \alias{TRI0.PATH0}
 \alias{TRI0.PATH}
+\alias{TRI0.sf}
 \alias{TRI0.sfc_GEOMETRYCOLLECTION}
 \title{TRI0 model, structural triangulations}
 \usage{
@@ -18,6 +19,8 @@ TRI0(x, ...)
 \method{TRI0}{PATH0}(x, ...)
 
 \method{TRI0}{PATH}(x, ...)
+
+\method{TRI0}{sf}(x, ...)
 
 \method{TRI0}{sfc_GEOMETRYCOLLECTION}(x, ...)
 }

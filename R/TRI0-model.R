@@ -90,9 +90,23 @@ TRI0.PATH <- function(x, ...) {
 }
 #' @name TRI0
 #' @export
+TRI0.sf <- function(x, ...) {
+  sfcol <- attr(x, "sf_column")
+  out <- TRI0(x[[sfcol]])
+  x[[sfcol]] <- NULL
+  nm <- names(x)
+  for (i in seq_along(x)) {
+    ## don't smash the topology or the object
+    if (nm[i] %in% c("topology_", "object_")) next;
+    out$object[[nm[i]]] <- x[[i]]
+  }
+  out
+}
+#' @name TRI0
+#' @export
 TRI0.sfc_GEOMETRYCOLLECTION <- function(x, ...) {
   list_sfc <- unclass(x)
-
+  lens <- lengths(list_sfc)
   corners <- rapply(list_sfc, function(x) dim(x)[1L], classes = "matrix", how = "unlist")
   if (!all(corners == 4L)) stop("cannot 'TRI0' a GEOMETRYCOLLECTION not composed of triangles (POLYGON with 4 coordinates)")
   ## proceed
@@ -114,9 +128,11 @@ TRI0.sfc_GEOMETRYCOLLECTION <- function(x, ...) {
   colnames(topol) <- c(".vx0", ".vx1", ".vx2")
   topol <- tibble::as_tibble(topol)
 
+  ## split based on the lengths from above
+  topol <- split(topol, rep(seq_along(lens), lens))
  structure(list(
-   object = tibble::tibble(object_ = 1,  ## ignore length of sfc (for now)
-                   topology_ = list(topol)),
+   object = tibble::tibble(object_ = seq_along(lens),
+                   topology_ = topol),
    vertex = tibble::as_tibble(coords),
    meta = tibble::tibble(proj = crsmeta::crs_proj(x),
                             ctime = Sys.time())
