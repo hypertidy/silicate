@@ -50,6 +50,11 @@ TRI.TRI0 <- function(x, ...){
 TRI.PATH0 <- function(x, ...) {
   TRI(PATH(x), ...)
 }
+#' @name TRI
+#' @export
+TRI.sfc_GEOMETRYCOLLECTION <- function(x, ...) {
+  TRI(TRI0(x), ...)
+}
 #' @export
 TRI.PATH <- function(x, ...) {
   vertex <- sc_vertex(x)

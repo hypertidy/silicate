@@ -5,7 +5,7 @@
 #' structures of spatial data, and for converting it to something else. The models
 #' [PATH()], [TRI()], [SC()] and [ARC()] provide relational tables of all underlying
 #' entities, and more specialist versions [PATH0()], [TRI0()] and [SC0()] provide more
-#' efficient topological representations of polygons or lines. 
+#' efficient topological representations of polygons or lines.
 #' @name silicate
 #' @aliases silicate-package
 #' @docType package
@@ -22,6 +22,16 @@ NULL
 #' plot(sc)
 #' @name polymesh
 #' @docType data
+NULL
+
+#' Geometry collection of triangles
+#'
+#' A 'sfc_GEOMETRYCOLLECTION' of four-cornered triangles ('POLYGON')
+#' created by ear cutting the North Carolina polygon from sf.
+#' @name ear_gc
+#' @docType data
+#' @examples
+#' TRI0(ear_gc)
 NULL
 
 #' Deprecated data set.

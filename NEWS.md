@@ -1,3 +1,11 @@
+# silicate dev
+
+* Added TRI and TRI0 methods for sfc_GEOMETRYCOLLECTION to catch lists of
+POLYGON triangles. (All triangles are collated into one object atm, needs
+to classify them further according to length of input WIP). 
+
+* New data set `ear_gc` a GEOMETRYCOLLECTION of POLYGON triangles. 
+
 # silicate 0.4.0
 
 * Fixed obscure bug that messed up anglr because of class-dropping for the 

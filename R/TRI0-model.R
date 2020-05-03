@@ -3,19 +3,19 @@
 #' TRI0 creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
 #' polygons. It is a 'structural' form, a denser storage mode than 'relational'
 #' as used by [TRI()], we trade some generality for size and speed.
-#' 
+#'
 #' TRI0 is suitable for simple conversion to other mesh forms. See
 #' the examples for plotting and (in commented code) conversion to
-#' rgl's 'mesh3d'. 
-#'  
+#' rgl's 'mesh3d'.
+#'
 #' 'Structural' means that the model does not store relational
 #' IDs between tables, the vertex indexing is stored as a nested
 #' list of data frames in the 'object' table. Unlike [TRI()] we
 #' cannot arbitrarily rearrange the order or remove content
 #' of the underlying tables, without updating the vertex indexes
-#' stored for each object. 
+#' stored for each object.
 #'
-#' 
+#'
 #' Ear-cutting is inherently path-based, so this model is only available for
 #' path-based structures, like simple features, [PATH()], [PATH0()] and [ARC()].
 #' @param x object understood by silicate (sf, sp, a silicate model, etc.)
@@ -27,24 +27,24 @@
 #' tri <- TRI0(minimal_mesh)
 #' print(tri)
 #' plot(tri)
-#' 
+#'
 #' # obtain the vertices and indices in raw form
-#' 
-#' ## idx is the triplets of row numbers in tri$vertex 
+#'
+#' ## idx is the triplets of row numbers in tri$vertex
 #' idx <- do.call(rbind, sc_object(tri)$topology_)
 #' idx <- as.matrix(idx[c(".vx0", ".vx1", ".vx2")])
-#' 
+#'
 #' ## vert is the vertices x_, y_, ...
 #' vert <- as.matrix(sc_vertex(tri))
-#' 
+#'
 #' ## now we can plot with generic tools
 #' plot(vert)
 #' polygon(vert[t(cbind(idx, NA)), ])
-#' 
-#' ## or create other structures like rgl's mesh3d 
+#'
+#' ## or create other structures like rgl's mesh3d
 #' ## (see hypertidy/anglr for in-dev helpers)
-#' ## rgl::tmesh3d(t(cbind(vert, 1, 1)), t(idx), 
-#' ##   material = list(color = c("firebrick", "black", "grey", "blue")), 
+#' ## rgl::tmesh3d(t(cbind(vert, 1, 1)), t(idx),
+#' ##   material = list(color = c("firebrick", "black", "grey", "blue")),
 #' ##   meshColor = "faces")
 TRI0 <- function(x, ...) {
   UseMethod("TRI0")
@@ -88,8 +88,42 @@ TRI0.PATH <- function(x, ...) {
   if (anyNA(vertex$y_)) stop("missing values in y_")
   TRI0(PATH0(x), ...)
 }
+#' @name TRI0
+#' @export
+TRI0.sfc_GEOMETRYCOLLECTION <- function(x, ...) {
+  list_sfc <- unclass(x)
 
+  corners <- rapply(list_sfc, function(x) dim(x)[1L], classes = "matrix", how = "unlist")
+  if (!all(corners == 4L)) stop("cannot 'TRI0' a GEOMETRYCOLLECTION not composed of triangles (POLYGON with 4 coordinates)")
+  ## proceed
+  coords <- do.call(rbind, lapply(unlist(list_sfc, recursive = FALSE), "[[", 1L))
+  ## every fourth should be redundant
+  first <- seq(1, nrow(coords), by = 4L)
+  fourth <- first + 3
+  if (!max(first) == (nrow(coords)-3) || # doesn't match assumption of 4-plets
+      !all(coords[first,1] == coords[fourth, 1]) ||
+      !all(coords[first,2] == coords[fourth, 2])) {
+    stop("GEOMETRYCOLLECTION appears to not be composed of POLYGON triangles")
+  }
+  if (ncol(coords) == 2L) {
+    coords <- cbind(coords, 0)
+  }
+  coords <- coords[-fourth, , drop = FALSE]
+  colnames(coords) <- c("x_", "y_", "z_")
+  topol <- matrix(1:(dim(coords)[1L]), byrow = TRUE, ncol = 3L)
+  colnames(topol) <- c(".vx0", ".vx1", ".vx2")
+  topol <- tibble::as_tibble(topol)
 
+ structure(list(
+   object = tibble::tibble(object_ = 1,  ## ignore length of sfc (for now)
+                   topology_ = list(topol)),
+   vertex = tibble::as_tibble(coords),
+   meta = tibble::tibble(proj = crsmeta::crs_proj(x),
+                            ctime = Sys.time())
+ ), class = c("TRI0", "sc")
+
+ )
+}
 triangulate_00 <- function(x, ...){
   ## assume x is PATH0
   ##x <- PATH0(minimal_mesh)
