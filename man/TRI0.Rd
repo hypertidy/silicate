@@ -3,6 +3,7 @@
 \name{TRI0}
 \alias{TRI0}
 \alias{TRI0.default}
+\alias{TRI0.mesh3d}
 \alias{TRI0.TRI}
 \alias{TRI0.PATH0}
 \alias{TRI0.PATH}
@@ -13,6 +14,8 @@
 TRI0(x, ...)
 
 \method{TRI0}{default}(x, ...)
+
+\method{TRI0}{mesh3d}(x, ...)
 
 \method{TRI0}{TRI}(x, ...)
 

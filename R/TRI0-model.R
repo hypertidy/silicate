@@ -1,3 +1,10 @@
+new_TRI0 <- function(vertex, object, index, crs = NA_character_) {
+  meta <- tibble::tibble(proj = crs, ctime = Sys.time())
+  object[["topology_"]] <- index
+  structure(list(object = object, vertex = vertex,
+                 meta = meta), class = c("TRI0", "sc"))
+}
+
 #' TRI0 model, structural triangulations
 #'
 #' TRI0 creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
@@ -57,6 +64,28 @@ TRI0.default <- function(x, ...) {
 }
 #' @name TRI0
 #' @export
+TRI0.mesh3d <- function(x, ...) {
+  index <- x[["it"]]
+  if (is.null(index)) {
+    index <- .quad2tri(x[["ib"]])
+  }
+  index <- t(index)
+  colnames(index) <- c(".vx0", ".vx1", ".vx2")
+  index <- tibble::as_tibble(index)
+  object <- tibble::tibble(object_ = 1)  ## we might pull out groups of face material properties?
+  v <- t(x[["vb"]])
+  colnames(v) <- c("x_", "y_", "z_", "h_")
+  vertex <- tibble::as_tibble(v)
+  ## might have been a quadmesh
+  crs <- NA_character_
+  if (!is.null(x[["crs"]]) && !is.na(x[["crs"]])) {
+    crs <- x[["crs"]]
+  }
+  new_TRI0(vertex, object, list(index), crs)
+
+}
+#' @name TRI0
+#' @export
 TRI0.TRI <- function(x, ...) {
   o <- sc_object(x)
   o$object_ <- NULL
@@ -68,11 +97,9 @@ TRI0.TRI <- function(x, ...) {
                         .vx2 = match(topol$.vx2, v$vertex_)),
                topol$object_)[unique(topol$object_)]
   v$vertex_ <- NULL
-  o$topology_ <- idx
-  meta <- x$meta[1,]
-  meta$ctime <- Sys.time()
-  structure(list(object = o, vertex = v, meta = rbind(meta, x$meta)),
-            class = c("TRI0", "sc"))
+  crs <- crsmeta::crs_proj(x)
+  new_TRI0(v, o, idx, crs)
+
 }
 #' @name TRI0
 #' @export
@@ -130,15 +157,10 @@ TRI0.sfc_GEOMETRYCOLLECTION <- function(x, ...) {
 
   ## split based on the lengths from above
   topol <- split(topol, rep(seq_along(lens), lens))
- structure(list(
-   object = tibble::tibble(object_ = seq_along(lens),
-                   topology_ = topol),
-   vertex = tibble::as_tibble(coords),
-   meta = tibble::tibble(proj = crsmeta::crs_proj(x),
-                            ctime = Sys.time())
- ), class = c("TRI0", "sc")
 
- )
+ new_TRI0(tibble::as_tibble(coords), tibble::tibble(object_ = seq_along(lens)),
+          topol, crsmeta::crs_proj(x))
+
 }
 triangulate_00 <- function(x, ...){
   ## assume x is PATH0

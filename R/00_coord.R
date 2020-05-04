@@ -183,6 +183,14 @@ sc_geom_names <- function(gnames) {
 }
 sfcoords <- function(x, ...) as.data.frame(m_v(x))
 
+#' @name sc_coord
+#' @export
+sc_coord.sfc_GEOMETRYCOLLECTION <- function(x, ...) {
+  colnames0 <- sc_geom_names(sf_geom_names(x[[1]]))
+  mat <- do.call(rbind, lapply(x, function(y) do.call(rbind, lapply(unclass(y), function(a) do.call(rbind, a)))))
+  colnames(mat) <- colnames0
+  tibble::as_tibble(mat)
+}
 
 # these are short-cut methods for single-type sets
 #' @export

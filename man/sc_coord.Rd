@@ -13,6 +13,7 @@
 \alias{sc_coord.SC}
 \alias{sc_coord.sf}
 \alias{sc_coord.sfc}
+\alias{sc_coord.sfc_GEOMETRYCOLLECTION}
 \alias{sc_coord.MULTIPOLYGON}
 \alias{sc_coord.POLYGON}
 \alias{sc_coord.MULTILINESTRING}
@@ -47,6 +48,8 @@ sc_coord(x, ...)
 \method{sc_coord}{sf}(x, ...)
 
 \method{sc_coord}{sfc}(x, ...)
+
+\method{sc_coord}{sfc_GEOMETRYCOLLECTION}(x, ...)
 
 \method{sc_coord}{MULTIPOLYGON}(x, ...)
 

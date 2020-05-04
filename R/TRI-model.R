@@ -22,6 +22,11 @@ TRI.default <- function(x, ...) {
   TRI(PATH(x), ...)
 }
 #' @export
+TRI.mesh3d <- function(x, ...) {
+  TRI(TRI0(x), ...)
+}
+
+#' @export
 TRI.TRI <- function(x, ...) {
   x
 }
