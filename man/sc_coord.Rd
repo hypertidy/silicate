@@ -4,6 +4,7 @@
 \alias{sc_coord}
 \alias{sc_coord.list}
 \alias{sc_coord.default}
+\alias{sc_coord.sfc_TIN}
 \alias{sc_coord.matrix}
 \alias{sc_coord.ARC}
 \alias{sc_coord.PATH}
@@ -30,6 +31,8 @@ sc_coord(x, ...)
 \method{sc_coord}{list}(x, ...)
 
 \method{sc_coord}{default}(x, ...)
+
+\method{sc_coord}{sfc_TIN}(x, ...)
 
 \method{sc_coord}{matrix}(x, ...)
 

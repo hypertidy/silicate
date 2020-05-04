@@ -3,7 +3,7 @@
 
 tri_to_sf <- function(x, ...) {
   x <- TRI0(x)
-  d <- sc_vertex(x)[as.vector(t(do.call(rbind, x$object$topology_))), ]
+  d <- sc_vertex(x)[as.vector(t(as.matrix(do.call(rbind, x$object$topology_)[, c(".vx0", ".vx1", ".vx2")]))), ]
   d <- as.matrix(d)
   if (dim(d)[2L] == 2) {
     d <- cbind(d, 0)
@@ -11,7 +11,7 @@ tri_to_sf <- function(x, ...) {
   colnames(d) <- NULL
   template <- structure(list(matrix(0.0, ncol = 3L, nrow = 4L)),
                         class = c("XYZ", "TRIANGLE", "sfg"))
-  ntriangles <- dim(d)[1]/4
+  ntriangles <- dim(d)[1]/3
   out <- replicate(ntriangles, template, simplify = FALSE)
   for (i in seq_along(out)) {
     triplet <- c(1L, 2L, 3L, 1L) + (i - 1) * 3
@@ -29,6 +29,3 @@ tri_to_sf <- function(x, ...) {
 }
 
 
-mesh_plot.sfc_TIN <- function(x, ...) {
-  #mesh_plot(TRI0(x), ...)
-}

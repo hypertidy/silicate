@@ -5,6 +5,7 @@
 \alias{sc_path.list}
 \alias{sc_path.default}
 \alias{sc_path.PATH}
+\alias{sc_path.sfc_TIN}
 \alias{sc_path.PATH0}
 \alias{sc_path.ARC}
 \alias{sc_path.SC}
@@ -29,6 +30,8 @@ sc_path(x, ...)
 \method{sc_path}{default}(x, ...)
 
 \method{sc_path}{PATH}(x, ...)
+
+\method{sc_path}{sfc_TIN}(x, ...)
 
 \method{sc_path}{PATH0}(x, ...)
 

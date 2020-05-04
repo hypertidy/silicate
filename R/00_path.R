@@ -47,6 +47,18 @@ sc_path.PATH <- function(x, ...) {
 }
 #' @name sc_path
 #' @export
+sc_path.sfc_TIN <- function(x, ...) {
+  rl <- unlist(lapply(x, length))
+  tibble::tibble(ncol = dim(x[[1]][[1]][[1]])[2L],
+
+                 type = "POLYGON",
+                 subobject = 1,
+                 object_ = rep(sc_uid(length(x)), rl),
+                 path_ = sc_uid(sum(rl)),
+                 ncoords_ = 4L)
+}
+#' @name sc_path
+#' @export
 sc_path.PATH0 <- function(x, ...) {
   do.call(rbind, x$object$path_) %>%
     dplyr::group_by(.data$object_, .data$path_, .data$subobject) %>%

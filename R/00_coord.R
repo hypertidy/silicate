@@ -85,7 +85,19 @@ sc_coord.default <- function(x, ...){
 
   x
 }
+#' @name sc_coord
+#' @export
+sc_coord.sfc_TIN <- function(x, ...) {
+  #dm <- dim(x[[1]][[1]][[1]])
+  out <- do.call(rbind, unlist(unlist(x, recursive = FALSE), recursive = FALSE))
+  if (dim(out)[2L] == 3L) {
+    colnames(out) <- c("x_", "y_", "z_")
+  } else {
+    colnames(out) <- c("x_", "y_")
+  }
+  tibble::as_tibble(out)
 
+}
 
 #' @name sc_coord
 #' @export
