@@ -22,35 +22,19 @@ c.SC0 <- function(...) {
     all_list[[i]]$object[["topology_"]][[j]]$.vx1 <- all_list[[i]]$object[["topology_"]][[j]]$.vx1 + incr
     }
     incr <- incr + nrs[i]
-    #all_list[[i]]$object["topology_"] <- topo1
   }
   }
   segs <- purrr::map_df(all_list, ~do.call(rbind, .x$object$topology_), .id = "object")
-  ## id here means the same (but it didn't exist before)
-  #objs <- purrr::map_df(all_list, ~.x$object["id"])
 
   vert <- purrr::map_df(all_list, ~.x$vertex[c("x_", "y_")])
   vdata <- unjoin::unjoin(vert, .data$x_, .data$y_)
- # if (nrow(vdata$data) == nrow(vdata$.idx0)) {
-    ## we done, just bind the tables after re-indexing
-
-#  } else {
- #   browser()
-    uverts <- vdata$.idx0
+  uverts <- vdata$.idx0
     segs$.vx0 <- match(vdata$data$.idx0[segs$.vx0], vdata$.idx0$.idx0)
     segs$.vx0 <- match(vdata$data$.idx0[segs$.vx1], vdata$.idx0$.idx0)
     vert <- uverts[c("x_", "y_")]
 #  }
 
   topology <- split(segs[c(".vx0", ".vx1")], segs$object)[unique(segs$object)]
-
-  # incr <- 0
-  # for (i in seq_along(topology)) {
-  #   topology[[i]]$.vx0 <- topology[[i]]$.vx0 + incr
-  #   topology[[i]]$.vx1 <- topology[[i]]$.vx1 + incr
-  #   incr <- incr + nrs[i]
-  #   print(i)
-  # }
   out <- structure(list(object = tibble::tibble(topology_ = topology), vertex = vert,
                         meta = tibble::tibble(proj = all_list[[1]]$meta$proj[1], ctime = Sys.time())), class = c("SC0", "sc"))
   out
