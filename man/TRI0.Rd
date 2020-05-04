@@ -4,6 +4,8 @@
 \alias{TRI0}
 \alias{TRI0.default}
 \alias{TRI0.mesh3d}
+\alias{TRI0.TRI0}
+\alias{TRI0.sfc_TIN}
 \alias{TRI0.TRI}
 \alias{TRI0.PATH0}
 \alias{TRI0.PATH}
@@ -16,6 +18,10 @@ TRI0(x, ...)
 \method{TRI0}{default}(x, ...)
 
 \method{TRI0}{mesh3d}(x, ...)
+
+\method{TRI0}{TRI0}(x, ...)
+
+\method{TRI0}{sfc_TIN}(x, ...)
 
 \method{TRI0}{TRI}(x, ...)
 
@@ -54,6 +60,12 @@ stored for each object.
 
 Ear-cutting is inherently path-based, so this model is only available for
 path-based structures, like simple features, \code{\link[=PATH]{PATH()}}, \code{\link[=PATH0]{PATH0()}} and \code{\link[=ARC]{ARC()}}.
+
+There is limited support for simple features GEOMETRYCOLLECTION, in short if
+the GC is composed purely of POLYGON type with 4 coordinates each this is
+assumed to be a collection of triangles and is converted directly without
+any triangulation performed. GEOMETRYCOLLECTION of any other form is not
+supported.
 }
 \examples{
 tri <- TRI0(minimal_mesh)

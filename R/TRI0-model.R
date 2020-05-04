@@ -25,6 +25,12 @@ new_TRI0 <- function(vertex, object, index, crs = NA_character_) {
 #'
 #' Ear-cutting is inherently path-based, so this model is only available for
 #' path-based structures, like simple features, [PATH()], [PATH0()] and [ARC()].
+#'
+#' There is limited support for simple features GEOMETRYCOLLECTION, in short if
+#' the GC is composed purely of POLYGON type with 4 coordinates each this is
+#' assumed to be a collection of triangles and is converted directly without
+#' any triangulation performed. GEOMETRYCOLLECTION of any other form is not
+#' supported.
 #' @param x object understood by silicate (sf, sp, a silicate model, etc.)
 #' @param ... currently unused
 #' @return TRI0 model with tables 'object', 'vertex'
@@ -83,6 +89,16 @@ TRI0.mesh3d <- function(x, ...) {
   }
   new_TRI0(vertex, object, list(index), crs)
 
+}
+#' @name TRI0
+#' @export
+TRI0.TRI0 <- function(x, ...) {
+  x
+}
+#' @name TRI0
+#' @export
+TRI0.sfc_TIN <- function(x, ...) {
+  stop("TRI0 not implemented for TIN")
 }
 #' @name TRI0
 #' @export
