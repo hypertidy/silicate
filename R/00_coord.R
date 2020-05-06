@@ -149,8 +149,8 @@ sc_coord.sf <- function(x, ...) {
 #' @name sc_coord
 #' @export
 sc_coord.sfc <- function(x,  ...) {
-  x <- lapply(x, sc_coord)
-  dplyr::bind_rows(x)
+  #do.call(rbind, lapply(x, sc_coord))
+  dplyr::bind_rows(lapply(x, function(xa) sc_coord))
 
 }
 
@@ -184,20 +184,26 @@ sc_geom_names <- function(gnames) {
 sfcoords <- function(x, ...) as.data.frame(m_v(x))
 
 
+
+split_mat <- function(x) setNames(split(x, rep(seq_len(dim(x)[2]),
+                                               each = dim(x)[1])), c("x_", "y_"))
+
+
 # these are short-cut methods for single-type sets
 #' @export
 sc_coord.sfc_MULTIPOLYGON <- function(x, ...) {
   colnames0 <- sc_geom_names(sf_geom_names(x[[1]]))
   mat <- do.call(rbind, lapply(x, function(y) do.call(rbind, lapply(unclass(y), function(a) do.call(rbind, a)))))
   colnames(mat) <- colnames0
-  tibble::as_tibble(mat)
+  tibble::new_tibble(split_mat(mat))
+
 }
 #' @export
 sc_coord.sfc_MULTILINESTRING <- sc_coord.sfc_POLYGON <- function(x, ...) {
   colnames0 <- sc_geom_names(sf_geom_names(x[[1]]))
   mat <- do.call(rbind, lapply(x, function(y) do.call(rbind, unclass(y))))
   colnames(mat) <- colnames0
-  tibble::as_tibble(mat)
+  tibble::new_tibble(split_mat(mat))
 }
 #' @export
 sc_coord.sfc_LINESTRING <- sc_coord.sfc_MULTIPOINT <- function(x, ...) {

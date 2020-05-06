@@ -24,15 +24,11 @@ PATH0.default <- function(x, ...) {
 
   ## normalize on ALL coordinate attributes, not just x_, y_ #113
   udata <- unjoin::unjoin(coord0, names(coord0), key_col = "vertex_")
-  udata[["vertex_"]]$row <- seq_len(nrow(udata[["vertex_"]]))
-  #gmap <- gibble::gibble(x) %>% dplyr::mutate(path = dplyr::row_number())
-  instances <- udata$data %>% dplyr::mutate(path = as.integer(factor(rep(path_paste(gmap), gmap$nrow))),
-                                            object = rep(gmap$object, gmap$nrow),
-                                            coord = row_number())
-
-
-
-
+  udata[["vertex_"]]$row <- seq_len(dim(udata[["vertex_"]])[1L])
+  instances <- dplyr::mutate(udata[["data"]],
+                             path = as.integer(factor(rep(path_paste(gmap), gmap$nrow))),
+                             object = rep(gmap$object, gmap$nrow),
+                             coord = row_number())
 
   if (!"subobject" %in% names(gmap)) gmap$subobject <- 1
   idx <- tibble::tibble(vertex_ = instances$vertex_,
@@ -40,16 +36,13 @@ PATH0.default <- function(x, ...) {
                         ## removed as.character, path_ (and in TRI0) should not be character
                         path_ = rep(seq_len(nrow(gmap)), gmap$nrow),
                         subobject = rep(gmap$subobject, gmap$nrow))
-  if (length(unique(idx$subobject) > 1)) {
-   #handle multis
-  }
+  # if (length(unique(idx$subobject) > 1)) {
+  #  #handle multis
+  # }
   o$path_ <- split(idx, idx$object_)
-
   ## don't select just x_, y_ #113
-  vertex <- udata$vertex_ %>%
-    dplyr::arrange(.data$vertex_) 
+  vertex <-     dplyr::arrange(udata[["vertex_"]], .data$vertex_)
   vertex$vertex_ <- vertex$row <- NULL
-  #%>% dplyr::select(.data$x_, .data$y_)
   meta <- tibble::tibble(proj = get_projection(x), ctime = Sys.time())
   structure(list(object = o, vertex = vertex, meta = meta), class = c("PATH0", "sc"))
 }
