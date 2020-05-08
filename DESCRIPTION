@@ -31,13 +31,13 @@ Suggests:
 RoxygenNote: 7.1.0
 Imports: 
     dplyr,
-    gibble (>= 0.3.0.9002),
+    gibble (>= 0.4.0),
     methods,
     purrr,
     rlang,
     decido,
     tibble,
-    unjoin (>= 0.0.3),
+    unjoin (>= 0.1.0),
     grDevices,
     graphics,
     stats,
