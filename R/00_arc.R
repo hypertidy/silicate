@@ -82,8 +82,8 @@ sc_arc_base <- function(path_link_vertex, node) {
   f <- factor(arcs0[["path_"]])
   arcs0[["path_"]] <- NULL
   arcs0[["arc_"]] <- sc_uid(nlevels(f))[f]
-  arcs0 <- dplyr::select(arcs0, .data$arc_, .data$vertex_, .data$object_)
+  arcs0 <- dplyr::select(arcs0, .data$object_, .data$arc_, .data$vertex_)
   path_link_vertex <- path_link_vertex %>% inner_join(noded_path, "path_")
   paths <- split(path_link_vertex, path_link_vertex[["path_"]])
-  bind_rows(arcs0, lapply(paths, function(x) find_arc(x, node[["vertex_"]])))
+  bind_rows(arcs0, bind_rows(lapply(paths, function(x) find_arc(x, node[["vertex_"]]))))
 }

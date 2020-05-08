@@ -28,7 +28,7 @@ uedge <- edge
 uedge[[".uvx0"]] <- v_0
 uedge[[".uvx1"]] <- v_1
 
-uedge[["u_edge"]] <- dplyr::group_indices(uedge, .data$.uvx0, .data$.uvx1)
+uedge[["u_edge"]] <- dplyr::group_indices(dplyr::group_by(uedge, .data$.uvx0, .data$.uvx1))
 
 
 uedge %>% group_by(.uvx0, .uvx1) %>% tally()  %>% print(n = Inf)

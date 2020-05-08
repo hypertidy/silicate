@@ -11,7 +11,7 @@ m <- cbind(x, y)
 d <- data.frame(a = x[1:4], y = y[1:4])
 d1 <- data.frame(x = x, y = y)
 test_that("generic forms are understood", {
-  expect_equal(sc_coord(poly), na.omit(tibble::tibble(x = x, y = y)))
+  expect_equal(sc_coord(poly), tibble::tibble(x = x, y = y)[!is.na(x), ])
   expect_equal(sc_path(poly), tibble::tibble(nrow = c(4L, 4L)))
 
   sc_coord(l) %>%  expect_s3_class("tbl_df") %>% expect_length(5L)
