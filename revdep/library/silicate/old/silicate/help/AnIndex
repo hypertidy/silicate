@@ -1,3 +1,4 @@
+silicate-package	silicate
 %>%	pipe
 ARC	ARC
 ARC.default	ARC
@@ -23,6 +24,7 @@ polymesh	polymesh
 print.sc	print.sc
 routes	routes
 SC	SC
+SC.default	SC
 SC.TRI	SC
 SC0	SC0
 SC0.default	SC0
@@ -31,9 +33,11 @@ sc_arc.ARC	sc_arc
 sc_arc.default	sc_arc
 sc_colours	sc_colours
 sc_coord	sc_coord
+sc_coord.ARC	sc_coord
 sc_coord.default	sc_coord
 sc_coord.Lines	sc_coord
 sc_coord.LINESTRING	sc_coord
+sc_coord.list	sc_coord
 sc_coord.matrix	sc_coord
 sc_coord.MULTILINESTRING	sc_coord
 sc_coord.MULTIPOINT	sc_coord
@@ -75,6 +79,7 @@ sc_path.ARC	sc_path
 sc_path.default	sc_path
 sc_path.GEOMETRYCOLLECTION	sc_path
 sc_path.LINESTRING	sc_path
+sc_path.list	sc_path
 sc_path.matrix	sc_path
 sc_path.MULTILINESTRING	sc_path
 sc_path.MULTIPOINT	sc_path
@@ -105,6 +110,7 @@ sc_vertex.default	sc_vertex
 sc_vertex.PATH	sc_vertex
 sc_vertex.PATH0	sc_vertex
 sc_vertex.SC	sc_vertex
+sc_vertex.SC0	sc_vertex
 sc_vertex.TRI	sc_vertex
 sc_vertex.TRI0	sc_vertex
 sfgc	sfzoo

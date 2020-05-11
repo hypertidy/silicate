@@ -1,7 +1,7 @@
 Package: silicate
 Title: Common Forms for Complex Hierarchical and Relational Data
         Structures
-Version: 0.4.0
+Version: 0.6.0
 Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com"), 
              person("John", "Corbett", role = "ctb", comment = "the original inspiration"), 
              person("Simon", "Wotherspoon", role = "ctb"), 
@@ -22,9 +22,9 @@ Encoding: UTF-8
 LazyData: true
 Suggests: covr, knitr, rmarkdown, sp, testthat (>= 2.1.0), trip, vdiffr
 RoxygenNote: 7.1.0
-Imports: dplyr, gibble (>= 0.2.0), methods, purrr, rlang, decido,
-        tibble, unjoin (>= 0.0.3), grDevices, graphics, stats,
-        magrittr, gridBase, crsmeta (>= 0.2.0.9001)
+Imports: dplyr, gibble (>= 0.4.0), methods, purrr, rlang, decido,
+        tibble, unjoin (>= 0.1.0), grDevices, graphics, stats,
+        magrittr, gridBase, crsmeta (>= 0.3.0)
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/hypertidy/silicate
@@ -32,11 +32,11 @@ BugReports: https://github.com/hypertidy/silicate/issues
 RemoteType: local
 RemoteUrl: /perm_storage/home/mdsumner/Git/silicate
 NeedsCompilation: no
-Packaged: 2020-04-15 14:16:46 UTC; mdsumner
+Packaged: 2020-05-11 12:09:55 UTC; mdsumner
 Author: Michael D. Sumner [aut, cre],
   John Corbett [ctb] (the original inspiration),
   Simon Wotherspoon [ctb],
   Kent Johnson [dtc],
   Mark Padgham [aut]
 Maintainer: Michael D. Sumner <mdsumner@gmail.com>
-Built: R 3.6.3; ; 2020-04-15 14:16:47 UTC; unix
+Built: R 3.6.3; ; 2020-05-11 12:09:57 UTC; unix

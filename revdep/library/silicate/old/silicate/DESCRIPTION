@@ -1,7 +1,7 @@
 Package: silicate
 Title: Common Forms for Complex Hierarchical and Relational Data
         Structures
-Version: 0.3.0
+Version: 0.4.0
 Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com"), 
              person("John", "Corbett", role = "ctb", comment = "the original inspiration"), 
              person("Simon", "Wotherspoon", role = "ctb"), 
@@ -20,16 +20,16 @@ Depends: R (>= 3.4.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Suggests: covr, knitr, rmarkdown, sp, testthat, trip, vdiffr
+Suggests: covr, knitr, rmarkdown, sp, testthat (>= 2.1.0), trip, vdiffr
 RoxygenNote: 7.1.0
 Imports: dplyr, gibble (>= 0.2.0), methods, purrr, rlang, decido,
-        tibble, unjoin (>= 0.0.3), tidyr (>= 1.0.0), grDevices,
-        graphics, stats, magrittr, gridBase, crsmeta (>= 0.2.0)
+        tibble, unjoin (>= 0.0.3), grDevices, graphics, stats,
+        magrittr, gridBase, crsmeta (>= 0.3.0)
 VignetteBuilder: knitr
 URL: https://github.com/hypertidy/silicate
 BugReports: https://github.com/hypertidy/silicate/issues
 NeedsCompilation: no
-Packaged: 2020-03-21 21:10:29 UTC; mdsumner
+Packaged: 2020-04-15 15:20:22 UTC; mdsumner
 Author: Michael D. Sumner [aut, cre],
   John Corbett [ctb] (the original inspiration),
   Simon Wotherspoon [ctb],
@@ -37,5 +37,5 @@ Author: Michael D. Sumner [aut, cre],
   Mark Padgham [aut]
 Maintainer: Michael D. Sumner <mdsumner@gmail.com>
 Repository: CRAN
-Date/Publication: 2020-03-22 17:30:03 UTC
-Built: R 3.6.3; ; 2020-04-15 14:16:25 UTC; unix
+Date/Publication: 2020-04-15 17:20:02 UTC
+Built: R 3.6.3; ; 2020-05-11 12:09:21 UTC; unix

@@ -4,6 +4,7 @@ ARC	ARC
 ARC.default	ARC
 ARC.PATH	ARC
 dplyr-methods	dplyr-methods
+ear_gc	ear_gc
 filter	dplyr-methods
 filter.SC	dplyr-methods
 flight_tracks	flight_tracks
@@ -51,6 +52,8 @@ sc_coord.SC	sc_coord
 sc_coord.SC0	sc_coord
 sc_coord.sf	sc_coord
 sc_coord.sfc	sc_coord
+sc_coord.sfc_GEOMETRYCOLLECTION	sc_coord
+sc_coord.sfc_TIN	sc_coord
 sc_coord.Spatial	sc_coord
 sc_coord.TRI	sc_coord
 sc_edge	sc_edge
@@ -92,6 +95,7 @@ sc_path.SC	sc_path
 sc_path.SC0	sc_path
 sc_path.sf	sc_path
 sc_path.sfc	sc_path
+sc_path.sfc_TIN	sc_path
 sc_path.Spatial	sc_path
 sc_segment	sc_segment
 sc_segment.default	sc_segment
@@ -117,9 +121,15 @@ sfgc	sfzoo
 sfzoo	sfzoo
 silicate	silicate
 TRI	TRI
+TRI.sfc_GEOMETRYCOLLECTION	TRI
 TRI0	TRI0
 TRI0.default	TRI0
+TRI0.mesh3d	TRI0
 TRI0.PATH	TRI0
 TRI0.PATH0	TRI0
+TRI0.sf	TRI0
+TRI0.sfc_GEOMETRYCOLLECTION	TRI0
+TRI0.sfc_TIN	TRI0
 TRI0.TRI	TRI0
+TRI0.TRI0	TRI0
 tri_area	tri_area

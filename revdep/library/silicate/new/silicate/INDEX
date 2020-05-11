@@ -6,6 +6,7 @@ SC0                     Pure edge model, structural form
 TRI                     TRI model, triangulations
 TRI0                    TRI0 model, structural triangulations
 dplyr-methods           Dplyr methods for silicate objects
+ear_gc                  Geometry collection of triangles
 flight_tracks           Flight tracks
 inlandwaters            Inland waters, for parts of Australia, and New
                         Caledonia.

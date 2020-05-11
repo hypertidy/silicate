@@ -1,7 +1,22 @@
+# silicate 0.4.0
+
+* Fixed obscure bug that messed up anglr because of class-dropping for the 
+sfc in a tibble. now 0.3.0.9040
+
+* A potentially breaking change, stray uses of the `triangle$visible_` 
+property have been removed, to be consistent with the anglr package. 
+
+* Several fixes related to new unnest() behaviour, it was 
+ unnecessary so replaced with use of do.call/rbind. 
+ 
+* Fix previous unexported `sc_vertex.SC0`, the cause of https://github.com/hypertidy/anglr/issues/97. 
+
+* Fixed a problem with unclassed sfc lists. #109 and https://github.com/hypertidy/anglr/issues/91/. 
+
 # silicate 0.3.0
 
-* Import crsmeta so we can navigate the structure change in sf crs.
- (Fixes breakage in eixport).
+* Import crsmeta so we can navigate the structure change in sf crs. (Fixes
+breakage in eixport).
 
 * Fixed CRAN NOTE about not using geometry import. 
 

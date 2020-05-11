@@ -34,6 +34,7 @@ PATH.TRI <- function(x, ...) {
 #' @export
 #' @importFrom dplyr bind_cols mutate
 #' @importFrom tibble tibble
+#' @importFrom unjoin unjoin
 PATH.default  <- function(x, ...) {
   ## get the main stuff
   o <- sc_object(x)

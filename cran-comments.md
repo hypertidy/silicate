@@ -1,6 +1,7 @@
-# silicate 0.5.0
+# silicate 0.6.0
 
-Release for dplyr 1.0.0. 
+Apologies for too-soon release, this is required for an 
+update to unjoin to align to dplyr 1.0.0. 
 
 Thank you very much. 
 
