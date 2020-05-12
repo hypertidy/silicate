@@ -38,7 +38,7 @@ print.sc <- function(x, ...) {
 model_type <- function(x) {
 
   switch(tail(class(x), 2)[1],
-
+         idxTRI0 = "Structural",
          SC0 = "Structural",
          PATH0 = "Sequential",
          TRI = "Primitive",
@@ -54,6 +54,7 @@ model_type <- function(x) {
 topology_type <- function(x) {
   switch(tail(class(x), 2)[1],
          TRI = "2-space",
+         idxTRI0 = "2-space",
          DEL = "2-space",
          TRI0 = "2-space",
          DEL0 = "2-space",
@@ -69,6 +70,7 @@ n_primitives <- function(x) {
   switch(tail(class(x), 2)[1],
          SC0 = sum(unlist(lapply(x$object$topology_, nrow))),
          TRI = nrow(x$triangle),
+         idxTRI0 = sum(unlist(lengths(x$object$topology_))/3),
          DEL = nrow(x$triangle),
          TRI0 = sum(unlist(lapply(x$object$topology_, nrow))),
          DEL0 = sum(unlist(lapply(x$object$topology_, nrow))),
@@ -82,6 +84,7 @@ n_paths <- function(x) {
   switch(tail(class(x), 2)[1],
   ARC = length(unique(x$object_link_arc$arc_)),
   PATH = nrow(x$path),
+  idxTRI0 = "[abandoned]",
   SC0 = nrow(x$geometry),
   PATH0 = sum(unlist(lapply(x$object$path_, function(a) length(unique(a$path_))))),
   "[unknown")
@@ -92,5 +95,6 @@ n_coordinates <- function(x) {
          PATH = sum(x$path$ncoords_),
          PATH0 = nrow(x$vertex),
          SC0 = nrow(x$coord),
+         idxTRI0 = nrow(x$coord),
          "[unknown")
 }

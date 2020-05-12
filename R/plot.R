@@ -192,3 +192,25 @@ plot.TRI0 <- function(x, ..., add = FALSE) {
   grid::popViewport(3)
 
 }
+
+#' @export
+plot.idxTRI0 <- function(x, ..., add = FALSE) {
+  coord <- x$coord
+  if (!add) plot(coord$x_, coord$y_, type = "n", asp = 1)
+  vps <- gridBase::baseViewports()
+  grid::pushViewport(vps$inner, vps$figure, vps$plot)
+  tt <- t(do.call(rbind, x$object$topology_))
+
+  xx <- tibble(x = coord$x_[tt], y = coord$y_[tt], id = rep(seq_len(length(tt)/3), each = 3),
+               col = NA, border = "black")
+  args <- list(...)
+  if (!is.null(args$col)) {
+    xx$col <- rep_len(args$col, length.out = nrow(xx))
+    xx$border <- NA
+  }
+  if (!is.null(args$border)) xx$border <- rep_len(args$border, length.out = nrow(xx))
+  grid::grid.polygon(xx$x, xx$y, xx$id, gp = grid::gpar(col = xx$border, fill = xx$col),
+                     default.units = "native")
+  grid::popViewport(3)
+
+}
