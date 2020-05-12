@@ -1,3 +1,7 @@
+# silicate 0.6.1
+
+* Adopt correct unjoin dependency. 
+
 # silicate 0.6.0
 
 * New TRI and TRI0 methods for mesh3d. No material properties yet, just one mesh object. 
