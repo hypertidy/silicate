@@ -1,3 +1,8 @@
+# silicate dev
+
+* Fixed bug in TRI.TRI0 not propagating the object id. 
+
+
 # silicate 0.6.0
 
 * New TRI and TRI0 methods for mesh3d. No material properties yet, just one mesh object. 

@@ -77,10 +77,11 @@ TRI.SC <- function(x, ...) {
 }
 #' @export
 TRI.TRI0 <- function(x, ...){
+  #browser()
   topol <- dplyr::bind_rows(x$object$topology_, .id = "object_")
   x$object$topology_ <- NULL
   x$object$object_ <- sc_uid(x$object)
-  topol$object_ <- x$object$object_[as.integer(topol$object_)]
+  topol$object_ <- x$object$object_[as.integer(factor(topol$object_))]
   v <- sc_vertex(x)
   v$vertex_ <- sc_uid(v)
   topol$.vx0 <- v$vertex_[topol$.vx0]
