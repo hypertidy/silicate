@@ -1,3 +1,4 @@
 package,old,new,delta
-silicate,0.3.0,0.4.0,*
-unjoin,NA,0.0.4,*
+silicate,0.4.0,0.6.0,*
+pillar,NA,1.4.4,*
+rlang,NA,0.4.6,*

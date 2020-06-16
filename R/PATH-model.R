@@ -34,6 +34,7 @@ PATH.TRI <- function(x, ...) {
 #' @export
 #' @importFrom dplyr bind_cols mutate
 #' @importFrom tibble tibble
+#' @importFrom unjoin unjoin
 PATH.default  <- function(x, ...) {
   ## get the main stuff
   o <- sc_object(x)
@@ -44,7 +45,7 @@ PATH.default  <- function(x, ...) {
   V_names <- names(v)
   v <- dplyr::mutate(v, path_ = rep(b$path_, b$ncoords_))
   key_col <- "vertex_"
-  maindata <- unjoin::unjoin_(v, V_names, key_col = key_col)
+  maindata <- unjoin::unjoin(v, V_names, key_col = key_col)
   dd <- maindata[["data"]]
   id <- sc_uid(dd)
   v <- dplyr::mutate(maindata[[key_col]], vertex_ = id[maindata[[key_col]][[key_col]]])

@@ -1,8 +1,7 @@
-# silicate 0.4.0
+# silicate 0.6.0
 
-Apologies for a quick turnaround for this package, less than a month
-but required clean out some problems with the new version of tibble 
-and prepare for an upcoming new release. 
+Apologies for too-soon release, this is required for an 
+update to unjoin to align to dplyr 1.0.0. 
 
 Thank you very much. 
 
@@ -17,20 +16,10 @@ Thank you very much.
 
 ## CRAN checks
 
-The previous version 0.3.0 has a warning in the vignette build
-
-* r-patched-osx-x86_64
-
-  'dyld: lazy symbol binding failed: Symbol not found: ____chkstk_darwin'
 
 ## Reverse dependencies
 
-The dependency 'tabularaster' passes check under this version. 
-
-The dependency 'eixport' fails under this version, as with silicate 0.3.0
-but the author has been informed and when fixed will work with this version of
-silicate. 
-
+The dependencies 'anglr' 'eixport', 'tabularaster' pass check under this version. 
 
 
 

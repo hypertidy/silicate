@@ -24,13 +24,13 @@ test_that("TRI round trip suite works", {
   TRI0(x)
 
 })
-  
-  expect_warning(  TRI(TRI0(x)))
+
+ ## FIXED 2020-05-15 expect_warning(  TRI(TRI0(x)))
   expect_silent({
-    
+
     sc_triangle(x)
-    
-  
+
+
   })
 })
 

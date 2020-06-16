@@ -27,4 +27,20 @@ with spatial data layers and most silicate workflows are geared to using the und
 
 The functions in silicate are grouped into *models* and *worker verbs*. The models have capitalized names and the worker verbs are prefixed with 'sc'. 
 
-The worker verbs work with all (there are some exceptions) model types and with several external formats, particularly sf, sp, trip, and other external package types.  
+The worker verbs work with all (there are some exceptions) model types and with several external formats, particularly sf, sp, trip, and other external package types. 
+
+# Implicit and explicit topology
+
+Topology is the inherent underlying shape structure of data and silicate is clear on the distinction. There are two kinds of data structures that are abandoned by geospatial vector formats: surfaces and ordered linear paths. This might sound controversial but really is not, it's a trivial phrasing of what is in the simple features standard. This is why silicate treats "spatial polygons" as PATH forms, because they are inherently linear structures and any surface interpretation is purely implicit (winding or even-odd rule). For an explicit surface, silicate requires a truly surface-based form, with triangular primitives. 
+
+Silicate itself only inclues *ear-clipping* triangulation, a relatively cheap method suitable for *implicit surfaces using closed paths*. A more sophisticated meshing triangulation is available in the [anglr package](https://github.com/hypertidy/anglr). The anglr package is less strict than silicate, and will happily treat many path-based data structures as *implicit surfaces*, and so we can `plot3d()` or `as.mesh3d()` a polygon or line layer and it will do its best to generate a true explicit surface. We can otherwise use the silicate model `TRI()` or `TRI0()` or the anglr models `DEL()` or `DEL0()` to actually work with the data structure in use (not just a visual side-effect). 
+ 
+It's important to know what is the simplest vs more complex ways of creating surfaces. In general, `TRI0()` is cheapest, and `DEL()` is most expensive - but the former requires *paths*, and the latter works with *edges*.  The cheapest one, is TRI0(). TRI() is next expensive (adds visible property, and native orientation, and arbitrary subsetting) ... but cheap triangles, next is DEL0() (control over area, angle, Steiner points, Delaunay constraint, etc), then DEL(). 
+
+* DEL must be composed from edges, and edges can come from any model
+*TRI must be composed from close paths, there's no path in SC, ARC or TRI
+* DEL0 should exist, and be the default workhorse
+* TRI cannot be set-vectorized, we have to call earcut for each POLYGON
+* DEL is set-vectorized, classify all triangles by intersection with input paths (or holes)
+* triangles in DEL that fall in holes are not visible, but don't need to be removed
+* if we DEL a TRI we could test triangle inclusion to classify the triangles that are in holes
