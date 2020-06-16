@@ -3,20 +3,35 @@
 \name{TRI0}
 \alias{TRI0}
 \alias{TRI0.default}
+\alias{TRI0.mesh3d}
+\alias{TRI0.TRI0}
+\alias{TRI0.sfc_TIN}
 \alias{TRI0.TRI}
 \alias{TRI0.PATH0}
 \alias{TRI0.PATH}
+\alias{TRI0.sf}
+\alias{TRI0.sfc_GEOMETRYCOLLECTION}
 \title{TRI0 model, structural triangulations}
 \usage{
 TRI0(x, ...)
 
 \method{TRI0}{default}(x, ...)
 
+\method{TRI0}{mesh3d}(x, ...)
+
+\method{TRI0}{TRI0}(x, ...)
+
+\method{TRI0}{sfc_TIN}(x, ...)
+
 \method{TRI0}{TRI}(x, ...)
 
 \method{TRI0}{PATH0}(x, ...)
 
 \method{TRI0}{PATH}(x, ...)
+
+\method{TRI0}{sf}(x, ...)
+
+\method{TRI0}{sfc_GEOMETRYCOLLECTION}(x, ...)
 }
 \arguments{
 \item{x}{object understood by silicate (sf, sp, a silicate model, etc.)}
@@ -45,6 +60,12 @@ stored for each object.
 
 Ear-cutting is inherently path-based, so this model is only available for
 path-based structures, like simple features, \code{\link[=PATH]{PATH()}}, \code{\link[=PATH0]{PATH0()}} and \code{\link[=ARC]{ARC()}}.
+
+There is limited support for simple features GEOMETRYCOLLECTION, in short if
+the GC is composed purely of POLYGON type with 4 coordinates each this is
+assumed to be a collection of triangles and is converted directly without
+any triangulation performed. GEOMETRYCOLLECTION of any other form is not
+supported.
 }
 \examples{
 tri <- TRI0(minimal_mesh)
@@ -53,7 +74,7 @@ plot(tri)
 
 # obtain the vertices and indices in raw form
 
-## idx is the triplets of row numbers in tri$vertex 
+## idx is the triplets of row numbers in tri$vertex
 idx <- do.call(rbind, sc_object(tri)$topology_)
 idx <- as.matrix(idx[c(".vx0", ".vx1", ".vx2")])
 
@@ -64,10 +85,10 @@ vert <- as.matrix(sc_vertex(tri))
 plot(vert)
 polygon(vert[t(cbind(idx, NA)), ])
 
-## or create other structures like rgl's mesh3d 
+## or create other structures like rgl's mesh3d
 ## (see hypertidy/anglr for in-dev helpers)
-## rgl::tmesh3d(t(cbind(vert, 1, 1)), t(idx), 
-##   material = list(color = c("firebrick", "black", "grey", "blue")), 
+## rgl::tmesh3d(t(cbind(vert, 1, 1)), t(idx),
+##   material = list(color = c("firebrick", "black", "grey", "blue")),
 ##   meshColor = "faces")
 }
 \seealso{
