@@ -150,7 +150,7 @@ sc_coord.sf <- function(x, ...) {
 #' @export
 sc_coord.sfc <- function(x,  ...) {
   #do.call(rbind, lapply(x, sc_coord))
-  dplyr::bind_rows(lapply(x, function(xa) sc_coord))
+  dplyr::bind_rows(lapply(x, sc_coord))
 
 }
 
