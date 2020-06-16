@@ -42,14 +42,22 @@ ARC.PATH <- function(x, ...) {
                   "please use with caution", sep = "\n"))
   }
   o <- sc_object(x)
-  oXa <- sc_arc_PATH(x)
-  arc_map <- unique_arcs(oXa)
-  oXa$arc_ <- arc_map$arc[match(oXa$arc_, arc_map$arc0)]
+  arc <- sc_arc_PATH(x)
+  arc_map <- unique_arcs(arc)
 
-  oXa$obj <- oXa$object_[match(oXa$arc_, oXa$arc_)]  ## blat repeated objects
-  aXv <- oXa %>% dplyr::group_by(.data$obj) %>% mutate(id = dplyr::row_number())
-  aXv  <-  dplyr::distinct(aXv, .data$arc_, .data$vertex_, .data$id)
-  aXv$id <- aXv$obj <- NULL
+  arc$arc0 <- arc$arc_
+  arc$arc_ <- arc_map$arc[match(arc$arc0, arc_map$arc0)]
+
+  oXa <- dplyr::distinct(arc, .data$object_, .data$arc_)
+  #oXa$arc_ <- arc_map$arc[match(arc_map$arc, oXa$arc_)]
+
+  oXa$arc0 <- NULL
+#  oXa
+
+
+  aXv <- do.call(rbind, split(arc, arc$arc_)[unique(arc_map$arc)])
+
+aXv$object_ <- aXv$arc0 <-  NULL
   v <- sc_vertex(x)
   #join_ramp <-  tabnames <- c("object", "path",  "path_link_vertex", "vertex")
   meta <- tibble(proj = get_projection(x), ctime = format(Sys.time(), tz = "UTC"))
@@ -71,7 +79,7 @@ ARC.PATH <- function(x, ...) {
 #
 # }
 unique_arcs <- function(x, ...) {
-  dat <- split(x, x$arc_)
+  dat <- split(x, x$arc_)[unique(x$arc_)]
   arc_id <- dat %>%
     purrr::map(function(.x) paste(first_sort(.x$vertex_), collapse = ""))
   tibble::tibble(arc0 = names(dat), arc = names(dat)[factor(unlist(arc_id))])
