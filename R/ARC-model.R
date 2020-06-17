@@ -51,7 +51,7 @@ ARC.PATH <- function(x, ...) {
   oXa <- dplyr::distinct(arc, .data$object_, .data$arc_)
   #oXa$arc_ <- arc_map$arc[match(arc_map$arc, oXa$arc_)]
 
-  oXa$arc0 <- NULL
+  oXa$arc0 <- oXa$vertex_ <- oXa$obj <- NULL
 #  oXa
 
 
