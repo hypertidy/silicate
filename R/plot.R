@@ -62,7 +62,7 @@ plot.SC0 <- function(x, ... , add = FALSE) {
   e <- sc_edge(x)
   x0 <- e %>% dplyr::inner_join(v, c(".vx0" = "vertex_"))
   x1 <- e %>% dplyr::inner_join(v, c(".vx1" = "vertex_"))
-  if (!add) graphics::plot(v$x_, v$y_, type = "n")
+  if (!add) graphics::plot(v$x_, v$y_, type = "n", ...)
   args$x0 <- x0$x_
   args$x1 <- x1$x_
   args$y0 <- x0$y_
@@ -74,7 +74,7 @@ invisible(args)
 
 #' @export
 plot.PATH <- function(x, ...) {
-  plot(x$vertex[c("x_", "y_")], type = "n")
+  plot(x$vertex[c("x_", "y_")], type = "n", ...)
   paths <- split(x$path_link_vertex, x$path_link_vertex$path_)[unique(x$path_link_vertex$path_)]
   #cols <- sc_colours(length(obj))
   gg <- x$path %>% dplyr::group_by(.data$object_) %>% dplyr::summarize(nn = sum(.data$ncoords_))
@@ -102,7 +102,7 @@ plot.PATH <- function(x, ...) {
 
 #' @export
 plot.PATH0 <- function(x, ...) {
-  plot(x$vertex[c("x_", "y_")], type = "n")
+  plot(x$vertex[c("x_", "y_")], type = "n", ...)
   col <- sc_colours(nrow(x$object))
 
   pp <-
@@ -131,7 +131,7 @@ plot.PATH0 <- function(x, ...) {
 #' @importFrom graphics segments
 plot.ARC <- function(x, ...,  col = NULL, lwd = 2L, add = FALSE) {
 
-  if (!add) plot(x$vertex[c("x_", "y_")], pch = "")
+  if (!add) plot(x$vertex[c("x_", "y_")], type = "n", ...)
   a0 <- dplyr::inner_join(x$arc_link_vertex, x$vertex, "vertex_")
   a0$vertex_ <- NULL
   a1 <-   split(a0, a0$arc_)
@@ -150,7 +150,7 @@ segs <-   do.call(rbind, purrr::map(a1, ~p2s(as.matrix(.x[c("x_", "y_")]))))
 #' @export
 plot.TRI <- function(x, ..., add = FALSE) {
   v <- x$vertex
-  if (!add) plot(v$x_, v$y_, type = "n", asp = 1)
+  if (!add) plot(v$x_, v$y_, type = "n", ...)
   vps <- gridBase::baseViewports()
   grid::pushViewport(vps$inner, vps$figure, vps$plot)
   tt <- x[["triangle"]]
@@ -174,7 +174,7 @@ plot.TRI <- function(x, ..., add = FALSE) {
 #' @export
 plot.TRI0 <- function(x, ..., add = FALSE) {
   v <- x$vertex
-  if (!add) plot(v$x_, v$y_, type = "n", asp = 1)
+  if (!add) plot(v$x_, v$y_, type = "n", ...)
   vps <- gridBase::baseViewports()
   grid::pushViewport(vps$inner, vps$figure, vps$plot)
   tt <- t(as.matrix(dplyr::bind_rows(x$object$topology_)[c(".vx0", ".vx1", ".vx2")]))
