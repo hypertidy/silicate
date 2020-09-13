@@ -1,5 +1,8 @@
 # silicate dev
 
+* Add function `PATH_from_df()` to generate PATH0 from generic data frame input. 
+
+
 * Fixed bug in TRI.TRI0 not propagating the object id. 
 
 

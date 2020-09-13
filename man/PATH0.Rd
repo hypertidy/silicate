@@ -4,6 +4,7 @@
 \alias{PATH0}
 \alias{PATH0.default}
 \alias{PATH0.PATH0}
+\alias{PATH0_from_df}
 \title{Path model in structural form}
 \usage{
 PATH0(x, ...)
@@ -11,20 +12,50 @@ PATH0(x, ...)
 \method{PATH0}{default}(x, ...)
 
 \method{PATH0}{PATH0}(x, ...)
+
+PATH0_from_df(
+  x,
+  ...,
+  path_ = "path_",
+  object_ = "object_",
+  subobject_ = "subobject_",
+  x_ = "x",
+  y_ = "y"
+)
 }
 \arguments{
-\item{x}{an object understood by silicate}
+\item{x}{data frame with at least x, y columns}
 
-\item{...}{ignored currently}
+\item{...}{ignored}
+
+\item{path_}{path identifier, these should identify individual paths}
+
+\item{object_}{object identifier (like group in ggplot)}
+
+\item{x_}{optional name for x column (assumed to be x)}
+
+\item{y_}{optional name for x column (assumed to be y)}
+
+\item{subobject}{subobject identifier (like polygon_id with multipolygons in sfheaders)}
 }
 \value{
 PATH0 model with tables 'object' and 'vertex'
 }
 \description{
 Structural form requires only tables 'object' and 'vertex'.
+
+Minimal columns is x,y but can be grouped by path_ for separate paths, then subobject_ and object_ for full polygon support.
+}
+\details{
+This function exists as a special-case for non-format input for \code{\link[=PATH0]{PATH0()}}. It's expected there
+are columns x, y, and optionally object_, subobject_, and path_. These correspond to
+names in sfheaders, multipolygon_id, polygon_id, and linestring_id. (subobject is optional if
+not multipolygon).
 }
 \examples{
 (p <- PATH0(minimal_mesh))
 
 p$object$topology_
+plot(TRI0(PATH0_from_df(data.frame(x = runif(10), y = runif(10)))), col = "grey")
+## more examples at
 }
