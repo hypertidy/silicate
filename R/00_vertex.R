@@ -52,3 +52,9 @@ sc_vertex.PATH <- function(x, ...) {
 sc_vertex.PATH0 <- function(x, ...) {
   x[["vertex"]]
 }
+
+#' @name sc_vertex
+#' @export
+sc_vertex.pslg <- function(x, ...) {
+  tibble::tibble(x_ = x$P[,1L], y_ = x$P[,2L])
+}

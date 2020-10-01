@@ -103,7 +103,11 @@ SC.TRI <- function(x, ...) {
 }
 
 
-
+#' @name SC
+#' @export
+SC.pslg <- function(x, ...) {
+  SC(SC0(x))
+}
 
 ## need to identify segments that were input and are
 ## shared by two triangles, set to invisible

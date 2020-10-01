@@ -3,11 +3,14 @@
 \name{SC0}
 \alias{SC0}
 \alias{SC0.default}
+\alias{SC0.pslg}
 \title{Pure edge model, structural form}
 \usage{
 SC0(x, ...)
 
 \method{SC0}{default}(x, ...)
+
+\method{SC0}{pslg}(x, ...)
 }
 \arguments{
 \item{x}{an object understood by silicate}

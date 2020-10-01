@@ -155,6 +155,15 @@ sc_coord.sfc <- function(x,  ...) {
 }
 
 
+#' @name sc_coord
+#' @export
+sc_coord.pslg <- function(x, ...) {
+  ## assume segments are of interest
+  m <- x$P[t(x$S), ]
+  tibble::tibble(x_ = m[,1L], y_ = m[,2L])
+}
+
+
 ## --------------------------------------------------------
 ## sf
 ## --------------------------------------------------------

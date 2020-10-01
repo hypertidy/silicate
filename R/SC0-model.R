@@ -183,5 +183,12 @@ SC0.SC <- function(x, ...) {
   structure(list(object = object, vertex = sc_vertex(x) %>% dplyr::mutate(vertex_ = NULL)), class = c("SC0", "sc"))
 }
 
-
+#' @name SC0
+#' @export
+SC0.pslg <- function(x, ...) {
+  object <- tibble::tibble(object_ = 1,
+                           topology_ = list(tibble::tibble(.vx0 = x$S[,1L], .vx1 = x$S[,2L])))
+  meta <- tibble::tibble(proj = NA_character_, ctime = Sys.time())
+  structure(list(object = object, vertex = sc_vertex(x), meta = meta), class = c("SC0", "sc"))
+}
 

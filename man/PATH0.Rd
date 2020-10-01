@@ -56,6 +56,6 @@ not multipolygon).
 (p <- PATH0(minimal_mesh))
 
 p$object$topology_
-plot(TRI0(PATH0_from_df(data.frame(x = runif(10), y = runif(10)))), col = "grey")
+plot(DEL0(PATH0_from_df(data.frame(x = runif(10), y = runif(10)))), col = "grey")
 ## more examples at
 }

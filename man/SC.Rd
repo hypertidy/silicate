@@ -4,6 +4,7 @@
 \alias{SC}
 \alias{SC.default}
 \alias{SC.TRI}
+\alias{SC.pslg}
 \title{The universal model}
 \usage{
 SC(x, ...)
@@ -11,6 +12,8 @@ SC(x, ...)
 \method{SC}{default}(x, ...)
 
 \method{SC}{TRI}(x, ...)
+
+\method{SC}{pslg}(x, ...)
 }
 \arguments{
 \item{x}{input model}

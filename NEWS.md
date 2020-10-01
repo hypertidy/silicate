@@ -1,5 +1,8 @@
 # silicate dev
 
+* Add `SC()` and `SC0()` for pslg objects. 
+
+
 * Add function `PATH_from_df()` to generate PATH0 from generic data frame input. 
 
 
