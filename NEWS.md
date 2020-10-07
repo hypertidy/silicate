@@ -1,5 +1,7 @@
 # silicate dev
 
+* Another huge bug fix in ARC() doh. 
+
 * Add `SC()` and `SC0()` for pslg objects. 
 
 

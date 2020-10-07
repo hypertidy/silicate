@@ -49,18 +49,14 @@ ARC.PATH <- function(x, ...) {
   arc$arc_ <- arc_map$arc[match(arc$arc0, arc_map$arc0)]
 
   oXa <- dplyr::distinct(arc, .data$object_, .data$arc_)
-  #oXa$arc_ <- arc_map$arc[match(arc_map$arc, oXa$arc_)]
-
-  oXa$arc0 <- oXa$vertex_ <- oXa$obj <- NULL
-#  oXa
-
+  arc <- dplyr::distinct(arc, .data$arc_, .data$vertex_)
 
   aXv <- do.call(rbind, split(arc, arc$arc_)[unique(arc_map$arc)])
 
-aXv$object_ <- aXv$arc0 <-  NULL
+  aXv$object_ <- aXv$arc0 <-  NULL
   v <- sc_vertex(x)
-  #join_ramp <-  tabnames <- c("object", "path",  "path_link_vertex", "vertex")
-  meta <- tibble(proj = get_projection(x), ctime = format(Sys.time(), tz = "UTC"))
+
+  meta <- tibble::tibble(proj = get_projection(x), ctime = format(Sys.time(), tz = "UTC"))
 
   lst <- list(object = o,
               object_link_arc = oXa,
@@ -82,7 +78,7 @@ unique_arcs <- function(x, ...) {
   dat <- split(x, x$arc_)[unique(x$arc_)]
   arc_id <- dat %>%
     purrr::map(function(.x) paste(first_sort(.x$vertex_), collapse = ""))
-  tibble::tibble(arc0 = names(dat), arc = names(dat)[factor(unlist(arc_id))])
+  tibble::tibble(arc0 = names(dat), arc = names(dat)[ match(unlist(arc_id), unlist(arc_id))])
 }
 
 first_sort <- function(x) {
