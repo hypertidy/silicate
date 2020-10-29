@@ -65,14 +65,13 @@ PATH0.PATH0 <- function(x, ...) {
 #' @param ... ignored
 #' @param path_ path identifier, these should identify individual paths
 #' @param object_ object identifier (like group in ggplot)
-#' @param subobject subobject identifier (like polygon_id with multipolygons in sfheaders)
+#' @param subobject_ subobject identifier (like polygon_id with multipolygons in sfheaders)
 #' @param x_ optional name for x column (assumed to be x)
 #' @param y_ optional name for x column (assumed to be y)
 #' @name PATH0
 #' @export
 #' @examples
-#' plot(DEL0(PATH0_from_df(data.frame(x = runif(10), y = runif(10)))), col = "grey")
-#' ## more examples at
+#' PATH0_from_df(data.frame(x = runif(10), y = runif(10)))
 PATH0_from_df <- function(x, ..., path_ = "path_", object_ = "object_", subobject_ = "subobject_", x_ = "x", y_ = "y") {
   if (!object_ %in% names(x)) {
     x$object <- 1

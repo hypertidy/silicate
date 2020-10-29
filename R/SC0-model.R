@@ -144,27 +144,55 @@ SC0.SC0 <- function(x, ...) {
   x
 }
 #' @export
+SC0.TRI0 <- function(x, ...) {
+  topol <- sc_object(x)[["topology_"]]
+  nms0 <- names(topol[[1]])
+  if ("path0" %in% nms0) {
+    pname <- "path0"
+    nc <- 3
+  } else {
+    pname <- NULL
+    nc <- 2  ## we don't have "path_"
+  }
+  topol <- lapply(seq_along(topol), function(i) {
+    triangles <- topol[[i]]
+    t0 <- triangles[c(".vx0", ".vx1", pname)]
+    t1 <- triangles[c(".vx1", ".vx2", pname)]
+    t2 <- triangles[c(".vx2", ".vx0", pname)]
+
+    tibble::as_tibble(setNames(as.data.frame(
+      matrix(t(cbind(as.matrix(t0), as.matrix(t1), as.matrix(t2))), ncol = nc, byrow = TRUE)),
+      c(".vx0", ".vx1", pname)))
+  })
+
+  x$object$topology_ <- topol
+  class(x) <- c("SC0", "sc")
+  x
+}
+
+#' @export
 SC0.TRI <- function(x, ...) {
   ## this should be SC0(TRI0(x))
-  triangle <- x$triangle
-  tritri <- matrix(match(unlist(  triangle[c(".vx0", ".vx1", ".vx2")]), x$vertex$vertex_), ncol = 3)
-  triangle[[".vx0"]] <- tritri[,1L, drop = TRUE]
-  triangle[[".vx1"]] <- tritri[,2L, drop = TRUE]
-  triangle[[".vx2"]] <- tritri[,3L, drop = TRUE]
-
-  triangle_list <- split(triangle, triangle$object_)[unique(triangle$object_)]
-  top <- vector("list", length(triangle_list))
-  for (i in seq_along(triangle_list)) {
-    top[[i]] <- purrr::map_df(purrr::transpose(triangle_list[[i]]),
-                              ~tibble::as_tibble(matrix(tri_to_seg(unlist(.x[c(".vx0", ".vx1", ".vx2")])), ncol = 2, byrow = TRUE, dimnames = list(NULL, c(".vx0", ".vx1")))))
-  }
-  object <- sc_object(x)
-  object[["object_"]] <- NULL
-  object[["topology_"]] <- top
-  vertex <- sc_vertex(x)
-  meta <- x$meta[1, ]
-  meta$ctime <- Sys.time()
-  structure(list(object = object, vertex = vertex, meta = rbind(meta, x$meta)), class = c("SC0", "sc"))
+  # triangle <- x$triangle
+  # tritri <- matrix(match(unlist(  triangle[c(".vx0", ".vx1", ".vx2")]), x$vertex$vertex_), ncol = 3)
+  # triangle[[".vx0"]] <- tritri[,1L, drop = TRUE]
+  # triangle[[".vx1"]] <- tritri[,2L, drop = TRUE]
+  # triangle[[".vx2"]] <- tritri[,3L, drop = TRUE]
+  #
+  # triangle_list <- split(triangle, triangle$object_)[unique(triangle$object_)]
+  # top <- vector("list", length(triangle_list))
+  # for (i in seq_along(triangle_list)) {
+  #   top[[i]] <- purrr::map_df(purrr::transpose(triangle_list[[i]]),
+  #                             ~tibble::as_tibble(matrix(tri_to_seg(unlist(.x[c(".vx0", ".vx1", ".vx2")])), ncol = 2, byrow = TRUE, dimnames = list(NULL, c(".vx0", ".vx1")))))
+  # }
+  # object <- sc_object(x)
+  # object[["object_"]] <- NULL
+  # object[["topology_"]] <- top
+  # vertex <- sc_vertex(x)
+  # meta <- x$meta[1, ]
+  # meta$ctime <- Sys.time()
+  # structure(list(object = object, vertex = vertex, meta = rbind(meta, x$meta)), class = c("SC0", "sc"))
+  SC0(TRI0(x))
 
 }
 #' @export

@@ -1,12 +1,14 @@
-# silicate dev
+# silicate 0.7.0
+
+* Resubmit to CRAN after missing archival deadline. 
+
+* SC0() gains a TRI0 method. 
 
 * Another huge bug fix in ARC() doh. 
 
 * Add `SC()` and `SC0()` for pslg objects. 
 
-
 * Add function `PATH_from_df()` to generate PATH0 from generic data frame input. 
-
 
 * Fixed bug in TRI.TRI0 not propagating the object id. 
 

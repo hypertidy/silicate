@@ -32,11 +32,11 @@ PATH0_from_df(
 
 \item{object_}{object identifier (like group in ggplot)}
 
+\item{subobject_}{subobject identifier (like polygon_id with multipolygons in sfheaders)}
+
 \item{x_}{optional name for x column (assumed to be x)}
 
 \item{y_}{optional name for x column (assumed to be y)}
-
-\item{subobject}{subobject identifier (like polygon_id with multipolygons in sfheaders)}
 }
 \value{
 PATH0 model with tables 'object' and 'vertex'
@@ -56,6 +56,5 @@ not multipolygon).
 (p <- PATH0(minimal_mesh))
 
 p$object$topology_
-plot(DEL0(PATH0_from_df(data.frame(x = runif(10), y = runif(10)))), col = "grey")
-## more examples at
+PATH0_from_df(data.frame(x = runif(10), y = runif(10)))
 }
