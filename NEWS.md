@@ -2,6 +2,8 @@
 
 * Resubmit to CRAN after missing archival deadline. 
 
+* Fixed sc_coord() for Spatial #128. 
+
 * SC0() gains a TRI0 method. 
 
 * Another huge bug fix in ARC() doh. 

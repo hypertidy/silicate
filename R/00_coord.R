@@ -67,6 +67,7 @@ sc_coord.list <- function(x, ...) {
 #' @name sc_coord
 #' @export
 sc_coord.default <- function(x, ...){
+  if (inherits(x, "Spatial")) return(sc_coord.Spatial(x))
   if (is.null(x[["coord"]]) || !inherits(x[["coord"]], "data.frame")) {
     if (is.list(x)) x <- tibble::as_tibble(x)
     geo <- maybe_geom_column(x)
