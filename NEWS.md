@@ -1,6 +1,6 @@
 # silicate 0.7.0
 
-* Resubmit to CRAN after missing archival deadline. 
+* Resubmit to CRAN after missing archival deadline (package in suggests not used conditionally). 
 
 * ARC() really actually finally works. 
 
