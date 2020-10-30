@@ -12,6 +12,8 @@ Status](https://ci.appveyor.com/api/projects/status/github/hypertidy/silicate?br
 Status](https://img.shields.io/codecov/c/github/hypertidy/silicate/master.svg)](https://codecov.io/github/hypertidy/silicate?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/silicate)](https://cran.r-project.org/package=silicate)
 [![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/silicate)](https://cran.r-project.org/package=silicate)
+[![R build
+status](https://github.com/hypertidy/silicate/workflows/R-CMD-check/badge.svg)](https://github.com/hypertidy/silicate/actions)
 
 # Overview
 
@@ -199,56 +201,56 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_
 #>    <dbl> <dbl> <chr>  
-#>  1  0     0    UDDKp2 
-#>  2  0     1    tTfFuY 
-#>  3  0.2   0.2  9pUBQu 
-#>  4  0.2   0.4  uDF4Nk 
-#>  5  0.3   0.6  iYzNkA 
-#>  6  0.5   0.2  byEeFK 
-#>  7  0.5   0.4  3AnRlQ 
-#>  8  0.5   0.7  3Z8mpt 
-#>  9  0.69  0    6YZNty 
-#> 10  0.75  1    e7Xxu4 
-#> 11  0.8   0.6  JQx0fS 
-#> 12  1     0.8  ZeOtqV 
-#> 13  1.1   0.63 fQXbLK 
-#> 14  1.23  0.3  6Ak1IA
+#>  1  0     0    MBman6 
+#>  2  0     1    WGuOQK 
+#>  3  0.2   0.2  mgbjXd 
+#>  4  0.2   0.4  LyFaVo 
+#>  5  0.3   0.6  El8jFu 
+#>  6  0.5   0.2  h53fuy 
+#>  7  0.5   0.4  CKNp5v 
+#>  8  0.5   0.7  q5Xe6N 
+#>  9  0.69  0    TMolCp 
+#> 10  0.75  1    BQczt1 
+#> 11  0.8   0.6  PfscFv 
+#> 12  1     0.8  rfbaGh 
+#> 13  1.1   0.63 j77Hag 
+#> 14  1.23  0.3  hQHXdU
 
 sc_edge(x)
 #> # A tibble: 15 x 4
 #>    .vx0   .vx1   path_ edge_ 
 #>    <chr>  <chr>  <int> <chr> 
-#>  1 UDDKp2 tTfFuY     1 LxDUJD
-#>  2 tTfFuY e7Xxu4     1 NtuyOg
-#>  3 e7Xxu4 ZeOtqV     1 chP0al
-#>  4 3Z8mpt ZeOtqV     1 0lgyYU
-#>  5 3Z8mpt JQx0fS     1 HRFpJj
-#>  6 6YZNty JQx0fS     1 7fLKez
-#>  7 UDDKp2 6YZNty     1 9JT3JU
-#>  8 9pUBQu byEeFK     2 YzQuo6
-#>  9 byEeFK 3AnRlQ     2 QkSIlA
-#> 10 iYzNkA 3AnRlQ     2 ZuOvBh
-#> 11 uDF4Nk iYzNkA     2 PCESqD
-#> 12 9pUBQu uDF4Nk     2 KmKp4P
-#> 13 JQx0fS fQXbLK     3 zaoZDS
-#> 14 fQXbLK 6Ak1IA     3 TMSKzk
-#> 15 6YZNty 6Ak1IA     3 0ZXqF3
+#>  1 MBman6 WGuOQK     1 roHsir
+#>  2 WGuOQK BQczt1     1 zgABxH
+#>  3 BQczt1 rfbaGh     1 OUQ1rX
+#>  4 q5Xe6N rfbaGh     1 K7SDvz
+#>  5 q5Xe6N PfscFv     1 BrA1z7
+#>  6 TMolCp PfscFv     1 Jvx2eV
+#>  7 MBman6 TMolCp     1 sNhQ9c
+#>  8 mgbjXd h53fuy     2 VX82u9
+#>  9 h53fuy CKNp5v     2 66MOLn
+#> 10 El8jFu CKNp5v     2 rxiKbS
+#> 11 LyFaVo El8jFu     2 VDE1oJ
+#> 12 mgbjXd LyFaVo     2 P8PfQJ
+#> 13 PfscFv j77Hag     3 eCtpLS
+#> 14 j77Hag hQHXdU     3 K7xBBf
+#> 15 TMolCp hQHXdU     3 PmjqhC
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_
 #>   <chr>  
-#> 1 P6MkE3 
-#> 2 tNwRil
+#> 1 wayR5c 
+#> 2 MBmcfK
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_   ncoords_
 #>   <chr>     <int>
-#> 1 7fKiHA        4
-#> 2 eYIqG9        4
-#> 3 fkbdRh        6
-#> 4 zwe5h6        7
+#> 1 6i60aw        2
+#> 2 aqo2vM        5
+#> 3 B8iYEZ        7
+#> 4 TTMey5        4
 ```
 
 ## silicate models

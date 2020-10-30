@@ -16,3 +16,4 @@
 ^silicate.*\.tgz$
 ^CRAN-RELEASE$
 ^revdep$
+^\.github$
