@@ -201,56 +201,56 @@ sc_vertex(x)
 #> # A tibble: 14 x 3
 #>       x_    y_ vertex_
 #>    <dbl> <dbl> <chr>  
-#>  1  0     0    MBman6 
-#>  2  0     1    WGuOQK 
-#>  3  0.2   0.2  mgbjXd 
-#>  4  0.2   0.4  LyFaVo 
-#>  5  0.3   0.6  El8jFu 
-#>  6  0.5   0.2  h53fuy 
-#>  7  0.5   0.4  CKNp5v 
-#>  8  0.5   0.7  q5Xe6N 
-#>  9  0.69  0    TMolCp 
-#> 10  0.75  1    BQczt1 
-#> 11  0.8   0.6  PfscFv 
-#> 12  1     0.8  rfbaGh 
-#> 13  1.1   0.63 j77Hag 
-#> 14  1.23  0.3  hQHXdU
+#>  1  0     0    BTjJfg 
+#>  2  0     1    Os5aPK 
+#>  3  0.2   0.2  J8G4eF 
+#>  4  0.2   0.4  MCs4EU 
+#>  5  0.3   0.6  nd6fm2 
+#>  6  0.5   0.2  cexo43 
+#>  7  0.5   0.4  zifu2p 
+#>  8  0.5   0.7  acrNba 
+#>  9  0.69  0    Kq3sSr 
+#> 10  0.75  1    LpEEWk 
+#> 11  0.8   0.6  OdWVZU 
+#> 12  1     0.8  r8NZuW 
+#> 13  1.1   0.63 pdkEIF 
+#> 14  1.23  0.3  lXqOcw
 
 sc_edge(x)
 #> # A tibble: 15 x 4
 #>    .vx0   .vx1   path_ edge_ 
 #>    <chr>  <chr>  <int> <chr> 
-#>  1 MBman6 WGuOQK     1 roHsir
-#>  2 WGuOQK BQczt1     1 zgABxH
-#>  3 BQczt1 rfbaGh     1 OUQ1rX
-#>  4 q5Xe6N rfbaGh     1 K7SDvz
-#>  5 q5Xe6N PfscFv     1 BrA1z7
-#>  6 TMolCp PfscFv     1 Jvx2eV
-#>  7 MBman6 TMolCp     1 sNhQ9c
-#>  8 mgbjXd h53fuy     2 VX82u9
-#>  9 h53fuy CKNp5v     2 66MOLn
-#> 10 El8jFu CKNp5v     2 rxiKbS
-#> 11 LyFaVo El8jFu     2 VDE1oJ
-#> 12 mgbjXd LyFaVo     2 P8PfQJ
-#> 13 PfscFv j77Hag     3 eCtpLS
-#> 14 j77Hag hQHXdU     3 K7xBBf
-#> 15 TMolCp hQHXdU     3 PmjqhC
+#>  1 BTjJfg Os5aPK     1 mAEnCR
+#>  2 Os5aPK LpEEWk     1 9V21Nk
+#>  3 LpEEWk r8NZuW     1 oo2Zad
+#>  4 acrNba r8NZuW     1 XxpY1a
+#>  5 acrNba OdWVZU     1 7Rce0p
+#>  6 Kq3sSr OdWVZU     1 g3F3EJ
+#>  7 BTjJfg Kq3sSr     1 JymcBh
+#>  8 J8G4eF cexo43     2 PkVR4T
+#>  9 cexo43 zifu2p     2 XGLFtj
+#> 10 nd6fm2 zifu2p     2 C9pruP
+#> 11 MCs4EU nd6fm2     2 wdao9g
+#> 12 J8G4eF MCs4EU     2 C7Uzol
+#> 13 OdWVZU pdkEIF     3 IjDwzV
+#> 14 pdkEIF lXqOcw     3 xYoBec
+#> 15 Kq3sSr lXqOcw     3 KNTYxL
 
 sc_node(y)
 #> # A tibble: 2 x 1
 #>   vertex_
 #>   <chr>  
-#> 1 wayR5c 
-#> 2 MBmcfK
+#> 1 JibOO4 
+#> 2 jGfrE0
 
 sc_arc(y)
 #> # A tibble: 4 x 2
 #>   arc_   ncoords_
 #>   <chr>     <int>
-#> 1 6i60aw        2
-#> 2 aqo2vM        5
-#> 3 B8iYEZ        7
-#> 4 TTMey5        4
+#> 1 2hVvpA        2
+#> 2 F3YaTb        7
+#> 3 HqTb6m        5
+#> 4 yu4nxb        4
 ```
 
 ## silicate models
@@ -293,7 +293,7 @@ be stable with them.
 
 ## Context, and some related projects
 
-The [spacebucket](https://github.com/mdsumner/spacebucket) (arbitrary
+The [spacebucket](https://github.com/mdsumner/polymer) (arbitrary
 multi-layer polygonal overlays) and
 [sphier](https://github.com/hypertidy/sphier/) (generic hierarchies from
 atomic forms) show two different approaches to the problem of

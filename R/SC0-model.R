@@ -140,7 +140,7 @@ bad <- !names(vertex) %in% c("x_", "y_", "z_", "m_", "t_")
 #' @export
 SC0.SC0 <- function(x, ...) {
   ## this should de-duplicated vertices so we can combine
-  ## multiple models - see https://github.com/mdsumner/spacebucket/issues/4
+  ## multiple models - see https://github.com/mdsumner/polymers/issues/4
   x
 }
 #' @export
