@@ -49,8 +49,8 @@ ARC.PATH <- function(x, ...) {
   arc$arc_ <- arc_map$arc[match(arc$arc0, arc_map$arc0)]
 
   oXa <- dplyr::distinct(arc, .data$object_, .data$arc_)
-  arc <- dplyr::distinct(arc, .data$arc_, .data$vertex_)
-
+##  arc <- dplyr::distinct(arc, .data$arc_, .data$vertex_)
+  arc <- arc[c("arc_", "vertex_")]
   aXv <- do.call(rbind, split(arc, arc$arc_)[unique(arc_map$arc)])
 
   aXv$object_ <- aXv$arc0 <-  NULL
