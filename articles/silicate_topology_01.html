@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -67,8 +63,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/hypertidy/silicate/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/hypertidy/silicate/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -82,27 +78,26 @@
 
       
 
-      </header><script src="silicate_topology_01_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="silicate_topology_01_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="silicate_topology_01_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="silicate_topology_01_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>silicate: the fabric of hierarchical structures</h1>
-                        <h4 class="author">Michael D. Sumner</h4>
+                        <h4 data-toc-skip class="author">Michael D. Sumner</h4>
             
-            <h4 class="date">2020-10-30</h4>
+            <h4 data-toc-skip class="date">2022-03-23</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/hypertidy/silicate/blob/master/vignettes/silicate_topology_01.Rmd"><code>vignettes/silicate_topology_01.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/hypertidy/silicate/blob/HEAD/vignettes/silicate_topology_01.Rmd" class="external-link"><code>vignettes/silicate_topology_01.Rmd</code></a></small>
       <div class="hidden name"><code>silicate_topology_01.Rmd</code></div>
 
     </div>
 
     
     
-<div id="silicate" class="section level1">
-<h1 class="hasAnchor">
-<a href="#silicate" class="anchor"></a>silicate</h1>
+<div class="section level2">
+<h2 id="silicate">silicate<a class="anchor" aria-label="anchor" href="#silicate"></a>
+</h2>
 <p>The <code>silicate</code> package provides a flexible basis for working with hierarchical data structures. This includes a clean separation of topology and geometry, allows <em>naming</em> of component entities, and supports <em>intermediate</em>forms. Silicate is a response to a fragmented landscape where many workarounds and re-implementations of similar patterns are often repeated.</p>
-<p>Silicate is composed of <em>normal-form models</em> and worker verbs for extracting underlying entities. By normal-form, we mean the tidy, <a href="https://en.wikipedia.org/wiki/Third_normal_form">3NF</a>, de-duplicated, <em>removal of redundancy</em> sense.</p>
+<p>Silicate is composed of <em>normal-form models</em> and worker verbs for extracting underlying entities. By normal-form, we mean the tidy, <a href="https://en.wikipedia.org/wiki/Third_normal_form" class="external-link">3NF</a>, de-duplicated, <em>removal of redundancy</em> sense.</p>
 <p>The entities that we identify correspond to the names of the worker verbs. Whether a given model has all or any of these entities explicitly depends on the circumstances, but implicitly these are usually always present and depend only on interpretation.</p>
 <ul>
 <li>
@@ -124,154 +119,154 @@
 </ul>
 <p>Finally there is an important extra verb, the <code>unjoin</code> - a function to <em>un join</em> a table, the opposite of the database join which is used as a key step when building these models, used to remove duplication at various levels. It’s the primary mechanism for defining and building-in <em>topology</em>, which is (precisely) the relationships between entities in a model.</p>
 </div>
-<div id="models" class="section level1">
-<h1 class="hasAnchor">
-<a href="#models" class="anchor"></a>MODELS</h1>
+<div class="section level2">
+<h2 id="models">MODELS<a class="anchor" aria-label="anchor" href="#models"></a>
+</h2>
 <p>Our capitalized model forms are all built from workflows that use these verbs. Here we illustrate with a very simple <em>simple features</em> model <code>minimal_mesh</code>, two polygons that share a single edge.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hypertidy/silicate">silicate</a></span><span class="op">)</span></pre></div>
-<pre><code>## 
-## Attaching package: 'silicate'</code></pre>
-<pre><code>## The following object is masked from 'package:stats':
-## 
-##     filter</code></pre>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">$</span><span class="va">geom</span>, <span class="st">"bbox"</span><span class="op">)</span>, <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"n"</span>, xlab <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
-<span class="va">rbind_na</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">x</span>, <span class="kw">function</span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">a</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>, recursive <span class="op">=</span> <span class="cn">F</span><span class="op">)</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>
-<span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sc_colours.html">sc_colours</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span>
-<span class="va">junk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">$</span><span class="va">geom</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/graphics/polypath.html">polypath</a></span><span class="op">(</span><span class="fu">rbind_na</span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">$</span><span class="va">geom</span><span class="op">[[</span><span class="va">y</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, col <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="va">y</span><span class="op">]</span> <span class="op">)</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hypertidy/silicate" class="external-link">silicate</a></span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## </span>
+<span class="co">## Attaching package: 'silicate'</span></code></pre>
+<pre><code><span class="co">## The following object is masked from 'package:stats':</span>
+<span class="co">## </span>
+<span class="co">##     filter</span></code></pre>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">$</span><span class="va">geom</span>, <span class="st">"bbox"</span><span class="op">)</span>, <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"n"</span>, xlab <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
+<span class="va">rbind_na</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">x</span>, <span class="kw">function</span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">a</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>, recursive <span class="op">=</span> <span class="cn">F</span><span class="op">)</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>
+<span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sc_colours.html">sc_colours</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span>
+<span class="va">junk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">$</span><span class="va">geom</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/graphics/polypath.html" class="external-link">polypath</a></span><span class="op">(</span><span class="fu">rbind_na</span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">$</span><span class="va">geom</span><span class="op">[[</span><span class="va">y</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, col <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="va">y</span><span class="op">]</span> <span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/minimal_mesh-1.png" width="700"></p>
-<div id="sc" class="section level2">
-<h2 class="hasAnchor">
-<a href="#sc" class="anchor"></a>SC</h2>
+<div class="section level3">
+<h3 id="sc">SC<a class="anchor" aria-label="anchor" href="#sc"></a>
+</h3>
 <p>This is the universal model, the one model that can be used to represent anything at all. The key entity in SC is the <em>edge</em>, a single binary relationship identifying a line segment joining two vertices. Note how each edge and each vertex has a unique label. Since each primitive has exactly the same structure this model presents a number of optimizations, and all structures can be expressed in these terms. We can even abandon any record of <em>sequential paths</em> in these models because they can be re-derived by tracing through the labels at a later time.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SC.html">SC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></pre></div>
-<pre><code>## [1] "object"           "object_link_edge" "edge"             "vertex"          
-## [5] "meta"</code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">edge</span></pre></div>
-<pre><code>## # A tibble: 15 x 4
-##    .vx0   .vx1   path_ edge_ 
-##    &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;chr&gt; 
-##  1 mwT0Vv X4zhzk     1 0NqwBU
-##  2 X4zhzk WQ8IP0     1 bMqcEP
-##  3 WQ8IP0 offbLB     1 J0u8ln
-##  4 GNGDj4 offbLB     1 z1YagF
-##  5 GNGDj4 64bbtB     1 raEu1W
-##  6 iT3MLk 64bbtB     1 UxajDp
-##  7 mwT0Vv iT3MLk     1 fGcDNj
-##  8 hHt796 X6QBF2     2 XPMWuQ
-##  9 X6QBF2 dKbxdW     2 lH3wSV
-## 10 9z1XYx dKbxdW     2 8Zve2J
-## 11 p6fM7n 9z1XYx     2 cy6pN3
-## 12 hHt796 p6fM7n     2 Aq74OW
-## 13 64bbtB 9eoMDw     3 XKECuW
-## 14 9eoMDw eeVamI     3 WEauXh
-## 15 iT3MLk eeVamI     3 4BvKvY</code></pre>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></pre></div>
-<pre><code>## class       : SC
-## type        : Primitive
-## vertices    : 14 (2-space)
-## primitives  : 15 (1-space)
-## crs         : NA</code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">vertex</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x_"</span>, <span class="st">"y_"</span><span class="op">)</span><span class="op">]</span>, label <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">vertex</span><span class="op">$</span><span class="va">vertex_</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SC.html">SC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## [1] "object"           "object_link_edge" "edge"             "vertex"          </span>
+<span class="co">## [5] "meta"</span></code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="va">edge</span></code></pre></div>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 15 × 4</span></span>
+<span class="co">##    .vx0   .vx1   path_ edge_ </span>
+<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
+<span class="co">## <span style="color: #BCBCBC;"> 1</span> Md8mEj YST5tk     1 VzxNm4</span>
+<span class="co">## <span style="color: #BCBCBC;"> 2</span> YST5tk b5ohFU     1 pnlzfH</span>
+<span class="co">## <span style="color: #BCBCBC;"> 3</span> b5ohFU B4KEZv     1 hyCxRa</span>
+<span class="co">## <span style="color: #BCBCBC;"> 4</span> NmQmVr B4KEZv     1 0zWRdn</span>
+<span class="co">## <span style="color: #BCBCBC;"> 5</span> NmQmVr FDwQtD     1 2199cj</span>
+<span class="co">## <span style="color: #BCBCBC;"> 6</span> JRITam FDwQtD     1 MWf5CG</span>
+<span class="co">## <span style="color: #BCBCBC;"> 7</span> Md8mEj JRITam     1 zFfjbZ</span>
+<span class="co">## <span style="color: #BCBCBC;"> 8</span> eu7v6f DKgCQb     2 WHikcu</span>
+<span class="co">## <span style="color: #BCBCBC;"> 9</span> DKgCQb 5HBVrB     2 ftzLxI</span>
+<span class="co">## <span style="color: #BCBCBC;">10</span> RaWNxq 5HBVrB     2 1PPUXl</span>
+<span class="co">## <span style="color: #BCBCBC;">11</span> e8aO7b RaWNxq     2 0iHQLc</span>
+<span class="co">## <span style="color: #BCBCBC;">12</span> eu7v6f e8aO7b     2 ymiTV3</span>
+<span class="co">## <span style="color: #BCBCBC;">13</span> FDwQtD 3fCin8     3 fUhbkK</span>
+<span class="co">## <span style="color: #BCBCBC;">14</span> 3fCin8 tpWYSy     3 KuJ6uW</span>
+<span class="co">## <span style="color: #BCBCBC;">15</span> JRITam tpWYSy     3 gXIbcO</span></code></pre>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## class       : SC</span>
+<span class="co">## type        : Primitive</span>
+<span class="co">## vertices    : 14 (2-space)</span>
+<span class="co">## primitives  : 15 (1-space)</span>
+<span class="co">## crs         : NA</span></code></pre>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">vertex</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x_"</span>, <span class="st">"y_"</span><span class="op">)</span><span class="op">]</span>, label <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">vertex</span><span class="op">$</span><span class="va">vertex_</span><span class="op">)</span></code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/sc-1.png" width="700"></p>
 </div>
-<div id="path" class="section level2">
-<h2 class="hasAnchor">
-<a href="#path" class="anchor"></a>PATH</h2>
+<div class="section level3">
+<h3 id="path">PATH<a class="anchor" aria-label="anchor" href="#path"></a>
+</h3>
 <p>At the highest level silicate provides a normalized form of a complicated structure containing <em>paths</em>. This data structure contains three paths, each of which is a sequentially joined set of coordinates.</p>
 <p>The key aspect here is that each component entity is formally named, with a unique ID that we persist for subsequent usage. This persistence is required as it records relationships between existing entitites <em>implicitly</em> rather than baking data into structure that are both <em>explicit</em> and also discard a lot of information about relationships.</p>
 <p>Even though the path scheme requires that two vertices are visited separately by two polygon rings, we don’t expand out the vertices but simply record a reference to it in the path.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PATH.html">PATH</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></pre></div>
-<pre><code>## [1] "object"           "path"             "path_link_vertex" "vertex"          
-## [5] "meta"</code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PATH.html">PATH</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## [1] "object"           "path"             "path_link_vertex" "vertex"          </span>
+<span class="co">## [5] "meta"</span></code></pre>
 <p>At a basic level, the tables in this <code>PATH</code> are essentially the same as the kinds of structures we normally use, but we need to de-normalize them to see this exactly.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"object"</span>, <span class="st">"path"</span>, <span class="st">"path_link_vertex"</span>, <span class="st">"vertex"</span><span class="op">)</span><span class="op">]</span>, <span class="fu">dplyr</span><span class="fu">::</span><span class="va"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">)</span></pre></div>
-<pre><code>## Joining, by = "object_"</code></pre>
-<pre><code>## Joining, by = "path_"</code></pre>
-<pre><code>## Joining, by = "vertex_"</code></pre>
-<pre><code>## # A tibble: 19 x 10
-##        a object_  ncol type         subobject path_ ncoords_ vertex_    x_    y_
-##    &lt;int&gt; &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
-##  1     1 P7qiZe      2 MULTIPOLYGON         1 uK7D…        8 kDKm2u   0     0   
-##  2     1 P7qiZe      2 MULTIPOLYGON         1 uK7D…        8 BgL6sq   0     1   
-##  3     1 P7qiZe      2 MULTIPOLYGON         1 uK7D…        8 HNmHdh   0.75  1   
-##  4     1 P7qiZe      2 MULTIPOLYGON         1 uK7D…        8 3bFkbR   1     0.8 
-##  5     1 P7qiZe      2 MULTIPOLYGON         1 uK7D…        8 IqV9zQ   0.5   0.7 
-##  6     1 P7qiZe      2 MULTIPOLYGON         1 uK7D…        8 QjhzNb   0.8   0.6 
-##  7     1 P7qiZe      2 MULTIPOLYGON         1 uK7D…        8 a0wSf4   0.69  0   
-##  8     1 P7qiZe      2 MULTIPOLYGON         1 uK7D…        8 kDKm2u   0     0   
-##  9     1 P7qiZe      2 MULTIPOLYGON         1 S6Y4…        6 JICmrp   0.2   0.2 
-## 10     1 P7qiZe      2 MULTIPOLYGON         1 S6Y4…        6 nBGhdH   0.5   0.2 
-## 11     1 P7qiZe      2 MULTIPOLYGON         1 S6Y4…        6 M0n1QS   0.5   0.4 
-## 12     1 P7qiZe      2 MULTIPOLYGON         1 S6Y4…        6 R4kvUj   0.3   0.6 
-## 13     1 P7qiZe      2 MULTIPOLYGON         1 S6Y4…        6 2kLoSY   0.2   0.4 
-## 14     1 P7qiZe      2 MULTIPOLYGON         1 S6Y4…        6 JICmrp   0.2   0.2 
-## 15     2 odqYmP      2 MULTIPOLYGON         1 eH50…        5 a0wSf4   0.69  0   
-## 16     2 odqYmP      2 MULTIPOLYGON         1 eH50…        5 QjhzNb   0.8   0.6 
-## 17     2 odqYmP      2 MULTIPOLYGON         1 eH50…        5 YihIkA   1.1   0.63
-## 18     2 odqYmP      2 MULTIPOLYGON         1 eH50…        5 t7FIYn   1.23  0.3 
-## 19     2 odqYmP      2 MULTIPOLYGON         1 eH50…        5 a0wSf4   0.69  0</code></pre>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html" class="external-link">reduce</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"object"</span>, <span class="st">"path"</span>, <span class="st">"path_link_vertex"</span>, <span class="st">"vertex"</span><span class="op">)</span><span class="op">]</span>, <span class="fu">dplyr</span><span class="fu">::</span><span class="va"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## Joining, by = "object_"</span>
+<span class="co">## Joining, by = "path_"</span>
+<span class="co">## Joining, by = "vertex_"</span></code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 19 × 10</span></span>
+<span class="co">##        a object_  ncol type         subobject path_ ncoords_ vertex_    x_    y_</span>
+<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;"> 1</span>     1 vOKHym      2 MULTIPOLYGON         1 oyQj…        8 nkYjix   0     0   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 2</span>     1 vOKHym      2 MULTIPOLYGON         1 oyQj…        8 CerwuC   0     1   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 3</span>     1 vOKHym      2 MULTIPOLYGON         1 oyQj…        8 cM3NKb   0.75  1   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 4</span>     1 vOKHym      2 MULTIPOLYGON         1 oyQj…        8 L9jkBn   1     0.8 </span>
+<span class="co">## <span style="color: #BCBCBC;"> 5</span>     1 vOKHym      2 MULTIPOLYGON         1 oyQj…        8 8xPRo0   0.5   0.7 </span>
+<span class="co">## <span style="color: #BCBCBC;"> 6</span>     1 vOKHym      2 MULTIPOLYGON         1 oyQj…        8 7noX8A   0.8   0.6 </span>
+<span class="co">## <span style="color: #BCBCBC;"> 7</span>     1 vOKHym      2 MULTIPOLYGON         1 oyQj…        8 GHG40I   0.69  0   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 8</span>     1 vOKHym      2 MULTIPOLYGON         1 oyQj…        8 nkYjix   0     0   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 9</span>     1 vOKHym      2 MULTIPOLYGON         1 eWkf…        6 E4Tp9W   0.2   0.2 </span>
+<span class="co">## <span style="color: #BCBCBC;">10</span>     1 vOKHym      2 MULTIPOLYGON         1 eWkf…        6 y1TV0R   0.5   0.2 </span>
+<span class="co">## <span style="color: #BCBCBC;">11</span>     1 vOKHym      2 MULTIPOLYGON         1 eWkf…        6 gql8A7   0.5   0.4 </span>
+<span class="co">## <span style="color: #BCBCBC;">12</span>     1 vOKHym      2 MULTIPOLYGON         1 eWkf…        6 RWaH2c   0.3   0.6 </span>
+<span class="co">## <span style="color: #BCBCBC;">13</span>     1 vOKHym      2 MULTIPOLYGON         1 eWkf…        6 09YOwj   0.2   0.4 </span>
+<span class="co">## <span style="color: #BCBCBC;">14</span>     1 vOKHym      2 MULTIPOLYGON         1 eWkf…        6 E4Tp9W   0.2   0.2 </span>
+<span class="co">## <span style="color: #BCBCBC;">15</span>     2 xOunHY      2 MULTIPOLYGON         1 pEdL…        5 GHG40I   0.69  0   </span>
+<span class="co">## <span style="color: #BCBCBC;">16</span>     2 xOunHY      2 MULTIPOLYGON         1 pEdL…        5 7noX8A   0.8   0.6 </span>
+<span class="co">## <span style="color: #BCBCBC;">17</span>     2 xOunHY      2 MULTIPOLYGON         1 pEdL…        5 RNZ1oF   1.1   0.63</span>
+<span class="co">## <span style="color: #BCBCBC;">18</span>     2 xOunHY      2 MULTIPOLYGON         1 pEdL…        5 OL9GWw   1.23  0.3 </span>
+<span class="co">## <span style="color: #BCBCBC;">19</span>     2 xOunHY      2 MULTIPOLYGON         1 pEdL…        5 GHG40I   0.69  0</span></code></pre>
 <p>Paths are easily re-expressed as a set of edges, treating each pair of coordinates as a new kind of entity. Some edges are <em>shared</em>, in that two objects might have a particular edge in their own path. If the shared neighbours are two polygons, then it’s likely that each polygon encounters that edge in a different direction, but this is not a stable pattern so it’s best to not assume it to be the case. It’s important here because we need to differentiate between an <em>instance of an edge</em>, which is a particular <em>line segment</em> that is part of one particular polygon. If that polygon segment is a shared edge with a neighbour polygon, then we distinguish the instances as a particular <em>segment</em> of a unique <em>edge</em>. This allows us the opportunity to treat the edge as completely abstract, and also to decide or record what it’s orientation is, which records which vertex is the first one, and which is the second. Not all applications need to care about this distinction, though.</p>
 <p>In this way we have an analogy for edges and segments compared to vertices and coordinates, and I think this terminology makes sense!</p>
 </div>
-<div id="arc" class="section level2">
-<h2 class="hasAnchor">
-<a href="#arc" class="anchor"></a>ARC</h2>
+<div class="section level3">
+<h3 id="arc">ARC<a class="anchor" aria-label="anchor" href="#arc"></a>
+</h3>
 <p>There’s only one more entity we need to describe an alternative view of this polygon data, the actual component paths that describe these structures topologically. These are paths that occur between any two nodes, or that have no nodes at all. This will occur for any isolated “island”, or for any hole within a polygon. These arcs are exactly analogous to a LINESTRING, but are used within a context where the nodes are important information about the topology.</p>
 <p>Nodes are any coordinate where three or more edges meet each other, so they are inherently about relationships between neighbouring shapes. This is exactly the same model as was used in the olden days, called arc-node topology, a one-dimensional topology that pre-dates the more modern use of closed planar paths to describe polygons.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 <span class="va">arc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ARC.html">ARC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span>
 <span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sc_node.html">sc_node</a></span><span class="op">(</span><span class="va">arc</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">arc</span><span class="op">)</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">arc</span><span class="op">$</span><span class="va">vertex</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">x_</span>, <span class="va">y_</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="st">"N"</span><span class="op">)</span></pre></div>
-<pre><code>## Joining, by = "vertex_"</code></pre>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">arc</span><span class="op">)</span>
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="va">nodes</span>, <span class="va">arc</span><span class="op">$</span><span class="va">vertex</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">x_</span>, <span class="va">y_</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="st">"N"</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## Joining, by = "vertex_"</span></code></pre>
 <p><img src="silicate_topology_01_files/figure-html/arc-node-1.png" width="700"></p>
 <p>We haven’t yet done any coordinate precision checking, so there will be mis-identified arcs where coordinates are intended to be but are not exactly the same. (spdep glosses over this in a way we can’t control)</p>
 <p>Example from wrld_simpl …</p>
 </div>
-<div id="tri" class="section level2">
-<h2 class="hasAnchor">
-<a href="#tri" class="anchor"></a>TRI</h2>
+<div class="section level3">
+<h3 id="tri">TRI<a class="anchor" aria-label="anchor" href="#tri"></a>
+</h3>
 <p>Triangulations. Here we strictly want <em>constrained triangulations</em>, where there is no divergence from the planar coverage of input shape and its triangulated decomposition. This is not easy to do, and there are two main methods. One is high-quality <em>mostly-Delaunay</em> triangulations where the Delaunay condition is relaxed in order to always align to input boundaries. Holes in a near-Delaunay triangulation are either removed by flood-fill from a seed-vertex, or by post-filtering the triangles whose centroid does not intersect the input boundaries. The second method is ear-clippping, a relatively inexpensive algorithm that produces low-quality triangle meshes.</p>
 <p>Currently silicate can only provide the second form, the ear-clipping method provided by <code>decido</code>.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit">
-<span class="va">tri</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/TRI.html">TRI</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">tri</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tri</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/TRI.html">TRI</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tri</span><span class="op">)</span></code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/TRI-1.png" width="700"></p>
 <p>Performance is pretty good for this method of triangulation, despite also being constrained to the input shapes.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit">
-<span class="co">#system.time(sf::st_triangulate(inlandwaters))</span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#system.time(sf::st_triangulate(inlandwaters))</span>
 <span class="co">#   user  system elapsed </span>
 <span class="co">#  4.699   0.125   4.823 </span>
 <span class="co">#system.time(sfdct::ct_triangulate(inlandwaters))</span>
 <span class="co">#  user  system elapsed </span>
 <span class="co"># 15.476   0.225  15.460 </span>
-<span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="va">tri</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/TRI.html">TRI</a></span><span class="op">(</span><span class="va">inlandwaters</span><span class="op">)</span><span class="op">)</span></pre></div>
-<pre><code>##    user  system elapsed 
-##   3.536   0.147   3.759</code></pre>
+<span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="va">tri</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/TRI.html">TRI</a></span><span class="op">(</span><span class="va">inlandwaters</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">##    user  system elapsed </span>
+<span class="co">##   3.358   0.344   3.723</span></code></pre>
 <p>The triangles are low-quality (but triangles are very easy to subdivide).</p>
-<div class="sourceCode" id="cb24"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">tri</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tri</span><span class="op">)</span></code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
-<div class="sourceCode" id="cb25"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="cn">NA</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">625000</span>, <span class="fl">1060000</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1350000</span>,  <span class="op">-</span><span class="fl">550000</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">tri</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="cn">NA</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">625000</span>, <span class="fl">1060000</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1350000</span>,  <span class="op">-</span><span class="fl">550000</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tri</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="silicate_topology_01_files/figure-html/unnamed-chunk-2-2.png" width="700"></p>
-<p>The <a href="https://CRAN.R-project.org/package=sfdct">CRAN package sfdct</a> will use the first method (package <code>RTriangle</code> wraps the Triangle library) for simple features.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit">
-<span class="co">#plot(sfdct::ct_triangulate(minimal_mesh))</span></pre></div>
+<p>The <a href="https://CRAN.R-project.org/package=sfdct" class="external-link">CRAN package sfdct</a> will use the first method (package <code>RTriangle</code> wraps the Triangle library) for simple features.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#plot(sfdct::ct_triangulate(minimal_mesh))</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -287,11 +282,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Michael D. Sumner, Mark Padgham.</p>
+  <p></p>
+<p>Developed by Michael D. Sumner, Mark Padgham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -299,6 +296,8 @@
 
   
 
+
+  
 
   </body>
 </html>

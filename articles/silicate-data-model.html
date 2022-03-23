@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -67,8 +63,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/hypertidy/silicate/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/hypertidy/silicate/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -82,22 +78,21 @@
 
       
 
-      </header><script src="silicate-data-model_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="silicate-data-model_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="silicate-data-model_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="silicate-data-model_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>silicate-data-model</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/hypertidy/silicate/blob/master/vignettes/silicate-data-model.Rmd"><code>vignettes/silicate-data-model.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/hypertidy/silicate/blob/HEAD/vignettes/silicate-data-model.Rmd" class="external-link"><code>vignettes/silicate-data-model.Rmd</code></a></small>
       <div class="hidden name"><code>silicate-data-model.Rmd</code></div>
 
     </div>
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hypertidy/silicate">silicate</a></span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hypertidy/silicate" class="external-link">silicate</a></span><span class="op">)</span></code></pre></div>
 <p>The silicate package provides tools and data models to work with decompositions of complex data types. The primary examples of use are with spatial data layers and most silicate workflows are geared to using the underlying structures and topology of spatial data. We can use these for a range of activities:</p>
 <ul>
 <li>converting data from one format to another</li>
@@ -106,11 +101,11 @@
 </ul>
 <p>The functions in silicate are grouped into <em>models</em> and <em>worker verbs</em>. The models have capitalized names and the worker verbs are prefixed with ‘sc’.</p>
 <p>The worker verbs work with all (there are some exceptions) model types and with several external formats, particularly sf, sp, trip, and other external package types.</p>
-<div id="implicit-and-explicit-topology" class="section level1">
-<h1 class="hasAnchor">
-<a href="#implicit-and-explicit-topology" class="anchor"></a>Implicit and explicit topology</h1>
+<div class="section level2">
+<h2 id="implicit-and-explicit-topology">Implicit and explicit topology<a class="anchor" aria-label="anchor" href="#implicit-and-explicit-topology"></a>
+</h2>
 <p>Topology is the inherent underlying shape structure of data and silicate is clear on the distinction. There are two kinds of data structures that are abandoned by geospatial vector formats: surfaces and ordered linear paths. This might sound controversial but really is not, it’s a trivial phrasing of what is in the simple features standard. This is why silicate treats “spatial polygons” as PATH forms, because they are inherently linear structures and any surface interpretation is purely implicit (winding or even-odd rule). For an explicit surface, silicate requires a truly surface-based form, with triangular primitives.</p>
-<p>Silicate itself only inclues <em>ear-clipping</em> triangulation, a relatively cheap method suitable for <em>implicit surfaces using closed paths</em>. A more sophisticated meshing triangulation is available in the <a href="https://github.com/hypertidy/anglr">anglr package</a>. The anglr package is less strict than silicate, and will happily treat many path-based data structures as <em>implicit surfaces</em>, and so we can <code>plot3d()</code> or <code>as.mesh3d()</code> a polygon or line layer and it will do its best to generate a true explicit surface. We can otherwise use the silicate model <code><a href="../reference/TRI.html">TRI()</a></code> or <code><a href="../reference/TRI0.html">TRI0()</a></code> or the anglr models <code>DEL()</code> or <code>DEL0()</code> to actually work with the data structure in use (not just a visual side-effect).</p>
+<p>Silicate itself only inclues <em>ear-clipping</em> triangulation, a relatively cheap method suitable for <em>implicit surfaces using closed paths</em>. A more sophisticated meshing triangulation is available in the <a href="https://github.com/hypertidy/anglr" class="external-link">anglr package</a>. The anglr package is less strict than silicate, and will happily treat many path-based data structures as <em>implicit surfaces</em>, and so we can <code>plot3d()</code> or <code>as.mesh3d()</code> a polygon or line layer and it will do its best to generate a true explicit surface. We can otherwise use the silicate model <code><a href="../reference/TRI.html">TRI()</a></code> or <code><a href="../reference/TRI0.html">TRI0()</a></code> or the anglr models <code>DEL()</code> or <code>DEL0()</code> to actually work with the data structure in use (not just a visual side-effect).</p>
 <p>It’s important to know what is the simplest vs more complex ways of creating surfaces. In general, <code><a href="../reference/TRI0.html">TRI0()</a></code> is cheapest, and <code>DEL()</code> is most expensive - but the former requires <em>paths</em>, and the latter works with <em>edges</em>. The cheapest one, is TRI0(). TRI() is next expensive (adds visible property, and native orientation, and arbitrary subsetting) … but cheap triangles, next is DEL0() (control over area, angle, Steiner points, Delaunay constraint, etc), then DEL().</p>
 <ul>
 <li>DEL must be composed from edges, and edges can come from any model</li>
@@ -135,11 +130,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Michael D. Sumner, Mark Padgham.</p>
+  <p></p>
+<p>Developed by Michael D. Sumner, Mark Padgham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -147,6 +144,8 @@
 
   
 
+
+  
 
   </body>
 </html>

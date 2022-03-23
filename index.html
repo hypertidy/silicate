@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,23 +40,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -74,8 +70,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/hypertidy/silicate/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/hypertidy/silicate/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -93,9 +89,9 @@
   <div class="contents col-md-9">
 
 
-<div id="overview" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h1></div>
 <p>The goal of silicate is to bridge planar geospatial data types with flexible mesh data structures and visualization.</p>
 <p>We aim to provide</p>
 <ul>
@@ -104,9 +100,9 @@
 <li>topological primitives for analysis and exploration.</li>
 </ul>
 <p>The core of silicate are <em>worker functions</em> that are generic and work with any kind of data that has hierarchical structure. These functions work on <em>models</em>, that include various formats (sf, sp, trip) and also on silicate models themselves.</p>
-<div id="functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#functions" class="anchor"></a>Functions</h2>
+<div class="section level2">
+<h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a>
+</h2>
 <p>We have the following worker verbs, designed to work with many spatial data formats and with silicate’s own structures.</p>
 <ul>
 <li>
@@ -128,10 +124,10 @@
 </ul>
 <p>The idea is that each function can return the underlying entities of a data object, no matter its underlying format. This interoperability design contrasts with major spatial packages that require format peculiarities in order to work, even when these details are not relevant.</p>
 </div>
-<div id="models" class="section level2">
-<h2 class="hasAnchor">
-<a href="#models" class="anchor"></a>Models</h2>
-<p>Silicate defines a number of key models to represent various interpretations of hierarchical (usually spatial) data. These are <code>SC</code>, <code>PATH</code>, <code>ARC</code> and <code>TRI</code>. Most models have a counterpart <em>structurally-optimized</em> version with a similar name: <code>SC0</code>, <code>PATH0</code>, <code>TRI0</code>. Other models are possible, and include <code>DEL</code> in the <a href="https://github.com/hypertidy/anglr/">in-development anglr package</a> that extends <code>TRI</code>.</p>
+<div class="section level2">
+<h2 id="models">Models<a class="anchor" aria-label="anchor" href="#models"></a>
+</h2>
+<p>Silicate defines a number of key models to represent various interpretations of hierarchical (usually spatial) data. These are <code>SC</code>, <code>PATH</code>, <code>ARC</code> and <code>TRI</code>. Most models have a counterpart <em>structurally-optimized</em> version with a similar name: <code>SC0</code>, <code>PATH0</code>, <code>TRI0</code>. Other models are possible, and include <code>DEL</code> in the <a href="https://github.com/hypertidy/anglr/" class="external-link">in-development anglr package</a> that extends <code>TRI</code>.</p>
 <p>Each model is composed of a type of <em>primitive</em>, and each provides a normalization (de-duplication) of geometry for efficiency and or topology. Silicate quite deliberately separates the concepts of geometry and topology completely. Primitives define the topology (edges, paths, arcs, or triangles) and the vertex table defines the geometry. We reserve the names <code>x_</code>, <code>y_</code>, <code>t_</code> (time) and <code>z_</code> (elevation) for the usual geometric dimensions, and these are treated specially by default. No limit is put geometric dimension however, it’s possible to store anything at all on the vertex table. Some models include an <code>object</code> table, and this represents a higher level grouping of primitives (and corresponds to <em>features</em> in SF).</p>
 <p>The most general model is <code>SC</code>, composed of three tables <code>vertex</code>, <code>edge</code> and <code>object</code> and all entities are explicitly labelled. Indexes between tables are unique and persistent and arbitrary, they can be arbitrarily accessed. This is closely related to the more bare-bones <code>SC0</code> model, composed of only two tables <code>vertices</code>, and <code>objects</code>. These are related <em>structurally</em> by nesting the relations within the object table. Here the relations are not persistent, so we can subset the objects but we cannot change the vertex table with updating these indexes.</p>
 <p><code>SC0</code> can deal with 0-dimensional topology types (points) as well as 1-dimensional types (edges), but <code>SC</code> is strictly for edges.</p>
@@ -151,33 +147,33 @@
 </ul>
 <p>The models <code>PATH0</code> and <code>ARC0</code> are in-development. By analogy to <code>SC0</code> they will be composed of two tables, <code>object</code> and <code>vertex</code> with nested structural-index tables on <code>object</code> holding the path and arc indexes that are row numbers of <code>vertex</code>. It’s not clear yet if this vertex table should be de-duplicated.</p>
 <p>Earlier versions included a mix of these models, and the definitions have changed many times. Still a work-in-progress.</p>
-<p>An extension of the <code>TRI</code> model <code>DEL</code> is provided in <a href="https://github.com/hypertidy/anglr/">anglr</a> which builds <em>high-quality</em> triangulations, but the structural representation is the same.</p>
+<p>An extension of the <code>TRI</code> model <code>DEL</code> is provided in <a href="https://github.com/hypertidy/anglr/" class="external-link">anglr</a> which builds <em>high-quality</em> triangulations, but the structural representation is the same.</p>
 <p>Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context. Our ideal situation would be for external packages to publish methods for these verbs, keeping package-specific code in the original package. We think this provides a very powerful and general mechanism for a family of consistent packages.</p>
-<p>There is another important function <code>unjoin()</code> use to normalize tables that have redundant information. The <code>unjoin()</code> isthe opposite of the database join, and has a nearly identical counterpart in <a href="https://github.com/krlmlr/dm">the dm package</a> with its <code>decompose_table()</code>. Unjoin is the same as <code>tidyr::nest()</code> but returns two tables rather than splitting one into the rows of other.</p>
-<p>The <code>unjoin</code> is a bit out of place here, but it’s a key step when building these models, used to remove duplication at various levels. It’s the primary mechanism for <em>defining and building-in</em> topology, which is precisely the relationships between entities in a model. This function is published in the <a href="https://CRAN.R-project.org/package=unjoin">CRAN package unjoin</a>.</p>
+<p>There is another important function <code>unjoin()</code> use to normalize tables that have redundant information. The <code>unjoin()</code> isthe opposite of the database join, and has a nearly identical counterpart in <a href="https://github.com/krlmlr/dm" class="external-link">the dm package</a> with its <code>decompose_table()</code>. Unjoin is the same as <code>tidyr::nest()</code> but returns two tables rather than splitting one into the rows of other.</p>
+<p>The <code>unjoin</code> is a bit out of place here, but it’s a key step when building these models, used to remove duplication at various levels. It’s the primary mechanism for <em>defining and building-in</em> topology, which is precisely the relationships between entities in a model. This function is published in the <a href="https://CRAN.R-project.org/package=unjoin" class="external-link">CRAN package unjoin</a>.</p>
 </div>
-<div id="arbitrarily-re-composable-hierarchies" class="section level2">
-<h2 class="hasAnchor">
-<a href="#arbitrarily-re-composable-hierarchies" class="anchor"></a>Arbitrarily re-composable hierarchies</h2>
+<div class="section level2">
+<h2 id="arbitrarily-re-composable-hierarchies">Arbitrarily re-composable hierarchies<a class="anchor" aria-label="anchor" href="#arbitrarily-re-composable-hierarchies"></a>
+</h2>
 <p>The common “well-known” formats of encoding geometry (WKB/WKT for binary/text) represent (pre-)aggregated data, yet the input levels of aggregation are often not directly relevant to desired or desirable levels of aggregation for analysis. A key stage in many GIS analyses is thus an initial disaggregation to some kind of atomic form followed by re-aggregation.</p>
 <p>We propose a common form for spatial data that is inherently disaggregated, that allows for maximally-efficient on-demand re-aggregation (arbitrarily re-composable hierarchies), and that covers the complexity of geometric and topological types widely used in data science and modelling. We provide tools in R for more general representations of spatial primitives and the intermediate forms required for translation and analytical tasks. These forms are conceptually independent of R itself and are readily implemented with standard tabular data structures.</p>
 <p>There is not one single normal form that should always be used. There is one universal form that every other model may be expressed in, but also other forms that are better suited or more efficient for certain domains. We show that conversion between these forms is more straightforward and extensible than from SF or related types, but is also readily translated to and from standard types. The most important forms we have identified are “universal” (edges and nodes), “2D primitives” (triangles), “arcs” (shared boundaries), and “paths” (normalized forms of SF types).</p>
 </div>
 </div>
-<div id="installation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h1>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># Install the development version from GitHub:</span>
+<div class="section level1">
+<h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h1>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Install the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"hypertidy/silicate"</span><span class="op">)</span></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"hypertidy/silicate"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="usage" class="section level1">
-<h1 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h1>
+<div class="section level1">
+<h1 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h1>
 <p>Convert a known external model to a silicate model.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hypertidy/silicate">silicate</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hypertidy/silicate" class="external-link">silicate</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'silicate'</span>
 <span class="co">#&gt; The following object is masked from 'package:stats':</span>
@@ -185,10 +181,10 @@
 <span class="co">#&gt;     filter</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/SC.html">SC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span> <span class="co">## convert simple features to universal form</span>
 
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ARC.html">ARC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span> <span class="co">## convert simple features to "arc-node" form</span></pre></div>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ARC.html">ARC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span> <span class="co">## convert simple features to "arc-node" form</span></code></pre></div>
 <p>Obtain the elements of a known model type.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="reference/sc_vertex.html">sc_vertex</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/sc_vertex.html">sc_vertex</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 14 x 3</span>
 <span class="co">#&gt;       x_    y_ vertex_</span>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  </span>
@@ -241,31 +237,31 @@
 <span class="co">#&gt; 1 2hVvpA        2</span>
 <span class="co">#&gt; 2 F3YaTb        7</span>
 <span class="co">#&gt; 3 HqTb6m        5</span>
-<span class="co">#&gt; 4 yu4nxb        4</span></pre></div>
-<div id="silicate-models" class="section level2">
-<h2 class="hasAnchor">
-<a href="#silicate-models" class="anchor"></a>silicate models</h2>
+<span class="co">#&gt; 4 yu4nxb        4</span></code></pre></div>
+<div class="section level2">
+<h2 id="silicate-models">silicate models<a class="anchor" aria-label="anchor" href="#silicate-models"></a>
+</h2>
 <p>There are two kinds of models, <em>primitive</em> and <em>sequential</em>.</p>
 <p>Primitive-based models are composed of <em>atomic</em> elements that may be worked with arbitrarily, by identity and grouping alone.</p>
 <p>Sequential-based models are bound to ordering and contextual assumptions. We provide the <code>PATH</code> and <code>ARC</code> models as generic, relational forms that provide a convenient intermediate between external forms and primitives models. Further intermediate models exist, including monotone and convex decompositions of polygons.</p>
 <p>There is one universal primitives-based model, an edge-only model with two tables at its core. Higher level structures are described by grouping tables, with as many levels as required. Any other model can be expressed in this form.</p>
 <p>We also differentiate <em>structural primitives</em>, which are specializations that are more convenient or more efficient in certain cases. These include triangulations (2D primitives), and segment structures (1D primitives), and could provide higher dimensional forms (3D primitives, etc. ).</p>
 <p>Currently, we provide support for the universal model <code>SC</code>, the sequential models <code>PATH</code> (simple features belongs here, amongst many others) and <code>ARC</code> (arc-node topology, TopoJSON-like, OpenStreetMap), and structural primitives <code>TRI</code>.</p>
-<p>In practice a segment model is trivial to generate, “SEG” but we haven’t done that. This would be analogous to the format used by <code>rgl::rgl.lines</code> or <code><a href="https://rdrr.io/pkg/spatstat/man/psp.html">spatstat::psp</a></code>.</p>
+<p>In practice a segment model is trivial to generate, “SEG” but we haven’t done that. This would be analogous to the format used by <code>rgl::rgl.lines</code> or <code>spatstat::psp</code>.</p>
 <p>We take care to allow for <em>labelling</em> (identity) of component elements, without taking full responsibility for maintaining them. Random IDs are created as needed, but any operation that works with existing IDs should be stable with them.</p>
 </div>
-<div id="context-and-some-related-projects" class="section level2">
-<h2 class="hasAnchor">
-<a href="#context-and-some-related-projects" class="anchor"></a>Context, and some related projects</h2>
-<p>The <a href="https://github.com/mdsumner/polymer">spacebucket</a> (arbitrary multi-layer polygonal overlays) and <a href="https://github.com/hypertidy/sphier/">sphier</a> (generic hierarchies from atomic forms) show two different approaches to the problem of hierarchical data and flexible representations.</p>
+<div class="section level2">
+<h2 id="context-and-some-related-projects">Context, and some related projects<a class="anchor" aria-label="anchor" href="#context-and-some-related-projects"></a>
+</h2>
+<p>The <a href="https://github.com/mdsumner/polymer" class="external-link">spacebucket</a> (arbitrary multi-layer polygonal overlays) and <a href="https://github.com/hypertidy/sphier/" class="external-link">sphier</a> (generic hierarchies from atomic forms) show two different approaches to the problem of hierarchical data and flexible representations.</p>
 <p>The key difference between the silicate approach and simple features is the separation of geometry and topology. This allows for normalization (de-duplication) of the entities that are present or that can be identitied. Simple features has no capacity to de-duplicate or otherwise identify vertices, edges, paths or arcs, though tools that work with simple features do construct these schemes routinely in order to perform operations. When these richer, topological structures are built they are usually then discarded and the vertices are again de-normalized and again expressed explicitly without recording any of the relationships. In this sense, simple features can be described as an <em>explicitly-stored PATH analogue</em>, and is no different from the model used by shapefiles, binary blobs in databases, and many other spatial vector formats. There are a number of notable exceptions to this including TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, Mapbox, WebGL, Threejs, D3, AFrame, Lavavu but unfortunately there’s no overall scheme that can unify these richer structures.</p>
 <p>The silicate family is composed of a small number of packages that apply the principles here, either to read from path forms or primitive forms. As work continues some of these will be incorporated into the silicate core, when that is possible without requiring heavy external dependencies.</p>
 <ul>
-<li><a href="https://github.com/hypertidy/scgraph">scgraph</a></li>
-<li><a href="https://github.com/hypertidy/scspatstat">scspatstat</a></li>
+<li><a href="https://github.com/hypertidy/scgraph" class="external-link">scgraph</a></li>
+<li><a href="https://github.com/hypertidy/scspatstat" class="external-link">scspatstat</a></li>
 </ul>
 <p>Looking for a music reference? I always am: Child’s Play, by Carcass.</p>
-<p>Please note that the ‘silicate’ project is released with a <a href="https://github.com/hypertidy/silicate/blob/master/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<p>Please note that the ‘silicate’ project is released with a <a href="https://github.com/hypertidy/silicate/blob/master/CODE_OF_CONDUCT.md" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
 
@@ -273,60 +269,70 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=silicate">https://​cloud.r-project.org/​package=silicate</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/hypertidy/silicate/">https://​github.com/​hypertidy/​silicate/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/hypertidy/silicate/issues">https://​github.com/​hypertidy/​silicate/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=silicate" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/hypertidy/silicate/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/hypertidy/silicate/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Michael D. Sumner <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Mark Padgham <br><small class="roles"> Author </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing silicate</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></li>
-<li><a href="https://travis-ci.org/hypertidy/silicate"><img src="http://badges.herokuapp.com/travis/hypertidy/silicate?branch=master&amp;env=BUILD_NAME=trusty_release&amp;label=linux" alt="Travis-CI Build Status"></a></li>
-<li><a href="https://travis-ci.org/hypertidy/silicate"><img src="http://badges.herokuapp.com/travis/hypertidy/silicate?branch=master&amp;env=BUILD_NAME=osx_release&amp;label=osx" alt="Build Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/mdsumner/silicate"><img src="https://ci.appveyor.com/api/projects/status/github/hypertidy/silicate?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="https://codecov.io/github/hypertidy/silicate?branch=master"><img src="https://img.shields.io/codecov/c/github/hypertidy/silicate/master.svg" alt="Coverage Status"></a></li>
-<li><a href="https://cran.r-project.org/package=silicate"><img src="http://www.r-pkg.org/badges/version/silicate" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://cran.r-project.org/package=silicate"><img src="http://cranlogs.r-pkg.org/badges/silicate" alt="CRAN_Download_Badge"></a></li>
-<li><a href="https://github.com/hypertidy/silicate/actions"><img src="https://github.com/hypertidy/silicate/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li>Michael D. Sumner <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Mark Padgham <br><small class="roles"> Author </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://www.tidyverse.org/lifecycle/#maturing" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></li>
+<li><a href="https://travis-ci.org/hypertidy/silicate" class="external-link"><img src="http://badges.herokuapp.com/travis/hypertidy/silicate?branch=master&amp;env=BUILD_NAME=trusty_release&amp;label=linux" alt="Travis-CI Build Status"></a></li>
+<li><a href="https://travis-ci.org/hypertidy/silicate" class="external-link"><img src="http://badges.herokuapp.com/travis/hypertidy/silicate?branch=master&amp;env=BUILD_NAME=osx_release&amp;label=osx" alt="Build Status"></a></li>
+<li><a href="https://ci.appveyor.com/project/mdsumner/silicate" class="external-link"><img src="https://ci.appveyor.com/api/projects/status/github/hypertidy/silicate?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
+<li><a href="https://codecov.io/github/hypertidy/silicate?branch=master" class="external-link"><img src="https://img.shields.io/codecov/c/github/hypertidy/silicate/master.svg" alt="Coverage Status"></a></li>
+<li><a href="https://cran.r-project.org/package=silicate" class="external-link"><img src="http://www.r-pkg.org/badges/version/silicate" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://cran.r-project.org/package=silicate" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/silicate" alt="CRAN_Download_Badge"></a></li>
+<li><a href="https://github.com/hypertidy/silicate/actions" class="external-link"><img src="https://github.com/hypertidy/silicate/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Michael D. Sumner, Mark Padgham.</p>
+  <p></p>
+<p>Developed by Michael D. Sumner, Mark Padgham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -334,6 +340,8 @@
 
   
 
+
+  
 
   </body>
 </html>
