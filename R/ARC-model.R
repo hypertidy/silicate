@@ -52,7 +52,6 @@ ARC.PATH <- function(x, ...) {
 ##  arc <- dplyr::distinct(arc, .data$arc_, .data$vertex_)
   arc <- arc[c("arc_", "vertex_")]
   aXv <- do.call(rbind, split(arc, arc$arc_)[unique(arc_map$arc)])
-
   aXv$object_ <- aXv$arc0 <-  NULL
   v <- sc_vertex(x)
 
