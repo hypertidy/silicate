@@ -66,49 +66,54 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sc_segment</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">sc_segment</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for PATH</span>
-<span class="fu">sc_segment</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sc_segment</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">sc_segment</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for PATH</span></span>
+<span><span class="fu">sc_segment</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>input object</p></dd>
+
+
 <dt>...</dt>
 <dd><p>arguments passed to methods</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>data frame of the segments, each occurence of an edge and its order</p>
+    
+
+<p>data frame of the segments, each occurence of an edge and its order</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">sc_segment</span><span class="op">(</span><span class="fu"><a href="SC.html">SC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">sc_segment</span><span class="op">(</span><span class="fu"><a href="SC.html">SC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    object_ edge_  native_ .vx0   .vx1   segment_</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> G5DoQW  6XtmYV TRUE    uf6CLd wIZAb9 TQqJay  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> G5DoQW  hvzXGi TRUE    wIZAb9 vZMWO6 J3iJ0g  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> G5DoQW  JNboul TRUE    vZMWO6 m7gpVI W7x4zK  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> G5DoQW  mqjWof FALSE   Ayj1yY m7gpVI paf4A8  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> G5DoQW  5f4heY TRUE    Ayj1yY qdGf7X k6mC3J  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> G5DoQW  eKVVt0 FALSE   aiqF1W qdGf7X Z2ysgZ  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> G5DoQW  DQAyt4 FALSE   uf6CLd aiqF1W 3wHDMe  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> G5DoQW  6xvYIZ TRUE    JFcoCP j2R1Dr 42U3TH  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> G5DoQW  b3jCOF TRUE    j2R1Dr 5OsJ9D aXii38  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> G5DoQW  1wD8Vc FALSE   uqWCaZ 5OsJ9D tglQgM  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> G5DoQW  hp11gQ FALSE   Z98tkK uqWCaZ f5cm8o  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> G5DoQW  HE7oeD FALSE   JFcoCP Z98tkK WNwBtX  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> WxJqrP  eKVVt0 TRUE    aiqF1W qdGf7X k65fRn  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> WxJqrP  JrEV2P TRUE    qdGf7X yVNcTc pWjGEf  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> WxJqrP  C4TcGu TRUE    yVNcTc U8s1cN qGQPhX  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> WxJqrP  Ct3BIX FALSE   aiqF1W U8s1cN Plb7fb  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> cSSbSi  0VJOUV TRUE    85X6vp 0QRGUo NaHem1  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> cSSbSi  hmbXCR TRUE    0QRGUo NWcEjH mEwB7b  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> cSSbSi  o1nn7s TRUE    NWcEjH Bi9TDk UKkKQ7  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> cSSbSi  M6FACp FALSE   EYECOx Bi9TDk xsSZbH  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> cSSbSi  COAmrW TRUE    EYECOx solGy4 XVmyEx  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> cSSbSi  ysW14z FALSE   oPNbYq solGy4 1f255o  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> cSSbSi  02pF62 FALSE   85X6vp oPNbYq 7BkTFI  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> cSSbSi  EHz3z8 TRUE    60XvL3 v7AsBU D5xd2T  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> cSSbSi  BdXyDG TRUE    v7AsBU vJRdtw cIMZW7  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> cSSbSi  HJmXfM FALSE   oG7V6X vJRdtw 5tpRJU  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> cSSbSi  kYxT0I FALSE   RWwRSc oG7V6X ZiVHAl  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> cSSbSi  VRwzSd FALSE   60XvL3 RWwRSc HEG8kT  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> aj0C6y  ysW14z TRUE    oPNbYq solGy4 wnswyd  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> aj0C6y  8hB76Y TRUE    solGy4 k7qT2S Wk70bi  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> aj0C6y  75IztI TRUE    k7qT2S Yx2avd F6yVTm  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> aj0C6y  xd4QrP FALSE   oPNbYq Yx2avd olpurb  </span>
 </code></pre></div>
     </div>
   </div>
@@ -123,7 +128,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

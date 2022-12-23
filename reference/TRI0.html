@@ -70,46 +70,51 @@ as used by <code><a href="TRI.html">TRI()</a></code>, we trade some generality f
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for mesh3d</span>
-<span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for TRI0</span>
-<span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for sfc_TIN</span>
-<span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for TRI</span>
-<span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for PATH0</span>
-<span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for PATH</span>
-<span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for sf</span>
-<span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for sfc_GEOMETRYCOLLECTION</span>
-<span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for mesh3d</span></span>
+<span><span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for TRI0</span></span>
+<span><span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for sfc_TIN</span></span>
+<span><span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for TRI</span></span>
+<span><span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for PATH0</span></span>
+<span><span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for PATH</span></span>
+<span><span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for sf</span></span>
+<span><span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for sfc_GEOMETRYCOLLECTION</span></span>
+<span><span class="fu">TRI0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>object understood by silicate (sf, sp, a silicate model, etc.)</p></dd>
+
+
 <dt>...</dt>
 <dd><p>currently unused</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>TRI0 model with tables 'object', 'vertex'</p>
+    
+
+<p>TRI0 model with tables 'object', 'vertex'</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -137,35 +142,35 @@ supported.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">tri</span> <span class="op">&lt;-</span> <span class="fu">TRI0</span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tri</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">tri</span> <span class="op">&lt;-</span> <span class="fu">TRI0</span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tri</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class       : TRI0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> type        : Primitive</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> vertices    : 14 (2-space)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> primitives  : 14 (2-space)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> crs         : NA</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tri</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tri</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="TRI0-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># obtain the vertices and indices in raw form</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## idx is the triplets of row numbers in tri$vertex</span></span>
-<span class="r-in"><span class="va">idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="fu"><a href="sc_object.html">sc_object</a></span><span class="op">(</span><span class="va">tri</span><span class="op">)</span><span class="op">$</span><span class="va">topology_</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">idx</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".vx0"</span>, <span class="st">".vx1"</span>, <span class="st">".vx2"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## vert is the vertices x_, y_, ...</span></span>
-<span class="r-in"><span class="va">vert</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="sc_vertex.html">sc_vertex</a></span><span class="op">(</span><span class="va">tri</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## now we can plot with generic tools</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vert</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html" class="external-link">polygon</a></span><span class="op">(</span><span class="va">vert</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">idx</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>, <span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># obtain the vertices and indices in raw form</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## idx is the triplets of row numbers in tri$vertex</span></span></span>
+<span class="r-in"><span><span class="va">idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="fu"><a href="sc_object.html">sc_object</a></span><span class="op">(</span><span class="va">tri</span><span class="op">)</span><span class="op">$</span><span class="va">topology_</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">idx</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".vx0"</span>, <span class="st">".vx1"</span>, <span class="st">".vx2"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## vert is the vertices x_, y_, ...</span></span></span>
+<span class="r-in"><span><span class="va">vert</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="sc_vertex.html">sc_vertex</a></span><span class="op">(</span><span class="va">tri</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## now we can plot with generic tools</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vert</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html" class="external-link">polygon</a></span><span class="op">(</span><span class="va">vert</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">idx</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>, <span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="TRI0-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## or create other structures like rgl's mesh3d</span></span>
-<span class="r-in"><span class="co">## (see hypertidy/anglr for in-dev helpers)</span></span>
-<span class="r-in"><span class="co">## rgl::tmesh3d(t(cbind(vert, 1, 1)), t(idx),</span></span>
-<span class="r-in"><span class="co">##   material = list(color = c("firebrick", "black", "grey", "blue")),</span></span>
-<span class="r-in"><span class="co">##   meshColor = "faces")</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## or create other structures like rgl's mesh3d</span></span></span>
+<span class="r-in"><span><span class="co">## (see hypertidy/anglr for in-dev helpers)</span></span></span>
+<span class="r-in"><span><span class="co">## rgl::tmesh3d(t(cbind(vert, 1, 1)), t(idx),</span></span></span>
+<span class="r-in"><span><span class="co">##   material = list(color = c("firebrick", "black", "grey", "blue")),</span></span></span>
+<span class="r-in"><span><span class="co">##   meshColor = "faces")</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -180,7 +185,7 @@ supported.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

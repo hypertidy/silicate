@@ -68,21 +68,28 @@ if not present.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sc_uid</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, uid_nchar <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sc_uid</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, uid_nchar <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>number of unique IDs to generate</p></dd>
+
+
 <dt>...</dt>
 <dd><p>reserved for future use</p></dd>
+
+
 <dt>uid_nchar</dt>
 <dd><p>number of raw characters to paste as a uuid, default is 6 (only if silicate.uid.type is "uuid", see Details)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>vector of unique id values for elements in the input</p>
+    
+
+<p>vector of unique id values for elements in the input</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -96,9 +103,9 @@ By default UIDs are a mix of letters, LETTERS and digits of length <code>getOpti
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">sc_uid</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "W3vgfN" "wTyB3S" "wYkyMq" "Qqjbdy" "bl2jqt" "ETOcbk" "ll5pQ8" "2vFpyi"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "UAD8u9" "k5nwwd"</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">sc_uid</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "CjOqeS" "PSj2hS" "FGZSG6" "ayEMiZ" "DVHN5F" "rS611p" "JwXcKh" "QmRgYW"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "TXOpAQ" "AJ9N1W"</span>
 </code></pre></div>
     </div>
   </div>
@@ -113,7 +120,7 @@ By default UIDs are a mix of letters, LETTERS and digits of length <code>getOpti
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

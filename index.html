@@ -164,80 +164,80 @@
 <h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h1>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Install the development version from GitHub:</span>
-<span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"hypertidy/silicate"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Install the development version from GitHub:</span></span>
+<span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"hypertidy/silicate"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level1">
 <h1 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h1>
 <p>Convert a known external model to a silicate model.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hypertidy/silicate" class="external-link">silicate</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'silicate'</span>
-<span class="co">#&gt; The following object is masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/SC.html">SC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span> <span class="co">## convert simple features to universal form</span>
-
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ARC.html">ARC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span> <span class="co">## convert simple features to "arc-node" form</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hypertidy/silicate" class="external-link">silicate</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'silicate'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/SC.html">SC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span> <span class="co">## convert simple features to universal form</span></span>
+<span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ARC.html">ARC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span> <span class="co">## convert simple features to "arc-node" form</span></span></code></pre></div>
 <p>Obtain the elements of a known model type.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/sc_vertex.html">sc_vertex</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 14 x 3</span>
-<span class="co">#&gt;       x_    y_ vertex_</span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  </span>
-<span class="co">#&gt;  1  0     0    BTjJfg </span>
-<span class="co">#&gt;  2  0     1    Os5aPK </span>
-<span class="co">#&gt;  3  0.2   0.2  J8G4eF </span>
-<span class="co">#&gt;  4  0.2   0.4  MCs4EU </span>
-<span class="co">#&gt;  5  0.3   0.6  nd6fm2 </span>
-<span class="co">#&gt;  6  0.5   0.2  cexo43 </span>
-<span class="co">#&gt;  7  0.5   0.4  zifu2p </span>
-<span class="co">#&gt;  8  0.5   0.7  acrNba </span>
-<span class="co">#&gt;  9  0.69  0    Kq3sSr </span>
-<span class="co">#&gt; 10  0.75  1    LpEEWk </span>
-<span class="co">#&gt; 11  0.8   0.6  OdWVZU </span>
-<span class="co">#&gt; 12  1     0.8  r8NZuW </span>
-<span class="co">#&gt; 13  1.1   0.63 pdkEIF </span>
-<span class="co">#&gt; 14  1.23  0.3  lXqOcw</span>
-
-<span class="fu"><a href="reference/sc_edge.html">sc_edge</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 15 x 4</span>
-<span class="co">#&gt;    .vx0   .vx1   path_ edge_ </span>
-<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;chr&gt; </span>
-<span class="co">#&gt;  1 BTjJfg Os5aPK     1 mAEnCR</span>
-<span class="co">#&gt;  2 Os5aPK LpEEWk     1 9V21Nk</span>
-<span class="co">#&gt;  3 LpEEWk r8NZuW     1 oo2Zad</span>
-<span class="co">#&gt;  4 acrNba r8NZuW     1 XxpY1a</span>
-<span class="co">#&gt;  5 acrNba OdWVZU     1 7Rce0p</span>
-<span class="co">#&gt;  6 Kq3sSr OdWVZU     1 g3F3EJ</span>
-<span class="co">#&gt;  7 BTjJfg Kq3sSr     1 JymcBh</span>
-<span class="co">#&gt;  8 J8G4eF cexo43     2 PkVR4T</span>
-<span class="co">#&gt;  9 cexo43 zifu2p     2 XGLFtj</span>
-<span class="co">#&gt; 10 nd6fm2 zifu2p     2 C9pruP</span>
-<span class="co">#&gt; 11 MCs4EU nd6fm2     2 wdao9g</span>
-<span class="co">#&gt; 12 J8G4eF MCs4EU     2 C7Uzol</span>
-<span class="co">#&gt; 13 OdWVZU pdkEIF     3 IjDwzV</span>
-<span class="co">#&gt; 14 pdkEIF lXqOcw     3 xYoBec</span>
-<span class="co">#&gt; 15 Kq3sSr lXqOcw     3 KNTYxL</span>
-
-<span class="fu"><a href="reference/sc_node.html">sc_node</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 x 1</span>
-<span class="co">#&gt;   vertex_</span>
-<span class="co">#&gt;   &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 JibOO4 </span>
-<span class="co">#&gt; 2 jGfrE0</span>
-
-<span class="fu"><a href="reference/sc_arc.html">sc_arc</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 4 x 2</span>
-<span class="co">#&gt;   arc_   ncoords_</span>
-<span class="co">#&gt;   &lt;chr&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1 2hVvpA        2</span>
-<span class="co">#&gt; 2 F3YaTb        7</span>
-<span class="co">#&gt; 3 HqTb6m        5</span>
-<span class="co">#&gt; 4 yu4nxb        4</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/sc_vertex.html">sc_vertex</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 14 x 3</span></span>
+<span><span class="co">#&gt;       x_    y_ vertex_</span></span>
+<span><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt;  1  0     0    BTjJfg </span></span>
+<span><span class="co">#&gt;  2  0     1    Os5aPK </span></span>
+<span><span class="co">#&gt;  3  0.2   0.2  J8G4eF </span></span>
+<span><span class="co">#&gt;  4  0.2   0.4  MCs4EU </span></span>
+<span><span class="co">#&gt;  5  0.3   0.6  nd6fm2 </span></span>
+<span><span class="co">#&gt;  6  0.5   0.2  cexo43 </span></span>
+<span><span class="co">#&gt;  7  0.5   0.4  zifu2p </span></span>
+<span><span class="co">#&gt;  8  0.5   0.7  acrNba </span></span>
+<span><span class="co">#&gt;  9  0.69  0    Kq3sSr </span></span>
+<span><span class="co">#&gt; 10  0.75  1    LpEEWk </span></span>
+<span><span class="co">#&gt; 11  0.8   0.6  OdWVZU </span></span>
+<span><span class="co">#&gt; 12  1     0.8  r8NZuW </span></span>
+<span><span class="co">#&gt; 13  1.1   0.63 pdkEIF </span></span>
+<span><span class="co">#&gt; 14  1.23  0.3  lXqOcw</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/sc_edge.html">sc_edge</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 15 x 4</span></span>
+<span><span class="co">#&gt;    .vx0   .vx1   path_ edge_ </span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;chr&gt; </span></span>
+<span><span class="co">#&gt;  1 BTjJfg Os5aPK     1 mAEnCR</span></span>
+<span><span class="co">#&gt;  2 Os5aPK LpEEWk     1 9V21Nk</span></span>
+<span><span class="co">#&gt;  3 LpEEWk r8NZuW     1 oo2Zad</span></span>
+<span><span class="co">#&gt;  4 acrNba r8NZuW     1 XxpY1a</span></span>
+<span><span class="co">#&gt;  5 acrNba OdWVZU     1 7Rce0p</span></span>
+<span><span class="co">#&gt;  6 Kq3sSr OdWVZU     1 g3F3EJ</span></span>
+<span><span class="co">#&gt;  7 BTjJfg Kq3sSr     1 JymcBh</span></span>
+<span><span class="co">#&gt;  8 J8G4eF cexo43     2 PkVR4T</span></span>
+<span><span class="co">#&gt;  9 cexo43 zifu2p     2 XGLFtj</span></span>
+<span><span class="co">#&gt; 10 nd6fm2 zifu2p     2 C9pruP</span></span>
+<span><span class="co">#&gt; 11 MCs4EU nd6fm2     2 wdao9g</span></span>
+<span><span class="co">#&gt; 12 J8G4eF MCs4EU     2 C7Uzol</span></span>
+<span><span class="co">#&gt; 13 OdWVZU pdkEIF     3 IjDwzV</span></span>
+<span><span class="co">#&gt; 14 pdkEIF lXqOcw     3 xYoBec</span></span>
+<span><span class="co">#&gt; 15 Kq3sSr lXqOcw     3 KNTYxL</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/sc_node.html">sc_node</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 x 1</span></span>
+<span><span class="co">#&gt;   vertex_</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt; 1 JibOO4 </span></span>
+<span><span class="co">#&gt; 2 jGfrE0</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/sc_arc.html">sc_arc</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 4 x 2</span></span>
+<span><span class="co">#&gt;   arc_   ncoords_</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 2hVvpA        2</span></span>
+<span><span class="co">#&gt; 2 F3YaTb        7</span></span>
+<span><span class="co">#&gt; 3 HqTb6m        5</span></span>
+<span><span class="co">#&gt; 4 yu4nxb        4</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="silicate-models">silicate models<a class="anchor" aria-label="anchor" href="#silicate-models"></a>
 </h2>
@@ -332,7 +332,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

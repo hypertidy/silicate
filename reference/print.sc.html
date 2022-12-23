@@ -66,16 +66,19 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for sc</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for sc</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>object inheriting from 'sc' class</p></dd>
+
+
 <dt>...</dt>
 <dd><p>ignore currently</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -84,39 +87,39 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="TRI.html">TRI</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="TRI.html">TRI</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class       : TRI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> type        : Primitive</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> vertices    : 14 (2-space)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> primitives  : 14 (2-space)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> crs         : NA</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="SC.html">SC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="SC.html">SC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class       : SC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> type        : Primitive</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> vertices    : 14 (2-space)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> primitives  : 15 (1-space)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> crs         : NA</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="PATH.html">PATH</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="PATH.html">PATH</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class       : PATH</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> type        : Sequential</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> vertices    : 14 (2-space)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> paths       : 3 (1-space)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> coordinates : 19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> crs         : NA</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="SC.html">SC</a></span><span class="op">(</span><span class="fu"><a href="TRI.html">TRI</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="SC.html">SC</a></span><span class="op">(</span><span class="fu"><a href="TRI.html">TRI</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class       : SC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> type        : Primitive</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> vertices    : 14 (2-space)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> primitives  : 44 (1-space)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> crs         : NA</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="ARC.html">ARC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="ARC.html">ARC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class       : ARC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> type        : Sequential</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> vertices    : 14 (2-space)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> paths       : 4 (1-space)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> coordinates : 21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> crs         : NA</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="SC0.html">SC0</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="SC0.html">SC0</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class       : SC0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> type        : Structural</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> vertices    : 14 (2-space)</span>
@@ -136,7 +139,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -66,20 +66,25 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for SC</span>
-<span class="fu">filter</span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for SC</span></span>
+<span><span class="fu">filter</span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>.data</dt>
 <dd><p>data object of class SC</p></dd>
+
+
 <dt>...</dt>
 <dd><p>passed to <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">dplyr::filter</a></code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>an <code><a href="SC.html">SC()</a></code> model, with some parts filtered out</p>
+    
+
+<p>an <code><a href="SC.html">SC()</a></code> model, with some parts filtered out</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -90,7 +95,7 @@ as undifferentiated points. This is likely to change ...</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘dplyr’</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:stats’:</span>
@@ -99,13 +104,13 @@ as undifferentiated points. This is likely to change ...</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
-<span class="r-in"><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="SC.html">SC</a></span><span class="op">(</span><span class="va">inlandwaters</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">filter</span><span class="op">(</span><span class="va">sc</span>, <span class="va">Province</span> <span class="op">==</span> <span class="st">"Tasmania"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="SC.html">SC</a></span><span class="op">(</span><span class="va">inlandwaters</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">filter</span><span class="op">(</span><span class="va">sc</span>, <span class="va">Province</span> <span class="op">==</span> <span class="st">"Tasmania"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="dplyr-methods-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">filter</span><span class="op">(</span><span class="va">sc</span>, <span class="va">Province</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Victoria"</span>, <span class="st">"South Australia"</span>, <span class="st">"New South Wales"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">filter</span><span class="op">(</span><span class="va">sc</span>, <span class="va">Province</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Victoria"</span>, <span class="st">"South Australia"</span>, <span class="st">"New South Wales"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="dplyr-methods-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">filter</span><span class="op">(</span><span class="fu"><a href="SC.html">SC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span>, <span class="va">a</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">filter</span><span class="op">(</span><span class="fu"><a href="SC.html">SC</a></span><span class="op">(</span><span class="va">minimal_mesh</span><span class="op">)</span>, <span class="va">a</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="dplyr-methods-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -121,7 +126,7 @@ as undifferentiated points. This is likely to change ...</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
