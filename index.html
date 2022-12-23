@@ -185,59 +185,59 @@
 <p>Obtain the elements of a known model type.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/sc_vertex.html">sc_vertex</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 14 x 3</span></span>
+<span><span class="co">#&gt; # A tibble: 14 × 3</span></span>
 <span><span class="co">#&gt;       x_    y_ vertex_</span></span>
 <span><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt;  1  0     0    BTjJfg </span></span>
-<span><span class="co">#&gt;  2  0     1    Os5aPK </span></span>
-<span><span class="co">#&gt;  3  0.2   0.2  J8G4eF </span></span>
-<span><span class="co">#&gt;  4  0.2   0.4  MCs4EU </span></span>
-<span><span class="co">#&gt;  5  0.3   0.6  nd6fm2 </span></span>
-<span><span class="co">#&gt;  6  0.5   0.2  cexo43 </span></span>
-<span><span class="co">#&gt;  7  0.5   0.4  zifu2p </span></span>
-<span><span class="co">#&gt;  8  0.5   0.7  acrNba </span></span>
-<span><span class="co">#&gt;  9  0.69  0    Kq3sSr </span></span>
-<span><span class="co">#&gt; 10  0.75  1    LpEEWk </span></span>
-<span><span class="co">#&gt; 11  0.8   0.6  OdWVZU </span></span>
-<span><span class="co">#&gt; 12  1     0.8  r8NZuW </span></span>
-<span><span class="co">#&gt; 13  1.1   0.63 pdkEIF </span></span>
-<span><span class="co">#&gt; 14  1.23  0.3  lXqOcw</span></span>
+<span><span class="co">#&gt;  1  0     0    PKMHBC </span></span>
+<span><span class="co">#&gt;  2  0     1    n7JrQJ </span></span>
+<span><span class="co">#&gt;  3  0.2   0.2  1alYrO </span></span>
+<span><span class="co">#&gt;  4  0.2   0.4  rE8t8m </span></span>
+<span><span class="co">#&gt;  5  0.3   0.6  NN6oHp </span></span>
+<span><span class="co">#&gt;  6  0.5   0.2  oUn7Vl </span></span>
+<span><span class="co">#&gt;  7  0.5   0.4  dsZFpQ </span></span>
+<span><span class="co">#&gt;  8  0.5   0.7  PnvBce </span></span>
+<span><span class="co">#&gt;  9  0.69  0    g9nzvg </span></span>
+<span><span class="co">#&gt; 10  0.75  1    lfvLGd </span></span>
+<span><span class="co">#&gt; 11  0.8   0.6  bWbqxq </span></span>
+<span><span class="co">#&gt; 12  1     0.8  zL3p67 </span></span>
+<span><span class="co">#&gt; 13  1.1   0.63 tT8xB9 </span></span>
+<span><span class="co">#&gt; 14  1.23  0.3  4IW6wy</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/sc_edge.html">sc_edge</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 15 x 4</span></span>
+<span><span class="co">#&gt; # A tibble: 15 × 4</span></span>
 <span><span class="co">#&gt;    .vx0   .vx1   path_ edge_ </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;chr&gt; </span></span>
-<span><span class="co">#&gt;  1 BTjJfg Os5aPK     1 mAEnCR</span></span>
-<span><span class="co">#&gt;  2 Os5aPK LpEEWk     1 9V21Nk</span></span>
-<span><span class="co">#&gt;  3 LpEEWk r8NZuW     1 oo2Zad</span></span>
-<span><span class="co">#&gt;  4 acrNba r8NZuW     1 XxpY1a</span></span>
-<span><span class="co">#&gt;  5 acrNba OdWVZU     1 7Rce0p</span></span>
-<span><span class="co">#&gt;  6 Kq3sSr OdWVZU     1 g3F3EJ</span></span>
-<span><span class="co">#&gt;  7 BTjJfg Kq3sSr     1 JymcBh</span></span>
-<span><span class="co">#&gt;  8 J8G4eF cexo43     2 PkVR4T</span></span>
-<span><span class="co">#&gt;  9 cexo43 zifu2p     2 XGLFtj</span></span>
-<span><span class="co">#&gt; 10 nd6fm2 zifu2p     2 C9pruP</span></span>
-<span><span class="co">#&gt; 11 MCs4EU nd6fm2     2 wdao9g</span></span>
-<span><span class="co">#&gt; 12 J8G4eF MCs4EU     2 C7Uzol</span></span>
-<span><span class="co">#&gt; 13 OdWVZU pdkEIF     3 IjDwzV</span></span>
-<span><span class="co">#&gt; 14 pdkEIF lXqOcw     3 xYoBec</span></span>
-<span><span class="co">#&gt; 15 Kq3sSr lXqOcw     3 KNTYxL</span></span>
+<span><span class="co">#&gt;  1 PKMHBC n7JrQJ     1 Y3wnJs</span></span>
+<span><span class="co">#&gt;  2 n7JrQJ lfvLGd     1 sWvd2S</span></span>
+<span><span class="co">#&gt;  3 lfvLGd zL3p67     1 l4qPuA</span></span>
+<span><span class="co">#&gt;  4 PnvBce zL3p67     1 j7yVKy</span></span>
+<span><span class="co">#&gt;  5 PnvBce bWbqxq     1 dVtLuy</span></span>
+<span><span class="co">#&gt;  6 g9nzvg bWbqxq     1 nbggne</span></span>
+<span><span class="co">#&gt;  7 PKMHBC g9nzvg     1 gK7SJX</span></span>
+<span><span class="co">#&gt;  8 1alYrO oUn7Vl     2 FSXRSJ</span></span>
+<span><span class="co">#&gt;  9 oUn7Vl dsZFpQ     2 zaXOAF</span></span>
+<span><span class="co">#&gt; 10 NN6oHp dsZFpQ     2 Nrto4S</span></span>
+<span><span class="co">#&gt; 11 rE8t8m NN6oHp     2 pHrikW</span></span>
+<span><span class="co">#&gt; 12 1alYrO rE8t8m     2 jsfLVq</span></span>
+<span><span class="co">#&gt; 13 bWbqxq tT8xB9     3 eaq2eo</span></span>
+<span><span class="co">#&gt; 14 tT8xB9 4IW6wy     3 MZ55jC</span></span>
+<span><span class="co">#&gt; 15 g9nzvg 4IW6wy     3 Ljlk3H</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/sc_node.html">sc_node</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 2 x 1</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 1</span></span>
 <span><span class="co">#&gt;   vertex_</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 JibOO4 </span></span>
-<span><span class="co">#&gt; 2 jGfrE0</span></span>
+<span><span class="co">#&gt; 1 9hz5Yc </span></span>
+<span><span class="co">#&gt; 2 fKKEB8</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/sc_arc.html">sc_arc</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 4 x 2</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 2</span></span>
 <span><span class="co">#&gt;   arc_   ncoords_</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;     &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 2hVvpA        2</span></span>
-<span><span class="co">#&gt; 2 F3YaTb        7</span></span>
-<span><span class="co">#&gt; 3 HqTb6m        5</span></span>
-<span><span class="co">#&gt; 4 yu4nxb        4</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 7crBrn        6</span></span>
+<span><span class="co">#&gt; 2 gWxp1q        4</span></span>
+<span><span class="co">#&gt; 3 nyej2B        7</span></span>
+<span><span class="co">#&gt; 4 XvG3W6        4</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="silicate-models">silicate models<a class="anchor" aria-label="anchor" href="#silicate-models"></a>
 </h2>
@@ -310,11 +310,6 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.tidyverse.org/lifecycle/#maturing" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></li>
-<li><a href="https://travis-ci.org/hypertidy/silicate" class="external-link"><img src="http://badges.herokuapp.com/travis/hypertidy/silicate?branch=master&amp;env=BUILD_NAME=trusty_release&amp;label=linux" alt="Travis-CI Build Status"></a></li>
-<li><a href="https://travis-ci.org/hypertidy/silicate" class="external-link"><img src="http://badges.herokuapp.com/travis/hypertidy/silicate?branch=master&amp;env=BUILD_NAME=osx_release&amp;label=osx" alt="Build Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/mdsumner/silicate" class="external-link"><img src="https://ci.appveyor.com/api/projects/status/github/hypertidy/silicate?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="https://codecov.io/github/hypertidy/silicate?branch=master" class="external-link"><img src="https://img.shields.io/codecov/c/github/hypertidy/silicate/master.svg" alt="Coverage Status"></a></li>
 <li><a href="https://cran.r-project.org/package=silicate" class="external-link"><img src="http://www.r-pkg.org/badges/version/silicate" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://cran.r-project.org/package=silicate" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/silicate" alt="CRAN_Download_Badge"></a></li>
 <li><a href="https://github.com/hypertidy/silicate/actions" class="external-link"><img src="https://github.com/hypertidy/silicate/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
