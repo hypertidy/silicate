@@ -1,3 +1,9 @@
+# silicate dev
+
+* Removed all deprecated tidyselect uses of '.data$'. 
+
+* Fixed some conditional Suggests use, thanks to CRAN. 
+
 # silicate 0.7.0
 
 * Removed problematic example code. 
