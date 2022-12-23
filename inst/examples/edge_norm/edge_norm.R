@@ -21,6 +21,6 @@ for (i in seq_along(all_edge)) {
 
 edge <- dplyr::bind_rows(all_edge, .id = "input_layer")
 # - de-duplicate vertices
-dvert <- purrr::map_df(all_list, ~.x$vertex) %>% unjoin::unjoin(.data$x_, .data$y_)
+dvert <- purrr::map_df(all_list, ~.x$vertex) %>% unjoin::unjoin("x_", "y_")
 
 # - map new end point indices

@@ -28,7 +28,7 @@ uedge <- edge
 uedge[[".uvx0"]] <- v_0
 uedge[[".uvx1"]] <- v_1
 
-uedge[["u_edge"]] <- dplyr::group_indices(dplyr::group_by(uedge, .data$.uvx0, .data$.uvx1))
+uedge[["u_edge"]] <- dplyr::group_indices(dplyr::group_by(uedge, ".uvx0", ".uvx1"))
 
 
 uedge %>% group_by(.uvx0, .uvx1) %>% tally()  %>% print(n = Inf)
@@ -38,7 +38,7 @@ shared_verts <- uedge$.uvx0[which(!match(uedge$.uvx1, uedge$.uvx0) == (seq_len(n
 
 ## nodes that occur only once (for lines)
 terminal_verts <- tibble::tibble(vertex_ = as.vector(t(as.matrix(edge[c(".vx0", ".vx1")])))) %>%
-  dplyr::count(.data$vertex_) %>% dplyr::filter(n == 1) %>% dplyr::pull(.data$vertex_)
+  dplyr::count("vertex_") %>% dplyr::filter(n == 1) %>% dplyr::pull("vertex_")
 
 plot(sfx[1], lwd = c(10, 2), reset = FALSE)
 if (length(shared_verts) > 0) points(sc$vertex[shared_verts, c("x_", "y_")], col = "red", cex = 1.5)

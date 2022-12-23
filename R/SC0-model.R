@@ -27,7 +27,7 @@ c.SC0 <- function(...) {
   segs <- purrr::map_df(all_list, ~do.call(rbind, .x$object$topology_), .id = "object")
 
   vert <- purrr::map_df(all_list, ~.x$vertex[c("x_", "y_")])
-  vdata <- unjoin::unjoin(vert, .data$x_, .data$y_)
+  vdata <- unjoin::unjoin(vert, "x_", "y_")
   uverts <- vdata$.idx0
     segs$.vx0 <- match(vdata$data$.idx0[segs$.vx0], vdata$.idx0$.idx0)
     segs$.vx0 <- match(vdata$data$.idx0[segs$.vx1], vdata$.idx0$.idx0)
@@ -44,33 +44,33 @@ c.SC0 <- function(...) {
 normalize_to_vertices <- function(x, ..., .keep_all = FALSE) {
   coord0 <- sc_coord(x)
   if (all(c("x_", "y_","z_", "t_") %in% names(coord0))) {
-    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$z_, .data$t_, key_col = "vertex_")
+    out <- unjoin::unjoin(coord0, "x_", "y_", "z_", "t_", key_col = "vertex_")
     return(out)
   }
   if (all(c("x_", "y_","z_", "m_") %in% names(coord0))) {
-    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$z_, .data$m_, key_col = "vertex_")
+    out <- unjoin::unjoin(coord0, "x_", "y_", "z_", "m_", key_col = "vertex_")
     return(out)
   }
   if (all(c("x_", "y_","z_") %in% names(coord0))) {
-    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$z_,  key_col = "vertex_")
+    out <- unjoin::unjoin(coord0, "x_", "y_", "z_",  key_col = "vertex_")
     return(out)
   }
   if (all(c("x_", "y_","t_") %in% names(coord0))) {
-    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$t_,  key_col = "vertex_")
+    out <- unjoin::unjoin(coord0, "x_", "y_", "t_",  key_col = "vertex_")
     return(out)
   }
 
   if (all(c("x_", "y_","m_") %in% names(coord0))) {
-    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$m_,  key_col = "vertex_")
+    out <- unjoin::unjoin(coord0, "x_", "y_", "m_",  key_col = "vertex_")
     return(out)
   }
   if (all(c("x_", "y_","m_") %in% names(coord0))) {
-    out <- unjoin::unjoin(coord0, .data$x_, .data$y_, .data$m_,  key_col = "vertex_")
+    out <- unjoin::unjoin(coord0, "x_", "y_", "m_",  key_col = "vertex_")
     return(out)
   }
 
   ## need more cases, but by now we assume x_, y_
-  unjoin::unjoin(coord0, .data$x_, .data$y_,   key_col = "vertex_")
+  unjoin::unjoin(coord0, "x_", "y_",   key_col = "vertex_")
 }
 
 
@@ -98,7 +98,7 @@ SC0 <- function(x, ...) {
 #' @export
 SC0.default <- function(x, ...) {
   #coord0 <- sc_coord(x)
-  #udata <- unjoin::unjoin(coord0, .data$x_, .data$y_, key_col = "vertex_")
+  #udata <- unjoin::unjoin(coord0, "x_", "y_", key_col = "vertex_")
   udata <- normalize_to_vertices(x)
   udata[["vertex_"]]$row <- seq_len(nrow(udata[["vertex_"]]))
   gmap <- gibble::gibble(x) %>% dplyr::mutate(path = dplyr::row_number())
@@ -115,11 +115,11 @@ SC0.default <- function(x, ...) {
 
   } else {
     ## cx0 and cx1 are the segment vertices, they map the coordinate instances, not the vertices
-    segs <- instances %>% dplyr::select(.data$path, .data$coord, .data$object)  %>%
-      dplyr::mutate(.cx0 = .data$coord,   ## specify in segment terms
-                    .cx1 = .data$coord + 1L) %>%
-      dplyr::group_by(.data$path) %>% dplyr::slice(-dplyr::n()) %>% dplyr::ungroup() %>%
-      dplyr::transmute(.data$.cx0, .data$.cx1, path_ = .data$path, .data$object)
+    segs <- instances %>% dplyr::select("path", "coord", "object")  %>%
+      dplyr::mutate(.cx0 = "coord",   ## specify in segment terms
+                    .cx1 = "coord" + 1L) %>%
+      dplyr::group_by("path") %>% dplyr::slice(-dplyr::n()) %>% dplyr::ungroup() %>%
+      dplyr::transmute(".cx0", ".cx1", path_ = "path", "object")
 
     segs[[".vx0"]] <- instances$vertex_[match(segs$.cx0, instances$coord)]
     segs[[".vx1"]] <- instances$vertex_[match(segs$.cx1, instances$coord)]
@@ -129,7 +129,7 @@ SC0.default <- function(x, ...) {
   }
   meta <- tibble(proj = get_projection(x), ctime = Sys.time())
 vertex <- udata$vertex_ %>%
-  dplyr::arrange(.data$vertex_)
+  dplyr::arrange("vertex_")
 
 bad <- !names(vertex) %in% c("x_", "y_", "z_", "m_", "t_")
   if (any(bad)) vertex <- vertex[!bad]

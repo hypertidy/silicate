@@ -31,7 +31,7 @@ raw_build_sfc <- function(gm, coords_in, crs = NULL, force_close = FALSE) {
   if (!"subobject" %in% names(gm)) gm$subobject <- 1
   if (!"nrow" %in% names(gm)) gm$nrow = gm$ncoords_
   glist <- vector("list", length(unique(gm$object_)))
-  coords_in <- gm %>% dplyr::select(.data$object_, .data$subobject) %>%
+  coords_in <- gm %>% dplyr::select("object_", "subobject") %>%
     #dplyr::select(-type, -ncol, -nrow) %>%
     dplyr::slice(rep(seq_len(nrow(gm)), gm$nrow)) %>%
     dplyr::bind_cols(coords_in)

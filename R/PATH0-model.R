@@ -41,7 +41,7 @@ PATH0.default <- function(x, ...) {
   # }
   o$path_ <- split(idx, idx$object_)
   ## don't select just x_, y_ #113
-  vertex <-     dplyr::arrange(udata[["vertex_"]], .data$vertex_)
+  vertex <-     dplyr::arrange(udata[["vertex_"]], "vertex_")
   vertex$vertex_ <- vertex$row <- NULL
   meta <- tibble::tibble(proj = get_projection(x), ctime = Sys.time())
   structure(list(object = o, vertex = vertex, meta = meta), class = c("PATH0", "sc"))
@@ -93,7 +93,7 @@ PATH0_from_df <- function(x, ..., path_ = "path_", object_ = "object_", subobjec
   }
 
   grp <-
-    dplyr::group_by(x, .data$object, .data$path, .data$subobject)
+    dplyr::group_by(x, "object", "path", "subobject")
 
   gmap <- ungroup(dplyr::tally(grp, name = "nrow"))
   gmap$path  <- NULL
@@ -101,7 +101,7 @@ PATH0_from_df <- function(x, ..., path_ = "path_", object_ = "object_", subobjec
   gmap$ncol <- 2L
 
   coord0 <- x[c(x_, y_)]
-  o <- dplyr::distinct(x, .data$object)
+  o <- dplyr::distinct(x, "object")
 
   ## normalize on ALL coordinate attributes, not just x_, y_ #113
   udata <- unjoin::unjoin(coord0, names(coord0), key_col = "vertex_")
@@ -123,7 +123,7 @@ PATH0_from_df <- function(x, ..., path_ = "path_", object_ = "object_", subobjec
   #browser()
   o$path_ <- split(idx, idx$object_)
   ## don't select just x_, y_ #113
-  vertex <-     dplyr::arrange(udata[["vertex_"]], .data$vertex_)
+  vertex <-     dplyr::arrange(udata[["vertex_"]], "vertex_")
   vertex$vertex_ <- vertex$row <- NULL
   names(vertex) <- c("x_", "y_")
   meta <- tibble::tibble(proj = NA_character_, ctime = Sys.time())

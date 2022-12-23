@@ -45,7 +45,7 @@ sc_edge.SC0 <- function(x, ...) {
   # }
  out <- do.call(rbind, x$object$topology_)
  out$edge_ <- as.integer(as.factor(paste(pmin(out$.vx0, out$.vx1), pmax(out$.vx0, out$.vx1))))
- out <- out %>% dplyr::distinct(.data$edge_, .keep_all = TRUE)
+ out <- out %>% dplyr::distinct("edge_", .keep_all = TRUE)
  out$edge_ <- NULL
  out
 }
@@ -53,8 +53,8 @@ sc_edge.SC0 <- function(x, ...) {
 #' @name sc_edge
 #' @export
 sc_edge.PATH <- function(x, ...) {
-  sc_segment(x, ...) %>% dplyr::distinct(.data$edge_, .keep_all = TRUE) %>%
-    dplyr::select(.data$.vx0, .data$.vx1, .data$edge_)
+  sc_segment(x, ...) %>% dplyr::distinct("edge_", .keep_all = TRUE) %>%
+    dplyr::select(".vx0", ".vx1", "edge_")
 }
 
 #' @name sc_edge
@@ -66,13 +66,13 @@ sc_start <- function(x, ...) {
 #' @export
 sc_start.SC <- function(x, ...) {
   sc_edge(x, ...) %>% dplyr::inner_join(sc_vertex(x), c(".vx0" = "vertex_")) %>%
-    dplyr::select(.data$x_, .data$y_)
+    dplyr::select("x_", "y_")
 }
 #' @name sc_edge
 #' @export
 sc_start.SC0 <- function(x, ...) {
   sc_edge(x, ...) %>% dplyr::inner_join(sc_vertex(x)  %>% add_rownum("vertex_"), c(".vx0" = "vertex_")) %>%
-    dplyr::select(.data$x_, .data$y_)
+    dplyr::select("x_", "y_")
 }
 
 #' @name sc_edge
@@ -130,14 +130,14 @@ sc_end <- function(x, ...) {
 sc_end.SC <- function(x, ...) {
   ## FIXME: we aren't giving out edges per object (see also sc_coord.SC)
   sc_edge(x, ...) %>% dplyr::inner_join(sc_vertex(x), c(".vx1" = "vertex_")) %>%
-  dplyr::select(.data$x_, .data$y_)
+  dplyr::select("x_", "y_")
 }
 #' @name sc_edge
 #' @export
 sc_end.SC0 <- function(x, ...) {
   ## FIXME: we aren't giving out edges per object (see also sc_coord.SC)
   sc_edge(x, ...) %>% dplyr::inner_join(sc_vertex(x)  %>% add_rownum("vertex_"), c(".vx1" = "vertex_")) %>%
-    dplyr::select(.data$x_, .data$y_)
+    dplyr::select("x_", "y_")
 }
 
 

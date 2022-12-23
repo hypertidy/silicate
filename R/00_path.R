@@ -61,7 +61,7 @@ sc_path.sfc_TIN <- function(x, ...) {
 #' @export
 sc_path.PATH0 <- function(x, ...) {
   do.call(rbind, x$object$path_) %>%
-    dplyr::group_by(.data$object_, .data$path_, .data$subobject) %>%
+    dplyr::group_by("object_", "path_", "subobject") %>%
     dplyr::summarize(ncoords_ = dplyr::n()) %>% ungroup()
 }
 #' @name sc_path
@@ -70,7 +70,7 @@ sc_path.ARC <- function(x, ...) {
   ## arcs are paths from this perspective,
   ## and are each an object (so LINESTRING)
   arcs <- x$arc_link_vertex %>%
-    dplyr::group_by(.data$arc_) %>% dplyr::tally()
+    dplyr::group_by("arc_") %>% dplyr::tally()
   #arcs <- arcs[match(arcs$arc_, unique(x$object_link_arc$arc_)), ]\
 
   tibble(ncol = 2L, type = "LINESTRING",
@@ -234,7 +234,7 @@ sc_path.Spatial <- function(x, ids = NULL, ...) {
 #' @export
 sc_path.trip <- function(x, ids = NULL, ...) {
   x <- gibble::gibble(x) %>%
-    dplyr::mutate(object_ = .data$object)
+    dplyr::mutate(object_ = "object")
   if (is.null(ids)) {
     ids <- sc_uid(length(unique(x[["object_"]])))
   }

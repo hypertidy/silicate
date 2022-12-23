@@ -14,7 +14,7 @@ earcut_PATH <- function(x, ...) {
   tri <- unlist(lapply(unname(split(path, path$object_)), function(apath) {
     x <- dplyr::inner_join(apath, path_link_vertex, "path_") %>%
       dplyr::inner_join(vertex, "vertex_") %>%
-      dplyr::select(.data$x_, .data$y_, .data$vertex_, .data$path_)
+      dplyr::select("x_", "y_", "vertex_", "path_")
     x <- x[!duplicated(x["vertex_"]), ]
     holes <- which(abs(diff(as.integer(factor(x$path_)))) > 0)
     if (length(holes) < 1) holes <- 0

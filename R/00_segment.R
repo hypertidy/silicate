@@ -36,10 +36,10 @@ sc_segment_base <- function(path_link_vertex) {
   frle <- rle(path_link_vertex[["path_"]])
   if (all(frle$lengths == 1L)) {
     return(tibble::tibble(.vx0 = path_link_vertex$vertex_,
-                          .vx1 = .data$.vx0,
+                          .vx1 = ".vx0",
                           path_ = path_link_vertex$path_,
                           segment_ = sc_uid(nrow(path_link_vertex)),
-                          edge_ = sc_uid(length(unique(.data$.vx0)))[factor(.data$.vx0)]))
+                          edge_ = sc_uid(length(unique(".vx0")))[factor(".vx0")]))
   }
   ## push into segments
   segtab <- path_to_segment(path_link_vertex[["vertex_"]])

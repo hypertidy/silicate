@@ -65,7 +65,7 @@ SC.default <- function(x, ...) {
   edge[[".vx0"]] <- V[["vertex_"]][v_0]
   edge[[".vx1"]] <- V[["vertex_"]][v_1]
 
-  edge[["u_edge"]] <- dplyr::group_indices(dplyr::group_by(edge, .data$.vx0, .data$.vx1))
+  edge[["u_edge"]] <- dplyr::group_indices(dplyr::group_by(edge, ".vx0", ".vx1"))
   edge[["edge_"]] <- sc_uid(length(unique(edge$u_edge)))[edge$u_edge]
   oXe <- edge[c("object_", "edge_", "native_")]
   edge$native_ <- edge$object_ <- NULL
@@ -92,10 +92,10 @@ SC.TRI <- function(x, ...) {
                                    function(x) paste(sort(x), collapse = "-"))))
   segment$edge_ <- sc_uid(length(unique(edges)))[edges]
   segment$object_ <- x$triangle$object_[as.numeric(segment$triangle_)]
-  object_link_edge <- dplyr::distinct(segment, .data$object_, .data$edge_, .data$object_)
+  object_link_edge <- dplyr::distinct(segment, object_, edge_, object_)
   object_link_edge[["native_"]] <- TRUE ## always native
   segment <- segment[c(".vx0", ".vx1", "edge_")] %>% inner_join(object_link_edge, "edge_") %>%
-    dplyr::transmute(.vx0 = .data$.vx0, .vx1 = .data$.vx1, edge_ = .data$edge_)
+    dplyr::transmute(.vx0 = ".vx0", .vx1 = ".vx1", edge_ = "edge_")
 
   structure(list(object = x$object, object_link_edge = object_link_edge,
                  edge = segment, vertex = x$vertex,

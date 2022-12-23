@@ -17,9 +17,9 @@ triangulate_0 <- function(x, ...) {
     for (j in seq_along(subobjlist)) {
       itri <- itri + 1
       verts <- subobjlist[[j]] %>%
-        dplyr::select(.data$object_, .data$path_) %>%
+        dplyr::select("object_", "path_") %>%
         dplyr::inner_join(x$path[c("path_", "object_")], "path_") %>%
-        dplyr::select(.data$path_) %>%
+        dplyr::select("path_") %>%
         dplyr::inner_join(x$path_link_vertex, "path_") %>%
         dplyr::inner_join(x$vertex, "vertex_")
       holes <- which(c(0, abs(diff(as.integer(as.factor(verts$path_))))) > 0)
@@ -112,7 +112,7 @@ TRI.PATH <- function(x, ...) {
   if (all(x$path$ncoords_ < 2)) stop("TRI for PATH cannot include degenerate paths, see '.$path$ncoords_'")
   if (any(x$path$ncoords_ < 3)) {
     warning("filtering out paths with fewer than 3 coordinates before attempting triangulation by ear clipping")
-    x$path <- x$path %>% dplyr::filter(.data$ncoords_ > 2)
+    x$path <- x$path %>% dplyr::filter("ncoords_" > 2)
   }
   ## pretty sure I'll live to regret this ...
   ## (but the right alternative is a smart DEL visibility classifier )
@@ -120,10 +120,10 @@ TRI.PATH <- function(x, ...) {
   if (!"subobject" %in% names(x$path)) {
     warning("assuming that all paths are independent (i.e. all islands, no holes)")
     ##x$path$subobject <- 1
-    x$path <- x$path %>% dplyr::group_by(.data$object_) %>%
+    x$path <- x$path %>% dplyr::group_by("object_") %>%
       dplyr::mutate(subobject = row_number(),
-                    #subobject = .data$subobject_,
-                    object = .data$object_) %>%
+
+                    object = "object_") %>%
       dplyr::ungroup()
   }
 
