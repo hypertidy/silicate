@@ -100,16 +100,16 @@ sc_coord.matrix <- function(x, ...){
 sc_coord.ARC <- function(x, ...) {
   x$arc_link_vertex %>%
     dplyr::inner_join(sc_vertex(x), "vertex_") %>%
-    dplyr::select(-.data$arc_, -.data$vertex_)
+    dplyr::select(-"arc_", -"vertex_")
 }
 #' @name sc_coord
 #' @export
 #' @importFrom rlang .data
 #' @importFrom dplyr inner_join transmute_ select_
 sc_coord.PATH <- function(x, ...) {
-  dplyr::inner_join(dplyr::transmute(x[["path_link_vertex"]], vertex_ = .data$vertex_) ,
+  dplyr::inner_join(dplyr::transmute(x[["path_link_vertex"]], vertex_ = "vertex_") ,
                     x[["vertex"]], "vertex_") %>%
-    dplyr::select(-.data$vertex_)
+    dplyr::select(-"vertex_")
 }
 #' @name sc_coord
 #' @export

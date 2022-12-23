@@ -37,13 +37,13 @@ sc_arc.default <- function(x, ...) {
 #' @name sc_arc
 #' @export
 sc_arc.ARC <- function(x, ...) {
-  x[["arc_link_vertex"]] %>% dplyr::group_by(.data$arc_) %>%
-    dplyr::tally() %>% dplyr::rename(ncoords_ = .data$n)
+  x[["arc_link_vertex"]] %>% dplyr::group_by("arc_") %>%
+    dplyr::tally() %>% dplyr::rename(ncoords_ = "n")
 }
 
 sc_arc_PATH <- function(x, ...) {
  path_link_vertex <- x[["path_link_vertex"]] %>%
-   dplyr::inner_join(x[["path"]] %>% dplyr::select(.data$path_, .data$object_), "path_")
+   dplyr::inner_join(x[["path"]] %>% dplyr::select("path_", "object_"), "path_")
 
   sc_arc_base(path_link_vertex, sc_node(x))
 }
@@ -74,7 +74,7 @@ find_arc <- function(path, nodes) {
 }
 sc_arc_base <- function(path_link_vertex, node) {
   noded_path <- dplyr::inner_join(node, path_link_vertex, "vertex_") %>%
-    dplyr::distinct(.data$path_)
+    dplyr::distinct("path_")
   ## any paths not linked to nodes are just arcs
   ## (there may be none)
   arcs0 <- path_link_vertex %>%
@@ -82,7 +82,7 @@ sc_arc_base <- function(path_link_vertex, node) {
   f <- factor(arcs0[["path_"]])
   arcs0[["path_"]] <- NULL
   arcs0[["arc_"]] <- sc_uid(nlevels(f))[f]
-  arcs0 <- dplyr::select(arcs0, .data$object_, .data$arc_, .data$vertex_)
+  arcs0 <- dplyr::select(arcs0, "object_", "arc_", "vertex_")
   path_link_vertex <- path_link_vertex %>% inner_join(noded_path, "path_")
   paths <- split(path_link_vertex, path_link_vertex[["path_"]])[unique(path_link_vertex[["path_"]])]
   bind_rows(arcs0, bind_rows(lapply(paths, function(x) find_arc(x, node[["vertex_"]]))))
