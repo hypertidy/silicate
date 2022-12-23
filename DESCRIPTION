@@ -28,7 +28,6 @@ Suggests:
     testthat (>= 2.1.0),
     trip,
     vdiffr
-RoxygenNote: 7.1.2
 Imports: 
     dplyr,
     gibble (>= 0.4.0),
@@ -48,3 +47,4 @@ VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/hypertidy/silicate
 BugReports: https://github.com/hypertidy/silicate/issues
+RoxygenNote: 7.2.3
