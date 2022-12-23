@@ -1,10 +1,11 @@
 context("test-sp-decomposition.R")
-skip("no sp test for now")  ## this ain't working
-library(sp)
+skip_if_not_installed("sp")
+test_that("sp decomposition works", {
+  library(sp)
 library(gibble)
 spobj <- as(minimal_mesh, "Spatial")
 splineobj <- as(spobj, "SpatialLinesDataFrame")
-test_that("sp decomposition works", {
+
   gibble(spobj) %>% expect_s3_class("tbl_df")
   sc_coord(spobj) %>% expect_named(c("x_", "y_"))
   sc_object(spobj) %>% expect_named(names(spobj))

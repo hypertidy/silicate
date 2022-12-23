@@ -1,4 +1,5 @@
 context("test-trip")
+skip_if_not_installed("trip")
 library(trip)
 #dput(trip::walrus818[c(1:4, 161:165), ])
 tr <- new("trip", TOR.columns = c("DataDT", "Deployment"), data = structure(list(
@@ -36,7 +37,7 @@ test_that("trip decomposition works", {
 
     expect_equal(sc_object(tr), structure(list(trip = 353:354), row.names = c(NA, -2L), class = c("tbl_df", "tbl", "data.frame")))
     expect_equal(nrow(sc_edge(tr)), 7L)
-    expect_equal(nrow(sc_arc(tr)), 2L)
+    expect_warning(nrow(sc_arc(tr)), "not well-defined")
     expect_equal(nrow(sc_node(tr)), 4L)
 
 
