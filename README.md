@@ -13,9 +13,9 @@ flexible mesh data structures and visualization.
 
 We aim to provide
 
-- a *common-form* for representing hierarchical data structures
-- a *universal converter* between complex data types
-- topological primitives for analysis and exploration.
+-   a *common-form* for representing hierarchical data structures
+-   a *universal converter* between complex data types
+-   topological primitives for analysis and exploration.
 
 The core of silicate are *worker functions* that are generic and work
 with any kind of data that has hierarchical structure. These functions
@@ -27,17 +27,17 @@ on silicate models themselves.
 We have the following worker verbs, designed to work with many spatial
 data formats and with silicate’s own structures.
 
-- `sc_object()` - highest level properties, the “features”
-- `sc_coord()` - all instances of coordinates, labelled by vertex if the
-  source model includes them
-- `sc_vertex()` - only unique coordinates (in some geometric space)
-- `sc_path()` - individual paths, sequential traces
-- `sc_edge()` - unique binary relations, unordered segments (segments
-  and edges are currently under review, and may change)
-- `sc_segment()` - all instances of edges
-- `sc_arc()` - unique topological paths, arcs either meet two other arcs
-  at a node, or include no nodes
-- `sc_node()` - unique nodes
+-   `sc_object()` - highest level properties, the “features”
+-   `sc_coord()` - all instances of coordinates, labelled by vertex if
+    the source model includes them
+-   `sc_vertex()` - only unique coordinates (in some geometric space)
+-   `sc_path()` - individual paths, sequential traces
+-   `sc_edge()` - unique binary relations, unordered segments (segments
+    and edges are currently under review, and may change)
+-   `sc_segment()` - all instances of edges
+-   `sc_arc()` - unique topological paths, arcs either meet two other
+    arcs at a node, or include no nodes
+-   `sc_node()` - unique nodes
 
 The idea is that each function can return the underlying entities of a
 data object, no matter its underlying format. This interoperability
@@ -86,16 +86,16 @@ used to represent any model, but other models provide a better match to
 specific use-cases, intermediate forms and serve to expand the
 relationships between the model types.
 
-- `SC` is the universal model, composed of binary relationships, edges
-  defined by pairs of vertices (a structural primitive model)
-- `TRI` also a structural primitive model, for triangulations
-- `PATH` a sequential model, for the standard spatial vector types,
-  shapes defined by *paths*
-- `ARC` a sequential model, for *arc-node topology* a shared-boundary
-  decomposition of path models
-- `SC0` is a stripped down structural model analogous to `SC`, there are
-  only implicit relations of object to vertices, with a nested list of
-  edge indexes
+-   `SC` is the universal model, composed of binary relationships, edges
+    defined by pairs of vertices (a structural primitive model)
+-   `TRI` also a structural primitive model, for triangulations
+-   `PATH` a sequential model, for the standard spatial vector types,
+    shapes defined by *paths*
+-   `ARC` a sequential model, for *arc-node topology* a shared-boundary
+    decomposition of path models
+-   `SC0` is a stripped down structural model analogous to `SC`, there
+    are only implicit relations of object to vertices, with a nested
+    list of edge indexes
 
 The models `PATH0` and `ARC0` are in-development. By analogy to `SC0`
 they will be composed of two tables, `object` and `vertex` with nested
@@ -121,7 +121,7 @@ very powerful and general mechanism for a family of consistent packages.
 There is another important function `unjoin()` use to normalize tables
 that have redundant information. The `unjoin()` isthe opposite of the
 database join, and has a nearly identical counterpart in [the dm
-package](https://github.com/krlmlr/dm) with its `decompose_table()`.
+package](https://github.com/cynkra/dm) with its `decompose_table()`.
 Unjoin is the same as `tidyr::nest()` but returns two tables rather than
 splitting one into the rows of other.
 
@@ -192,56 +192,56 @@ sc_vertex(x)
 #> # A tibble: 14 × 3
 #>       x_    y_ vertex_
 #>    <dbl> <dbl> <chr>  
-#>  1  0     0    PKMHBC 
-#>  2  0     1    n7JrQJ 
-#>  3  0.2   0.2  1alYrO 
-#>  4  0.2   0.4  rE8t8m 
-#>  5  0.3   0.6  NN6oHp 
-#>  6  0.5   0.2  oUn7Vl 
-#>  7  0.5   0.4  dsZFpQ 
-#>  8  0.5   0.7  PnvBce 
-#>  9  0.69  0    g9nzvg 
-#> 10  0.75  1    lfvLGd 
-#> 11  0.8   0.6  bWbqxq 
-#> 12  1     0.8  zL3p67 
-#> 13  1.1   0.63 tT8xB9 
-#> 14  1.23  0.3  4IW6wy
+#>  1  0     0    n88USC 
+#>  2  0     1    tQxSvg 
+#>  3  0.2   0.2  zpYYIG 
+#>  4  0.2   0.4  1qRN7h 
+#>  5  0.3   0.6  3FN2ty 
+#>  6  0.5   0.2  HInlqb 
+#>  7  0.5   0.4  KHLNO5 
+#>  8  0.5   0.7  gqkZ6j 
+#>  9  0.69  0    yJGoeK 
+#> 10  0.75  1    raggYW 
+#> 11  0.8   0.6  xekZyd 
+#> 12  1     0.8  XBwKMi 
+#> 13  1.1   0.63 9fpRi6 
+#> 14  1.23  0.3  0mxEDK
 
 sc_edge(x)
 #> # A tibble: 15 × 4
 #>    .vx0   .vx1   path_ edge_ 
 #>    <chr>  <chr>  <int> <chr> 
-#>  1 PKMHBC n7JrQJ     1 Y3wnJs
-#>  2 n7JrQJ lfvLGd     1 sWvd2S
-#>  3 lfvLGd zL3p67     1 l4qPuA
-#>  4 PnvBce zL3p67     1 j7yVKy
-#>  5 PnvBce bWbqxq     1 dVtLuy
-#>  6 g9nzvg bWbqxq     1 nbggne
-#>  7 PKMHBC g9nzvg     1 gK7SJX
-#>  8 1alYrO oUn7Vl     2 FSXRSJ
-#>  9 oUn7Vl dsZFpQ     2 zaXOAF
-#> 10 NN6oHp dsZFpQ     2 Nrto4S
-#> 11 rE8t8m NN6oHp     2 pHrikW
-#> 12 1alYrO rE8t8m     2 jsfLVq
-#> 13 bWbqxq tT8xB9     3 eaq2eo
-#> 14 tT8xB9 4IW6wy     3 MZ55jC
-#> 15 g9nzvg 4IW6wy     3 Ljlk3H
+#>  1 n88USC tQxSvg     1 mHkjqV
+#>  2 tQxSvg raggYW     1 knBf33
+#>  3 raggYW XBwKMi     1 NQVyd6
+#>  4 gqkZ6j XBwKMi     1 avIufa
+#>  5 gqkZ6j xekZyd     1 TCSls3
+#>  6 yJGoeK xekZyd     1 AAMn9v
+#>  7 n88USC yJGoeK     1 CwiGwr
+#>  8 zpYYIG HInlqb     2 naREkh
+#>  9 HInlqb KHLNO5     2 TptXFI
+#> 10 3FN2ty KHLNO5     2 3nlZMA
+#> 11 1qRN7h 3FN2ty     2 eXVs6C
+#> 12 zpYYIG 1qRN7h     2 AwOvSP
+#> 13 xekZyd 9fpRi6     3 gIpLK6
+#> 14 9fpRi6 0mxEDK     3 OnFWZr
+#> 15 yJGoeK 0mxEDK     3 q1WBzB
 
 sc_node(y)
 #> # A tibble: 2 × 1
 #>   vertex_
 #>   <chr>  
-#> 1 9hz5Yc 
-#> 2 fKKEB8
+#> 1 yUZl0a 
+#> 2 Z0xCkI
 
 sc_arc(y)
 #> # A tibble: 4 × 2
 #>   arc_   ncoords_
 #>   <chr>     <int>
-#> 1 7crBrn        6
-#> 2 gWxp1q        4
-#> 3 nyej2B        7
-#> 4 XvG3W6        4
+#> 1 bpKiyx        4
+#> 2 oSxSsU        5
+#> 3 q3ZSRx        7
+#> 4 yUVgqO        2
 ```
 
 ## silicate models
@@ -313,8 +313,8 @@ As work continues some of these will be incorporated into the silicate
 core, when that is possible without requiring heavy external
 dependencies.
 
-- [scgraph](https://github.com/hypertidy/scgraph)
-- [scspatstat](https://github.com/hypertidy/scspatstat)
+-   [scgraph](https://github.com/hypertidy/scgraph)
+-   [scspatstat](https://github.com/hypertidy/scspatstat)
 
 Looking for a music reference? I always am: Child’s Play, by Carcass.
 

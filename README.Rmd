@@ -76,7 +76,7 @@ Each model is created by using a set of generic verbs that extract the underlyin
 for these verbs, keeping package-specific code in the original package. We think this provides a very powerful and general mechanism for a family of consistent packages. 
 
 
-There is another important function `unjoin()` use to normalize tables that have redundant information. The `unjoin()` isthe opposite of the database join, and has a nearly identical counterpart in [the dm package](https://github.com/krlmlr/dm) with its `decompose_table()`. Unjoin is the same as `tidyr::nest()` but returns two tables rather than splitting one into the rows of other. 
+There is another important function `unjoin()` use to normalize tables that have redundant information. The `unjoin()` isthe opposite of the database join, and has a nearly identical counterpart in [the dm package](https://github.com/cynkra/dm) with its `decompose_table()`. Unjoin is the same as `tidyr::nest()` but returns two tables rather than splitting one into the rows of other. 
 
 
 

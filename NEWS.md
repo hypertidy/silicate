@@ -1,3 +1,7 @@
+# silicate 0.7.1
+
+* Bump with more conditional suggests. 
+
 # silicate 0.7.0
 
 * Removed problematic example code. 
