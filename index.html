@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">silicate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
       </span>
     </div>
 
@@ -149,7 +149,7 @@
 <p>Earlier versions included a mix of these models, and the definitions have changed many times. Still a work-in-progress.</p>
 <p>An extension of the <code>TRI</code> model <code>DEL</code> is provided in <a href="https://github.com/hypertidy/anglr/" class="external-link">anglr</a> which builds <em>high-quality</em> triangulations, but the structural representation is the same.</p>
 <p>Each model is created by using a set of generic verbs that extract the underlying elements of a given model. This design means that the models themselves are completely generic, and methods for worker verbs can be defined as needed for a given context. Our ideal situation would be for external packages to publish methods for these verbs, keeping package-specific code in the original package. We think this provides a very powerful and general mechanism for a family of consistent packages.</p>
-<p>There is another important function <code>unjoin()</code> use to normalize tables that have redundant information. The <code>unjoin()</code> isthe opposite of the database join, and has a nearly identical counterpart in <a href="https://github.com/krlmlr/dm" class="external-link">the dm package</a> with its <code>decompose_table()</code>. Unjoin is the same as <code>tidyr::nest()</code> but returns two tables rather than splitting one into the rows of other.</p>
+<p>There is another important function <code>unjoin()</code> use to normalize tables that have redundant information. The <code>unjoin()</code> isthe opposite of the database join, and has a nearly identical counterpart in <a href="https://github.com/cynkra/dm" class="external-link">the dm package</a> with its <code>decompose_table()</code>. Unjoin is the same as <code>tidyr::nest()</code> but returns two tables rather than splitting one into the rows of other.</p>
 <p>The <code>unjoin</code> is a bit out of place here, but it’s a key step when building these models, used to remove duplication at various levels. It’s the primary mechanism for <em>defining and building-in</em> topology, which is precisely the relationships between entities in a model. This function is published in the <a href="https://CRAN.R-project.org/package=unjoin" class="external-link">CRAN package unjoin</a>.</p>
 </div>
 <div class="section level2">
@@ -188,56 +188,56 @@
 <span><span class="co">#&gt; # A tibble: 14 × 3</span></span>
 <span><span class="co">#&gt;       x_    y_ vertex_</span></span>
 <span><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt;  1  0     0    PKMHBC </span></span>
-<span><span class="co">#&gt;  2  0     1    n7JrQJ </span></span>
-<span><span class="co">#&gt;  3  0.2   0.2  1alYrO </span></span>
-<span><span class="co">#&gt;  4  0.2   0.4  rE8t8m </span></span>
-<span><span class="co">#&gt;  5  0.3   0.6  NN6oHp </span></span>
-<span><span class="co">#&gt;  6  0.5   0.2  oUn7Vl </span></span>
-<span><span class="co">#&gt;  7  0.5   0.4  dsZFpQ </span></span>
-<span><span class="co">#&gt;  8  0.5   0.7  PnvBce </span></span>
-<span><span class="co">#&gt;  9  0.69  0    g9nzvg </span></span>
-<span><span class="co">#&gt; 10  0.75  1    lfvLGd </span></span>
-<span><span class="co">#&gt; 11  0.8   0.6  bWbqxq </span></span>
-<span><span class="co">#&gt; 12  1     0.8  zL3p67 </span></span>
-<span><span class="co">#&gt; 13  1.1   0.63 tT8xB9 </span></span>
-<span><span class="co">#&gt; 14  1.23  0.3  4IW6wy</span></span>
+<span><span class="co">#&gt;  1  0     0    n88USC </span></span>
+<span><span class="co">#&gt;  2  0     1    tQxSvg </span></span>
+<span><span class="co">#&gt;  3  0.2   0.2  zpYYIG </span></span>
+<span><span class="co">#&gt;  4  0.2   0.4  1qRN7h </span></span>
+<span><span class="co">#&gt;  5  0.3   0.6  3FN2ty </span></span>
+<span><span class="co">#&gt;  6  0.5   0.2  HInlqb </span></span>
+<span><span class="co">#&gt;  7  0.5   0.4  KHLNO5 </span></span>
+<span><span class="co">#&gt;  8  0.5   0.7  gqkZ6j </span></span>
+<span><span class="co">#&gt;  9  0.69  0    yJGoeK </span></span>
+<span><span class="co">#&gt; 10  0.75  1    raggYW </span></span>
+<span><span class="co">#&gt; 11  0.8   0.6  xekZyd </span></span>
+<span><span class="co">#&gt; 12  1     0.8  XBwKMi </span></span>
+<span><span class="co">#&gt; 13  1.1   0.63 9fpRi6 </span></span>
+<span><span class="co">#&gt; 14  1.23  0.3  0mxEDK</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/sc_edge.html">sc_edge</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 15 × 4</span></span>
 <span><span class="co">#&gt;    .vx0   .vx1   path_ edge_ </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;chr&gt; </span></span>
-<span><span class="co">#&gt;  1 PKMHBC n7JrQJ     1 Y3wnJs</span></span>
-<span><span class="co">#&gt;  2 n7JrQJ lfvLGd     1 sWvd2S</span></span>
-<span><span class="co">#&gt;  3 lfvLGd zL3p67     1 l4qPuA</span></span>
-<span><span class="co">#&gt;  4 PnvBce zL3p67     1 j7yVKy</span></span>
-<span><span class="co">#&gt;  5 PnvBce bWbqxq     1 dVtLuy</span></span>
-<span><span class="co">#&gt;  6 g9nzvg bWbqxq     1 nbggne</span></span>
-<span><span class="co">#&gt;  7 PKMHBC g9nzvg     1 gK7SJX</span></span>
-<span><span class="co">#&gt;  8 1alYrO oUn7Vl     2 FSXRSJ</span></span>
-<span><span class="co">#&gt;  9 oUn7Vl dsZFpQ     2 zaXOAF</span></span>
-<span><span class="co">#&gt; 10 NN6oHp dsZFpQ     2 Nrto4S</span></span>
-<span><span class="co">#&gt; 11 rE8t8m NN6oHp     2 pHrikW</span></span>
-<span><span class="co">#&gt; 12 1alYrO rE8t8m     2 jsfLVq</span></span>
-<span><span class="co">#&gt; 13 bWbqxq tT8xB9     3 eaq2eo</span></span>
-<span><span class="co">#&gt; 14 tT8xB9 4IW6wy     3 MZ55jC</span></span>
-<span><span class="co">#&gt; 15 g9nzvg 4IW6wy     3 Ljlk3H</span></span>
+<span><span class="co">#&gt;  1 n88USC tQxSvg     1 mHkjqV</span></span>
+<span><span class="co">#&gt;  2 tQxSvg raggYW     1 knBf33</span></span>
+<span><span class="co">#&gt;  3 raggYW XBwKMi     1 NQVyd6</span></span>
+<span><span class="co">#&gt;  4 gqkZ6j XBwKMi     1 avIufa</span></span>
+<span><span class="co">#&gt;  5 gqkZ6j xekZyd     1 TCSls3</span></span>
+<span><span class="co">#&gt;  6 yJGoeK xekZyd     1 AAMn9v</span></span>
+<span><span class="co">#&gt;  7 n88USC yJGoeK     1 CwiGwr</span></span>
+<span><span class="co">#&gt;  8 zpYYIG HInlqb     2 naREkh</span></span>
+<span><span class="co">#&gt;  9 HInlqb KHLNO5     2 TptXFI</span></span>
+<span><span class="co">#&gt; 10 3FN2ty KHLNO5     2 3nlZMA</span></span>
+<span><span class="co">#&gt; 11 1qRN7h 3FN2ty     2 eXVs6C</span></span>
+<span><span class="co">#&gt; 12 zpYYIG 1qRN7h     2 AwOvSP</span></span>
+<span><span class="co">#&gt; 13 xekZyd 9fpRi6     3 gIpLK6</span></span>
+<span><span class="co">#&gt; 14 9fpRi6 0mxEDK     3 OnFWZr</span></span>
+<span><span class="co">#&gt; 15 yJGoeK 0mxEDK     3 q1WBzB</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/sc_node.html">sc_node</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 1</span></span>
 <span><span class="co">#&gt;   vertex_</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 9hz5Yc </span></span>
-<span><span class="co">#&gt; 2 fKKEB8</span></span>
+<span><span class="co">#&gt; 1 yUZl0a </span></span>
+<span><span class="co">#&gt; 2 Z0xCkI</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/sc_arc.html">sc_arc</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 2</span></span>
 <span><span class="co">#&gt;   arc_   ncoords_</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;     &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 7crBrn        6</span></span>
-<span><span class="co">#&gt; 2 gWxp1q        4</span></span>
-<span><span class="co">#&gt; 3 nyej2B        7</span></span>
-<span><span class="co">#&gt; 4 XvG3W6        4</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 bpKiyx        4</span></span>
+<span><span class="co">#&gt; 2 oSxSsU        5</span></span>
+<span><span class="co">#&gt; 3 q3ZSRx        7</span></span>
+<span><span class="co">#&gt; 4 yUVgqO        2</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="silicate-models">silicate models<a class="anchor" aria-label="anchor" href="#silicate-models"></a>
 </h2>
