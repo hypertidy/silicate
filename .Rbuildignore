@@ -18,3 +18,4 @@
 ^revdep$
 ^\.github$
 
+^CRAN-SUBMISSION$

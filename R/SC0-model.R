@@ -115,12 +115,15 @@ SC0.default <- function(x, ...) {
 
   } else {
     ## cx0 and cx1 are the segment vertices, they map the coordinate instances, not the vertices
-    segs <- instances %>% dplyr::select("path", "coord", "object")  %>%
-      dplyr::mutate(.cx0 = "coord",   ## specify in segment terms
-                    .cx1 = "coord" + 1L) %>%
-      dplyr::group_by("path") %>% dplyr::slice(-dplyr::n()) %>% dplyr::ungroup() %>%
-      dplyr::transmute(".cx0", ".cx1", path_ = "path", "object")
+    s11 <- instances %>% dplyr::select("path", "coord", "object")
+    s11$.cx0 <- s11$coord
+    s11$.cx1 <- s11$coord + 1
 
+      # dplyr::mutate(.cx0 = "coord",   ## specify in segment terms
+      #               .cx1 = "coord" + 1L) %>%
+    segs <-   s11 |>  dplyr::group_by("path") %>% dplyr::slice(-dplyr::n()) %>% dplyr::ungroup()
+    ##  dplyr::transmute(".cx0", ".cx1", path_ = "path", "object")
+    segs <- segs[".cx0", ".cx1", "path_", "object"] |> dplyr::rename(path = "path_")
     segs[[".vx0"]] <- instances$vertex_[match(segs$.cx0, instances$coord)]
     segs[[".vx1"]] <- instances$vertex_[match(segs$.cx1, instances$coord)]
     ## but udata$.idx0 has the vertices, with .idx0 as the mapping

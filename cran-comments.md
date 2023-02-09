@@ -1,17 +1,13 @@
-# silicate 0.7.0
+# silicate 0.7.1
 
-Second submission of 0.7.0. 
+Better conditional handling of suggested packages in tests. 
 
-New submission, following archive of previous version from CRAN which fixes those 
-errors. Some uses of Suggests were not used conditionally.  
-
-I removed some old example code that wasn't cleaning up par() properly. 
 
 Thank you very much. 
 
 ## Test environments
 
-* local ubuntu 18.04, R 4.0.3
+* local ubuntu
 * win-builder (devel and release)
 
 ## R CMD check results
