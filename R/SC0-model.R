@@ -121,13 +121,15 @@ SC0.default <- function(x, ...) {
 
       # dplyr::mutate(.cx0 = "coord",   ## specify in segment terms
       #               .cx1 = "coord" + 1L) %>%
-    segs <-   s11 |>  dplyr::group_by("path") %>% dplyr::slice(-dplyr::n()) %>% dplyr::ungroup()
+    segs <-   s11 |>  dplyr::group_by(path) %>% dplyr::slice(-dplyr::n()) %>% dplyr::ungroup()
     ##  dplyr::transmute(".cx0", ".cx1", path_ = "path", "object")
-    segs <- segs[".cx0", ".cx1", "path_", "object"] |> dplyr::rename(path = "path_")
+
+    segs <- segs[c(".cx0", ".cx1", "path", "object")]
+
     segs[[".vx0"]] <- instances$vertex_[match(segs$.cx0, instances$coord)]
     segs[[".vx1"]] <- instances$vertex_[match(segs$.cx1, instances$coord)]
     ## but udata$.idx0 has the vertices, with .idx0 as the mapping
-    object$topology_ <- split(segs[c(".vx0", ".vx1", "path_")], segs$object)
+    object$topology_ <- split(segs[c(".vx0", ".vx1", "path")], segs$object)
 
   }
   meta <- tibble(proj = get_projection(x), ctime = Sys.time())
