@@ -45,6 +45,6 @@ Imports:
     crsmeta (>= 0.3.0)
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/hypertidy/silicate
+URL: https://github.com/hypertidy/silicate, https://hypertidy.github.io/silicate/
 BugReports: https://github.com/hypertidy/silicate/issues
 RoxygenNote: 7.2.3
