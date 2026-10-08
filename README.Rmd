@@ -31,6 +31,54 @@ We aim to provide
 The core of silicate are *worker functions* that are generic and work with any kind of data that has hierarchical structure. These functions work on *models*, that include various formats (sf, sp, trip) and also on silicate models themselves. 
 
 
+## silicate2 (this branch): UGRID and the model zoo
+
+The `silicate2` branch is a prototype that keeps silicate's idea (models
+are sets of keyed tables, verbs are generics that return data frames)
+and adds new models on shared machinery: [wk](https://github.com/paleolimbot/wk)
+and [wkpool](https://github.com/hypertidy/wkpool) for vertex identity
+and topology, and the verb set of
+[meshcore](https://github.com/hypertidy/meshcore-) (working name):
+`cells()`, `boundaries()`, `vertices()`, and the `edges()`,
+`face_edge()`, `neighbours()`, `as_wk()` and `as_wkpool()` derived from
+them. The `sc_*` verbs stay as a second layer. Everything new is in
+Suggests, so the CRAN package is unaffected.
+
+The first new model is `UGRID` (the netCDF unstructured grid
+conventions): `read_ugrid()`, `write_ugrid()`, `ugrid_arrays()`,
+`ugrid_read_array()`, conversions with `as_UGRID()`, `as_tri()`,
+`as_drawable()` and `as_mesh3d()`, and the zoo helpers `zoo_models()`,
+`zoo_routes()`, `zoo_matrix()` and `zoo_validate()`.
+
+The same verbs work on a raster (meshcore `GRID`), a HEALPix grid
+(meshcore `CELL`) and a UGRID flexible mesh:
+
+![same verbs on GRID, CELL and UGRID](man/figures/same-verbs.png)
+
+Arrays join to any of them through a keyed dimension (cell id), with no
+geometry involved:
+
+```r
+x  <- read_ugrid("simplebox_hex7_map.nc")       # MDAL test data, D-Flow FM
+s1 <- ugrid_read_array("simplebox_hex7_map.nc", "mesh2d_s1", x)
+join_array(x, s1)                                # 810 faces x 13 times
+```
+
+![keyed-dimension join on GRID, CELL and UGRID](man/figures/keyed-join.png)
+
+Building UGRID found what the zoo still needs: holes (UGRID faces are
+simple polygons, so `as_UGRID()` drops the 32 holes of `inlandwaters`
+and says so), an orient verb for clockwise faces, faces on the sphere
+that cross the antimeridian, matching data-file dimension names, links
+between meshes (1D2D files), 1D network branch geometry, vertical
+layers, and hierarchy.
+
+Install with `remotes::install_github("hypertidy/silicate@silicate2")`
+plus `hypertidy/wkpool` and `hypertidy/meshcore-` for the suggested
+packages. Tests that read real meshes need `UGRID_TESTDATA` pointing at
+sparse clones of the uxarray `test/meshfiles` and MDAL `tests/data/ugrid`
+folders.
+
 ## Functions
 
 
