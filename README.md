@@ -29,7 +29,7 @@ are sets of keyed tables, verbs are generics that return data frames)
 and adds new models on shared machinery: [wk](https://github.com/paleolimbot/wk)
 and [wkpool](https://github.com/hypertidy/wkpool) for vertex identity
 and topology, and the verb set of
-[meshcore](https://github.com/hypertidy/meshcore-) (working name):
+[meshcore](https://github.com/hypertidy/meshcore) (working name):
 `cells()`, `boundaries()`, `vertices()`, and the `edges()`,
 `face_edge()`, `neighbours()`, `as_wk()` and `as_wkpool()` derived from
 them. The `sc_*` verbs stay as a second layer. Everything new is in
@@ -65,7 +65,7 @@ between meshes (1D2D files), 1D network branch geometry, vertical
 layers, and hierarchy.
 
 Install with `remotes::install_github("hypertidy/silicate@silicate2")`
-plus `hypertidy/wkpool` and `hypertidy/meshcore-` for the suggested
+plus `hypertidy/wkpool` and `hypertidy/meshcore` for the suggested
 packages. Tests that read real meshes need `UGRID_TESTDATA` pointing at
 sparse clones of the uxarray `test/meshfiles` and MDAL `tests/data/ugrid`
 folders.
