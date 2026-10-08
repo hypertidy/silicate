@@ -16,18 +16,25 @@ Description: Generate common data forms for complex data suitable for conversion
  inspired by the simplicial complex <https://en.wikipedia.org/wiki/Simplicial_complex> and 
  provide intermediate forms that relate spatial data structures to this mathematical construct. 
 Depends:
-    R (>= 3.4.0)
+    R (>= 3.6.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Suggests:
     covr,
     knitr,
+    meshcore,
+    RNetCDF,
     rmarkdown,
     sp,
     testthat (>= 2.1.0),
     trip,
-    vdiffr
+    vdiffr,
+    wk (>= 0.9.4),
+    wkpool
+Remotes:
+    hypertidy/wkpool,
+    hypertidy/meshcore-
 Imports: 
     dplyr,
     gibble (>= 0.4.0),

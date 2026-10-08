@@ -1,5 +1,20 @@
 # silicate dev
 
+* New UGRID model (the netCDF unstructured grid conventions): `read_ugrid()`,
+  `write_ugrid()`, `ugrid_arrays()` and `ugrid_read_array()` read and write
+  meshes and the arrays keyed to their node, edge and face dimensions. UGRID
+  has methods for `sc_vertex()`, `sc_edge()`, `sc_object()` and `sc_coord()`,
+  and, when the suggested 'meshcore' is installed, for its shared verbs
+  (`cells()`, `boundaries()`, `vertices()`, `edges()`, `join_array()` ...).
+  Conversions with `as_UGRID()` (polygons and lines via 'wkpool', meshcore
+  GRID and CELL, triangle tables), `as_tri()`, `as_drawable()`,
+  `as_mesh3d()` and `ugrid_polygons()`. All new dependencies are in Suggests.
+
+* New model zoo helpers: `zoo_models()`, `zoo_routes()`, `zoo_matrix()` and
+  `zoo_validate()`.
+
+* R (>= 3.6.0) now, for delayed registration of the meshcore methods.
+
 * Removed all deprecated tidyselect uses of '.data$'. 
 
 * Fixed some conditional Suggests use, thanks to CRAN. 
