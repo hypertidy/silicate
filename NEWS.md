@@ -1,5 +1,14 @@
 # silicate dev (silicate2 branch)
 
+* `TRI()` now triangulates each polygon as a constrained Delaunay
+  triangulation through `meshcore::tri_mesh()`, with 'cdtr' as the default
+  engine and 'laridae' as an option (`engine =`, or
+  `options(silicate.tri_engine = )`). Holes come from constraint depth, so
+  ring orientation no longer matters; `max_area` and `min_angle` refine the
+  mesh, adding Steiner vertices with numeric vertex attributes interpolated.
+  `engine = "earcut"`, the fallback when 'meshcore' or 'cdtr' is not
+  installed, keeps the old ear-cutting. 'cdtr' and 'laridae' are in Suggests.
+
 * New UGRID model (the netCDF unstructured grid conventions): `read_ugrid()`,
   `write_ugrid()`, `ugrid_arrays()` and `ugrid_read_array()` read and write
   meshes and the arrays keyed to their node, edge and face dimensions. UGRID

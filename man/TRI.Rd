@@ -4,6 +4,7 @@
 \alias{TRI}
 \alias{TRI.SC}
 \alias{TRI.sfc_GEOMETRYCOLLECTION}
+\alias{TRI.PATH}
 \alias{plot.TRI}
 \title{TRI model, triangulations}
 \usage{
@@ -13,12 +14,19 @@ TRI(x, ...)
 
 \method{TRI}{sfc_GEOMETRYCOLLECTION}(x, ...)
 
+\method{TRI}{PATH}(x, ..., engine = getOption("silicate.tri_engine", "auto"))
+
 \method{plot}{TRI}(x, ..., add = FALSE)
 }
 \arguments{
 \item{x}{object understood by silicate (sf, sp, a silicate model, etc.)}
 
-\item{...}{current unused}
+\item{...}{passed to the triangulation engine (for example \code{max_area}
+and \code{min_angle}); ignored by \code{engine = "earcut"}}
+
+\item{engine}{\code{"auto"} (the default: 'cdtr' when it and 'meshcore' are
+installed, otherwise ear-cutting), \code{"cdtr"}, \code{"laridae"} or \code{"earcut"}.
+Set a session default with \code{options(silicate.tri_engine = )}.}
 
 \item{add}{logical create  new plot (default), or add to existing}
 }
@@ -26,13 +34,36 @@ TRI(x, ...)
 TRI model with tables 'object', 'triangle', 'vertex'
 }
 \description{
-TRI creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
-polygons. The model is a 'relational' form in that the underlying tables are
-linked implicitly by unique identifiers.
-Ear-cutting is inherently path-based, so this model is only available for
-path-based structures, like simple features, \code{\link[=PATH]{PATH()}}, \code{\link[=PATH0]{PATH0()}} and \code{\link[=ARC]{ARC()}}.
+TRI creates a constrained triangulation of polygons. The model is a
+'relational' form in that the underlying tables are linked implicitly by
+unique identifiers.
+}
+\details{
+On the silicate2 branch each polygon is triangulated as a constrained
+Delaunay triangulation, with every ring edge a constraint and holes
+found by constraint depth (so ring orientation does not matter), by the
+'cdtr' engine, or 'laridae', through \code{meshcore::tri_mesh()}. With
+\code{engine = "earcut"}, or when 'meshcore' and 'cdtr' are not installed,
+polygons are triangulated by ear-cutting ('decido') as before.
+
+Constrained Delaunay triangles are better shaped than ear-cut ones, and
+can be refined: \code{max_area} and \code{min_angle} passed in \code{...} go to the
+engine, and the new (Steiner) vertices are added to the vertex table
+with numeric vertex attributes (such as \code{z_}) interpolated linearly.
+Self-intersecting rings are resolved by inserting the crossing points as
+new vertices. Each polygon is triangulated on its own, as ear-cutting
+does, so a Steiner vertex on an edge shared by two polygons is not
+shared between them.
+
+Triangulation is inherently path-based, so this model is only available
+for path-based structures, like simple features, \code{\link[=PATH]{PATH()}}, \code{\link[=PATH0]{PATH0()}} and
+\code{\link[=ARC]{ARC()}}.
 }
 \examples{
 tri <- TRI(minimal_mesh)
 plot(tri)
+if (requireNamespace("meshcore", quietly = TRUE) &&
+    requireNamespace("cdtr", quietly = TRUE)) {
+  plot(TRI(minimal_mesh, max_area = 0.01, min_angle = 25))
+}
 }

@@ -1,6 +1,6 @@
 Package: silicate
 Title: Common Forms for Complex Hierarchical and Relational Data Structures
-Version: 0.7.2
+Version: 0.7.2.9000
 Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com"), 
              person("John", "Corbett", role = "ctb", comment = "the original inspiration"), 
              person("Simon", "Wotherspoon", role = "ctb"), 
@@ -21,8 +21,10 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Suggests:
+    cdtr,
     covr,
     knitr,
+    laridae,
     meshcore,
     RNetCDF,
     rmarkdown,
@@ -34,7 +36,9 @@ Suggests:
     wkpool
 Remotes:
     hypertidy/wkpool,
-    hypertidy/meshcore
+    hypertidy/meshcore,
+    hypertidy/cdtr,
+    hypertidy/laridae
 Imports: 
     dplyr,
     gibble (>= 0.4.0),
