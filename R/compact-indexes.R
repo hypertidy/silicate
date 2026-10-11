@@ -75,6 +75,7 @@ expand_indexes <- function(x, ...) {
   UseMethod("expand_indexes")
 }
 ## @name expand_indexes
+#' @exportS3Method silicate::expand_indexes
 expand_indexes.compact_SC <- function(x, ...)  {
   x$object$object_ <- sc_uid(x$object)
   oXe <- x[["object_link_edge"]]
@@ -93,6 +94,7 @@ expand_indexes.compact_SC <- function(x, ...)  {
   structure(x, class = c("SC", "sc"))
 }
 ## @name expand_indexes
+#' @exportS3Method silicate::expand_indexes
 expand_indexes.compact_PATH <- function(x, ...) {
   x$object$object_ <- sc_uid(x$object)
   path <- x[["path"]]

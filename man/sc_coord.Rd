@@ -14,6 +14,10 @@
 \alias{sc_coord.sf}
 \alias{sc_coord.sfc}
 \alias{sc_coord.pslg}
+\alias{sc_coord.sfc_MULTILINESTRING}
+\alias{sc_coord.sfc_POLYGON}
+\alias{sc_coord.sfc_LINESTRING}
+\alias{sc_coord.sfc_MULTIPOINT}
 \alias{sc_coord.MULTIPOLYGON}
 \alias{sc_coord.POLYGON}
 \alias{sc_coord.MULTILINESTRING}
@@ -50,6 +54,14 @@ sc_coord(x, ...)
 \method{sc_coord}{sfc}(x, ...)
 
 \method{sc_coord}{pslg}(x, ...)
+
+\method{sc_coord}{sfc_MULTILINESTRING}(x, ...)
+
+\method{sc_coord}{sfc_POLYGON}(x, ...)
+
+\method{sc_coord}{sfc_LINESTRING}(x, ...)
+
+\method{sc_coord}{sfc_MULTIPOINT}(x, ...)
 
 \method{sc_coord}{MULTIPOLYGON}(x, ...)
 
@@ -89,9 +101,6 @@ sc_coord(minimal_mesh)
 sc_coord(SC(minimal_mesh))
 }
 \seealso{
-\code{sc_path} for the central part of the model, \code{sc_object} for
-the features, and \code{PATH} for the full model.
-
 \code{sc_path} for the central part of the model, \code{sc_object} for
 the features, and \code{PATH} for the full model.
 }

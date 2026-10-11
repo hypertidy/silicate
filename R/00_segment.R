@@ -15,6 +15,8 @@ sc_segment.default <- function(x, ...) {
   x <- SC(x)
   sc_segment(x, ...)
 }
+#' @name sc_segment
+#' @export
 sc_segment.SC <- function(x, ...) {
   ## expand all instances of edges
   segments <- x$object_link_edge %>%
@@ -36,10 +38,10 @@ sc_segment_base <- function(path_link_vertex) {
   frle <- rle(path_link_vertex[["path_"]])
   if (all(frle$lengths == 1L)) {
     return(tibble::tibble(.vx0 = path_link_vertex$vertex_,
-                          .vx1 = ".vx0",
+                          .vx1 = path_link_vertex$vertex_,
                           path_ = path_link_vertex$path_,
                           segment_ = sc_uid(nrow(path_link_vertex)),
-                          edge_ = sc_uid(length(unique(".vx0")))[factor(".vx0")]))
+                          edge_ = sc_uid(length(unique(path_link_vertex$vertex_)))[factor(path_link_vertex$vertex_)]))
   }
   ## push into segments
   segtab <- path_to_segment(path_link_vertex[["vertex_"]])

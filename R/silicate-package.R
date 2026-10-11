@@ -6,10 +6,8 @@
 #' [PATH()], [TRI()], [SC()] and [ARC()] provide relational tables of all underlying
 #' entities, and more specialist versions [PATH0()], [TRI0()] and [SC0()] provide more
 #' efficient topological representations of polygons or lines.
-#' @name silicate
-#' @aliases silicate-package
-#' @docType package
-NULL
+#' @keywords internal
+"_PACKAGE"
 
 #' Polygonal mesh
 #'
@@ -83,7 +81,7 @@ NULL
 #'
 #' This is an extract from the old Manifold DVD. It is in `sf` format`.
 #' The features have variables `ID` and `Province` they are (in order):
-#' \itemize{
+#' \describe{
 #'  \item{"103841"}{Australian Capital Territory}
 #'  \item{"103842"}{New Caledonia}
 #'  \item{"103843"}{New South Wales}

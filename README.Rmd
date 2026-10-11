@@ -14,8 +14,8 @@ knitr::opts_chunk$set(
 
 
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/silicate)](https://cran.r-project.org/package=silicate)
-[![CRAN_Download_Badge](http://cranlogs.r-pkg.org/badges/silicate)](https://cran.r-project.org/package=silicate)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/silicate)](https://cran.r-project.org/package=silicate)
+[![CRAN_Download_Badge](https://cranlogs.r-pkg.org/badges/silicate)](https://cran.r-project.org/package=silicate)
   [![R build status](https://github.com/hypertidy/silicate/workflows/R-CMD-check/badge.svg)](https://github.com/hypertidy/silicate/actions)
   
 # Overview
@@ -220,7 +220,7 @@ maintaining them. Random IDs are created as needed, but any operation that works
  
 ## Context, and some related projects
 
-The [polymer](https://github.com/mdsumner/polymer) (arbitrary multi-layer polygonal overlays) and [sphier](https://github.com/hypertidy/sphier/) (generic hierarchies from atomic forms) show two different
+The [polymer](https://github.com/hypertidy/polymer) (arbitrary multi-layer polygonal overlays) and [sphier](https://github.com/hypertidy/sphier/) (generic hierarchies from atomic forms) show two different
 approaches to the problem of hierarchical data and flexible representations. 
 
 The key difference between the silicate approach and simple features is the separation of geometry and topology. This allows for normalization (de-duplication) of the entities that are present or that can be identitied. Simple features has no capacity to de-duplicate or otherwise identify vertices, edges, paths or arcs, though tools that work with simple features do construct these schemes routinely in order to perform operations. When these richer, topological structures are built they are usually then discarded and the vertices are again de-normalized and again expressed explicitly without recording any of the relationships. 

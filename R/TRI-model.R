@@ -42,19 +42,45 @@ triangulate_0 <- function(x, ...) {
 
 #' TRI model, triangulations
 #'
-#' TRI creates a constrained triangulation using 'ear-cutting', or 'ear-clipping' of
-#' polygons. The model is a 'relational' form in that the underlying tables are
-#' linked implicitly by unique identifiers.
-#' Ear-cutting is inherently path-based, so this model is only available for
-#' path-based structures, like simple features, [PATH()], [PATH0()] and [ARC()].
+#' TRI creates a constrained triangulation of polygons. The model is a
+#' 'relational' form in that the underlying tables are linked implicitly by
+#' unique identifiers.
+#'
+#' On the silicate2 branch each polygon is triangulated as a constrained
+#' Delaunay triangulation, with every ring edge a constraint and holes
+#' found by constraint depth (so ring orientation does not matter), by the
+#' 'cdtr' engine, or 'laridae', through `meshcore::tri_mesh()`. With
+#' `engine = "earcut"`, or when 'meshcore' and 'cdtr' are not installed,
+#' polygons are triangulated by ear-cutting ('decido') as before.
+#'
+#' Constrained Delaunay triangles are better shaped than ear-cut ones, and
+#' can be refined: `max_area` and `min_angle` passed in `...` go to the
+#' engine, and the new (Steiner) vertices are added to the vertex table
+#' with numeric vertex attributes (such as `z_`) interpolated linearly.
+#' Self-intersecting rings are resolved by inserting the crossing points as
+#' new vertices. Each polygon is triangulated on its own, as ear-cutting
+#' does, so a Steiner vertex on an edge shared by two polygons is not
+#' shared between them.
+#'
+#' Triangulation is inherently path-based, so this model is only available
+#' for path-based structures, like simple features, [PATH()], [PATH0()] and
+#' [ARC()].
 #' @param x object understood by silicate (sf, sp, a silicate model, etc.)
-#' @param ... current unused
+#' @param ... passed to the triangulation engine (for example `max_area`
+#'   and `min_angle`); ignored by `engine = "earcut"`
+#' @param engine `"auto"` (the default: 'cdtr' when it and 'meshcore' are
+#'   installed, otherwise ear-cutting), `"cdtr"`, `"laridae"` or `"earcut"`.
+#'   Set a session default with `options(silicate.tri_engine = )`.
 #' @param add logical create  new plot (default), or add to existing
 #' @return TRI model with tables 'object', 'triangle', 'vertex'
 #' @export
 #' @examples
 #' tri <- TRI(minimal_mesh)
 #' plot(tri)
+#' if (requireNamespace("meshcore", quietly = TRUE) &&
+#'     requireNamespace("cdtr", quietly = TRUE)) {
+#'   plot(TRI(minimal_mesh, max_area = 0.01, min_angle = 25))
+#' }
 TRI <- function(x, ...) {
   UseMethod("TRI")
 }
@@ -72,6 +98,8 @@ TRI.mesh3d <- function(x, ...) {
 TRI.TRI <- function(x, ...) {
   x
 }
+#' @name TRI
+#' @export
 TRI.SC <- function(x, ...) {
   stop("constrained triangulation not supported, use anglr::DEL or reconstruct as PATH")
 }
@@ -103,16 +131,18 @@ TRI.PATH0 <- function(x, ...) {
 TRI.sfc_GEOMETRYCOLLECTION <- function(x, ...) {
   TRI(TRI0(x), ...)
 }
+#' @name TRI
 #' @export
-TRI.PATH <- function(x, ...) {
+TRI.PATH <- function(x, ..., engine = getOption("silicate.tri_engine", "auto")) {
+  engine <- tri_engine(engine)
   vertex <- sc_vertex(x)
   if (nrow(vertex) < 3) stop("need at least 3 coordinates")
   if (anyNA(vertex$x_)) stop("missing values in x_")
   if (anyNA(vertex$y_)) stop("missing values in y_")
   if (all(x$path$ncoords_ < 2)) stop("TRI for PATH cannot include degenerate paths, see '.$path$ncoords_'")
   if (any(x$path$ncoords_ < 3)) {
-    warning("filtering out paths with fewer than 3 coordinates before attempting triangulation by ear clipping")
-    x$path <- x$path %>% dplyr::filter("ncoords_" > 2)
+    warning("filtering out paths with fewer than 3 coordinates before triangulation")
+    x$path <- x$path %>% dplyr::filter(.data$ncoords_ > 2)
   }
   ## pretty sure I'll live to regret this ...
   ## (but the right alternative is a smart DEL visibility classifier )
@@ -120,14 +150,21 @@ TRI.PATH <- function(x, ...) {
   if (!"subobject" %in% names(x$path)) {
     warning("assuming that all paths are independent (i.e. all islands, no holes)")
     ##x$path$subobject <- 1
-    x$path <- x$path %>% dplyr::group_by("object_") %>%
+    x$path <- x$path %>% dplyr::group_by(.data$object_) %>%
       dplyr::mutate(subobject = row_number(),
 
-                    object = "object_") %>%
+                    object = .data$object_) %>%
       dplyr::ungroup()
   }
 
-  tri <- triangulate_0(x)
+  if (engine == "earcut") {
+    tri <- triangulate_0(x)
+    vertex <- sc_vertex(x)
+  } else {
+    res <- triangulate_engine(x, engine, ...)
+    tri <- res$triangle
+    vertex <- res$vertex
+  }
   tri$visible <- TRUE
   tri$path_ <- NULL
 
@@ -137,7 +174,7 @@ TRI.PATH <- function(x, ...) {
 
   structure(list(object = obj, #object_link_triangle = oXt,
                  triangle = tri,
-                 vertex = sc_vertex(x),
+                 vertex = vertex,
                  meta = meta), class = c("TRI", "sc"))
 }
 #' @name sc_object

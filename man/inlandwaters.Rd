@@ -10,7 +10,7 @@ within the bounded regions of Australian (and New Caledonian) provinces.
 }
 \details{
 This is an extract from the old Manifold DVD. It is in \code{sf} format\verb{. The features have variables }ID\code{and}Province` they are (in order):
-\itemize{
+\describe{
 \item{"103841"}{Australian Capital Territory}
 \item{"103842"}{New Caledonia}
 \item{"103843"}{New South Wales}

@@ -36,6 +36,7 @@ sc_colours <- function(x = 16, ..., viridis = FALSE) {
 #' @param x sc object
 #' @param ... arguments passed to lower level plotting functions
 #' @param add if `TRUE` add to current plot
+#' @return `NULL`, invisibly; called for the side effect of plotting.
 #' @export
 #' @rdname plot.SC
 #' @importFrom graphics plot
@@ -85,7 +86,7 @@ plot.PATH <- function(x, ..., add = FALSE) {
 
   paths <- split(x$path_link_vertex, x$path_link_vertex$path_)[unique(x$path_link_vertex$path_)]
   #cols <- sc_colours(length(obj))
-  gg <- x$path %>% dplyr::group_by("object_") %>% dplyr::summarize(nn = sum("ncoords_"))
+  gg <- x$path %>% dplyr::group_by(.data$object_) %>% dplyr::summarize(nn = sum(.data$ncoords_))
 
   ##pathcols <- sc_colours(dim(x$object)[1L])[factor(x$path$object_)]
   pathcols <- rep("black", dim(x$object)[1L])
@@ -176,7 +177,7 @@ plot.TRI <- function(x, ..., add = FALSE) {
   vps <- gridBase::baseViewports()
   grid::pushViewport(vps$inner, vps$figure, vps$plot)
   tt <- x[["triangle"]]
-  if (!is.null(tt[["visible"]]))  tt <- dplyr::filter(tt, "visible")
+  if (!is.null(tt[["visible"]]))  tt <- dplyr::filter(tt, .data$visible)
 
   tt <- match(as.vector(t(as.matrix(tt[c(".vx0", ".vx1", ".vx2")]))), v$vertex_)
   xx <- tibble(x = v$x_[tt], y = v$y_[tt], id = rep(seq_len(length(tt)/3), each = 3),

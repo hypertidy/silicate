@@ -40,7 +40,4 @@ sc_object(SC0(minimal_mesh))
 \seealso{
 \code{sc_coord} for the coordinates part of the model, \code{sc_path} for
 the central part of the model, and \code{PATH} for the full model.
-
-\code{sc_coord} for the coordinates part of the model, \code{sc_path} for
-the central part of the model, and \code{PATH} for the full model.
 }

@@ -5,6 +5,8 @@
 #' Simple summary of type and content of a silicate model.
 #' @param x object inheriting from 'sc' class
 #' @param ... ignore currently
+#' @return The input `x`, invisibly; called for the side effect of printing a
+#'   summary of the model.
 #' @export
 #' @examples
 #' print(TRI(minimal_mesh))
