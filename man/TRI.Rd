@@ -2,11 +2,14 @@
 % Please edit documentation in R/TRI-model.R, R/plot.R
 \name{TRI}
 \alias{TRI}
+\alias{TRI.SC}
 \alias{TRI.sfc_GEOMETRYCOLLECTION}
 \alias{plot.TRI}
 \title{TRI model, triangulations}
 \usage{
 TRI(x, ...)
+
+\method{TRI}{SC}(x, ...)
 
 \method{TRI}{sfc_GEOMETRYCOLLECTION}(x, ...)
 

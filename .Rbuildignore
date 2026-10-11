@@ -17,5 +17,6 @@
 ^CRAN-RELEASE$
 ^revdep$
 ^\.github$
-
+^\.posit$
 ^CRAN-SUBMISSION$
+^\.posit/assistant$

@@ -6,3 +6,5 @@ inst/doc
 silicate.Rcheck/
 silicate*.tar.gz
 silicate*.tgz
+.posit/assistant
+tests/testthat/Rplots.pdf

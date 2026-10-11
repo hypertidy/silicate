@@ -23,14 +23,17 @@ si_triangle <- function(x) {
 c_MESH <- function(..., vertex_pool = NULL) {
   UseMethod("c_MESH")
 }
+#' @exportS3Method silicate::c_MESH
 c_MESH.default <- function(..., vertex_pool = NULL) {
   stopifnot(is.data.frame(vertex_pool))
   structure(list(...), class = c("cMESH"), vertex_pool = vertex_pool)
 }
+#' @exportS3Method silicate::c_MESH
 c_MESH.list <- function(..., vertex_pool = NULL) {
   structure(list(...)[[1]], class = c("cMESH"), vertex_pool = vertex_pool)
 }
 vpool <- function(x) attr(x, "vertex_pool")
+#' @export
 print.cMESH <- function(x, ...) {
   cat(sprintf("object of class: %s\n", class(x)[1]))
   cat(sprintf("     primitives: %i\n", length(x)))
@@ -41,6 +44,7 @@ remove_inner_borders <- function(x, ...) {
 
 }
 #' @importFrom graphics polygon
+#' @export
 plot.cMESH <- function(x, ..., add = FALSE, inner_borders = TRUE) {
   pool <- vpool(x)
   if (!add) plot(pool, type = "n")

@@ -4,6 +4,7 @@ path_paste <- function(x, paster = function(...) paste(..., sep = "-")) {
 }
 
 
+#' @export
 c.SC0 <- function(...) {
   all_list <- list(...)
   nrs <- integer(length(all_list))
@@ -121,7 +122,7 @@ SC0.default <- function(x, ...) {
 
       # dplyr::mutate(.cx0 = "coord",   ## specify in segment terms
       #               .cx1 = "coord" + 1L) %>%
-    segs <-   s11 |>  dplyr::group_by(path) %>% dplyr::slice(-dplyr::n()) %>% dplyr::ungroup()
+    segs <-   s11 %>% dplyr::group_by(.data$path) %>% dplyr::slice(-dplyr::n()) %>% dplyr::ungroup()
     ##  dplyr::transmute(".cx0", ".cx1", path_ = "path", "object")
 
     segs <- segs[c(".cx0", ".cx1", "path", "object")]
@@ -134,7 +135,7 @@ SC0.default <- function(x, ...) {
   }
   meta <- tibble(proj = get_projection(x), ctime = Sys.time())
 vertex <- udata$vertex_ %>%
-  dplyr::arrange("vertex_")
+  dplyr::arrange(.data$vertex_)
 
 bad <- !names(vertex) %in% c("x_", "y_", "z_", "m_", "t_")
   if (any(bad)) vertex <- vertex[!bad]
