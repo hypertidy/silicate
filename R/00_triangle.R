@@ -7,10 +7,12 @@ sc_triangle <- function(x, ...) {
   UseMethod("sc_triangle")
 }
 
+#' @exportS3Method silicate::sc_triangle
 sc_triangle.default <- function(x, ...) {
   sc_triangle(silicate::TRI0(x), ...)
 }
 
+#' @exportS3Method silicate::sc_triangle
 sc_triangle.TRI0 <- function(x, ...) {
   obj <- sc_object(x)
   topol <- obj$topology_
@@ -20,10 +22,12 @@ sc_triangle.TRI0 <- function(x, ...) {
   do.call(rbind, topol)
 }
 
+#' @exportS3Method silicate::sc_triangle
 sc_triangle.TRI <- function(x, ...) {
   x[["triangle"]]
 }
 
+#' @exportS3Method silicate::sc_triangle
 sc_triangle.mesh3d <- function(x, ...) {
   tri <- x[["it"]]
   if (is.null(tri)) stop("no triangles in this model")  ## could convert quads, though

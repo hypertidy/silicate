@@ -3,12 +3,15 @@
 \name{sc_segment}
 \alias{sc_segment}
 \alias{sc_segment.default}
+\alias{sc_segment.SC}
 \alias{sc_segment.PATH}
 \title{Given a `PATH`` model decompose to 1-dimensional primitives (or 0-dimensional).}
 \usage{
 sc_segment(x, ...)
 
 \method{sc_segment}{default}(x, ...)
+
+\method{sc_segment}{SC}(x, ...)
 
 \method{sc_segment}{PATH}(x, ...)
 }

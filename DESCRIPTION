@@ -1,6 +1,6 @@
 Package: silicate
 Title: Common Forms for Complex Hierarchical and Relational Data Structures
-Version: 0.7.1.9001
+Version: 0.7.2
 Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com"), 
              person("John", "Corbett", role = "ctb", comment = "the original inspiration"), 
              person("Simon", "Wotherspoon", role = "ctb"), 
@@ -34,7 +34,7 @@ Suggests:
     wkpool
 Remotes:
     hypertidy/wkpool,
-    hypertidy/meshcore-
+    hypertidy/meshcore
 Imports: 
     dplyr,
     gibble (>= 0.4.0),
@@ -54,4 +54,4 @@ VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/hypertidy/silicate, https://hypertidy.github.io/silicate/
 BugReports: https://github.com/hypertidy/silicate/issues
-RoxygenNote: 7.2.3
+Config/roxygen2/version: 8.1.0

@@ -72,6 +72,8 @@ TRI.mesh3d <- function(x, ...) {
 TRI.TRI <- function(x, ...) {
   x
 }
+#' @name TRI
+#' @export
 TRI.SC <- function(x, ...) {
   stop("constrained triangulation not supported, use anglr::DEL or reconstruct as PATH")
 }
@@ -112,7 +114,7 @@ TRI.PATH <- function(x, ...) {
   if (all(x$path$ncoords_ < 2)) stop("TRI for PATH cannot include degenerate paths, see '.$path$ncoords_'")
   if (any(x$path$ncoords_ < 3)) {
     warning("filtering out paths with fewer than 3 coordinates before attempting triangulation by ear clipping")
-    x$path <- x$path %>% dplyr::filter("ncoords_" > 2)
+    x$path <- x$path %>% dplyr::filter(.data$ncoords_ > 2)
   }
   ## pretty sure I'll live to regret this ...
   ## (but the right alternative is a smart DEL visibility classifier )
@@ -120,10 +122,10 @@ TRI.PATH <- function(x, ...) {
   if (!"subobject" %in% names(x$path)) {
     warning("assuming that all paths are independent (i.e. all islands, no holes)")
     ##x$path$subobject <- 1
-    x$path <- x$path %>% dplyr::group_by("object_") %>%
+    x$path <- x$path %>% dplyr::group_by(.data$object_) %>%
       dplyr::mutate(subobject = row_number(),
 
-                    object = "object_") %>%
+                    object = .data$object_) %>%
       dplyr::ungroup()
   }
 

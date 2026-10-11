@@ -1,8 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/silicate)](https://cran.r-project.org/package=silicate)
-[![CRAN_Download_Badge](http://cranlogs.r-pkg.org/badges/silicate)](https://cran.r-project.org/package=silicate)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/silicate)](https://cran.r-project.org/package=silicate)
+[![CRAN_Download_Badge](https://cranlogs.r-pkg.org/badges/silicate)](https://cran.r-project.org/package=silicate)
 [![R build
 status](https://github.com/hypertidy/silicate/workflows/R-CMD-check/badge.svg)](https://github.com/hypertidy/silicate/actions)
 
@@ -332,7 +332,7 @@ be stable with them.
 
 ## Context, and some related projects
 
-The [polymer](https://github.com/mdsumner/polymer) (arbitrary
+The [polymer](https://github.com/hypertidy/polymer) (arbitrary
 multi-layer polygonal overlays) and
 [sphier](https://github.com/hypertidy/sphier/) (generic hierarchies from
 atomic forms) show two different approaches to the problem of

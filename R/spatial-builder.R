@@ -7,6 +7,7 @@
 build_sf <- function(x, ...) {
   UseMethod("build_sf")
 }
+#' @exportS3Method silicate::build_sf
 build_sf.PATH <- function(x, ...) {
   out <- x$object
   agr <- factor(setNames(rep(NA_integer_, ncol(out)), names(out)))
@@ -22,6 +23,7 @@ build_sf.PATH <- function(x, ...) {
 build_sfc <- function(x, ...) {
   UseMethod("build_sfc")
 }
+#' @exportS3Method silicate::build_sfc
 build_sfc.PATH <- function(x, ...) {
   raw_build_sfc(x$path, x$path_link_vertex %>% dplyr::inner_join(x$vertex, "vertex_"),
                crs = x$meta$proj[1])

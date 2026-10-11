@@ -3,12 +3,15 @@
 \name{ARC}
 \alias{ARC}
 \alias{ARC.default}
+\alias{ARC.SC}
 \alias{ARC.PATH}
 \title{ARC model}
 \usage{
 ARC(x, ...)
 
 \method{ARC}{default}(x, ...)
+
+\method{ARC}{SC}(x, ...)
 
 \method{ARC}{PATH}(x, ...)
 }
