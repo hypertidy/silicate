@@ -11,6 +11,10 @@
 
 \item{...}{ignore currently}
 }
+\value{
+The input \code{x}, invisibly; called for the side effect of printing a
+summary of the model.
+}
 \description{
 Print a silicate model.
 }

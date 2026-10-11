@@ -16,6 +16,9 @@
 
 \item{add}{if \code{TRUE} add to current plot}
 }
+\value{
+\code{NULL}, invisibly; called for the side effect of plotting.
+}
 \description{
 Basic edge plot, all the standard base graphics facilities for line segments are available.
 }

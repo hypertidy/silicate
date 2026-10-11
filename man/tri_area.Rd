@@ -16,7 +16,7 @@ numeric, area of triangles
 Input is x,y matrix in triplets, with 3 rows per triangle vertex.
 }
 \examples{
-pts <- structure(c(5L, 3L, 1L, 4L, 4L, 8L, 6L, 9L), .Dim = c(4L, 2L))
+pts <- structure(c(5L, 3L, 1L, 4L, 4L, 8L, 6L, 9L), dim = c(4L, 2L))
 tri <- c(2, 1, 3, 2, 4, 1)
 (a <- tri_area(pts[tri, ]))
 plot(pts)

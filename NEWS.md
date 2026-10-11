@@ -1,6 +1,24 @@
-# silicate dev
+# silicate 0.7.2
 
-* Removed all deprecated tidyselect uses of '.data$'. 
+* Restored the `.data` pronoun in data-masking verbs (`group_by()`, `distinct()`,
+  `filter()`, `arrange()`, `add_count()`, `mutate()`). The change in 0.7.1.9001
+  (#144) had replaced these with string literals, which are constants in
+  data-masking contexts and silently broke grouping, filtering, sorting and joins
+  (for example `SC(nc)` returned a single edge). String literals are kept only in
+  tidyselect contexts (`select()`), where they are valid.
+
+* Fixed `SC()` on a `TRI` producing a duplicated edge table.
+
+* Fixed `sc_path()` on `trip` objects collapsing every trip to a single object.
+
+* Registered previously-unregistered S3 methods (`ARC.SC`, `PATH.PATH`, `TRI.SC`,
+  `sc_coord.Spatial`, `sc_coord.sfc_POLYGON`, `sc_coord.sfc_MULTIPOINT`,
+  `sc_segment.SC`).
+
+* Addressed CRAN check notes (deprecated `structure()` special names in tests and
+  examples, and lost braces in the `inlandwaters` documentation).
+
+* Updated GitHub Actions to r-lib/actions v2 (#147).
 
 * Fixed some conditional Suggests use, thanks to CRAN. 
 

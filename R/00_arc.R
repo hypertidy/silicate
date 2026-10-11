@@ -37,7 +37,7 @@ sc_arc.default <- function(x, ...) {
 #' @name sc_arc
 #' @export
 sc_arc.ARC <- function(x, ...) {
-  x[["arc_link_vertex"]] %>% dplyr::group_by("arc_") %>%
+  x[["arc_link_vertex"]] %>% dplyr::group_by(.data$arc_) %>%
     dplyr::tally() %>% dplyr::rename(ncoords_ = "n")
 }
 
@@ -74,7 +74,7 @@ find_arc <- function(path, nodes) {
 }
 sc_arc_base <- function(path_link_vertex, node) {
   noded_path <- dplyr::inner_join(node, path_link_vertex, "vertex_") %>%
-    dplyr::distinct("path_")
+    dplyr::distinct(.data$path_)
   ## any paths not linked to nodes are just arcs
   ## (there may be none)
   arcs0 <- path_link_vertex %>%

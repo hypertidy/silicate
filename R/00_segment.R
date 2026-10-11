@@ -15,6 +15,8 @@ sc_segment.default <- function(x, ...) {
   x <- SC(x)
   sc_segment(x, ...)
 }
+#' @name sc_segment
+#' @export
 sc_segment.SC <- function(x, ...) {
   ## expand all instances of edges
   segments <- x$object_link_edge %>%

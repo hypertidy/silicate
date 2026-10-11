@@ -46,7 +46,7 @@ sc_edge.SC0 <- function(x, ...) {
  out <- do.call(rbind, x$object$topology_)
  out$edge_ <- as.integer(as.factor(paste(pmin(out$.vx0, out$.vx1), pmax(out$.vx0, out$.vx1))))
 
- out <- out %>% dplyr::distinct(edge_, .keep_all = TRUE)
+ out <- out %>% dplyr::distinct(.data$edge_, .keep_all = TRUE)
  out$edge_ <- NULL
  out
 }
@@ -54,7 +54,7 @@ sc_edge.SC0 <- function(x, ...) {
 #' @name sc_edge
 #' @export
 sc_edge.PATH <- function(x, ...) {
-  sc_segment(x, ...) %>% dplyr::distinct("edge_", .keep_all = TRUE) %>%
+  sc_segment(x, ...) %>% dplyr::distinct(.data$edge_, .keep_all = TRUE) %>%
     dplyr::select(".vx0", ".vx1", "edge_")
 }
 

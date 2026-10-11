@@ -22,7 +22,7 @@ sc_node <- function(x, ...) {
 sc_node.SC <- function(x, ...) {
   alledge <- tibble::tibble(v = c(x$edge$.vx0, x$edge$.vx1),
                             e = c(x$edge$edge_, x$edge$edge_))
-  v0 <- alledge %>% group_by("v") %>% tally() %>% filter(!n == 2)
+  v0 <- alledge %>% group_by(.data$v) %>% tally() %>% filter(!.data$n == 2)
   tibble::tibble(vertex_ = sort(unique(v0$v)))
 }
 #' @name sc_node
@@ -50,9 +50,9 @@ sc_node.PATH <- function(x, ...) {
 sc_node.ARC <- function(x, ...) {
   ## remove all non-noded arcs
   x$arc_link_vertex %>%
-    dplyr::add_count("vertex_") %>%
-    dplyr::filter("n" > 2) %>%
-    dplyr::distinct("vertex_")
+    dplyr::add_count(.data$vertex_) %>%
+    dplyr::filter(.data$n > 2) %>%
+    dplyr::distinct(.data$vertex_)
 }
 
 sc_node_base <- function(unique_edges, vertex, ...) {
@@ -60,8 +60,8 @@ sc_node_base <- function(unique_edges, vertex, ...) {
                               dplyr::inner_join(unique_edges, c("vertex_" = ".vx0")),
                             vertex %>% dplyr::select("vertex_") %>%
                               dplyr::inner_join(unique_edges, c("vertex_" = ".vx1"))) %>%
-    dplyr::distinct("edge_", "vertex_") %>%
-    dplyr::group_by("vertex_") %>% dplyr::tally() %>% dplyr::ungroup() %>%
-    dplyr::filter("n" > 2) %>% dplyr::distinct("vertex_")
+    dplyr::distinct(.data$edge_, .data$vertex_) %>%
+    dplyr::group_by(.data$vertex_) %>% dplyr::tally() %>% dplyr::ungroup() %>%
+    dplyr::filter(.data$n > 2) %>% dplyr::distinct(.data$vertex_)
   nodes
 }

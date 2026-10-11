@@ -107,7 +107,7 @@ sc_coord.ARC <- function(x, ...) {
 #' @importFrom rlang .data
 #' @importFrom dplyr inner_join transmute_ select_
 sc_coord.PATH <- function(x, ...) {
-  dplyr::inner_join(dplyr::transmute(x[["path_link_vertex"]], vertex_ = "vertex_") ,
+  dplyr::inner_join(dplyr::transmute(x[["path_link_vertex"]], vertex_ = .data$vertex_) ,
                     x[["vertex"]], "vertex_") %>%
     dplyr::select(-"vertex_")
 }
@@ -209,16 +209,35 @@ sc_coord.sfc_MULTIPOLYGON <- function(x, ...) {
   tibble::new_tibble(sm, nrow = length(sm[[1L]]))
 
 }
+#' @name sc_coord
 #' @export
-sc_coord.sfc_MULTILINESTRING <- sc_coord.sfc_POLYGON <- function(x, ...) {
+sc_coord.sfc_MULTILINESTRING <- function(x, ...) {
   colnames0 <- sc_geom_names(sf_geom_names(x[[1]]))
   mat <- do.call(rbind, lapply(x, function(y) do.call(rbind, unclass(y))))
   colnames(mat) <- colnames0
   sm <- split_mat(mat)
   tibble::new_tibble(sm, nrow = length(sm[[1L]]))
 }
+#' @name sc_coord
 #' @export
-sc_coord.sfc_LINESTRING <- sc_coord.sfc_MULTIPOINT <- function(x, ...) {
+sc_coord.sfc_POLYGON <- function(x, ...) {
+  colnames0 <- sc_geom_names(sf_geom_names(x[[1]]))
+  mat <- do.call(rbind, lapply(x, function(y) do.call(rbind, unclass(y))))
+  colnames(mat) <- colnames0
+  sm <- split_mat(mat)
+  tibble::new_tibble(sm, nrow = length(sm[[1L]]))
+}
+#' @name sc_coord
+#' @export
+sc_coord.sfc_LINESTRING <- function(x, ...) {
+  colnames0 <- sc_geom_names(sf_geom_names(x[[1]]))
+  mat <- do.call(rbind, unclass(x))
+  colnames(mat) <- colnames0
+  tibble::as_tibble(mat)
+}
+#' @name sc_coord
+#' @export
+sc_coord.sfc_MULTIPOINT <- function(x, ...) {
   colnames0 <- sc_geom_names(sf_geom_names(x[[1]]))
   mat <- do.call(rbind, unclass(x))
   colnames(mat) <- colnames0
@@ -282,6 +301,7 @@ sc_coord.POINT <- sc_coord.LINESTRING
 }
 #' @name sc_coord
 #' @importFrom stats setNames
+#' @export
 sc_coord.Spatial <- function(x, ...) {
   mat <- do.call(rbind, lapply(.sp_get_geometry(x), sc_coord))
   colnames(mat) <- c("x_", "y_")

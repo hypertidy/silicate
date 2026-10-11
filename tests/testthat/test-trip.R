@@ -12,10 +12,10 @@ tr <- new("trip", TOR.columns = c("DataDT", "Deployment"), data = structure(list
                                                                                                           4L, 161L, 162L, 163L, 164L, 165L), class = "data.frame"), coords.nrs = 5:6,
   coords = structure(c(281017, 281399, 281209, 281376, 267900,
                        268048, 267623, 267198, 266773, 22532, 22392, 22218, 22175,
-                       -9078, -9006, -9063, -9120, -9177), .Dim = c(9L, 2L), .Dimnames = list(
+                       -9078, -9006, -9063, -9120, -9177), dim = c(9L, 2L), dimnames = list(
                          c("1", "2", "3", "4", "161", "162", "163", "164", "165"
                          ), c("X_AED170_70", "Y_AED170_70"))), bbox = structure(c(266773,
-                                                                                  -9177, 281399, 22532), .Dim = c(2L, 2L), .Dimnames = list(
+                                                                                  -9177, 281399, 22532), dim = c(2L, 2L), dimnames = list(
                                                                                     c("X_AED170_70", "Y_AED170_70"), c("min", "max"))), proj4string = new("CRS",
                                                                                                                                                           projargs = "+proj=aeqd +ellps=WGS84 +lon_0=-170 +lat_0=70"))
 test_that("trip decomposition works", {
