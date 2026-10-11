@@ -1,8 +1,7 @@
-pandoc: 2.7.3
-pkgdown: 2.0.7
+pandoc: 3.8.3
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
-  silicate-data-model: silicate-data-model.html
   silicate_topology_01: silicate_topology_01.html
-last_built: 2023-01-03T22:14Z
-
+  silicate-data-model: silicate-data-model.html
+last_built: 2026-10-11T00:54Z
